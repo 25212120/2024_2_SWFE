@@ -7,14 +7,14 @@ public class MapManager : MonoBehaviour
     public Transform player; // 플레이어
     public GameObject chunkPrefab; // 청크 프리팹
     public int renderDistance = 2; // 로드할 청크 거리
-    public int chunkSize = 16; // 청크 크기
-    public int mapSize = 300; // 맵 전체 크기 (타일 단위)
+    public int chunkSize = 10; // 청크 크기
+    public int mapSize = 500; // 맵 전체 크기 (타일 단위)
 
     private Dictionary<Vector2Int, Chunk> loadedChunks = new Dictionary<Vector2Int, Chunk>();
 
     [Header("Mineral Zone Settings")]
     public int resourceZoneCount = 3; // 자원 집중 구역 개수
-    public float minDistanceBetweenZones = 50f; // 자원 구역 간 최소 거리
+    public float minDistanceBetweenZones = 70f; // 자원 구역 간 최소 거리
     public GameObject mineralPrefab; // 미네랄 타일 프리팹
     public GameObject grassPrefab;
 
@@ -112,7 +112,7 @@ public class MapManager : MonoBehaviour
                 }
 
                 // 1000번 시도 후에도 구역을 생성하지 못한 경우
-                if (attempt > 1000)
+                if (attempt > 100000)
                 {
                     Debug.LogWarning("자원 구역 생성 실패: 최대 시도 횟수 초과");
                     // 조건을 완화하여 강제로 구역 생성

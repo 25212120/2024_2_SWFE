@@ -1,165 +1,145 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
+
+public enum BiomeType
+{
+    Snow,
+    Forest,
+    Desert
+}
+
+public class Chunk
+{
+    public Vector2Int position; // 청크의 좌표
+    public BiomeType biomeType; // 청크의 바이옴 타입
+    public Tile[,] tiles = new Tile[16, 16]; // 청크 타일
+
+    public Chunk(Vector2Int pos, BiomeType biome)
+    {
+        position = pos;
+        biomeType = biome;
+    }
+}
 
 public class MapManager : MonoBehaviour
 {
-    public Transform player; // 플레이어
-    public GameObject chunkPrefab; // 청크 프리팹
-    public int renderDistance = 2; // 로드할 청크 거리
-    public int chunkSize = 10; // 청크 크기
-    public int mapSize = 500; // 맵 전체 크기 (타일 단위)
+    public int mapWidth = 20; // 맵 너비 (청크 단위)
+    public int mapHeight = 20; // 맵 높이 (청크 단위)
+    public GameObject tilePrefab;
+    public int seed = 54321;  // 시드 값
+    public int chunkSize = 16; // 청크 크기
+    public int viewDistance = 2; // 플레이어 주변 청크 로드 거리
 
     private Dictionary<Vector2Int, Chunk> loadedChunks = new Dictionary<Vector2Int, Chunk>();
 
-    [Header("Mineral Zone Settings")]
-    public int resourceZoneCount = 3; // 자원 집중 구역 개수
-    public float minDistanceBetweenZones = 70f; // 자원 구역 간 최소 거리
-    public GameObject mineralPrefab; // 미네랄 타일 프리팹
-    public GameObject grassPrefab;
-
-    private List<Vector2Int> resourceZones = new List<Vector2Int>();
-
     private void Start()
     {
-        GenerateResourceZones(); // 자원 구역 생성
+        // 시드 설정
+        Random.InitState(seed);
+        GenerateMap();
     }
 
-    private void Update()
+    // 맵 전체 생성
+    void GenerateMap()
     {
-        UpdateChunks();
-    }
-
-    // 플레이어 이동에 따른 청크 로드 및 언로드
-    void UpdateChunks()
-    {
-        Vector2Int playerChunkCoord = GetChunkCoordFromPosition(player.position);
-        HashSet<Vector2Int> neededChunks = new HashSet<Vector2Int>();
-
-        for (int x = -renderDistance; x <= renderDistance; x++)
+        for (int x = 0; x < mapWidth; x++)
         {
-            for (int y = -renderDistance; y <= renderDistance; y++)
+            for (int y = 0; y < mapHeight; y++)
             {
-                Vector2Int chunkCoord = new Vector2Int(playerChunkCoord.x + x, playerChunkCoord.y + y);
-                neededChunks.Add(chunkCoord);
+                Vector2Int chunkPosition = new Vector2Int(x * chunkSize, y * chunkSize);
+                BiomeType biome = GetBiomeForChunk(chunkPosition);
+                Chunk newChunk = new Chunk(chunkPosition, biome);
+                loadedChunks.Add(chunkPosition, newChunk);
 
-                if (!loadedChunks.ContainsKey(chunkCoord))
-                {
-                    // 청크 좌표를 청크 크기를 기반으로 월드 좌표로 변환
-                    Vector3 chunkPosition = new Vector3(chunkCoord.x * chunkSize, chunkCoord.y * chunkSize, 0);
-                    GameObject newChunkObject = Instantiate(chunkPrefab, chunkPosition, Quaternion.identity);
-                    Chunk newChunk = newChunkObject.GetComponent<Chunk>();
-                    newChunk.Initialize(chunkCoord, chunkSize, mineralPrefab, grassPrefab, resourceZones);
-                    loadedChunks.Add(chunkCoord, newChunk);
-                }
-            }
-        }
-
-        // 불필요한 청크 언로드
-        List<Vector2Int> keys = new List<Vector2Int>(loadedChunks.Keys);
-        foreach (Vector2Int coord in keys)
-        {
-            if (!neededChunks.Contains(coord))
-            {
-                loadedChunks[coord].Unload();
-                Destroy(loadedChunks[coord].gameObject);
-                loadedChunks.Remove(coord);
+                // 청크 내 타일 생성
+                GenerateTilesForChunk(newChunk);
             }
         }
     }
 
-
-    // 플레이어 위치를 청크 좌표로 변환
-    Vector2Int GetChunkCoordFromPosition(Vector3 position)
+    // 청크 내 타일 생성
+    void GenerateTilesForChunk(Chunk chunk)
     {
-        int x = Mathf.FloorToInt(position.x / chunkSize);
-        int y = Mathf.FloorToInt(position.y / chunkSize);
-        return new Vector2Int(x, y);
+        for (int x = 0; x < chunkSize; x++)
+        {
+            for (int y = 0; y < chunkSize; y++)
+            {
+                Vector2 tilePosition = new Vector2(chunk.position.x + x, chunk.position.y + y);
+                GameObject tile = Instantiate(tilePrefab, tilePosition, Quaternion.identity);
+
+                SetTileAppearance(tile, chunk.biomeType);
+            }
+        }
     }
 
-    // 자원 집중 구역 생성
-    void GenerateResourceZones()
+    // 타일의 외형을 바이옴에 맞게 설정
+    void SetTileAppearance(GameObject tile, BiomeType biome)
     {
-        // 플레이어 위치를 기준으로 중앙 자원 구역 생성
-        Vector2Int playerPosition = GetChunkCoordFromPosition(player.position);
-        Vector2Int center = playerPosition;
-        resourceZones.Add(center);
-        CreateResourceZoneMarker(center, "Central Resource Zone");
-
-        // 나머지 자원 구역을 생성하면서 거리 계산
-        for (int i = 0; i < resourceZoneCount; i++)
+        SpriteRenderer spriteRenderer = tile.GetComponent<SpriteRenderer>();
+        if (spriteRenderer != null)
         {
-            Vector2Int newZone;
-            int attempt = 0;
-            bool zoneCreated = false; // 구역 생성 여부 확인
-
-            do
+            switch (biome)
             {
-                // 랜덤으로 자원 구역 생성
-                newZone = new Vector2Int(
-                    playerPosition.x + Random.Range(-mapSize / 2, mapSize / 2),
-                    playerPosition.y + Random.Range(-mapSize / 2, mapSize / 2)
-                );
-                attempt++;
-
-                // 거리 조건이 충족되면 구역을 생성하고 루프 종료
-                if (!IsTooCloseToOtherZones(newZone))
-                {
-                    resourceZones.Add(newZone);
-                    CreateResourceZoneMarker(newZone, $"Resource Zone {i + 1}");
-                    zoneCreated = true; // 구역 생성 완료
+                case BiomeType.Snow:
+                    spriteRenderer.color = Color.white;
                     break;
-                }
-
-                // 1000번 시도 후에도 구역을 생성하지 못한 경우
-                if (attempt > 100000)
-                {
-                    Debug.LogWarning("자원 구역 생성 실패: 최대 시도 횟수 초과");
-                    // 조건을 완화하여 강제로 구역 생성
-                    resourceZones.Add(newZone);
-                    CreateResourceZoneMarker(newZone, $"Resource Zone {i + 1} (Forced)");
-                    zoneCreated = true;
+                case BiomeType.Forest:
+                    spriteRenderer.color = Color.green;
                     break;
-                }
-
-            } while (!zoneCreated); // 구역이 생성될 때까지 반복
-        }
-    }
-
-
-    void CreateResourceZoneMarker(Vector2Int position, string name)
-    {
-        GameObject zoneMarker = new GameObject(name); // 빈 GameObject 생성
-        zoneMarker.transform.position = new Vector3(position.x, position.y, 0); // 위치 설정
-    }
-
-
-    // 자원 집중 구역 간 최소 거리 검사
-    bool IsTooCloseToOtherZones(Vector2Int newZone)
-    {
-        int resourceZoneRadius = 20; // 자원 구역의 반경
-
-        // 첫 번째 구역인 중앙 자원 구역을 제외하고 나머지 자원 구역과의 거리만 계산
-        for (int i = 0; i < resourceZones.Count; i++)
-        {
-            Vector2Int zone = resourceZones[i];
-
-            // 자원 구역 간의 중심 거리 계산
-            float centerDistance = Vector2Int.Distance(newZone, zone);
-
-            // 구역 경계 간 거리 계산 (중심 거리에서 반경을 뺀 값)
-            float distanceBetweenEdges = centerDistance - (2 * resourceZoneRadius);
-
-            // 최소 거리 조건을 충족하지 않으면 true 반환
-            if (distanceBetweenEdges < minDistanceBetweenZones)
-            {
-                return true;
+                case BiomeType.Desert:
+                    spriteRenderer.color = Color.yellow;
+                    break;
             }
-            Debug.Log(distanceBetweenEdges);
         }
-
-        return false;
+        else
+        {
+            Debug.LogError("SpriteRenderer not found on tilePrefab.");
+        }
     }
 
+    // 시드를 기반, Perlin Noise를 사용하여 바이옴 결정
+    BiomeType GetBiomeForChunk(Vector2Int chunkPosition)
+    {
+        int clusterSize = 4;  // 청크 그룹화 크기
+        Vector2Int clusterPosition = new Vector2Int(
+            Mathf.FloorToInt(chunkPosition.x / clusterSize),
+            Mathf.FloorToInt(chunkPosition.y / clusterSize)
+        );
 
+        // 곱하는 상수는 Perlin Noise 확대 비율임. 너무 세밀한 변화는 배제하기 위함
+        float noiseValue = Mathf.PerlinNoise((clusterPosition.x + seed) * 0.04f, (clusterPosition.y + seed) * 0.04f);
+        if (noiseValue < 0.33f) return BiomeType.Snow;
+        else if (noiseValue < 0.66f) return BiomeType.Forest;
+        else return BiomeType.Desert;
+    }
+
+    // 플레이어 주변 청크 로드
+    void LoadChunksAroundPlayer(Vector2 playerPosition)
+    {
+        // 플레이어가 위치한 청크 계산
+        Vector2Int playerChunkPosition = new Vector2Int(
+            Mathf.FloorToInt(playerPosition.x / chunkSize),
+            Mathf.FloorToInt(playerPosition.y / chunkSize)
+        );
+
+        // 플레이어 주변 청크 로드
+        for (int x = -viewDistance; x <= viewDistance; x++)
+        {
+            for (int y = -viewDistance; y <= viewDistance; y++)
+            {
+                Vector2Int relativeChunkPosition = new Vector2Int(x, y);
+
+                Vector2Int chunkPosition = playerChunkPosition + relativeChunkPosition;
+
+                if (!loadedChunks.ContainsKey(chunkPosition))
+                {
+                    BiomeType biome = GetBiomeForChunk(chunkPosition);
+                    Chunk newChunk = new Chunk(chunkPosition * chunkSize, biome);
+                    loadedChunks.Add(chunkPosition, newChunk);
+                    GenerateTilesForChunk(newChunk);
+                }
+            }
+        }
+    }
 }

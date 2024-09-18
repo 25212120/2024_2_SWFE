@@ -133,6 +133,8 @@ GameObject:
   - component: {fileID: 976121272}
   - component: {fileID: 976121271}
   - component: {fileID: 976121270}
+  - component: {fileID: 976121273}
+  - component: {fileID: 976121274}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -214,6 +216,40 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &976121273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 976121269}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf1b48bb20d2cd444ad8884b0a30f30b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  width: 100
+  height: 100
+  scale: 20
+--- !u!114 &976121274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 976121269}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b9d94df4b0e4134aadccd655e237337, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tiles:
+  - {fileID: 1543585101569546, guid: 65f8f1ae49e8aff47b4a9cdec92f3fc1, type: 3}
+  - {fileID: 1141756196039588, guid: 91f11acaa0bc7034aa28ecabdd2ca9a7, type: 3}
+  - {fileID: 1295462230422698, guid: 773b047c93a49da46a11b1416dccb7af, type: 3}
+  terrainGenerator: {fileID: 976121273}
+  mountainThreshold: 0.6
+  waterThreshold: 0.3
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

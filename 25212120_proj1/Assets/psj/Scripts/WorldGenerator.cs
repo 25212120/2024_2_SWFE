@@ -9,6 +9,7 @@ public class WorldGenerator : MonoBehaviour
     public int renderDistance = 3;
     public int seed;
     public GameObject player;
+    public Terrain terrainPrefab;
     public Material snowMaterial;
     public Material desertMaterial;
     public Material forrestMaterial;
@@ -78,7 +79,13 @@ public class WorldGenerator : MonoBehaviour
 
         ThreadPool.QueueUserWorkItem(state =>
         {
-            ChunkData chunkData = GenerateChunkData(coord);
+            Dictionary<Vector2Int, ChunkData> existingChunkData = new Dictionary<Vector2Int, ChunkData>();
+            foreach (var chunk in chunks)
+            {
+                existingChunkData[chunk.Key] = chunk.Value.chunkData;
+            }
+
+            ChunkData chunkData = GenerateChunkData(coord, existingChunkData);
             lock (chunksToLoad)
             {
                 chunksToLoad.Enqueue(chunkData);
@@ -142,9 +149,9 @@ public class WorldGenerator : MonoBehaviour
         return total / maxValue;
     }
 
-    ChunkData GenerateChunkData(Vector2Int coord)
+    ChunkData GenerateChunkData(Vector2Int coord, Dictionary<Vector2Int, ChunkData> existingChunks)
     {
-        int mapSize = chunkSize + 2;
+        int mapSize = chunkSize + 1;  // 청크 크기에 꼭짓점을 포함한 크기
         BiomeType[,] biomeMap = new BiomeType[mapSize, mapSize];
         float[,] heightMap = new float[mapSize, mapSize];
 
@@ -154,21 +161,13 @@ public class WorldGenerator : MonoBehaviour
         float offsetX = seed + 1000;
         float offsetY = seed + 2000;
 
-        Dictionary<BiomeType, float> biomeHeightFactors = new Dictionary<BiomeType, float>
-        {
-            { BiomeType.Water, 0.5f },
-            { BiomeType.Desert, 3.5f },
-            { BiomeType.Plain, 6.0f },
-            { BiomeType.Forest, 7.5f },
-            { BiomeType.Snow, 10f }
-        };
-
+        // 기존 청크에서 경계값 공유를 위한 처리
         for (int x = 0; x < mapSize; x++)
         {
             for (int z = 0; z < mapSize; z++)
             {
-                float worldX = (coord.x * chunkSize) + x - 1;
-                float worldZ = (coord.y * chunkSize) + z - 1;
+                float worldX = (coord.x * chunkSize) + x;
+                float worldZ = (coord.y * chunkSize) + z;
 
                 float biomeValue = Mathf.PerlinNoise((worldX + offsetX) * biomeScale, (worldZ + offsetY) * biomeScale);
                 BiomeType biome = GetBiomeType(biomeValue);
@@ -179,101 +178,34 @@ public class WorldGenerator : MonoBehaviour
             }
         }
 
-        for (int x = 1; x < mapSize - 1; x++)
+        // 경계값 처리: 이미 생성된 인접한 청크로부터 경계값 가져오기
+        if (existingChunks.TryGetValue(new Vector2Int(coord.x - 1, coord.y), out ChunkData leftChunk))
         {
-            for (int z = 1; z < mapSize - 1; z++)
+            // 왼쪽 경계: 현재 청크의 왼쪽 경계를 인접한 청크의 오른쪽 경계와 일치
+            for (int z = 0; z < mapSize; z++)
             {
-                BiomeType currentBiome = biomeMap[x, z];
-                float baseHeight = heightMap[x, z];
-
-                // 주변 바이옴의 높이 계수 계산
-                Dictionary<BiomeType, float> neighboringBiomeWeights = new Dictionary<BiomeType, float>();
-                for (int neighborOffsetX = -5; neighborOffsetX <= 5; neighborOffsetX++)
-                {
-                    for (int neighborOffsetZ = -5; neighborOffsetZ <= 5; neighborOffsetZ++)
-                    {
-                        // 배열 범위가 벗어나지 않도록 조건 추가
-                        if ((x + neighborOffsetX >= 0 && x + neighborOffsetX < mapSize) &&
-                            (z + neighborOffsetZ >= 0 && z + neighborOffsetZ < mapSize))
-                        {
-                            BiomeType neighborBiome = biomeMap[x + neighborOffsetX, z + neighborOffsetZ];
-                            if (neighboringBiomeWeights.ContainsKey(neighborBiome))
-                            {
-                                neighboringBiomeWeights[neighborBiome] += 1f;
-                            }
-                            else
-                            {
-                                neighboringBiomeWeights[neighborBiome] = 1f;
-                            }
-                        }
-                    }
-                }
-
-                // 총 가중치 계산
-                float totalWeight = 0f;
-                foreach (float weight in neighboringBiomeWeights.Values)
-                {
-                    totalWeight += Mathf.Pow(weight, 3f);
-                }
-
-                // 높이 계수 보간
-                float blendedHeightFactor = 0f;
-                foreach (KeyValuePair<BiomeType, float> kvp in neighboringBiomeWeights)
-                {
-                    float weight = Mathf.Pow(kvp.Value, 3f) / totalWeight;
-                    blendedHeightFactor += biomeHeightFactors[kvp.Key] * weight;
-                }
-
-                // 최종 높이 조정
-                float finalHeight = baseHeight * blendedHeightFactor;
-                heightMap[x, z] = finalHeight;
+                heightMap[0, z] = leftChunk.heightMap[chunkSize, z];
             }
         }
 
-        for (int x = 1; x < mapSize - 1; x++)
+        if (existingChunks.TryGetValue(new Vector2Int(coord.x, coord.y - 1), out ChunkData bottomChunk))
         {
-            for (int z = 1; z < mapSize - 1; z++)
+            // 아래쪽 경계: 현재 청크의 아래 경계를 인접한 청크의 위 경계와 일치
+            for (int x = 0; x < mapSize; x++)
             {
-                BiomeType currentBiome = biomeMap[x, z];
-                BiomeType[] neighboringBiomes =
-                {
-                biomeMap[x - 1, z],
-                biomeMap[x + 1, z],
-                biomeMap[x, z - 1],
-                biomeMap[x, z + 1]
-            };
-
-                foreach (BiomeType neighborBiome in neighboringBiomes)
-                {
-                    if (IsIncompatibleBiomes(currentBiome, neighborBiome))
-                    {
-                        if (currentBiome == BiomeType.Snow)
-                        {
-                            biomeMap[x, z] = BiomeType.Forest;
-                        }
-                        else if (currentBiome == BiomeType.Desert)
-                        {
-                            biomeMap[x, z] = BiomeType.Plain;
-                        }
-                    }
-                }
+                heightMap[x, 0] = bottomChunk.heightMap[x, chunkSize];
             }
         }
 
-        BiomeType[,] finalBiomeMap = new BiomeType[chunkSize, chunkSize];
-        float[,] finalHeightMap = new float[chunkSize, chunkSize];
-
-        for (int x = 0; x< chunkSize; x++)
+        // 모서리 처리: 좌하단 모서리가 있는 경우 경계 맞춤
+        if (existingChunks.TryGetValue(new Vector2Int(coord.x - 1, coord.y - 1), out ChunkData bottomLeftChunk))
         {
-            for (int z = 0; z< chunkSize; z++)
-            {
-                finalBiomeMap[x,z] = biomeMap[x+1 ,z+1];
-                finalHeightMap[x,z] = heightMap[x+1 ,z+1];
-            }
+            heightMap[0, 0] = bottomLeftChunk.heightMap[chunkSize, chunkSize];
         }
 
-        return new ChunkData(coord, finalHeightMap, finalBiomeMap);
+        return new ChunkData(coord, heightMap, biomeMap);
     }
+
 
     bool IsIncompatibleBiomes(BiomeType biomeA, BiomeType biomeB)
     {
@@ -334,58 +266,48 @@ public class WorldGenerator : MonoBehaviour
         }
     }
 
-    void LoadChunk(ChunkData chunkData)
+void LoadChunk(ChunkData chunkData)
+{
+    GameObject chunkObject = Instantiate(terrainPrefab.gameObject, new Vector3(chunkData.coord.x * chunkSize, 0, chunkData.coord.y * chunkSize), Quaternion.identity);
+    chunkObject.name = "Chunk" + chunkData.coord;
+
+    Terrain terrain = chunkObject.GetComponent<Terrain>();
+    TerrainData terrainData = terrain.terrainData;
+
+    terrainData.size = new Vector3(chunkSize, 100, chunkSize);  // 청크의 크기를 설정
+    terrainData.heightmapResolution = chunkSize + 1;
+
+    float[,] heights = new float[chunkSize + 1, chunkSize + 1];
+
+    if (chunkData.heightMap.GetLength(0) != chunkSize + 1 || chunkData.heightMap.GetLength(1) != chunkSize + 1)
     {
-        GameObject chunkObject = new GameObject("Chunk" + chunkData.coord);
-        chunkObject.transform.position = new Vector3(chunkData.coord.x * chunkSize, 0, chunkData.coord.y * chunkSize);
-
-        Debug.Log($"Loaded Chunk at world position : {chunkObject.transform.position}, Chunk Coord : {chunkData.coord}");
-
-        for (int x = 0; x < chunkSize; x++)
-        {
-            for (int z = 0; z < chunkSize; z++)
-            {
-                float height = chunkData.heightMap[x, z] * 5f;
-                Vector3 position = new Vector3(x, height / 2f, z);
-
-                GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                cube.transform.parent = chunkObject.transform;
-                cube.transform.localPosition = position;
-                cube.transform.localScale = new Vector3(1, height, 1);
-
-                Renderer renderer = cube.GetComponent<Renderer>();
-                switch (chunkData.biomeMap[x, z])
-                {
-                    case BiomeType.Snow:
-                        renderer.material = snowMaterial;
-                        break;
-                    case BiomeType.Desert:
-                        renderer.material = desertMaterial;
-                        break;
-                    case BiomeType.Forest:
-                        renderer.material = forrestMaterial;
-                        break;
-                    case BiomeType.Water:
-                        renderer.material = waterMaterial;
-                        break;
-                    case BiomeType.Plain:
-                        renderer.material = plainMaterial;
-                        break;
-                }
-            }
-        }
-
-        chunksBeingGenerated.Remove(chunkData.coord);
-        chunks.Add(chunkData.coord, new Chunk(chunkObject));
+        Debug.LogError($"chunkData.heightMap 크기가 올바르지 않습니다. Expected: {chunkSize + 1}, Actual: {chunkData.heightMap.GetLength(0)}, {chunkData.heightMap.GetLength(1)}");
+        return;
     }
+
+    // 높이맵 값 적용
+    for (int x = 0; x < chunkSize + 1; x++)
+    {
+        for (int z = 0; z < chunkSize + 1; z++)
+        {
+            heights[x, z] = chunkData.heightMap[x, z];
+        }
+    }
+
+    terrainData.SetHeights(0, 0, heights);
+
+    chunks.Add(chunkData.coord, new Chunk(chunkObject, chunkData));
+}
 
     class Chunk
     {
         public GameObject chunkObject;
+        public ChunkData chunkData;
 
-        public Chunk(GameObject chunkObject)
+        public Chunk(GameObject chunkObject, ChunkData chunkData)
         {
             this.chunkObject = chunkObject;
+            this.chunkData = chunkData;
         }
     }
 

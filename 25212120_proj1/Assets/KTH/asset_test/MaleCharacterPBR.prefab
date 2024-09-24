@@ -1806,7 +1806,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4186912654176097258}
   - component: {fileID: 6692060400911558471}
-  - component: {fileID: 6101643106757466564}
   - component: {fileID: 1037101911220574913}
   m_Layer: 0
   m_Name: MaleCharacterPBR
@@ -1857,22 +1856,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &6101643106757466564
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5802798744503996072}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: daf618836d1519748ba33f290a139b95, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 5
-  animator: {fileID: 0}
-  rb: {fileID: 0}
-  movement: {x: 0, y: 0, z: 0}
 --- !u!54 &1037101911220574913
 Rigidbody:
   m_ObjectHideFlags: 0

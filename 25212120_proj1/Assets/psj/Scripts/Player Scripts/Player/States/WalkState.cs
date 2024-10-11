@@ -47,7 +47,7 @@ public class WalkState : BaseState<PlayerStateType>
         }
     }
 
-    private float walkSpeed = 50f;
+    private float walkSpeed = 70f;
     private float rotationSpeed = 10f;
     private float horizontalInput;
     private float verticalInput;

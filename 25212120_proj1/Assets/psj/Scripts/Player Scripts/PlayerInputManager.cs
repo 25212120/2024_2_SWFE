@@ -10,6 +10,7 @@ public class PlayerInputManager : MonoBehaviour
 
     [Header("Player Action Handlers")]
     public bool isRolling = false;
+    public bool isGrounded = true;
     public bool isJumping = false;
 
     private StateManager<PlayerStateType> stateManager;
@@ -85,7 +86,7 @@ public class PlayerInputManager : MonoBehaviour
 
     private void OnDashPerformed(UnityEngine.InputSystem.InputAction.CallbackContext ctx)
     {
-        if (!isRolling)
+        if (!isRolling && isGrounded && !isJumping)
         {
             isRolling = true;
             stateManager.PushState(PlayerStateType.Dash);
@@ -97,9 +98,14 @@ public class PlayerInputManager : MonoBehaviour
         isRolling = value;
     }
 
+    public void SetIsGrounded(bool value)
+    {
+        isGrounded = value;
+    }
+
     private void OnJumpPerformed(UnityEngine.InputSystem.InputAction.CallbackContext ctx)
     {
-        if (!isJumping)
+        if (!isJumping && !isRolling && isGrounded)
         {
             isJumping = true;
             stateManager.PushState(PlayerStateType.Jump);

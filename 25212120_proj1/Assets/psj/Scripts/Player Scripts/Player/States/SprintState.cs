@@ -44,7 +44,7 @@ public class SprintState : BaseState<PlayerStateType>
         }
     }
 
-    private float sprintSpeed = 80f;
+    private float sprintSpeed = 100f;
     private float rotationSpeed = 10f;
     private float horizontalInput;
     private float verticalInput;

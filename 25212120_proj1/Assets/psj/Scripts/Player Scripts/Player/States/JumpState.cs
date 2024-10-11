@@ -21,13 +21,14 @@ public class JumpState : BaseState<PlayerStateType>
     public override void EnterState()
     {
         animator.SetTrigger("spaceKey_Pressed");
+        animator.SetBool("isInAir", true);
+        playerInputManager.SetIsJumping(true);
         SetJumpDirection();
         forceApplied = false;
     }
 
     public override void UpdateState()
     {
-
     }
 
     public override void FixedUpdateState()
@@ -35,18 +36,26 @@ public class JumpState : BaseState<PlayerStateType>
 
         if (forceApplied == false)
         {
-            playerInputManager.SetIsJumping(true);
-            rb.AddForce(jumpDirection, ForceMode.Impulse);
-            animator.SetBool("isInAir", true);
+            rb.AddForce(jumpDirection, ForceMode.VelocityChange);
             forceApplied = true;
         }
 
         GroundCheck();
+
+        if (playerInputManager.isGrounded == false)
+        {
+            MaintainHorizontalVelocity();
+        }
+
+
     }
 
     public override void ExitState()
     {
         playerInputManager.SetIsJumping(false);
+        playerInputManager.SetIsGrounded(true);
+        animator.ResetTrigger("spaceKey_Pressed");
+        animator.ResetTrigger("finishedJumping");
         animator.SetBool("isInAir", false);
     }
 
@@ -55,42 +64,67 @@ public class JumpState : BaseState<PlayerStateType>
 
         AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
 
-        if (stateInfo.IsName("JumpEnd_SwordShield") && stateInfo.normalizedTime >= 1.0f)
-        {
-            animator.SetTrigger("finishedJumping");
-            stateManager.PopState();
-        }
+        if (playerInputManager.isGrounded && !stateInfo.IsName("JumpEnd_SwordShield"))  animator.SetTrigger("finishedJumping");
+
+        if (stateInfo.IsName("JumpEnd_SwordShield") && stateInfo.normalizedTime >= 1.0f)    stateManager.PopState();
     }
 
 
-    private bool isGrounded = false;
     private Vector3 jumpDirection;
-    private float jumpForce = 30f;
-    private float moveJumpForce = 5f;
+    private float jumpForce = 40f;
+
+    // 땅 체크 ( 중앙관리? )
     private void GroundCheck()
     {
         RaycastHit hit;
-        float rayDistance = 0.2f;
+        float rayDistance = 0.3f;
         Vector3 origin = playerTransform.position + Vector3.up * 0.1f;
 
-        if (Physics.Raycast(origin, Vector3.down, out hit, rayDistance) == true)
+        if (Physics.Raycast(origin, Vector3.down, out hit, rayDistance))
         {
-            isGrounded = true;
+            if (hit.collider != null && hit.collider.CompareTag("Ground"))
+            {
+                if (playerInputManager.isGrounded == false)
+                {
+                    playerInputManager.SetIsGrounded(true);
+                    animator.SetBool("isInAir", false);
+                }
+            }
         }
         else
         {
-            isGrounded = false;
+            if (playerInputManager.isGrounded)
+            {
+                playerInputManager.SetIsGrounded(false);
+                animator.SetBool("isInAir", true);
+            }
         }
     }
 
+    private Vector3 initialHorizontalVelocity;
+
+    // 점프 직전 방향으로 방향 설정
     private void SetJumpDirection()
     {
-        if (playerInputManager.moveInput == Vector2.zero)
-            jumpDirection = Vector3.up * jumpForce;
-        else
-        {
-            Vector3 moveDirection = new Vector3(playerInputManager.moveInput.x, 0, playerInputManager.moveInput.y);
-            jumpDirection = (Vector3.up * jumpForce) + (moveDirection * moveJumpForce);
-        }
+        Vector3 currentVelocity = rb.velocity;
+        currentVelocity.y = 0;
+
+        initialHorizontalVelocity = currentVelocity;
+
+        jumpDirection = Vector3.up * jumpForce;
     }
+
+    // 점프 직전 수평 이동속도 유지
+    private void MaintainHorizontalVelocity()
+    {
+        Vector3 currentVelocity = rb.velocity;
+        currentVelocity.y = 0;
+
+        Vector3 desiredVelocity = initialHorizontalVelocity;
+
+        Vector3 velocityDifference = desiredVelocity - currentVelocity;
+
+        rb.AddForce(velocityDifference, ForceMode.VelocityChange);
+    }
+
 }

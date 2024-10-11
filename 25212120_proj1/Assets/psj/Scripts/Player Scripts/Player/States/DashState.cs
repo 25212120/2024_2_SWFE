@@ -21,10 +21,10 @@ public class DashState : BaseState<PlayerStateType>
     public override void EnterState()
     {
         playerInputManager.SetIsRolling(true);
-        SetRollDirection();
+        SetDashDirection();
         RotatePlayer();
         animator.SetTrigger("F_Key_Pressed");
-        rb.AddForce(rollDirection * rollForce, ForceMode.VelocityChange);
+        rb.AddForce(dashDirection * dashForce, ForceMode.VelocityChange);
     }
 
     public override void UpdateState()
@@ -53,27 +53,27 @@ public class DashState : BaseState<PlayerStateType>
         }
     }
 
-    private Vector3 rollDirection;
-    private float rollForce = 40f;
+    private Vector3 dashDirection;
+    private float dashForce = 30f;
     private float rotationSpeed = 100f;
 
-    private void SetRollDirection()
+    private void SetDashDirection()
     {
         float horizontalInput = playerInputManager.moveInput.x;
         float verticalInput = playerInputManager.moveInput.y;
         Vector3 inputDirection = new Vector3(horizontalInput, 0, verticalInput);
 
-        if (inputDirection == Vector3.zero) rollDirection = playerTransform.forward;
+        if (inputDirection == Vector3.zero) dashDirection = playerTransform.forward;
         else
         {
             Quaternion rotation = Quaternion.Euler(0f, -45f, 0f);
-            rollDirection = (rotation * inputDirection).normalized;
+            dashDirection = (rotation * inputDirection).normalized;
         }
     }
 
     void RotatePlayer()
     {
-        Quaternion targetRotation = Quaternion.LookRotation(rollDirection);
+        Quaternion targetRotation = Quaternion.LookRotation(dashDirection);
         rb.rotation = Quaternion.Slerp(rb.rotation, targetRotation, rotationSpeed * Time.deltaTime);
     }
 }

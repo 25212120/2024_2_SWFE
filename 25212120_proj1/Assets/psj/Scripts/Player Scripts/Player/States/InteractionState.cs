@@ -1,14 +1,14 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class AttackState : BaseState<PlayerStateType>
+public class InteractionState : BaseState<PlayerStateType>
 {
     private Animator animator;
     private Transform playerTransform;
     private PlayerInputManager playerInputManager;
     private Rigidbody rb;
 
-    public AttackState(PlayerStateType key, StateManager<PlayerStateType> stateManager, PlayerInputManager inputManager, Rigidbody rb, Animator animator, Transform playerTransform)
+    public InteractionState(PlayerStateType key, StateManager<PlayerStateType> stateManager, PlayerInputManager inputManager, Rigidbody rb, Animator animator, Transform playerTransform)
             : base(key, stateManager)
     {
         this.playerTransform = playerTransform;
@@ -19,9 +19,8 @@ public class AttackState : BaseState<PlayerStateType>
 
     public override void EnterState()
     {
-        animator.ResetTrigger("leftButton_Pressed");
-        animator.ResetTrigger("finishedAttacking");
-        playerInputManager.isAttacking = true;
+        animator.SetTrigger("F_Key_Pressed");
+        playerInputManager.SetIsInteracting(true);
     }
 
     public override void UpdateState()
@@ -34,21 +33,25 @@ public class AttackState : BaseState<PlayerStateType>
 
     public override void ExitState()
     {
-        animator.ResetTrigger("leftButton_Pressed");
-        animator.ResetTrigger("NextCombo");
+        // Interaction Logics
+        animator.SetTrigger("finishedInteracting");
+        playerInputManager.SetIsInteracting(false);
+        animator.ResetTrigger("F_Key_Pressed");
     }
 
     public override void CheckTransitions()
     {
+        // 이후 자원마다 상호작용 시간 정해질 시 loop time 활성화하고 transition 조건 재설정
         AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
 
         float normalizedTime = stateInfo.normalizedTime % 1;
 
-        if (normalizedTime >= 0.95f)
+        if (stateInfo.IsName("Interaction") == true && normalizedTime >= 0.95f)
         {
-            playerInputManager.isAttacking = false;
-            animator.SetTrigger("finishedAttacking");
             stateManager.PopState();
         }
     }
+
+    // 1. 상호작용 방향으로 캐릭터 회전
+    // 2. 자원 종류마다 상호작용 시간 다르게 적용
 }

@@ -22,14 +22,14 @@ public class PlayerStateMachine : StateManager<PlayerStateType>
 
         // 지속 State
         States.Add(PlayerStateType.Idle, new IdleState(PlayerStateType.Idle, this, playerInputManager, rb, animator));
-        States.Add(PlayerStateType.Walk, new WalkState(PlayerStateType.Idle, this, playerInputManager, rb, animator));
-        States.Add(PlayerStateType.Sprint, new SprintState(PlayerStateType.Idle, this, playerInputManager, rb, animator));
+        States.Add(PlayerStateType.Walk, new WalkState(PlayerStateType.Walk, this, playerInputManager, rb, animator));
+        States.Add(PlayerStateType.Sprint, new SprintState(PlayerStateType.Sprint, this, playerInputManager, rb, animator));
 
         // 단발성 State
-        States.Add(PlayerStateType.Dash, new DashState(PlayerStateType.Idle, this, playerInputManager, rb, animator, playerTransform, playerCoolDownmanager));
-        States.Add(PlayerStateType.Jump, new JumpState(PlayerStateType.Idle, this, playerInputManager, rb, animator, playerTransform));
-        States.Add(PlayerStateType.Attack, new AttackState(PlayerStateType.Idle, this, playerInputManager, rb, animator, playerTransform));
-        //States.Add(PlayerStateType.Interaction, new InteractionState(this));
+        States.Add(PlayerStateType.Dash, new DashState(PlayerStateType.Dash, this, playerInputManager, rb, animator, playerTransform, playerCoolDownmanager));
+        States.Add(PlayerStateType.Jump, new JumpState(PlayerStateType.Jump, this, playerInputManager, rb, animator, playerTransform));
+        States.Add(PlayerStateType.Attack, new AttackState(PlayerStateType.Attack, this, playerInputManager, rb, animator, playerTransform));
+        States.Add(PlayerStateType.Interaction, new InteractionState(PlayerStateType.Interaction, this, playerInputManager, rb, animator, playerTransform));
 
         // 상태들 전부 추가
 

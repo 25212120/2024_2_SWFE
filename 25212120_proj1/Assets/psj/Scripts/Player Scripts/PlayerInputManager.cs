@@ -10,6 +10,7 @@ public class PlayerInputManager : MonoBehaviour
 
     [Header("Player Action Inputs")]
     public bool leftButton_Pressed = false;
+    public bool F_Key_Pressed = false;
 
     // PushState인 경우 is(    )만 만들고 Stata 스크립트 내부적으로 변경
     [Header("Player Action Handlers")]
@@ -17,6 +18,7 @@ public class PlayerInputManager : MonoBehaviour
     public bool isJumping = false;
     public bool isGrounded = true;
     public bool isAttacking = false;
+    public bool isInteracting = false;
     // 이후 isPerformingAction으로 묶어버릴 생각임
 
 
@@ -43,7 +45,12 @@ public class PlayerInputManager : MonoBehaviour
     private void Update()
     {
         leftButton_Pressed = false;
+        F_Key_Pressed = false;
         Debug.Log(isAttacking);
+    }
+    private void FixedUpdate()
+    {
+        GroundCheck();
     }
 
     private void OnEnable()
@@ -61,6 +68,8 @@ public class PlayerInputManager : MonoBehaviour
         playerInput.PlayerAction.Jump.performed += OnJumpPerformed;
 
         playerInput.PlayerAction.Attack.performed += OnAttackPerformed;
+
+        playerInput.PlayerAction.Interaction.performed += OnInteractionPerformed;
     }
 
     private void OnDisable()
@@ -78,8 +87,36 @@ public class PlayerInputManager : MonoBehaviour
         playerInput.PlayerAction.Jump.performed -= OnJumpPerformed;
 
         playerInput.PlayerAction.Attack.performed -= OnAttackPerformed;
-    }
 
+        playerInput.PlayerAction.Interaction.performed -= OnInteractionPerformed;
+    }
+    private void GroundCheck()
+    {
+        RaycastHit hit;
+        float rayDistance = 0.2f;
+        Vector3 origin = playerTransform.position + Vector3.up * 0.1f;
+
+        if (Physics.Raycast(origin, Vector3.down, out hit, rayDistance))
+        {
+            // 땅에 닿음
+            if (hit.collider != null && hit.collider.CompareTag("Ground"))
+            {
+                if (isGrounded == false)
+                {
+                    SetIsGrounded(true);
+                    animator.SetBool("isInAir", false);
+                }
+            }
+        }
+        else
+        {
+            if (isGrounded)
+            {
+                SetIsGrounded(false);
+                animator.SetBool("isInAir", true);
+            }
+        }
+    }
     private void OnMovePerformed(InputAction.CallbackContext ctx)
     {
         moveInput = ctx.ReadValue<Vector2>();
@@ -102,63 +139,21 @@ public class PlayerInputManager : MonoBehaviour
     }
     private void OnDashPerformed(InputAction.CallbackContext ctx)
     {
-        if (!isDashing && playerCoolDown.CanDash() && isGrounded && !isJumping && !isAttacking)
+        if (!isDashing && playerCoolDown.CanDash() && isGrounded && !isJumping && !isAttacking && !isInteracting)
         {
             stateManager.PushState(PlayerStateType.Dash);
         }
-    }
-    public void SetIsDashing(bool value)
-    {
-        isDashing = value;
-    }
+    } 
     private void OnJumpPerformed(InputAction.CallbackContext ctx)
     {
-        if (!isJumping && !isDashing && isGrounded && !isAttacking)
+        if (!isJumping && !isDashing && isGrounded && !isAttacking && !isInteracting)
         {
             stateManager.PushState(PlayerStateType.Jump);
         }
     }
-    public void SetIsJumping(bool value)
-    {
-        isJumping = value;
-    }
-    private void FixedUpdate()
-    {
-        GroundCheck();
-    }
-    public void SetIsGrounded(bool value)
-    {
-        isGrounded = value;
-    }
-    private void GroundCheck()
-    {
-        RaycastHit hit;
-        float rayDistance = 0.2f;
-        Vector3 origin = playerTransform.position + Vector3.up * 0.1f;
-
-        if (Physics.Raycast(origin, Vector3.down, out hit, rayDistance))
-        {
-            if (hit.collider != null && hit.collider.CompareTag("Ground"))
-            {
-                if (isGrounded == false)
-                {
-                    SetIsGrounded(true);
-                    animator.SetBool("isInAir", false);
-                }
-            }
-        }
-        else
-        {
-            if (isGrounded)
-            {
-                SetIsGrounded(false);
-                animator.SetBool("isInAir", true);
-            }
-        }
-    }
     private void OnAttackPerformed(InputAction.CallbackContext ctx)
     {
-        if (!isJumping && !isDashing && isGrounded)
+        if (!isJumping && !isDashing && isGrounded && !isInteracting)
         {
             leftButton_Pressed = true;
             AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
@@ -170,9 +165,32 @@ public class PlayerInputManager : MonoBehaviour
             }
             else
             {
-                if      (stateInfo.IsName("Combo01_SwordShield"))   animator.SetTrigger("NextCombo");
-                else if (stateInfo.IsName("Combo02_SwordShield"))   animator.SetTrigger("NextCombo");
+                if (stateInfo.IsName("Combo01_SwordShield")) animator.SetTrigger("NextCombo");
+                else if (stateInfo.IsName("Combo02_SwordShield")) animator.SetTrigger("NextCombo");
             }
         }
+    }
+    private void OnInteractionPerformed(InputAction.CallbackContext ctx)
+    {
+        if (!isDashing && isGrounded && !isJumping && !isAttacking && !isInteracting)
+        {
+            stateManager.PushState(PlayerStateType.Interaction);
+        }
+    }
+    public void SetIsDashing(bool value)
+    {
+        isDashing = value;
+    }
+    public void SetIsJumping(bool value)
+    {
+        isJumping = value;
+    }
+    public void SetIsGrounded(bool value)
+    {
+        isGrounded = value;
+    }
+    public void SetIsInteracting(bool value)
+    {
+        isInteracting = value;
     }
 }

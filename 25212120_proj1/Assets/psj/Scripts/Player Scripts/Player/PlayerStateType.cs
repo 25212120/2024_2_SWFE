@@ -6,5 +6,7 @@ public enum PlayerStateType
     Dash,
     Jump,
     Attack,
-    //Interaction,
+    Interaction,
+    //Hit(GetHit)
+    //Defend(DefendHit, Defend)
 }

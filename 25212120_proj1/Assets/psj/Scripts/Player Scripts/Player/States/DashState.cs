@@ -1,18 +1,19 @@
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class DashState : BaseState<PlayerStateType>
 {
     private Animator animator;
     private Transform playerTransform;
+    private PlayerCoolDownManager playerCoolDownmanager;
     private PlayerInputManager playerInputManager;
     private Rigidbody rb;
 
-    public DashState(PlayerStateType key, StateManager<PlayerStateType> stateManager, PlayerInputManager inputManager, Rigidbody rb, Animator animator, Transform playerTransform)
+    public DashState(PlayerStateType key, StateManager<PlayerStateType> stateManager, PlayerInputManager inputManager, Rigidbody rb, Animator animator, Transform playerTransform, PlayerCoolDownManager playerCoolDownmanager)
             : base(key, stateManager)
     {
         this.playerTransform = playerTransform;
         this.animator = animator;
+        this.playerCoolDownmanager = playerCoolDownmanager; ;
         this.playerInputManager = inputManager;
         this.rb = rb;
     }
@@ -20,10 +21,10 @@ public class DashState : BaseState<PlayerStateType>
 
     public override void EnterState()
     {
-        playerInputManager.SetIsRolling(true);
+        playerInputManager.SetIsDashing(true);
         SetDashDirection();
         RotatePlayer();
-        animator.SetTrigger("F_Key_Pressed");
+        animator.SetTrigger("Q_Key_Pressed");
         rb.AddForce(dashDirection * dashForce, ForceMode.VelocityChange);
     }
 
@@ -39,7 +40,7 @@ public class DashState : BaseState<PlayerStateType>
 
     public override void ExitState()
     {
-        playerInputManager.SetIsRolling(false);
+        playerInputManager.SetIsDashing(false);
         animator.SetTrigger("finishedDashing");
     }
 
@@ -52,6 +53,8 @@ public class DashState : BaseState<PlayerStateType>
             stateManager.PopState();
         }
     }
+
+    // DashState Logic
 
     private Vector3 dashDirection;
     private float dashForce = 30f;

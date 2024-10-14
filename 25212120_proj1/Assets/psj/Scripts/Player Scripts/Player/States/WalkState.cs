@@ -47,8 +47,11 @@ public class WalkState : BaseState<PlayerStateType>
         }
     }
 
+
+    // WalkState Logic
+
     private float walkSpeed = 70f;
-    private float rotationSpeed = 10f;
+    private float rotationSpeed = 7f;
     private float horizontalInput;
     private float verticalInput;
     private Vector3 inputDirection;

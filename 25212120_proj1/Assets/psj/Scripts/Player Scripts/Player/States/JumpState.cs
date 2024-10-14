@@ -20,10 +20,15 @@ public class JumpState : BaseState<PlayerStateType>
 
     public override void EnterState()
     {
+        // animation parameters
         animator.SetTrigger("spaceKey_Pressed");
         animator.SetBool("isInAir", true);
+
+        // script variables
         playerInputManager.SetIsJumping(true);
         SetJumpDirection();
+
+
         forceApplied = false;
     }
 
@@ -33,74 +38,42 @@ public class JumpState : BaseState<PlayerStateType>
 
     public override void FixedUpdateState()
     {
-
         if (forceApplied == false)
         {
             rb.AddForce(jumpDirection, ForceMode.VelocityChange);
             forceApplied = true;
         }
 
-        GroundCheck();
-
         if (playerInputManager.isGrounded == false)
         {
             MaintainHorizontalVelocity();
         }
-
-
     }
 
     public override void ExitState()
     {
         playerInputManager.SetIsJumping(false);
-        playerInputManager.SetIsGrounded(true);
         animator.ResetTrigger("spaceKey_Pressed");
-        animator.ResetTrigger("finishedJumping");
-        animator.SetBool("isInAir", false);
     }
 
     public override void CheckTransitions()
     {
-
         AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
 
-        if (playerInputManager.isGrounded && !stateInfo.IsName("JumpEnd_SwordShield"))  animator.SetTrigger("finishedJumping");
+        if (playerInputManager.isGrounded) animator.SetBool("isInAir", false);
 
-        if (stateInfo.IsName("JumpEnd_SwordShield") && stateInfo.normalizedTime >= 1.0f)    stateManager.PopState();
+        if (stateInfo.IsName("JumpEnd_SwordShield") && stateInfo.normalizedTime >= 0.9f)
+        {
+            animator.SetBool("finishedJumping", true);
+            stateManager.PopState();
+        }
     }
 
+
+    // JumpState Logic
 
     private Vector3 jumpDirection;
     private float jumpForce = 40f;
-
-    // 땅 체크 ( 중앙관리? )
-    private void GroundCheck()
-    {
-        RaycastHit hit;
-        float rayDistance = 0.3f;
-        Vector3 origin = playerTransform.position + Vector3.up * 0.1f;
-
-        if (Physics.Raycast(origin, Vector3.down, out hit, rayDistance))
-        {
-            if (hit.collider != null && hit.collider.CompareTag("Ground"))
-            {
-                if (playerInputManager.isGrounded == false)
-                {
-                    playerInputManager.SetIsGrounded(true);
-                    animator.SetBool("isInAir", false);
-                }
-            }
-        }
-        else
-        {
-            if (playerInputManager.isGrounded)
-            {
-                playerInputManager.SetIsGrounded(false);
-                animator.SetBool("isInAir", true);
-            }
-        }
-    }
-
     private Vector3 initialHorizontalVelocity;
 
     // 점프 직전 방향으로 방향 설정

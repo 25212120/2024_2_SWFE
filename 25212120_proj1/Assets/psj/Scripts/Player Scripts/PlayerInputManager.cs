@@ -1,33 +1,49 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerInputManager : MonoBehaviour
 {
-    private Animator playerAnimator;
-    private PlayerMovement playerInput;
-
+    // ChangeState인 경우 (  )Key_Pressed 변수를 설정하고 is(   )는 State 스크립트 내부적으로 변경
+    [Header("Player Movement Inputs")]
     public Vector2 moveInput;
     public bool leftShiftKey_Pressed = false;
 
-    [Header("Player Action Handlers")]
-    public bool isRolling = false;
-    public bool isGrounded = true;
-    public bool isJumping = false;
+    [Header("Player Action Inputs")]
+    public bool leftButton_Pressed = false;
 
-    private StateManager<PlayerStateType> stateManager;
+    // PushState인 경우 is(    )만 만들고 Stata 스크립트 내부적으로 변경
+    [Header("Player Action Handlers")]
+    public bool isDashing = false;
+    public bool isJumping = false;
+    public bool isGrounded = true;
+    public bool isAttacking = false;
+    // 이후 isPerformingAction으로 묶어버릴 생각임
+
+
     private Rigidbody rb;
     private Animator animator;
     private Transform playerTransform;
+    private PlayerMovement playerInput;
+    private PlayerCoolDownManager playerCoolDown;
+
+    private StateManager<PlayerStateType> stateManager;
 
     private void Awake()
     {
-        playerAnimator = GetComponent<Animator>();
         playerInput = new PlayerMovement();
 
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
         playerTransform = GetComponent<Transform>();
+        playerCoolDown = GetComponent<PlayerCoolDownManager>();
 
         stateManager = GetComponent<StateManager<PlayerStateType>>();
+    }
+
+    private void Update()
+    {
+        leftButton_Pressed = false;
+        Debug.Log(isAttacking);
     }
 
     private void OnEnable()
@@ -43,6 +59,8 @@ public class PlayerInputManager : MonoBehaviour
         playerInput.PlayerAction.Dash.performed += OnDashPerformed;
 
         playerInput.PlayerAction.Jump.performed += OnJumpPerformed;
+
+        playerInput.PlayerAction.Attack.performed += OnAttackPerformed;
     }
 
     private void OnDisable()
@@ -58,62 +76,103 @@ public class PlayerInputManager : MonoBehaviour
         playerInput.PlayerAction.Dash.performed -= OnDashPerformed;
 
         playerInput.PlayerAction.Jump.performed -= OnJumpPerformed;
+
+        playerInput.PlayerAction.Attack.performed -= OnAttackPerformed;
     }
 
-    private void OnMovePerformed(UnityEngine.InputSystem.InputAction.CallbackContext ctx)
+    private void OnMovePerformed(InputAction.CallbackContext ctx)
     {
         moveInput = ctx.ReadValue<Vector2>();
-        playerAnimator.SetBool("moveInput", true);
+        animator.SetBool("moveInput", true);
     }
-
-    private void OnMoveCanceled(UnityEngine.InputSystem.InputAction.CallbackContext ctx)
+    private void OnMoveCanceled(InputAction.CallbackContext ctx)
     {
         moveInput = Vector2.zero;
-        playerAnimator.SetBool("moveInput", false);
+        animator.SetBool("moveInput", false);
     }
-
-    private void OnSprintPerformed(UnityEngine.InputSystem.InputAction.CallbackContext ctx)
+    private void OnSprintPerformed(InputAction.CallbackContext ctx)
     {
         leftShiftKey_Pressed = true;
-        playerAnimator.SetBool("leftShiftKey_Pressed", true);
+        animator.SetBool("leftShiftKey_Pressed", true);
     }
-
-    private void OnSprintCanceled(UnityEngine.InputSystem.InputAction.CallbackContext ctx)
+    private void OnSprintCanceled(InputAction.CallbackContext ctx)
     {
         leftShiftKey_Pressed = false;
-        playerAnimator.SetBool("leftShiftKey_Pressed", false);
+        animator.SetBool("leftShiftKey_Pressed", false);
     }
-
-    private void OnDashPerformed(UnityEngine.InputSystem.InputAction.CallbackContext ctx)
+    private void OnDashPerformed(InputAction.CallbackContext ctx)
     {
-        if (!isRolling && isGrounded && !isJumping)
+        if (!isDashing && playerCoolDown.CanDash() && isGrounded && !isJumping && !isAttacking)
         {
-            isRolling = true;
             stateManager.PushState(PlayerStateType.Dash);
         }
     }
-
-    public void SetIsRolling(bool value)
+    public void SetIsDashing(bool value)
     {
-        isRolling = value;
+        isDashing = value;
     }
-
+    private void OnJumpPerformed(InputAction.CallbackContext ctx)
+    {
+        if (!isJumping && !isDashing && isGrounded && !isAttacking)
+        {
+            stateManager.PushState(PlayerStateType.Jump);
+        }
+    }
+    public void SetIsJumping(bool value)
+    {
+        isJumping = value;
+    }
+    private void FixedUpdate()
+    {
+        GroundCheck();
+    }
     public void SetIsGrounded(bool value)
     {
         isGrounded = value;
     }
-
-    private void OnJumpPerformed(UnityEngine.InputSystem.InputAction.CallbackContext ctx)
+    private void GroundCheck()
     {
-        if (!isJumping && !isRolling && isGrounded)
+        RaycastHit hit;
+        float rayDistance = 0.2f;
+        Vector3 origin = playerTransform.position + Vector3.up * 0.1f;
+
+        if (Physics.Raycast(origin, Vector3.down, out hit, rayDistance))
         {
-            isJumping = true;
-            stateManager.PushState(PlayerStateType.Jump);
+            if (hit.collider != null && hit.collider.CompareTag("Ground"))
+            {
+                if (isGrounded == false)
+                {
+                    SetIsGrounded(true);
+                    animator.SetBool("isInAir", false);
+                }
+            }
+        }
+        else
+        {
+            if (isGrounded)
+            {
+                SetIsGrounded(false);
+                animator.SetBool("isInAir", true);
+            }
         }
     }
-
-    public void SetIsJumping(bool value)
+    private void OnAttackPerformed(InputAction.CallbackContext ctx)
     {
-        isJumping = value;
+        if (!isJumping && !isDashing && isGrounded)
+        {
+            leftButton_Pressed = true;
+            AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+
+            if (isAttacking == false)
+            {
+                stateManager.PushState(PlayerStateType.Attack);
+                animator.SetTrigger("leftButton_Pressed");
+            }
+            else
+            {
+                if      (stateInfo.IsName("Combo01_SwordShield"))   animator.SetTrigger("NextCombo");
+                else if (stateInfo.IsName("Combo02_SwordShield"))   animator.SetTrigger("NextCombo");
+            }
+        }
     }
 }

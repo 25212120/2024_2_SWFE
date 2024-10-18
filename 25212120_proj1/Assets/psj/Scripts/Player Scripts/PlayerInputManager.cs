@@ -165,8 +165,14 @@ public class PlayerInputManager : MonoBehaviour
             }
             else
             {
-                if (stateInfo.IsName("Combo01_SwordShield")) animator.SetTrigger("NextCombo");
-                else if (stateInfo.IsName("Combo02_SwordShield")) animator.SetTrigger("NextCombo");
+                if (stateInfo.IsName("Combo01_SwordShield"))
+                {
+                    animator.SetTrigger("NextCombo");
+                }
+                else if (stateInfo.IsName("Combo02_SwordShield"))
+                {
+                    animator.SetTrigger("NextCombo");
+                }
             }
         }
     }
@@ -192,5 +198,13 @@ public class PlayerInputManager : MonoBehaviour
     public void SetIsInteracting(bool value)
     {
         isInteracting = value;
+    }
+
+
+
+
+    public void MovingWhileAttacking()
+    {
+        rb.AddForce(playerTransform.forward * 9f, ForceMode.Impulse);
     }
 }

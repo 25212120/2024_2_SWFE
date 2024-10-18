@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.LowLevel;
 
 public abstract class StateManager<EState> : MonoBehaviour where EState : Enum
 {
@@ -36,6 +37,7 @@ public abstract class StateManager<EState> : MonoBehaviour where EState : Enum
 
     public void PushState(EState stateKey)
     {
+        if (CurrentState == States[stateKey]) return;
         if (CurrentState != null)   CurrentState.ExitState();
 
         if (States.ContainsKey(stateKey))

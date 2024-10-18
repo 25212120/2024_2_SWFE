@@ -3,9 +3,10 @@ public enum PlayerStateType
     Idle,
     Walk,
     Sprint,
-    Roll,
-    Attack_1,
-    Attack_2,
-    Attack_3,
+    Dash,
+    Jump,
+    Attack,
     Interaction,
+    //Hit(GetHit)
+    //Defend(DefendHit, Defend)
 }

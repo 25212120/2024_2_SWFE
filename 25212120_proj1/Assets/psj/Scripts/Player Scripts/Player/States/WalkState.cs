@@ -1,40 +1,38 @@
 using UnityEditor.Rendering;
 using UnityEngine;
+using static UnityEngine.RuleTile.TilingRuleOutput;
+using UnityEngine.EventSystems;
 
 public class WalkState : BaseState<PlayerStateType>
 {
     private PlayerStateMachine player;
     private PlayerInputManager playerInputManager;
+    private Animator animator;
     private Rigidbody rb;
 
-    public WalkState(PlayerStateType key, StateManager<PlayerStateType> stateManager, PlayerInputManager inputManager, Rigidbody rb) : base(key, stateManager)
+    public WalkState(PlayerStateType key, StateManager<PlayerStateType> stateManager, PlayerInputManager inputManager, Rigidbody rb, Animator animator) : base(key, stateManager)
     {
         this.playerInputManager = inputManager;
         this.rb = rb;
+        this.animator = animator;
     }
 
     public override void EnterState()
     {
-        Debug.Log("Entered WalkState");
-        // Walk 애니메이션 실행
     }
 
     public override void UpdateState()
     {
-        // 걷기 동작 구현
-        // 예: 플레이어 이동 로직
     }
 
     public override void FixedUpdateState()
     {
-        // 물리 업데이트마다 실행되는 코드
         MovePlayer();
+        RotatePlayer();
     }
 
     public override void ExitState()
     {
-        Debug.Log("Exiting WalkState");
-        // Walking 상태에서 나올 때 실행되는 코드
     }
 
     public override void CheckTransitions()
@@ -49,13 +47,31 @@ public class WalkState : BaseState<PlayerStateType>
         }
     }
 
-    private float walkSpeed = 15f;
+
+    // WalkState Logic
+
+    private float walkSpeed = 70f;
+    private float rotationSpeed = 7f;
+    private float horizontalInput;
+    private float verticalInput;
+    private Vector3 inputDirection;
+    private Vector3 moveDirection;
+
 
     void MovePlayer()
     {
         float horizontalInput = playerInputManager.moveInput.x;
         float verticalInput = playerInputManager.moveInput.y;
-        Vector3 movement = new Vector3(horizontalInput, 0, verticalInput);
-        rb.AddForce(movement.normalized * walkSpeed);
+        inputDirection = new Vector3(horizontalInput, 0, verticalInput);
+        Quaternion rotation = Quaternion.Euler(0f, -45f, 0f);
+        moveDirection = rotation * inputDirection;
+
+        rb.AddForce(moveDirection.normalized * walkSpeed);
+    }
+
+    void RotatePlayer()
+    {
+        Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
+        rb.rotation = Quaternion.Slerp(rb.rotation, targetRotation, rotationSpeed * Time.deltaTime);
     }
 }

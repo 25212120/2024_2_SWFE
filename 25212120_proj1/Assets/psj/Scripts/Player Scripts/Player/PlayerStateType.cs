@@ -7,6 +7,7 @@ public enum PlayerStateType
     Jump,
     Attack,
     Interaction,
+    WeaponSwap,
     //Hit(GetHit)
     //Defend(DefendHit, Defend)
 }

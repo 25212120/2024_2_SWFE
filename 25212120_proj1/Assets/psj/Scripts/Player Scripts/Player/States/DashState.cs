@@ -48,7 +48,7 @@ public class DashState : BaseState<PlayerStateType>
     {
         AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
 
-        if (stateInfo.IsName("Dash_SwordShield") && stateInfo.normalizedTime >= 1.0f)
+        if (stateInfo.IsTag("Dash") && stateInfo.normalizedTime >= 1.0f)
         {
             stateManager.PopState();
         }

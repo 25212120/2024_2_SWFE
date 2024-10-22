@@ -1,8 +1,18 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerInputManager : MonoBehaviour
 {
+    [SerializeField] public GameObject[] rightHand_Weapons;
+    [SerializeField] public GameObject[] leftHand_Weapons;
+    [SerializeField] public RuntimeAnimatorController[] player_animControllers;
+    public int IndexSwapTo = 0;
+    public int currentRightHandIndex;
+    public int currentLeftHandIndex;
+    public int previousRightHandIndex;
+    public int previousLeftHandIndex;
+
     // ChangeState인 경우 (  )Key_Pressed 변수를 설정하고 is(   )는 State 스크립트 내부적으로 변경
     [Header("Player Movement Inputs")]
     public Vector2 moveInput;
@@ -19,6 +29,7 @@ public class PlayerInputManager : MonoBehaviour
     public bool isGrounded = true;
     public bool isAttacking = false;
     public bool isInteracting = false;
+    public bool isSwapping = false;
     // 이후 isPerformingAction으로 묶어버릴 생각임
 
 
@@ -40,13 +51,15 @@ public class PlayerInputManager : MonoBehaviour
         playerCoolDown = GetComponent<PlayerCoolDownManager>();
 
         stateManager = GetComponent<StateManager<PlayerStateType>>();
+
+        currentRightHandIndex = 0;
+        currentLeftHandIndex = 0;
     }
 
     private void Update()
     {
         leftButton_Pressed = false;
         F_Key_Pressed = false;
-        Debug.Log(isAttacking);
     }
     private void FixedUpdate()
     {
@@ -70,6 +83,12 @@ public class PlayerInputManager : MonoBehaviour
         playerInput.PlayerAction.Attack.performed += OnAttackPerformed;
 
         playerInput.PlayerAction.Interaction.performed += OnInteractionPerformed;
+
+        playerInput.WeaponSwap.SwordAndShield.performed += OnSwapToSwordAndSheildPerformed;
+        playerInput.WeaponSwap.SingleTwoHandeSword.performed += OnSwapToSingleTwoHandeSwordPerformed;
+        playerInput.WeaponSwap.DoubleSwords.performed += OnSwapToDoubleSwordsPerformed;
+        //playerInput.WeaponSwap.BowAndArrow.performed += OnSwapToSwordAndSheildPerformed;
+        //playerInput.WeaponSwap.MagicWand.performed += OnSwapToSwordAndSheildPerformed;
     }
 
     private void OnDisable()
@@ -89,6 +108,12 @@ public class PlayerInputManager : MonoBehaviour
         playerInput.PlayerAction.Attack.performed -= OnAttackPerformed;
 
         playerInput.PlayerAction.Interaction.performed -= OnInteractionPerformed;
+
+        playerInput.WeaponSwap.SwordAndShield.performed -= OnSwapToSwordAndSheildPerformed;
+        playerInput.WeaponSwap.SingleTwoHandeSword.performed -= OnSwapToSingleTwoHandeSwordPerformed;
+        playerInput.WeaponSwap.DoubleSwords.performed -= OnSwapToDoubleSwordsPerformed;
+        //playerInput.WeaponSwap.BowAndArrow.performed += OnSwapToSwordAndSheildPerformed;
+        //playerInput.WeaponSwap.MagicWand.performed += OnSwapToSwordAndSheildPerformed;
     }
     private void GroundCheck()
     {
@@ -139,21 +164,21 @@ public class PlayerInputManager : MonoBehaviour
     }
     private void OnDashPerformed(InputAction.CallbackContext ctx)
     {
-        if (!isDashing && playerCoolDown.CanDash() && isGrounded && !isJumping && !isAttacking && !isInteracting)
+        if (!isDashing && playerCoolDown.CanDash() && isGrounded && !isJumping && !isAttacking && !isInteracting && !isSwapping)
         {
             stateManager.PushState(PlayerStateType.Dash);
         }
     } 
     private void OnJumpPerformed(InputAction.CallbackContext ctx)
     {
-        if (!isJumping && !isDashing && isGrounded && !isAttacking && !isInteracting)
+        if (!isJumping && !isDashing && isGrounded && !isAttacking && !isInteracting && !isSwapping)
         {
             stateManager.PushState(PlayerStateType.Jump);
         }
     }
     private void OnAttackPerformed(InputAction.CallbackContext ctx)
     {
-        if (!isJumping && !isDashing && isGrounded && !isInteracting)
+        if (!isJumping && !isDashing && isGrounded && !isInteracting && !isSwapping)
         {
             leftButton_Pressed = true;
             AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
@@ -165,11 +190,11 @@ public class PlayerInputManager : MonoBehaviour
             }
             else
             {
-                if (stateInfo.IsName("Combo01_SwordShield"))
+                if (stateInfo.IsTag("Combo01"))
                 {
                     animator.SetTrigger("NextCombo");
                 }
-                else if (stateInfo.IsName("Combo02_SwordShield"))
+                else if (stateInfo.IsTag("Comb02"))
                 {
                     animator.SetTrigger("NextCombo");
                 }
@@ -178,11 +203,39 @@ public class PlayerInputManager : MonoBehaviour
     }
     private void OnInteractionPerformed(InputAction.CallbackContext ctx)
     {
-        if (!isDashing && isGrounded && !isJumping && !isAttacking && !isInteracting)
+        if (!isDashing && isGrounded && !isJumping && !isAttacking && !isInteracting && !isSwapping)
         {
             stateManager.PushState(PlayerStateType.Interaction);
         }
     }
+
+    private void OnSwapToSwordAndSheildPerformed(InputAction.CallbackContext ctx)
+    {
+        if (!isDashing && isGrounded && !isJumping && !isAttacking && !isInteracting && !isSwapping)
+        {
+            IndexSwapTo = 0;
+            stateManager.PushState(PlayerStateType.WeaponSwap);
+        }
+    }
+
+    private void OnSwapToSingleTwoHandeSwordPerformed(InputAction.CallbackContext ctx)
+    {
+        if (!isDashing && isGrounded && !isJumping && !isAttacking && !isInteracting && !isSwapping)
+        {
+            IndexSwapTo = 1;
+            stateManager.PushState(PlayerStateType.WeaponSwap);
+        }
+    }
+
+    private void OnSwapToDoubleSwordsPerformed(InputAction.CallbackContext ctx)
+    {
+        if (!isDashing && isGrounded && !isJumping && !isAttacking && !isInteracting && !isSwapping)
+        {
+            IndexSwapTo = 2;
+            stateManager.PushState(PlayerStateType.WeaponSwap);
+        }
+    }
+
     public void SetIsDashing(bool value)
     {
         isDashing = value;
@@ -202,9 +255,15 @@ public class PlayerInputManager : MonoBehaviour
 
 
 
-
     public void MovingWhileAttacking()
     {
         rb.AddForce(playerTransform.forward * 9f, ForceMode.Impulse);
     }
+
+    public void MovingWhileAttacking_DoubleSwords()
+    {
+        rb.AddForce(playerTransform.forward * 7f, ForceMode.Impulse);
+    }
+
+
 }

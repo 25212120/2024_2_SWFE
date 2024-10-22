@@ -202,6 +202,114 @@ public partial class @PlayerMovement: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Weapon Swap"",
+            ""id"": ""3dda5b09-7a59-43cc-8284-0049aa32694a"",
+            ""actions"": [
+                {
+                    ""name"": ""SwordAndShield"",
+                    ""type"": ""Button"",
+                    ""id"": ""7df08787-9c74-4a10-80f0-ebe9c95178c9"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SingleTwoHandeSword"",
+                    ""type"": ""Button"",
+                    ""id"": ""739602bf-c589-4845-a6d5-09817df6102b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DoubleSwords"",
+                    ""type"": ""Button"",
+                    ""id"": ""bb934f83-d556-4244-bdcd-6ff9bc5c334d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""BowAndArrow"",
+                    ""type"": ""Button"",
+                    ""id"": ""d5a56389-dce5-4d47-ab1a-1cba3391e543"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MagicWand"",
+                    ""type"": ""Button"",
+                    ""id"": ""79988e35-5e2c-4fc3-bb05-bb47f9c120fb"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""74d87cd7-da90-422d-a423-4e31a1b3fde9"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SwordAndShield"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2ec1c864-f27f-4e30-a18a-7e7360dfa288"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SingleTwoHandeSword"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f2363e2d-e075-4629-86a8-17b99113b3c2"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DoubleSwords"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b0b572f0-19d9-445a-8ee1-98a4337c9391"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""BowAndArrow"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ab406a17-a4c8-46ef-ac77-a3d4db731c25"",
+                    ""path"": ""<Keyboard>/5"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MagicWand"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -222,6 +330,13 @@ public partial class @PlayerMovement: IInputActionCollection2, IDisposable
         m_PlayerAction_Dash = m_PlayerAction.FindAction("Dash", throwIfNotFound: true);
         m_PlayerAction_Jump = m_PlayerAction.FindAction("Jump", throwIfNotFound: true);
         m_PlayerAction_Interaction = m_PlayerAction.FindAction("Interaction", throwIfNotFound: true);
+        // Weapon Swap
+        m_WeaponSwap = asset.FindActionMap("Weapon Swap", throwIfNotFound: true);
+        m_WeaponSwap_SwordAndShield = m_WeaponSwap.FindAction("SwordAndShield", throwIfNotFound: true);
+        m_WeaponSwap_SingleTwoHandeSword = m_WeaponSwap.FindAction("SingleTwoHandeSword", throwIfNotFound: true);
+        m_WeaponSwap_DoubleSwords = m_WeaponSwap.FindAction("DoubleSwords", throwIfNotFound: true);
+        m_WeaponSwap_BowAndArrow = m_WeaponSwap.FindAction("BowAndArrow", throwIfNotFound: true);
+        m_WeaponSwap_MagicWand = m_WeaponSwap.FindAction("MagicWand", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -403,6 +518,84 @@ public partial class @PlayerMovement: IInputActionCollection2, IDisposable
         }
     }
     public PlayerActionActions @PlayerAction => new PlayerActionActions(this);
+
+    // Weapon Swap
+    private readonly InputActionMap m_WeaponSwap;
+    private List<IWeaponSwapActions> m_WeaponSwapActionsCallbackInterfaces = new List<IWeaponSwapActions>();
+    private readonly InputAction m_WeaponSwap_SwordAndShield;
+    private readonly InputAction m_WeaponSwap_SingleTwoHandeSword;
+    private readonly InputAction m_WeaponSwap_DoubleSwords;
+    private readonly InputAction m_WeaponSwap_BowAndArrow;
+    private readonly InputAction m_WeaponSwap_MagicWand;
+    public struct WeaponSwapActions
+    {
+        private @PlayerMovement m_Wrapper;
+        public WeaponSwapActions(@PlayerMovement wrapper) { m_Wrapper = wrapper; }
+        public InputAction @SwordAndShield => m_Wrapper.m_WeaponSwap_SwordAndShield;
+        public InputAction @SingleTwoHandeSword => m_Wrapper.m_WeaponSwap_SingleTwoHandeSword;
+        public InputAction @DoubleSwords => m_Wrapper.m_WeaponSwap_DoubleSwords;
+        public InputAction @BowAndArrow => m_Wrapper.m_WeaponSwap_BowAndArrow;
+        public InputAction @MagicWand => m_Wrapper.m_WeaponSwap_MagicWand;
+        public InputActionMap Get() { return m_Wrapper.m_WeaponSwap; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(WeaponSwapActions set) { return set.Get(); }
+        public void AddCallbacks(IWeaponSwapActions instance)
+        {
+            if (instance == null || m_Wrapper.m_WeaponSwapActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_WeaponSwapActionsCallbackInterfaces.Add(instance);
+            @SwordAndShield.started += instance.OnSwordAndShield;
+            @SwordAndShield.performed += instance.OnSwordAndShield;
+            @SwordAndShield.canceled += instance.OnSwordAndShield;
+            @SingleTwoHandeSword.started += instance.OnSingleTwoHandeSword;
+            @SingleTwoHandeSword.performed += instance.OnSingleTwoHandeSword;
+            @SingleTwoHandeSword.canceled += instance.OnSingleTwoHandeSword;
+            @DoubleSwords.started += instance.OnDoubleSwords;
+            @DoubleSwords.performed += instance.OnDoubleSwords;
+            @DoubleSwords.canceled += instance.OnDoubleSwords;
+            @BowAndArrow.started += instance.OnBowAndArrow;
+            @BowAndArrow.performed += instance.OnBowAndArrow;
+            @BowAndArrow.canceled += instance.OnBowAndArrow;
+            @MagicWand.started += instance.OnMagicWand;
+            @MagicWand.performed += instance.OnMagicWand;
+            @MagicWand.canceled += instance.OnMagicWand;
+        }
+
+        private void UnregisterCallbacks(IWeaponSwapActions instance)
+        {
+            @SwordAndShield.started -= instance.OnSwordAndShield;
+            @SwordAndShield.performed -= instance.OnSwordAndShield;
+            @SwordAndShield.canceled -= instance.OnSwordAndShield;
+            @SingleTwoHandeSword.started -= instance.OnSingleTwoHandeSword;
+            @SingleTwoHandeSword.performed -= instance.OnSingleTwoHandeSword;
+            @SingleTwoHandeSword.canceled -= instance.OnSingleTwoHandeSword;
+            @DoubleSwords.started -= instance.OnDoubleSwords;
+            @DoubleSwords.performed -= instance.OnDoubleSwords;
+            @DoubleSwords.canceled -= instance.OnDoubleSwords;
+            @BowAndArrow.started -= instance.OnBowAndArrow;
+            @BowAndArrow.performed -= instance.OnBowAndArrow;
+            @BowAndArrow.canceled -= instance.OnBowAndArrow;
+            @MagicWand.started -= instance.OnMagicWand;
+            @MagicWand.performed -= instance.OnMagicWand;
+            @MagicWand.canceled -= instance.OnMagicWand;
+        }
+
+        public void RemoveCallbacks(IWeaponSwapActions instance)
+        {
+            if (m_Wrapper.m_WeaponSwapActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IWeaponSwapActions instance)
+        {
+            foreach (var item in m_Wrapper.m_WeaponSwapActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_WeaponSwapActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public WeaponSwapActions @WeaponSwap => new WeaponSwapActions(this);
     private int m_PCSchemeIndex = -1;
     public InputControlScheme PCScheme
     {
@@ -423,5 +616,13 @@ public partial class @PlayerMovement: IInputActionCollection2, IDisposable
         void OnDash(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnInteraction(InputAction.CallbackContext context);
+    }
+    public interface IWeaponSwapActions
+    {
+        void OnSwordAndShield(InputAction.CallbackContext context);
+        void OnSingleTwoHandeSword(InputAction.CallbackContext context);
+        void OnDoubleSwords(InputAction.CallbackContext context);
+        void OnBowAndArrow(InputAction.CallbackContext context);
+        void OnMagicWand(InputAction.CallbackContext context);
     }
 }

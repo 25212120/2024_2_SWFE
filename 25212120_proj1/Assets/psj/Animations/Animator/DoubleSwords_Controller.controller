@@ -1,5 +1,27 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1101 &-9009338009625978891
+AnimatorStateTransition:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_Conditions: []
+  m_DstStateMachine: {fileID: 5998542352411186810}
+  m_DstState: {fileID: 0}
+  m_Solo: 0
+  m_Mute: 0
+  m_IsExit: 0
+  serializedVersion: 3
+  m_TransitionDuration: 0.1
+  m_TransitionOffset: 0
+  m_ExitTime: 0.7
+  m_HasExitTime: 1
+  m_HasFixedDuration: 1
+  m_InterruptionSource: 0
+  m_OrderedInterruption: 1
+  m_CanTransitionToSelf: 1
 --- !u!1101 &-8602590434978056644
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -50,31 +72,6 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
---- !u!1101 &-8361612533507735393
-AnimatorStateTransition:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_Conditions:
-  - m_ConditionMode: 1
-    m_ConditionEvent: isInAir
-    m_EventTreshold: 0
-  m_DstStateMachine: {fileID: 5998542352411186810}
-  m_DstState: {fileID: 0}
-  m_Solo: 0
-  m_Mute: 0
-  m_IsExit: 0
-  serializedVersion: 3
-  m_TransitionDuration: 0.1
-  m_TransitionOffset: 0
-  m_ExitTime: 0.75
-  m_HasExitTime: 0
-  m_HasFixedDuration: 1
-  m_InterruptionSource: 0
-  m_OrderedInterruption: 1
-  m_CanTransitionToSelf: 1
 --- !u!1101 &-7846411112790344590
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -107,7 +104,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Sprint_SwordShield
+  m_Name: Sprint_DoubleSword
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -122,7 +119,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: a4bef880d26957546815dadebdb091cd, type: 2}
+  m_Motion: {fileID: 7400000, guid: 4c1c24ec62f0d2e4291016d67e649b6b, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -255,6 +252,31 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
+--- !u!1101 &-5554946743861119602
+AnimatorStateTransition:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: isInAir
+    m_EventTreshold: 0
+  m_DstStateMachine: {fileID: 5998542352411186810}
+  m_DstState: {fileID: 0}
+  m_Solo: 0
+  m_Mute: 0
+  m_IsExit: 0
+  serializedVersion: 3
+  m_TransitionDuration: 0.1
+  m_TransitionOffset: 0
+  m_ExitTime: 0.75
+  m_HasExitTime: 0
+  m_HasFixedDuration: 1
+  m_InterruptionSource: 0
+  m_OrderedInterruption: 1
+  m_CanTransitionToSelf: 1
 --- !u!1102 &-4962111646305355700
 AnimatorState:
   serializedVersion: 6
@@ -262,8 +284,8 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Combo02_SwordShield
-  m_Speed: 0.78
+  m_Name: Combo02_DoubleSword
+  m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -8480857290080564253}
@@ -278,7 +300,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 4a75e68d4601a5048b169b4ee069ac20, type: 2}
+  m_Motion: {fileID: 7400000, guid: b52295b829ada0a4cae0abbaaf0ee261, type: 2}
   m_Tag: Combo02
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -291,7 +313,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: JumpEnd_SwordShield
+  m_Name: JumpEnd_DoubleSword
   m_Speed: 3
   m_CycleOffset: 0
   m_Transitions:
@@ -305,13 +327,13 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: ad2f8febaf187ca4cae0ac50c375e2ec, type: 2}
+  m_Motion: {fileID: 7400000, guid: 7430d91996c63f14aa24c503afc12fec, type: 2}
   m_Tag: JumpEnd
   m_SpeedParameter: 
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
---- !u!1101 &-3195437944611043627
+--- !u!1101 &-1889157804184034122
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -323,12 +345,12 @@ AnimatorStateTransition:
     m_ConditionEvent: SwapKey_Pressed
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
-  m_DstState: {fileID: 5925816266772287401}
+  m_DstState: {fileID: 3371898953825700981}
   m_Solo: 0
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.1
+  m_TransitionDuration: 0.2
   m_TransitionOffset: 0
   m_ExitTime: 0.75
   m_HasExitTime: 0
@@ -357,7 +379,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Walk_SwordShield
+  m_Name: Walk_DoubleSword
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -372,7 +394,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 9d2e908cdcec15b429298bd94ab7eb2c, type: 2}
+  m_Motion: {fileID: 7400000, guid: 3a33205dc43bace4fbd6774de0c35b56, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -409,7 +431,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SwordShield_Controller
+  m_Name: DoubleSwords_Controller
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: moveInput
@@ -529,7 +551,7 @@ AnimatorStateMachine:
     m_Position: {x: 580, y: -70, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 820697895815702694}
-    m_Position: {x: 290, y: -330, z: 0}
+    m_Position: {x: 280, y: -330, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 5431943664734506290}
     m_Position: {x: 50, y: -200, z: 0}
@@ -541,24 +563,24 @@ AnimatorStateMachine:
     m_Position: {x: 510, y: -200, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 5152972536361791258}
-    m_Position: {x: 170, y: -530, z: 0}
+    m_Position: {x: 180, y: -460, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -6719119809581919803}
-    m_Position: {x: 180, y: -280, z: 0}
+    m_Position: {x: 180, y: -270, z: 0}
   - serializedVersion: 1
-    m_State: {fileID: 5925816266772287401}
-    m_Position: {x: 290, y: -390, z: 0}
+    m_State: {fileID: 3371898953825700981}
+    m_Position: {x: 280, y: -380, z: 0}
   m_ChildStateMachines:
   - serializedVersion: 1
     m_StateMachine: {fileID: 5998542352411186810}
-    m_Position: {x: 390, y: -530, z: 0}
+    m_Position: {x: 420, y: -460, z: 0}
   m_AnyStateTransitions:
   - {fileID: 7635552448045372277}
   - {fileID: 908345372500624618}
+  - {fileID: -5554946743861119602}
   - {fileID: -5877546882919329459}
   - {fileID: -8602590434978056644}
-  - {fileID: -3195437944611043627}
-  - {fileID: -8361612533507735393}
+  - {fileID: -1889157804184034122}
   m_EntryTransitions: []
   m_StateMachineTransitions:
   - first: {fileID: 5998542352411186810}
@@ -577,7 +599,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Dash_SwordShield
+  m_Name: Dash_DoubleSword
   m_Speed: 2.5
   m_CycleOffset: 0
   m_Transitions:
@@ -591,7 +613,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: d7a651f5046d76e4fb5586bf5c84604b, type: 2}
+  m_Motion: {fileID: 7400000, guid: bc82a33095276424aa09164330188808, type: 2}
   m_Tag: Dash
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -654,7 +676,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: JumpAir_SwordShield
+  m_Name: JumpAir_DoubleSword
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -668,7 +690,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 88febf29724cef24a8d5ce5b41c07309, type: 2}
+  m_Motion: {fileID: 7400000, guid: 862b010f9856c894cb7456ed004a4bda, type: 2}
   m_Tag: JumpAir
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -724,28 +746,6 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
---- !u!1101 &2406680000349391297
-AnimatorStateTransition:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_Conditions: []
-  m_DstStateMachine: {fileID: 5998542352411186810}
-  m_DstState: {fileID: 0}
-  m_Solo: 0
-  m_Mute: 0
-  m_IsExit: 0
-  serializedVersion: 3
-  m_TransitionDuration: 0.4
-  m_TransitionOffset: 0
-  m_ExitTime: 0.5
-  m_HasExitTime: 1
-  m_HasFixedDuration: 1
-  m_InterruptionSource: 0
-  m_OrderedInterruption: 1
-  m_CanTransitionToSelf: 1
 --- !u!1101 &2711989994347222798
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -775,8 +775,8 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Combo03_SwordShield
-  m_Speed: 0.9
+  m_Name: Combo03_DoubleSword
+  m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 6678105732807262087}
@@ -790,8 +790,8 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: e2517d42911b99e408e7628a1c68aef5, type: 2}
-  m_Tag: Como03
+  m_Motion: {fileID: 7400000, guid: 1ea22836bf545144095b1945b341308b, type: 2}
+  m_Tag: Combo03
   m_SpeedParameter: 
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
@@ -821,31 +821,33 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
---- !u!1101 &3786983351421168059
-AnimatorStateTransition:
+--- !u!1102 &3371898953825700981
+AnimatorState:
+  serializedVersion: 6
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_Conditions:
-  - m_ConditionMode: 1
-    m_ConditionEvent: finishedSwapping
-    m_EventTreshold: 0
-  m_DstStateMachine: {fileID: 0}
-  m_DstState: {fileID: 0}
-  m_Solo: 0
-  m_Mute: 0
-  m_IsExit: 1
-  serializedVersion: 3
-  m_TransitionDuration: 0
-  m_TransitionOffset: 0
-  m_ExitTime: 0.78571427
-  m_HasExitTime: 0
-  m_HasFixedDuration: 1
-  m_InterruptionSource: 0
-  m_OrderedInterruption: 1
-  m_CanTransitionToSelf: 1
+  m_Name: WeaponSwap_DoubleSword
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions:
+  - {fileID: 5014480930820892332}
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: 7400000, guid: 67f7bf8a953de734fb309a2f2420e8a0, type: 2}
+  m_Tag: Swap
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
 --- !u!1101 &4017009195629636277
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -871,6 +873,31 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
+--- !u!1101 &5014480930820892332
+AnimatorStateTransition:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: finishedSwapping
+    m_EventTreshold: 0
+  m_DstStateMachine: {fileID: 0}
+  m_DstState: {fileID: 0}
+  m_Solo: 0
+  m_Mute: 0
+  m_IsExit: 1
+  serializedVersion: 3
+  m_TransitionDuration: 0.25
+  m_TransitionOffset: 0
+  m_ExitTime: 0.8125
+  m_HasExitTime: 0
+  m_HasFixedDuration: 1
+  m_InterruptionSource: 0
+  m_OrderedInterruption: 1
+  m_CanTransitionToSelf: 1
 --- !u!1102 &5152972536361791258
 AnimatorState:
   serializedVersion: 6
@@ -878,11 +905,11 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: JumpStart_SwordShield
+  m_Name: JumpStart_DoubleSword
   m_Speed: 0.8
   m_CycleOffset: 0
   m_Transitions:
-  - {fileID: 2406680000349391297}
+  - {fileID: -9009338009625978891}
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
@@ -892,8 +919,8 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: a1d0f5d56a9ac48488ef9e562b9abab6, type: 2}
-  m_Tag: JumpStart
+  m_Motion: {fileID: 7400000, guid: 8abc4de669b304945bb84b8cdf601c6d, type: 2}
+  m_Tag: JumAir
   m_SpeedParameter: 
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
@@ -930,8 +957,8 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Combo01_SwordShield
-  m_Speed: 0.78
+  m_Name: Combo01_DoubleSword
+  m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 2205100887896355425}
@@ -946,35 +973,8 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 0b9132f907005464ea7f206376e3db77, type: 2}
+  m_Motion: {fileID: 7400000, guid: eaa5847759d52ce47956b99f4650dec1, type: 2}
   m_Tag: Combo01
-  m_SpeedParameter: 
-  m_MirrorParameter: 
-  m_CycleOffsetParameter: 
-  m_TimeParameter: 
---- !u!1102 &5925816266772287401
-AnimatorState:
-  serializedVersion: 6
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: WeaponSwap_SwordShield
-  m_Speed: 1
-  m_CycleOffset: 0
-  m_Transitions:
-  - {fileID: 3786983351421168059}
-  m_StateMachineBehaviours: []
-  m_Position: {x: 50, y: 50, z: 0}
-  m_IKOnFeet: 0
-  m_WriteDefaultValues: 1
-  m_Mirror: 0
-  m_SpeedParameterActive: 0
-  m_MirrorParameterActive: 0
-  m_CycleOffsetParameterActive: 0
-  m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: edfb1762d476bf84491a3385feaacbcb, type: 2}
-  m_Tag: Swap
   m_SpeedParameter: 
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
@@ -1136,7 +1136,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Idle_SwordShield
+  m_Name: Idle_DoubleSword
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -1150,7 +1150,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 6383a08b0ddb19543948954c6e075143, type: 3}
+  m_Motion: {fileID: 7400000, guid: 435548195827c9c458f7665a59fbb01a, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 

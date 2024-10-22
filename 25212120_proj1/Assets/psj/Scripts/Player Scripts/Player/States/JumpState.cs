@@ -62,7 +62,7 @@ public class JumpState : BaseState<PlayerStateType>
 
         if (playerInputManager.isGrounded) animator.SetBool("isInAir", false);
 
-        if (stateInfo.IsName("JumpEnd_SwordShield") && stateInfo.normalizedTime >= 0.9f)
+        if (stateInfo.IsTag("JumpEnd") && stateInfo.normalizedTime >= 0.9f)
         {
             animator.SetBool("finishedJumping", true);
             stateManager.PopState();

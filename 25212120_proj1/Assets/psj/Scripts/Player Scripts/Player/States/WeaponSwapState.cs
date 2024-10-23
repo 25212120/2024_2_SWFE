@@ -25,6 +25,8 @@ public class WeaponSwapState : BaseState<PlayerStateType>
             stateManager.PopState();
             return;
         }
+        playerInputManager.isSwapping = true;
+
         playerInputManager.previousRightHandIndex = playerInputManager.currentRightHandIndex;
         playerInputManager.previousLeftHandIndex = playerInputManager.currentLeftHandIndex;
 

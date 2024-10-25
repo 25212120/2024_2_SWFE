@@ -5,35 +5,45 @@ using UnityEngine;
 namespace CustomNamespace
 {
     [System.Serializable]
-    public class DirectionCompatibility
+    public class TileEdge
     {
-        public string direction; // 방향 (North, East, South, West)
-        public List<string> compatibleTileNames; // 해당 방향에서 호환되는 타일 이름 목록
+        public string edgeType;  // 현재 타일의 면 타입
+        public List<string> compatibleEdgeTypes;  // 호환 가능한 면 타입 리스트
     }
 
     [System.Serializable]
     public class MapTile
     {
-        public string name; // 타일 이름 또는 ID
-        public GameObject prefab; // 타일 프리팹
-        public List<DirectionCompatibility> compatibleTiles; // 방향별 호환되는 타일 목록
+        public string name;           // 타일 이름 또는 ID
+        public GameObject prefab;     // 타일 프리팹
+        public string terrainType;    // 지형 타입 (예: Desert, Forest, Glacier, Volcano)
 
-        // 생성자 추가 - 타일 이름, 프리팹 및 호환성 설정
-        public MapTile(string name, GameObject prefab, List<DirectionCompatibility> compatibleTiles)
+        // 각 타일의 면 (북쪽, 동쪽, 남쪽, 서쪽)
+        public TileEdge northEdge;
+        public TileEdge eastEdge;
+        public TileEdge southEdge;
+        public TileEdge westEdge;
+
+        // 생성자 - 타일 이름, 프리팹, 지형 타입 및 각 방향의 면 설정
+        public MapTile(string name, GameObject prefab, string terrainType, TileEdge north, TileEdge east, TileEdge south, TileEdge west)
         {
             this.name = name;
             this.prefab = prefab;
-            this.compatibleTiles = compatibleTiles;
+            this.terrainType = terrainType;
+            this.northEdge = north;
+            this.eastEdge = east;
+            this.southEdge = south;
+            this.westEdge = west;
         }
     }
 
     public class Cell
     {
-        public Vector2Int position; // 그리드 내 위치
-        public List<MapTile> possibleTiles; // 가능한 타일 목록
-        public bool isCollapsed = false; // 타일이 결정되었는지 여부
-        public GameObject instantiatedTile; // 생성된 타일 인스턴스
-        public string terrainType; // 지형 타입
+        public Vector2Int position;               // 셀의 그리드 위치
+        public List<MapTile> possibleTiles;       // 셀에 배치할 수 있는 가능한 타일 목록
+        public bool isCollapsed = false;          // 셀의 상태 (타일이 배치되었는지 여부)
+        public GameObject instantiatedTile;       // 배치된 타일 인스턴스
+        public string terrainType;                // 지형 타입
     }
 
     public static class Direction
@@ -71,16 +81,14 @@ namespace CustomNamespace
     {
         public Transform player; // 플레이어의 Transform
         public int tileSize = 20; // 타일 크기
-        public List<MapTile> tileSet; // 사용할 타일 목록
         public float perlinScale = 10.0f; // Perlin Noise 스케일
         public float maxHeight = 5.0f; // 최대 높이
-
         public Transform tileParent; // 타일의 부모가 될 Transform
 
+        // 지형별로 여러 타일을 관리하기 위한 딕셔너리
+        private Dictionary<string, List<MapTile>> terrainTileSets = new Dictionary<string, List<MapTile>>();
         private Dictionary<Vector2Int, Cell> cells = new Dictionary<Vector2Int, Cell>();
-        private HashSet<Vector2Int> activeCells = new HashSet<Vector2Int>(); // 현재 활성화된 셀 좌표 목록
-
-        private Vector2Int previousPlayerCellPos = new Vector2Int(int.MinValue, int.MinValue);
+        private HashSet<Vector2Int> activeCells = new HashSet<Vector2Int>();
 
         void Start()
         {
@@ -88,68 +96,60 @@ namespace CustomNamespace
             UpdateCells(); // 초기 타일 생성
         }
 
-        void Update()
-        {
-            Vector2Int currentPlayerCellPos = GetPlayerCellPosition();
-
-            // 플레이어가 새로운 셀로 이동했을 때만 타일 업데이트
-            if (currentPlayerCellPos != previousPlayerCellPos)
-            {
-                UpdateCells();
-                previousPlayerCellPos = currentPlayerCellPos;
-            }
-        }
-
         void InitializeTiles()
         {
-            // 각 타일의 방향별 호환성을 설정하고 타일 생성
-            GameObject tile1Prefab = Resources.Load<GameObject>("Tile1Prefab");
-            GameObject tile2Prefab = Resources.Load<GameObject>("Tile2Prefab");
+            // 타일 프리팹 불러오기
+            GameObject desertPrefab1 = Resources.Load<GameObject>("DesertTilePrefab1");
+            GameObject desertPrefab2 = Resources.Load<GameObject>("DesertTilePrefab2");
+            GameObject forestPrefab1 = Resources.Load<GameObject>("ForestTilePrefab1");
+            GameObject forestPrefab2 = Resources.Load<GameObject>("ForestTilePrefab2");
+            GameObject glacierPrefab1 = Resources.Load<GameObject>("GlacierTilePrefab1");
+            GameObject glacierPrefab2 = Resources.Load<GameObject>("GlacierTilePrefab2");
+            GameObject volcanoPrefab1 = Resources.Load<GameObject>("VolcanoTilePrefab1");
+            GameObject volcanoPrefab2 = Resources.Load<GameObject>("VolcanoTilePrefab2");
 
-            if (tile1Prefab == null || tile2Prefab == null)
-            {
-                Debug.LogError("Tile prefabs could not be loaded. Check your Resources folder.");
-                return;
-            }
+            // 각 타일의 면 정의
+            TileEdge mountainEdge = new TileEdge { edgeType = "Mountain", compatibleEdgeTypes = new List<string> { "Mountain", "River" } };
+            TileEdge riverEdge = new TileEdge { edgeType = "River", compatibleEdgeTypes = new List<string> { "Mountain", "River", "Plain" } };
+            TileEdge plainEdge = new TileEdge { edgeType = "Plain", compatibleEdgeTypes = new List<string> { "Plain", "River" } };
 
-            List<DirectionCompatibility> tile1Compatibility = new List<DirectionCompatibility>
+            // 지형별 여러 타일 정의
+            List<MapTile> desertTiles = new List<MapTile>
             {
-                new DirectionCompatibility { direction = "North", compatibleTileNames = new List<string> { "Tile2", "Tile3" } },
-                new DirectionCompatibility { direction = "East", compatibleTileNames = new List<string> { "Tile2", "Tile4" } },
-                new DirectionCompatibility { direction = "South", compatibleTileNames = new List<string> { "Tile1", "Tile3" } },
-                new DirectionCompatibility { direction = "West", compatibleTileNames = new List<string> { "Tile2", "Tile4" } }
+                new MapTile("DesertTile1", desertPrefab1, "Desert", mountainEdge, plainEdge, riverEdge, mountainEdge),
+                new MapTile("DesertTile2", desertPrefab2, "Desert", riverEdge, mountainEdge, plainEdge, riverEdge)
             };
 
-            List<DirectionCompatibility> tile2Compatibility = new List<DirectionCompatibility>
+            List<MapTile> forestTiles = new List<MapTile>
             {
-                new DirectionCompatibility { direction = "North", compatibleTileNames = new List<string> { "Tile1", "Tile3" } },
-                new DirectionCompatibility { direction = "East", compatibleTileNames = new List<string> { "Tile1", "Tile4" } },
-                new DirectionCompatibility { direction = "South", compatibleTileNames = new List<string> { "Tile1", "Tile2" } },
-                new DirectionCompatibility { direction = "West", compatibleTileNames = new List<string> { "Tile3", "Tile4" } }
+                new MapTile("ForestTile1", forestPrefab1, "Forest", riverEdge, mountainEdge, plainEdge, riverEdge),
+                new MapTile("ForestTile2", forestPrefab2, "Forest", plainEdge, riverEdge, mountainEdge, riverEdge)
             };
 
-            MapTile tile1 = new MapTile("Tile1", tile1Prefab, tile1Compatibility);
-            MapTile tile2 = new MapTile("Tile2", tile2Prefab, tile2Compatibility);
+            List<MapTile> glacierTiles = new List<MapTile>
+            {
+                new MapTile("GlacierTile1", glacierPrefab1, "Glacier", plainEdge, riverEdge, mountainEdge, riverEdge),
+                new MapTile("GlacierTile2", glacierPrefab2, "Glacier", mountainEdge, plainEdge, riverEdge, mountainEdge)
+            };
 
-            tileSet = new List<MapTile> { tile1, tile2 };
-        }
+            List<MapTile> volcanoTiles = new List<MapTile>
+            {
+                new MapTile("VolcanoTile1", volcanoPrefab1, "Volcano", mountainEdge, riverEdge, plainEdge, mountainEdge),
+                new MapTile("VolcanoTile2", volcanoPrefab2, "Volcano", riverEdge, plainEdge, mountainEdge, riverEdge)
+            };
 
-        Vector2Int GetPlayerCellPosition()
-        {
-            // 플레이어 위치를 셀 그리드 좌표로 변환
-            int playerCellX = Mathf.RoundToInt(player.position.x / tileSize);
-            int playerCellY = Mathf.RoundToInt(player.position.z / tileSize); // Unity에서 Z축이 전진 방향
-            return new Vector2Int(playerCellX, playerCellY);
+            // 지형별로 타일 목록을 딕셔너리에 추가
+            terrainTileSets["Desert"] = desertTiles;
+            terrainTileSets["Forest"] = forestTiles;
+            terrainTileSets["Glacier"] = glacierTiles;
+            terrainTileSets["Volcano"] = volcanoTiles;
         }
 
         void UpdateCells()
         {
             Vector2Int playerCellPos = GetPlayerCellPosition();
-
-            // 현재 활성화된 셀 목록 복사
             HashSet<Vector2Int> newActiveCells = new HashSet<Vector2Int>();
 
-            // 플레이어 주변의 셀을 확인하고 필요한 경우 생성
             for (int x = -2; x <= 2; x++)
             {
                 for (int y = -2; y <= 2; y++)
@@ -162,38 +162,20 @@ namespace CustomNamespace
                         Cell newCell = new Cell
                         {
                             position = cellKey,
-                            possibleTiles = new List<MapTile>(tileSet)
+                            possibleTiles = new List<MapTile>(terrainTileSets["Desert"]) // 기본값 예시로 추가
                         };
                         cells.Add(cellKey, newCell);
 
-                        // Perlin Noise를 사용하여 높이와 지형 타입을 계산
                         float height = Mathf.PerlinNoise(cellKey.x / perlinScale, cellKey.y / perlinScale) * maxHeight;
                         float terrainValue = Mathf.PerlinNoise(cellKey.x / (perlinScale * 2), cellKey.y / (perlinScale * 2));
                         newCell.terrainType = GetTerrainType(terrainValue);
                         Vector3 cellWorldPos = new Vector3(newCell.position.x * tileSize, height, newCell.position.y * tileSize);
 
-                        // 맵의 중심 셀에 특정 타일을 강제로 설정
-                        if (x == 0 && y == 0)
-                        {
-                            newCell.isCollapsed = true;
-                            newCell.possibleTiles = new List<MapTile> { tileSet[0] }; // 첫 번째 타일로 설정
-                            newCell.instantiatedTile = Instantiate(
-                                tileSet[0].prefab,
-                                cellWorldPos,
-                                Quaternion.identity,
-                                tileParent
-                            );
-                        }
-                        else
-                        {
-                            // WFC 알고리즘으로 셀을 붕괴
-                            CollapseCell(newCell, cellWorldPos);
-                        }
+                        CollapseCell(newCell, cellWorldPos);
                     }
                 }
             }
 
-            // 활성화된 셀 목록 업데이트
             activeCells = newActiveCells;
         }
 
@@ -215,33 +197,56 @@ namespace CustomNamespace
         {
             if (cell.isCollapsed) return;
 
-            if (cell.possibleTiles.Count == 0)
+            // 지형 타입 결정
+            string terrainType = GetTerrainType(Mathf.PerlinNoise(cell.position.x / perlinScale, cell.position.y / perlinScale));
+
+            // 해당 지형 타입의 타일 목록에서 호환되는 타일 선택
+            List<MapTile> compatibleTiles = new List<MapTile>(terrainTileSets[terrainType]);
+
+            foreach (var direction in Direction.AllDirections)
             {
-                Debug.LogError($"셀의 가능한 타일이 없습니다. 위치: {cell.position}");
+                Vector2Int neighborPos = cell.position + direction;
+                if (cells.ContainsKey(neighborPos))
+                {
+                    Cell neighborCell = cells[neighborPos];
+                    string dir = Direction.VectorToDirection(direction);
+                    compatibleTiles = compatibleTiles.FindAll(tile => IsCompatible(tile, neighborCell.instantiatedTile.GetComponent<MapTile>(), dir));
+                }
+            }
+
+            if (compatibleTiles.Count == 0)
+            {
+                Debug.LogError("호환 가능한 타일이 없습니다.");
                 return;
             }
 
-            // 가능한 타일 중 하나를 선택
-            MapTile selectedTile = SelectTile(cell);
-
-            if (selectedTile == null)
-            {
-                Debug.LogError("타일을 선택할 수 없습니다. 규칙을 확인하세요.");
-                return;
-            }
-
-            // 타일을 인스턴스화하고 해당 위치에 배치
+            MapTile selectedTile = compatibleTiles[Random.Range(0, compatibleTiles.Count)];
             cell.isCollapsed = true;
             cell.instantiatedTile = Instantiate(selectedTile.prefab, cellWorldPos, Quaternion.identity, tileParent);
-
-            
         }
 
-        // Select a tile from possible ones
-        MapTile SelectTile(Cell cell)
+        Vector2Int GetPlayerCellPosition()
         {
-            // 타일 선택 논리 추가 (가중치 기반 또는 무작위)
-            return cell.possibleTiles[Random.Range(0, cell.possibleTiles.Count)];
+            int playerCellX = Mathf.RoundToInt(player.position.x / tileSize);
+            int playerCellY = Mathf.RoundToInt(player.position.z / tileSize);
+            return new Vector2Int(playerCellX, playerCellY);
+        }
+
+        bool IsCompatible(MapTile tileA, MapTile tileB, string direction)
+        {
+            switch (direction)
+            {
+                case "North":
+                    return tileA.northEdge.compatibleEdgeTypes.Contains(tileB.southEdge.edgeType);
+                case "East":
+                    return tileA.eastEdge.compatibleEdgeTypes.Contains(tileB.westEdge.edgeType);
+                case "South":
+                    return tileA.southEdge.compatibleEdgeTypes.Contains(tileB.northEdge.edgeType);
+                case "West":
+                    return tileA.westEdge.compatibleEdgeTypes.Contains(tileB.eastEdge.edgeType);
+                default:
+                    return false;
+            }
         }
     }
 }

@@ -2,19 +2,19 @@ using UnityEngine;
 
 public class IdleState : BaseState<PlayerStateType>
 {
+    private Animator animator;
     private PlayerInputManager playerInputManager;
     private Rigidbody rb;
 
-    public IdleState(PlayerStateType key, StateManager<PlayerStateType> stateManager, PlayerInputManager inputManager, Rigidbody rb) : base(key, stateManager)
+    public IdleState(PlayerStateType key, StateManager<PlayerStateType> stateManager, PlayerInputManager inputManager, Rigidbody rb, Animator animator) : base(key, stateManager)
     {
         this.playerInputManager = inputManager;
         this.rb = rb;
+        this.animator = animator;
     }
 
     public override void EnterState()
     {
-        Debug.Log("Entered IdleState");
-        // Idle 애니메이션 실행
     }
 
     public override void UpdateState()
@@ -27,8 +27,6 @@ public class IdleState : BaseState<PlayerStateType>
 
     public override void ExitState()
     {
-        Debug.Log("Exiting IdleState");
-        // Idle 애니메이션 끄기
     }
 
     public override void CheckTransitions()
@@ -37,5 +35,6 @@ public class IdleState : BaseState<PlayerStateType>
         {
             stateManager.ChangeState(PlayerStateType.Walk);
         }
+
     }
 }

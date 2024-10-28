@@ -17,15 +17,17 @@ public class PlayerAnimationEventManager : MonoBehaviour
         playerTransform = GetComponent<Transform>();
         animator = GetComponent<Animator>();
     }
-
     public void MovingWhileAttacking()
     {
         rb.AddForce(playerTransform.forward * 6f, ForceMode.Impulse);
     }
-
     public void MovingWhileAttacking_DoubleSwords()
     {
         rb.AddForce(playerTransform.forward * 7f, ForceMode.Impulse);
+    }
+    public void BackStepWhileAttacking_Bow()
+    {
+        rb.AddForce(playerTransform.forward * -15f, ForceMode.Impulse);
     }
     public void DisableWeapon()
     {
@@ -37,6 +39,34 @@ public class PlayerAnimationEventManager : MonoBehaviour
         playerInputManager.rightHand_Weapons[playerInputManager.currentRightHandIndex].SetActive(true);
         playerInputManager.leftHand_Weapons[playerInputManager.currentLeftHandIndex].SetActive(true);
     }
+    public void RotatePlayerTowardsMouse()
+    {
+        Debug.Log("ROTATED");
+        Vector3 mouseWorldPosition = GetMouseWorldPosition();
+        Vector3 direction = mouseWorldPosition - playerTransform.position;
+        direction.y = 0f;
 
+        if (direction.sqrMagnitude > 0.01f)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(direction);
+            float rotationSpeed = 100f;
+            playerTransform.rotation = Quaternion.Slerp(rb.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+        }
+    }
+    public Vector3 GetMouseWorldPosition()
+    {
+        if (Camera.main == null)
+        {
+            return Vector3.zero;
+        }
+
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, LayerMask.GetMask("Environment")))
+        {
+            return hit.point;
+        }
+
+        return Vector3.zero;
+    }
 
 }

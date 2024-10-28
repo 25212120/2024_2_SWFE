@@ -58,9 +58,7 @@ public class WeaponSwapState : BaseState<PlayerStateType>
     {
         AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
 
-        Debug.Log("it worked");
-
-        if (stateInfo.IsTag("Swap") && stateInfo.normalizedTime >= 1.0f)
+        if (stateInfo.IsTag("Swap") && stateInfo.normalizedTime >= 0.95f)
         {
             animator.SetTrigger("finishedSwapping");
 
@@ -86,10 +84,9 @@ public class WeaponSwapState : BaseState<PlayerStateType>
             case 2:
                 SetHand(2);
                 break;
-                //case 4:
-                //    break;   
-                //case 5:
-                //    break;         
+            case 3:
+                SetHand(3);
+                break;          
         }
 
         return true;

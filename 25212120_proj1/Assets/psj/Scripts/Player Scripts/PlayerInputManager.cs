@@ -1,6 +1,6 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections.Generic;
 
 public class PlayerInputManager : MonoBehaviour
 {
@@ -87,8 +87,7 @@ public class PlayerInputManager : MonoBehaviour
         playerInput.WeaponSwap.SwordAndShield.performed += OnSwapToSwordAndSheildPerformed;
         playerInput.WeaponSwap.SingleTwoHandeSword.performed += OnSwapToSingleTwoHandeSwordPerformed;
         playerInput.WeaponSwap.DoubleSwords.performed += OnSwapToDoubleSwordsPerformed;
-        //playerInput.WeaponSwap.BowAndArrow.performed += OnSwapToSwordAndSheildPerformed;
-        //playerInput.WeaponSwap.MagicWand.performed += OnSwapToSwordAndSheildPerformed;
+        playerInput.WeaponSwap.BowAndArrow.performed += OnSwapToBowAndArrowPerformed;
     }
 
     private void OnDisable()
@@ -112,8 +111,7 @@ public class PlayerInputManager : MonoBehaviour
         playerInput.WeaponSwap.SwordAndShield.performed -= OnSwapToSwordAndSheildPerformed;
         playerInput.WeaponSwap.SingleTwoHandeSword.performed -= OnSwapToSingleTwoHandeSwordPerformed;
         playerInput.WeaponSwap.DoubleSwords.performed -= OnSwapToDoubleSwordsPerformed;
-        //playerInput.WeaponSwap.BowAndArrow.performed += OnSwapToSwordAndSheildPerformed;
-        //playerInput.WeaponSwap.MagicWand.performed += OnSwapToSwordAndSheildPerformed;
+        playerInput.WeaponSwap.BowAndArrow.performed -= OnSwapToSwordAndSheildPerformed;
     }
     private void GroundCheck()
     {
@@ -144,8 +142,8 @@ public class PlayerInputManager : MonoBehaviour
     }
     private void OnMovePerformed(InputAction.CallbackContext ctx)
     {
-        moveInput = ctx.ReadValue<Vector2>();
-        animator.SetBool("moveInput", true);
+            moveInput = ctx.ReadValue<Vector2>();
+            animator.SetBool("moveInput", true);
     }
     private void OnMoveCanceled(InputAction.CallbackContext ctx)
     {
@@ -176,31 +174,27 @@ public class PlayerInputManager : MonoBehaviour
             stateManager.PushState(PlayerStateType.Jump);
         }
     }
+
+    public Queue<string> inputQueue = new Queue<string>();
     private void OnAttackPerformed(InputAction.CallbackContext ctx)
     {
+
         if (!isJumping && !isDashing && isGrounded && !isInteracting && !isSwapping)
         {
             leftButton_Pressed = true;
-            AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
 
-            if (isAttacking == false)
+            if (!isAttacking)
             {
                 stateManager.PushState(PlayerStateType.Attack);
                 animator.SetTrigger("leftButton_Pressed");
             }
-            else
+            else if (inputQueue.Count < 1)
             {
-                if (stateInfo.IsTag("Combo01"))
-                {
-                    animator.SetTrigger("NextCombo");
-                }
-                else if (stateInfo.IsTag("Comb02"))
-                {
-                    animator.SetTrigger("NextCombo");
-                }
+                inputQueue.Enqueue("NextCombo");
             }
         }
     }
+
     private void OnInteractionPerformed(InputAction.CallbackContext ctx)
     {
         if (!isDashing && isGrounded && !isJumping && !isAttacking && !isInteracting && !isSwapping)
@@ -232,6 +226,15 @@ public class PlayerInputManager : MonoBehaviour
         if (!isDashing && isGrounded && !isJumping && !isAttacking && !isInteracting && !isSwapping)
         {
             IndexSwapTo = 2;
+            stateManager.PushState(PlayerStateType.WeaponSwap);
+        }
+    }
+
+    private void OnSwapToBowAndArrowPerformed(InputAction.CallbackContext ctx)
+    {
+        if (!isDashing && isGrounded && !isJumping && !isAttacking && !isInteracting && !isSwapping)
+        {
+            IndexSwapTo = 3;
             stateManager.PushState(PlayerStateType.WeaponSwap);
         }
     }

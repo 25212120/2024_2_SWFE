@@ -29,6 +29,16 @@ public class PlayerAnimationEventManager : MonoBehaviour
     {
         rb.AddForce(playerTransform.forward * -15f, ForceMode.Impulse);
     }
+    public void JumpAttackStart()
+    {
+        rb.useGravity = false;
+        rb.AddForce(playerTransform.up * 15f, ForceMode.Impulse);
+    }
+    public void JumpAttackEnd()
+    {
+        rb.useGravity = true;
+        rb.AddForce(playerTransform.up * -15f, ForceMode.Impulse);
+    }
     public void DisableWeapon()
     {
         playerInputManager.rightHand_Weapons[playerInputManager.previousRightHandIndex].SetActive(false);

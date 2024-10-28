@@ -13,6 +13,8 @@ public class PlayerInputManager : MonoBehaviour
     public int previousRightHandIndex;
     public int previousLeftHandIndex;
 
+    public bool wantToCheckGround = true;
+
     // ChangeState인 경우 (  )Key_Pressed 변수를 설정하고 is(   )는 State 스크립트 내부적으로 변경
     [Header("Player Movement Inputs")]
     public Vector2 moveInput;
@@ -63,7 +65,10 @@ public class PlayerInputManager : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        GroundCheck();
+        if (wantToCheckGround)
+        {
+            GroundCheck();
+        }
     }
 
     private void OnEnable()
@@ -81,6 +86,8 @@ public class PlayerInputManager : MonoBehaviour
         playerInput.PlayerAction.Jump.performed += OnJumpPerformed;
 
         playerInput.PlayerAction.Attack.performed += OnAttackPerformed;
+
+        playerInput.PlayerAction.WeaponSkill.performed += OnWeaponSkillPerformed;
 
         playerInput.PlayerAction.Interaction.performed += OnInteractionPerformed;
 
@@ -194,7 +201,14 @@ public class PlayerInputManager : MonoBehaviour
             }
         }
     }
-
+    private void OnWeaponSkillPerformed(InputAction.CallbackContext ctx)
+    {
+        if (playerCoolDown.CanUseWeaponSkill(currentRightHandIndex) && !isJumping && !isDashing && isGrounded && !isInteracting && !isSwapping && !isAttacking)
+        {
+            stateManager.PushState(PlayerStateType.WeaponSkill);
+            animator.SetTrigger("rightButton_Pressed");
+        }
+    }
     private void OnInteractionPerformed(InputAction.CallbackContext ctx)
     {
         if (!isDashing && isGrounded && !isJumping && !isAttacking && !isInteracting && !isSwapping)
@@ -211,7 +225,6 @@ public class PlayerInputManager : MonoBehaviour
             stateManager.PushState(PlayerStateType.WeaponSwap);
         }
     }
-
     private void OnSwapToSingleTwoHandeSwordPerformed(InputAction.CallbackContext ctx)
     {
         if (!isDashing && isGrounded && !isJumping && !isAttacking && !isInteracting && !isSwapping)
@@ -220,7 +233,6 @@ public class PlayerInputManager : MonoBehaviour
             stateManager.PushState(PlayerStateType.WeaponSwap);
         }
     }
-
     private void OnSwapToDoubleSwordsPerformed(InputAction.CallbackContext ctx)
     {
         if (!isDashing && isGrounded && !isJumping && !isAttacking && !isInteracting && !isSwapping)
@@ -229,7 +241,6 @@ public class PlayerInputManager : MonoBehaviour
             stateManager.PushState(PlayerStateType.WeaponSwap);
         }
     }
-
     private void OnSwapToBowAndArrowPerformed(InputAction.CallbackContext ctx)
     {
         if (!isDashing && isGrounded && !isJumping && !isAttacking && !isInteracting && !isSwapping)
@@ -238,7 +249,6 @@ public class PlayerInputManager : MonoBehaviour
             stateManager.PushState(PlayerStateType.WeaponSwap);
         }
     }
-
     public void SetIsDashing(bool value)
     {
         isDashing = value;
@@ -255,18 +265,4 @@ public class PlayerInputManager : MonoBehaviour
     {
         isInteracting = value;
     }
-
-
-
-    public void MovingWhileAttacking()
-    {
-        rb.AddForce(playerTransform.forward * 9f, ForceMode.Impulse);
-    }
-
-    public void MovingWhileAttacking_DoubleSwords()
-    {
-        rb.AddForce(playerTransform.forward * 7f, ForceMode.Impulse);
-    }
-
-
 }

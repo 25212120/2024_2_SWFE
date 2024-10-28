@@ -154,6 +154,15 @@ public partial class @PlayerMovement: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""WeaponSkill"",
+                    ""type"": ""Button"",
+                    ""id"": ""90c5e2dc-600c-46ed-a6ce-c1437d81aadc"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -198,6 +207,17 @@ public partial class @PlayerMovement: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Interaction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""aaacc5fd-a0d4-494b-8320-ff363d73f97d"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""WeaponSkill"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -330,6 +350,7 @@ public partial class @PlayerMovement: IInputActionCollection2, IDisposable
         m_PlayerAction_Dash = m_PlayerAction.FindAction("Dash", throwIfNotFound: true);
         m_PlayerAction_Jump = m_PlayerAction.FindAction("Jump", throwIfNotFound: true);
         m_PlayerAction_Interaction = m_PlayerAction.FindAction("Interaction", throwIfNotFound: true);
+        m_PlayerAction_WeaponSkill = m_PlayerAction.FindAction("WeaponSkill", throwIfNotFound: true);
         // Weapon Swap
         m_WeaponSwap = asset.FindActionMap("Weapon Swap", throwIfNotFound: true);
         m_WeaponSwap_SwordAndShield = m_WeaponSwap.FindAction("SwordAndShield", throwIfNotFound: true);
@@ -456,6 +477,7 @@ public partial class @PlayerMovement: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerAction_Dash;
     private readonly InputAction m_PlayerAction_Jump;
     private readonly InputAction m_PlayerAction_Interaction;
+    private readonly InputAction m_PlayerAction_WeaponSkill;
     public struct PlayerActionActions
     {
         private @PlayerMovement m_Wrapper;
@@ -464,6 +486,7 @@ public partial class @PlayerMovement: IInputActionCollection2, IDisposable
         public InputAction @Dash => m_Wrapper.m_PlayerAction_Dash;
         public InputAction @Jump => m_Wrapper.m_PlayerAction_Jump;
         public InputAction @Interaction => m_Wrapper.m_PlayerAction_Interaction;
+        public InputAction @WeaponSkill => m_Wrapper.m_PlayerAction_WeaponSkill;
         public InputActionMap Get() { return m_Wrapper.m_PlayerAction; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -485,6 +508,9 @@ public partial class @PlayerMovement: IInputActionCollection2, IDisposable
             @Interaction.started += instance.OnInteraction;
             @Interaction.performed += instance.OnInteraction;
             @Interaction.canceled += instance.OnInteraction;
+            @WeaponSkill.started += instance.OnWeaponSkill;
+            @WeaponSkill.performed += instance.OnWeaponSkill;
+            @WeaponSkill.canceled += instance.OnWeaponSkill;
         }
 
         private void UnregisterCallbacks(IPlayerActionActions instance)
@@ -501,6 +527,9 @@ public partial class @PlayerMovement: IInputActionCollection2, IDisposable
             @Interaction.started -= instance.OnInteraction;
             @Interaction.performed -= instance.OnInteraction;
             @Interaction.canceled -= instance.OnInteraction;
+            @WeaponSkill.started -= instance.OnWeaponSkill;
+            @WeaponSkill.performed -= instance.OnWeaponSkill;
+            @WeaponSkill.canceled -= instance.OnWeaponSkill;
         }
 
         public void RemoveCallbacks(IPlayerActionActions instance)
@@ -616,6 +645,7 @@ public partial class @PlayerMovement: IInputActionCollection2, IDisposable
         void OnDash(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnInteraction(InputAction.CallbackContext context);
+        void OnWeaponSkill(InputAction.CallbackContext context);
     }
     public interface IWeaponSwapActions
     {

@@ -8,6 +8,6 @@ public enum PlayerStateType
     Attack,
     Interaction,
     WeaponSwap,
+    WeaponSkill,
     //Hit(GetHit)
-    //Defend(DefendHit, Defend)
 }

@@ -15,7 +15,7 @@ public class ArrowProjectile : PlayerProjectileBase
 
     public override void Launch(Vector3 direction, float arrowSpeed)
     {
-        rb.velocity = direction.normalized * arrowSpeed;
+        rb.AddForce(direction * arrowSpeed, ForceMode.VelocityChange);
         rb.isKinematic = false;
     }
 

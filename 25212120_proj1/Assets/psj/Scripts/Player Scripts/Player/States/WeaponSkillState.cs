@@ -9,7 +9,6 @@ public class WeaponSkillState : BaseState<PlayerStateType>
     private Rigidbody rb;
     private MonoBehaviour monoBehaviour;
 
-
     public WeaponSkillState(PlayerStateType key, StateManager<PlayerStateType> stateManager, PlayerInputManager inputManager, Rigidbody rb, Animator animator, Transform playerTransform, MonoBehaviour monoBehaviour)
             : base(key, stateManager)
     {
@@ -90,6 +89,7 @@ public class WeaponSkillState : BaseState<PlayerStateType>
             case 1:
                 if (stateInfo.IsTag("WeaponSkill") && stateInfo.normalizedTime >= 1.0f)
                 {
+                    playerInputManager.wantToCheckGround = true;
                     animator.SetTrigger("finishedWeaponSkill");
                     stateManager.PopState();
                 }
@@ -97,7 +97,6 @@ public class WeaponSkillState : BaseState<PlayerStateType>
             case 2:
                 if (stateInfo.IsTag("WeaponSkill") && stateInfo.normalizedTime > 0.95f)
                 {
-                    playerInputManager.wantToCheckGround = true;
                     animator.SetTrigger("finishedWeaponSkill");
                     stateManager.PopState();
                 }

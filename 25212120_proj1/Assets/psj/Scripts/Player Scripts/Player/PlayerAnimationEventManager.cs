@@ -5,10 +5,10 @@ using UnityEngine;
 
 public class PlayerAnimationEventManager : MonoBehaviour
 {
-    public Rigidbody rb;
-    public PlayerInputManager playerInputManager;
-    public Transform playerTransform;
-    public Animator animator;
+    private Rigidbody rb;
+    private PlayerInputManager playerInputManager;
+    private Transform playerTransform;
+    private Animator animator;
 
     private void Awake()
     {
@@ -41,7 +41,7 @@ public class PlayerAnimationEventManager : MonoBehaviour
     public void JumpAttackEnd()
     {
         rb.useGravity = true;
-        rb.AddForce(playerTransform.up * -15f, ForceMode.Impulse);
+        rb.AddForce(playerTransform.up * -30f, ForceMode.Impulse);
     }
     public void DisableWeapon()
     {

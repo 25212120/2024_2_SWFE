@@ -8778,9 +8778,11 @@ MonoBehaviour:
   currentLeftHandIndex: 0
   previousRightHandIndex: 0
   previousLeftHandIndex: 0
+  wantToCheckGround: 1
   moveInput: {x: 0, y: 0}
   leftShiftKey_Pressed: 0
   leftButton_Pressed: 0
+  chargeInput: 0
   F_Key_Pressed: 0
   isDashing: 0
   isJumping: 0
@@ -8817,7 +8819,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f19ac46f451a3e43b33c997a854afe9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isPerformingAction: 0
 --- !u!1 &6048773443557982163
 GameObject:
   m_ObjectHideFlags: 0
@@ -9032,6 +9033,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   arrowPrefab: {fileID: 1741976954598634, guid: 0b4d6e6588c1a6b428caa399b1ceb9a9, type: 3}
+  bigArrowPrefab: {fileID: 1741976954598634, guid: e5af00fab3239ab4ab3e54f6f3d4e731, type: 3}
   arrowSpawnPoint: {fileID: 356509891}
 --- !u!1 &6048773443557982175
 GameObject:

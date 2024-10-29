@@ -15,7 +15,7 @@ public class PlayerCoolDownManager : MonoBehaviour
     private float weaponSkillCoolTime_SwordShield = 6f;
     private float weaponSkillCoolTime_SingleTwoHandSword = 6f;
     private float weaponSkillCoolTime_DoubleSwords = 3f;
-    private float weaponSkillCoolTime_Bow = 3f;
+    private float weaponSkillCoolTime_Bow = 12f;
 
     public bool CanDash()
     {

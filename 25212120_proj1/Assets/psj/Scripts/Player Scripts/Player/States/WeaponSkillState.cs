@@ -22,6 +22,9 @@ public class WeaponSkillState : BaseState<PlayerStateType>
 
     private bool finishedWeaponSkill = false;
 
+    private float chargeTime = 2f;
+    private float chargedTime = 0f;
+
     public override void EnterState()
     {
         PerformWeaponSkill(playerInputManager.currentRightHandIndex);
@@ -29,6 +32,11 @@ public class WeaponSkillState : BaseState<PlayerStateType>
 
     public override void UpdateState()
     {
+        if (playerInputManager.currentRightHandIndex == 3)
+        {
+            chargedTime += Time.deltaTime;
+        }
+        if (chargedTime >= chargeTime) Debug.Log("ChargeFinished");
     }
 
     public override void FixedUpdateState()
@@ -38,6 +46,7 @@ public class WeaponSkillState : BaseState<PlayerStateType>
     public override void ExitState()    
     {
         finishedWeaponSkill = false;
+        chargedTime = 0f;
     }
 
     public override void CheckTransitions()
@@ -60,7 +69,7 @@ public class WeaponSkillState : BaseState<PlayerStateType>
                 Rage_DoubleSwords();
                 break;
             case 3:
-                // 활 무기스킬
+                ChargeShot_Bow();
                 break;
         }
     }
@@ -94,14 +103,31 @@ public class WeaponSkillState : BaseState<PlayerStateType>
                 }
                 break;
             case 3:
-                // 활 무기 스킬
+                if (playerInputManager.chargeInput == false)
+                {
+                    if (chargedTime >= chargeTime)
+                    {
+                        // 화살발사
+                        animator.SetTrigger("finishedCharging");
+                    }
+                    if (stateInfo.IsTag("WeaponSkill") && stateInfo.normalizedTime > 0.95f)
+                    {
+                        animator.SetTrigger("finishedWeaponSkill");
+                        stateManager.PopState();
+                    }
+
+                    else
+                    {
+                        animator.SetTrigger("finishedWeaponSkill");
+                        stateManager.PopState();
+                    }
+                }
                 break;
         }
     }
 
     private void Defend_SwordShield()
     {
-        // 애니메이션
         monoBehaviour.StartCoroutine(Defend());
         // 도균이의 전투시스템이 완성될 때 로직 추가
     }
@@ -120,12 +146,13 @@ public class WeaponSkillState : BaseState<PlayerStateType>
 
     private void Rage_DoubleSwords()
     {
-        // 애니메이션
+        // 애니메이션 (이펙트)
+        // 스탯딸깍
     }
 
-/*    private void ()_Bow()
+    private void ChargeShot_Bow()
     {
-
-    }*/
+        // 이펙트
+    }
 
 }

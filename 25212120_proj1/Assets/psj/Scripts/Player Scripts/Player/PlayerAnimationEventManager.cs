@@ -29,6 +29,10 @@ public class PlayerAnimationEventManager : MonoBehaviour
     {
         rb.AddForce(playerTransform.forward * -15f, ForceMode.Impulse);
     }
+    public void ChargedShotBakStep_Bow()
+    {
+        rb.AddForce(playerTransform.forward * -30f, ForceMode.Impulse);
+    }
     public void JumpAttackStart()
     {
         rb.useGravity = false;
@@ -51,7 +55,6 @@ public class PlayerAnimationEventManager : MonoBehaviour
     }
     public void RotatePlayerTowardsMouse()
     {
-        Debug.Log("ROTATED");
         Vector3 mouseWorldPosition = GetMouseWorldPosition();
         Vector3 direction = mouseWorldPosition - playerTransform.position;
         direction.y = 0f;

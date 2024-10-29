@@ -22,6 +22,7 @@ public class PlayerInputManager : MonoBehaviour
 
     [Header("Player Action Inputs")]
     public bool leftButton_Pressed = false;
+    public bool chargeInput = false;
     public bool F_Key_Pressed = false;
 
     // PushState인 경우 is(    )만 만들고 Stata 스크립트 내부적으로 변경
@@ -88,6 +89,8 @@ public class PlayerInputManager : MonoBehaviour
         playerInput.PlayerAction.Attack.performed += OnAttackPerformed;
 
         playerInput.PlayerAction.WeaponSkill.performed += OnWeaponSkillPerformed;
+        playerInput.PlayerAction.Charge.performed += OnChargePerformed;
+        playerInput.PlayerAction.Charge.canceled += OnChargeCanceled;
 
         playerInput.PlayerAction.Interaction.performed += OnInteractionPerformed;
 
@@ -112,6 +115,10 @@ public class PlayerInputManager : MonoBehaviour
         playerInput.PlayerAction.Jump.performed -= OnJumpPerformed;
 
         playerInput.PlayerAction.Attack.performed -= OnAttackPerformed;
+
+        playerInput.PlayerAction.WeaponSkill.performed -= OnWeaponSkillPerformed;
+        playerInput.PlayerAction.Charge.performed -= OnChargePerformed;
+        playerInput.PlayerAction.Charge.canceled -= OnChargeCanceled;
 
         playerInput.PlayerAction.Interaction.performed -= OnInteractionPerformed;
 
@@ -205,9 +212,25 @@ public class PlayerInputManager : MonoBehaviour
     {
         if (playerCoolDown.CanUseWeaponSkill(currentRightHandIndex) && !isJumping && !isDashing && isGrounded && !isInteracting && !isSwapping && !isAttacking)
         {
+            if (currentLeftHandIndex != 3)
+            {
+                stateManager.PushState(PlayerStateType.WeaponSkill);
+                animator.SetTrigger("rightButton_Pressed");
+            }
+        }
+    }
+    private void OnChargePerformed(InputAction.CallbackContext ctx)
+    {
+        if (currentLeftHandIndex == 3)
+        {
+            chargeInput = true;
             stateManager.PushState(PlayerStateType.WeaponSkill);
             animator.SetTrigger("rightButton_Pressed");
         }
+    }
+    private void OnChargeCanceled(InputAction.CallbackContext ctx)
+    {
+        if (currentLeftHandIndex == 3)  chargeInput = false;
     }
     private void OnInteractionPerformed(InputAction.CallbackContext ctx)
     {
@@ -216,7 +239,6 @@ public class PlayerInputManager : MonoBehaviour
             stateManager.PushState(PlayerStateType.Interaction);
         }
     }
-
     private void OnSwapToSwordAndSheildPerformed(InputAction.CallbackContext ctx)
     {
         if (!isDashing && isGrounded && !isJumping && !isAttacking && !isInteracting && !isSwapping)

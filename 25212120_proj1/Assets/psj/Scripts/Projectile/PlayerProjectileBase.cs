@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class ProjectileBase : MonoBehaviour
+public abstract class PlayerProjectileBase : MonoBehaviour
 {
     public float lifetime = 10f;
     public Rigidbody rb;

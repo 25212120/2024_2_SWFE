@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ArrowProjectile : ProjectileBase
+public class ArrowProjectile : PlayerProjectileBase
 {
     public Transform arrowSpawnPoint;
 

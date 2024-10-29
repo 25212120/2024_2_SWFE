@@ -21,7 +21,7 @@ public class DashState : BaseState<PlayerStateType>
 
     public override void EnterState()
     {
-        playerInputManager.SetIsDashing(true);
+        playerInputManager.isPeformingAction = true;
         SetDashDirection();
         RotatePlayer();
         animator.SetTrigger("Q_Key_Pressed");
@@ -40,7 +40,7 @@ public class DashState : BaseState<PlayerStateType>
 
     public override void ExitState()
     {
-        playerInputManager.SetIsDashing(false);
+        playerInputManager.isPeformingAction = false;
         animator.SetTrigger("finishedDashing");
     }
 

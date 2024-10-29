@@ -7,12 +7,14 @@ public class PlayerInputManager : MonoBehaviour
     [SerializeField] public GameObject[] rightHand_Weapons;
     [SerializeField] public GameObject[] leftHand_Weapons;
     [SerializeField] public RuntimeAnimatorController[] player_animControllers;
+    public Queue<string> inputQueue = new Queue<string>();
     public int IndexSwapTo = 0;
     public int currentRightHandIndex;
     public int currentLeftHandIndex;
     public int previousRightHandIndex;
     public int previousLeftHandIndex;
 
+    // CheckGround를 호출여부를 결정할 수 있음
     public bool wantToCheckGround = true;
 
     // ChangeState인 경우 (  )Key_Pressed 변수를 설정하고 is(   )는 State 스크립트 내부적으로 변경
@@ -27,13 +29,9 @@ public class PlayerInputManager : MonoBehaviour
 
     // PushState인 경우 is(    )만 만들고 Stata 스크립트 내부적으로 변경
     [Header("Player Action Handlers")]
-    public bool isDashing = false;
-    public bool isJumping = false;
     public bool isGrounded = true;
     public bool isAttacking = false;
-    public bool isInteracting = false;
-    public bool isSwapping = false;
-    // 이후 isPerformingAction으로 묶어버릴 생각임
+    public bool isPeformingAction = false;
 
 
     private Rigidbody rb;
@@ -99,7 +97,6 @@ public class PlayerInputManager : MonoBehaviour
         playerInput.WeaponSwap.DoubleSwords.performed += OnSwapToDoubleSwordsPerformed;
         playerInput.WeaponSwap.BowAndArrow.performed += OnSwapToBowAndArrowPerformed;
     }
-
     private void OnDisable()
     {
         playerInput.Disable();
@@ -127,6 +124,7 @@ public class PlayerInputManager : MonoBehaviour
         playerInput.WeaponSwap.DoubleSwords.performed -= OnSwapToDoubleSwordsPerformed;
         playerInput.WeaponSwap.BowAndArrow.performed -= OnSwapToSwordAndSheildPerformed;
     }
+
     private void GroundCheck()
     {
         RaycastHit hit;
@@ -140,7 +138,7 @@ public class PlayerInputManager : MonoBehaviour
             {
                 if (isGrounded == false)
                 {
-                    SetIsGrounded(true);
+                    isGrounded = true;
                     animator.SetBool("isInAir", false);
                 }
             }
@@ -149,7 +147,7 @@ public class PlayerInputManager : MonoBehaviour
         {
             if (isGrounded)
             {
-                SetIsGrounded(false);
+                isGrounded = false;
                 animator.SetBool("isInAir", true);
             }
         }
@@ -176,24 +174,22 @@ public class PlayerInputManager : MonoBehaviour
     }
     private void OnDashPerformed(InputAction.CallbackContext ctx)
     {
-        if (!isDashing && playerCoolDown.CanDash() && isGrounded && !isJumping && !isAttacking && !isInteracting && !isSwapping)
+        if (playerCoolDown.CanDash() && isGrounded && !isPeformingAction && !isAttacking)
         {
             stateManager.PushState(PlayerStateType.Dash);
         }
     } 
     private void OnJumpPerformed(InputAction.CallbackContext ctx)
     {
-        if (!isJumping && !isDashing && isGrounded && !isAttacking && !isInteracting && !isSwapping)
+        if (isGrounded && !isPeformingAction && !isAttacking)
         {
             stateManager.PushState(PlayerStateType.Jump);
         }
     }
-
-    public Queue<string> inputQueue = new Queue<string>();
     private void OnAttackPerformed(InputAction.CallbackContext ctx)
     {
 
-        if (!isJumping && !isDashing && isGrounded && !isInteracting && !isSwapping)
+        if (isGrounded && !isPeformingAction)
         {
             leftButton_Pressed = true;
 
@@ -210,7 +206,7 @@ public class PlayerInputManager : MonoBehaviour
     }
     private void OnWeaponSkillPerformed(InputAction.CallbackContext ctx)
     {
-        if (playerCoolDown.CanUseWeaponSkill(currentRightHandIndex) && !isJumping && !isDashing && isGrounded && !isInteracting && !isSwapping && !isAttacking)
+        if (playerCoolDown.CanUseWeaponSkill(currentRightHandIndex) && isGrounded && !isPeformingAction)
         {
             if (currentLeftHandIndex != 3)
             {
@@ -234,14 +230,14 @@ public class PlayerInputManager : MonoBehaviour
     }
     private void OnInteractionPerformed(InputAction.CallbackContext ctx)
     {
-        if (!isDashing && isGrounded && !isJumping && !isAttacking && !isInteracting && !isSwapping)
+        if (isGrounded && !isPeformingAction && !isAttacking)
         {
             stateManager.PushState(PlayerStateType.Interaction);
         }
     }
     private void OnSwapToSwordAndSheildPerformed(InputAction.CallbackContext ctx)
     {
-        if (!isDashing && isGrounded && !isJumping && !isAttacking && !isInteracting && !isSwapping)
+        if (isGrounded && !isPeformingAction && !isAttacking)
         {
             IndexSwapTo = 0;
             stateManager.PushState(PlayerStateType.WeaponSwap);
@@ -249,7 +245,7 @@ public class PlayerInputManager : MonoBehaviour
     }
     private void OnSwapToSingleTwoHandeSwordPerformed(InputAction.CallbackContext ctx)
     {
-        if (!isDashing && isGrounded && !isJumping && !isAttacking && !isInteracting && !isSwapping)
+        if (isGrounded && !isPeformingAction && !isAttacking)
         {
             IndexSwapTo = 1;
             stateManager.PushState(PlayerStateType.WeaponSwap);
@@ -257,7 +253,7 @@ public class PlayerInputManager : MonoBehaviour
     }
     private void OnSwapToDoubleSwordsPerformed(InputAction.CallbackContext ctx)
     {
-        if (!isDashing && isGrounded && !isJumping && !isAttacking && !isInteracting && !isSwapping)
+        if (isGrounded && !isPeformingAction && !isAttacking)
         {
             IndexSwapTo = 2;
             stateManager.PushState(PlayerStateType.WeaponSwap);
@@ -265,26 +261,10 @@ public class PlayerInputManager : MonoBehaviour
     }
     private void OnSwapToBowAndArrowPerformed(InputAction.CallbackContext ctx)
     {
-        if (!isDashing && isGrounded && !isJumping && !isAttacking && !isInteracting && !isSwapping)
+        if (isGrounded && !isPeformingAction && !isAttacking)
         {
             IndexSwapTo = 3;
             stateManager.PushState(PlayerStateType.WeaponSwap);
         }
-    }
-    public void SetIsDashing(bool value)
-    {
-        isDashing = value;
-    }
-    public void SetIsJumping(bool value)
-    {
-        isJumping = value;
-    }
-    public void SetIsGrounded(bool value)
-    {
-        isGrounded = value;
-    }
-    public void SetIsInteracting(bool value)
-    {
-        isInteracting = value;
     }
 }

@@ -34,6 +34,7 @@ public class WeaponSkillState : BaseState<PlayerStateType>
         if (playerInputManager.currentRightHandIndex == 3)
         {
             chargedTime += Time.deltaTime;
+            RotatePlayerTowardsMouse();
         }
         if (chargedTime >= chargeTime) Debug.Log("ChargeFinished");
     }
@@ -154,4 +155,33 @@ public class WeaponSkillState : BaseState<PlayerStateType>
         // ÀÌÆåÆ®
     }
 
+
+    public void RotatePlayerTowardsMouse()
+    {
+        Vector3 mouseWorldPosition = GetMouseWorldPosition();
+        Vector3 direction = mouseWorldPosition - playerTransform.position;
+        direction.y = 0f;
+
+        if (direction.sqrMagnitude > 0.01f)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(direction);
+            float rotationSpeed = 50f;
+            playerTransform.rotation = Quaternion.Slerp(rb.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+        }
+    }
+    public Vector3 GetMouseWorldPosition()
+    {
+        if (Camera.main == null)
+        {
+            return Vector3.zero;
+        }
+
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, LayerMask.GetMask("Environment")))
+        {
+            return hit.point;
+        }
+
+        return Vector3.zero;
+    }
 }

@@ -20,7 +20,7 @@ public class InteractionState : BaseState<PlayerStateType>
     public override void EnterState()
     {
         animator.SetTrigger("F_Key_Pressed");
-        playerInputManager.SetIsInteracting(true);
+        playerInputManager.isPeformingAction = true;
     }
 
     public override void UpdateState()
@@ -35,7 +35,7 @@ public class InteractionState : BaseState<PlayerStateType>
     {
         // Interaction Logics
         animator.SetTrigger("finishedInteracting");
-        playerInputManager.SetIsInteracting(false);
+        playerInputManager.isPeformingAction = true;
         animator.ResetTrigger("F_Key_Pressed");
     }
 

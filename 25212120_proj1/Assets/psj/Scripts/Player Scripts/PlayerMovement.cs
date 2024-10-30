@@ -350,6 +350,34 @@ public partial class @PlayerMovement: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""PlayerMagic"",
+            ""id"": ""9850ee9d-e789-4821-8633-fd2a6ce4b7cf"",
+            ""actions"": [
+                {
+                    ""name"": ""MagicTest"",
+                    ""type"": ""Button"",
+                    ""id"": ""a4f8d6c7-2ef0-4e31-9db8-b86851b9b46a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""cec5e789-530a-44b6-b52c-116379fcf940"",
+                    ""path"": ""<Keyboard>/t"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MagicTest"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -379,6 +407,9 @@ public partial class @PlayerMovement: IInputActionCollection2, IDisposable
         m_WeaponSwap_DoubleSwords = m_WeaponSwap.FindAction("DoubleSwords", throwIfNotFound: true);
         m_WeaponSwap_BowAndArrow = m_WeaponSwap.FindAction("BowAndArrow", throwIfNotFound: true);
         m_WeaponSwap_MagicWand = m_WeaponSwap.FindAction("MagicWand", throwIfNotFound: true);
+        // PlayerMagic
+        m_PlayerMagic = asset.FindActionMap("PlayerMagic", throwIfNotFound: true);
+        m_PlayerMagic_MagicTest = m_PlayerMagic.FindAction("MagicTest", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -654,6 +685,52 @@ public partial class @PlayerMovement: IInputActionCollection2, IDisposable
         }
     }
     public WeaponSwapActions @WeaponSwap => new WeaponSwapActions(this);
+
+    // PlayerMagic
+    private readonly InputActionMap m_PlayerMagic;
+    private List<IPlayerMagicActions> m_PlayerMagicActionsCallbackInterfaces = new List<IPlayerMagicActions>();
+    private readonly InputAction m_PlayerMagic_MagicTest;
+    public struct PlayerMagicActions
+    {
+        private @PlayerMovement m_Wrapper;
+        public PlayerMagicActions(@PlayerMovement wrapper) { m_Wrapper = wrapper; }
+        public InputAction @MagicTest => m_Wrapper.m_PlayerMagic_MagicTest;
+        public InputActionMap Get() { return m_Wrapper.m_PlayerMagic; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(PlayerMagicActions set) { return set.Get(); }
+        public void AddCallbacks(IPlayerMagicActions instance)
+        {
+            if (instance == null || m_Wrapper.m_PlayerMagicActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_PlayerMagicActionsCallbackInterfaces.Add(instance);
+            @MagicTest.started += instance.OnMagicTest;
+            @MagicTest.performed += instance.OnMagicTest;
+            @MagicTest.canceled += instance.OnMagicTest;
+        }
+
+        private void UnregisterCallbacks(IPlayerMagicActions instance)
+        {
+            @MagicTest.started -= instance.OnMagicTest;
+            @MagicTest.performed -= instance.OnMagicTest;
+            @MagicTest.canceled -= instance.OnMagicTest;
+        }
+
+        public void RemoveCallbacks(IPlayerMagicActions instance)
+        {
+            if (m_Wrapper.m_PlayerMagicActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IPlayerMagicActions instance)
+        {
+            foreach (var item in m_Wrapper.m_PlayerMagicActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_PlayerMagicActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public PlayerMagicActions @PlayerMagic => new PlayerMagicActions(this);
     private int m_PCSchemeIndex = -1;
     public InputControlScheme PCScheme
     {
@@ -684,5 +761,9 @@ public partial class @PlayerMovement: IInputActionCollection2, IDisposable
         void OnDoubleSwords(InputAction.CallbackContext context);
         void OnBowAndArrow(InputAction.CallbackContext context);
         void OnMagicWand(InputAction.CallbackContext context);
+    }
+    public interface IPlayerMagicActions
+    {
+        void OnMagicTest(InputAction.CallbackContext context);
     }
 }

@@ -328,6 +328,34 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "PlayerMagic",
+            "id": "9850ee9d-e789-4821-8633-fd2a6ce4b7cf",
+            "actions": [
+                {
+                    "name": "MagicTest",
+                    "type": "Button",
+                    "id": "a4f8d6c7-2ef0-4e31-9db8-b86851b9b46a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "cec5e789-530a-44b6-b52c-116379fcf940",
+                    "path": "<Keyboard>/t",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MagicTest",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [

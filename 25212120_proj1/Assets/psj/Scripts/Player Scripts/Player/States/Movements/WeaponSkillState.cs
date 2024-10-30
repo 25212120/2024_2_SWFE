@@ -156,7 +156,7 @@ public class WeaponSkillState : BaseState<PlayerStateType>
     }
 
 
-    public void RotatePlayerTowardsMouse()
+    private void RotatePlayerTowardsMouse()
     {
         Vector3 mouseWorldPosition = GetMouseWorldPosition();
         Vector3 direction = mouseWorldPosition - playerTransform.position;
@@ -169,7 +169,7 @@ public class WeaponSkillState : BaseState<PlayerStateType>
             playerTransform.rotation = Quaternion.Slerp(rb.rotation, targetRotation, rotationSpeed * Time.deltaTime);
         }
     }
-    public Vector3 GetMouseWorldPosition()
+    private Vector3 GetMouseWorldPosition()
     {
         if (Camera.main == null)
         {

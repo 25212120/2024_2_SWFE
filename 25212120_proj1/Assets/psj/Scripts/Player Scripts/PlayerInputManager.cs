@@ -7,6 +7,8 @@ public class PlayerInputManager : MonoBehaviour
     [SerializeField] public GameObject[] rightHand_Weapons;
     [SerializeField] public GameObject[] leftHand_Weapons;
     [SerializeField] public RuntimeAnimatorController[] player_animControllers;
+    [SerializeField] public GameObject[] magicRangeSprites;
+    public GameObject magicRangeSprite;
     public Queue<string> inputQueue = new Queue<string>();
     public int IndexSwapTo = 0;
     public int currentRightHandIndex;
@@ -24,15 +26,14 @@ public class PlayerInputManager : MonoBehaviour
 
     [Header("Player Action Inputs")]
     public bool leftButton_Pressed = false;
+    public bool magicInput = false;
     public bool chargeInput = false;
-    public bool F_Key_Pressed = false;
 
     // PushState인 경우 is(    )만 만들고 Stata 스크립트 내부적으로 변경
     [Header("Player Action Handlers")]
     public bool isGrounded = true;
     public bool isAttacking = false;
     public bool isPeformingAction = false;
-
 
     private Rigidbody rb;
     private Animator animator;
@@ -41,6 +42,8 @@ public class PlayerInputManager : MonoBehaviour
     private PlayerCoolDownManager playerCoolDown;
 
     private StateManager<PlayerStateType> stateManager;
+
+    public GameObject dim;
 
     private void Awake()
     {
@@ -59,8 +62,8 @@ public class PlayerInputManager : MonoBehaviour
 
     private void Update()
     {
+        //Debug.Log("LeftButton_Pressed : " + leftButton_Pressed);
         leftButton_Pressed = false;
-        F_Key_Pressed = false;
     }
     private void FixedUpdate()
     {
@@ -96,6 +99,8 @@ public class PlayerInputManager : MonoBehaviour
         playerInput.WeaponSwap.SingleTwoHandeSword.performed += OnSwapToSingleTwoHandeSwordPerformed;
         playerInput.WeaponSwap.DoubleSwords.performed += OnSwapToDoubleSwordsPerformed;
         playerInput.WeaponSwap.BowAndArrow.performed += OnSwapToBowAndArrowPerformed;
+
+        playerInput.PlayerMagic.MagicTest.performed += OnMagicTest;
     }
     private void OnDisable()
     {
@@ -123,6 +128,8 @@ public class PlayerInputManager : MonoBehaviour
         playerInput.WeaponSwap.SingleTwoHandeSword.performed -= OnSwapToSingleTwoHandeSwordPerformed;
         playerInput.WeaponSwap.DoubleSwords.performed -= OnSwapToDoubleSwordsPerformed;
         playerInput.WeaponSwap.BowAndArrow.performed -= OnSwapToSwordAndSheildPerformed;
+
+        playerInput.PlayerMagic.MagicTest.performed -= OnMagicTest;
     }
 
     private void GroundCheck()
@@ -154,11 +161,13 @@ public class PlayerInputManager : MonoBehaviour
     }
     private void OnMovePerformed(InputAction.CallbackContext ctx)
     {
-            moveInput = ctx.ReadValue<Vector2>();
-            animator.SetBool("moveInput", true);
+        if (isPeformingAction) return;
+        moveInput = ctx.ReadValue<Vector2>();
+        animator.SetBool("moveInput", true);
     }
     private void OnMoveCanceled(InputAction.CallbackContext ctx)
     {
+        if (isPeformingAction) return;
         moveInput = Vector2.zero;
         animator.SetBool("moveInput", false);
     }
@@ -265,6 +274,15 @@ public class PlayerInputManager : MonoBehaviour
         {
             IndexSwapTo = 3;
             stateManager.PushState(PlayerStateType.WeaponSwap);
+        }
+    }
+
+
+    private void OnMagicTest(InputAction.CallbackContext ctx)
+    {
+        if (isGrounded && !isPeformingAction && !isAttacking)
+        {
+            stateManager.PushState(PlayerStateType.Scope_MagicState);
         }
     }
 }

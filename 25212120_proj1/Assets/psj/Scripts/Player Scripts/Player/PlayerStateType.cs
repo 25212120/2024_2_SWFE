@@ -9,5 +9,6 @@ public enum PlayerStateType
     Interaction,
     WeaponSwap,
     WeaponSkill,
+    Scope_MagicState,
     //Hit(GetHit)
 }

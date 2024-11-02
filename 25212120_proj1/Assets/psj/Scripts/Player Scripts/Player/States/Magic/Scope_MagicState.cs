@@ -6,16 +6,18 @@ public class Scope_MagicState : BaseState<PlayerStateType>
 {
     private Transform playerTransform;
     private PlayerInputManager playerInputManager;
+    private Animator animator;
     private MonoBehaviour monoBehaviour;
 
     public CinemachineVirtualCamera virtualCamera;
 
-    public Scope_MagicState(PlayerStateType key, StateManager<PlayerStateType> stateManager, PlayerInputManager inputManager, Transform playerTransform, MonoBehaviour monoBehaviour)
+    public Scope_MagicState(PlayerStateType key, StateManager<PlayerStateType> stateManager, PlayerInputManager inputManager, Transform playerTransform, MonoBehaviour monoBehaviour, Animator animator)
             : base(key, stateManager)
     {
         this.playerTransform = playerTransform;
         this.playerInputManager = inputManager;
         this.monoBehaviour = monoBehaviour;
+        this.animator = animator;
     }
 
     private GameObject rangeSprite;
@@ -25,6 +27,8 @@ public class Scope_MagicState : BaseState<PlayerStateType>
 
     public override void EnterState()
     {
+        playerInputManager.moveInput = Vector2.zero;
+        animator.SetBool("moveInput", false);
         playerInputManager.isPeformingAction = true;
 
         overlayObject = playerInputManager.dim;
@@ -37,6 +41,7 @@ public class Scope_MagicState : BaseState<PlayerStateType>
 
     public override void UpdateState()
     {
+
     }
 
     public override void FixedUpdateState()
@@ -60,12 +65,12 @@ public class Scope_MagicState : BaseState<PlayerStateType>
             playerInputManager.isPeformingAction = false;
             stateManager.PopState();
         }
-/*        if (Input.GetKeyDown(KeyCode.T))
+        else if (Input.GetKeyDown(KeyCode.Escape))
         {
             playerInputManager.isPeformingAction = false;
             Debug.Log("Magic Canceled");
             stateManager.PopState();
-        }*/
+        }
     }
     private void SpriteFollowCursor()
     {

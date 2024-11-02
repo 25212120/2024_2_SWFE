@@ -21,6 +21,22 @@ public class DashState : BaseState<PlayerStateType>
 
     public override void EnterState()
     {
+        switch (playerInputManager.currentRightHandIndex)
+        {
+            case 0:
+                dashForce = 30f;
+                break;
+            case 1:
+                dashForce = 20f;
+                break;
+            case 2:
+                dashForce = 20f;
+                break;
+            case 3:
+                dashForce = 40f;
+                break;
+        }
+
         playerInputManager.isPeformingAction = true;
         SetDashDirection();
         RotatePlayer();
@@ -57,7 +73,7 @@ public class DashState : BaseState<PlayerStateType>
     // DashState Logic
 
     private Vector3 dashDirection;
-    private float dashForce = 30f;
+    private float dashForce;
     private float rotationSpeed = 100f;
 
     private void SetDashDirection()

@@ -183,7 +183,7 @@ public class PlayerInputManager : MonoBehaviour
     }
     private void OnDashPerformed(InputAction.CallbackContext ctx)
     {
-        if (playerCoolDown.CanDash() && isGrounded && !isPeformingAction && !isAttacking)
+        if (playerCoolDown.CanDash(currentRightHandIndex) && isGrounded && !isPeformingAction && !isAttacking)
         {
             stateManager.PushState(PlayerStateType.Dash);
         }

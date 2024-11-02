@@ -32,7 +32,7 @@ public class PlayerStateMachine : StateManager<PlayerStateType>
         States.Add(PlayerStateType.Interaction, new InteractionState(PlayerStateType.Interaction, this, playerInputManager, rb, animator, playerTransform));
         States.Add(PlayerStateType.WeaponSwap, new WeaponSwapState(PlayerStateType.WeaponSwap, this, playerInputManager, animator));
         States.Add(PlayerStateType.WeaponSkill, new WeaponSkillState(PlayerStateType.WeaponSkill, this, playerInputManager, rb, animator,playerTransform, monoBehaviour));
-        States.Add(PlayerStateType.Scope_MagicState, new Scope_MagicState(PlayerStateType.Scope_MagicState, this, playerInputManager, playerTransform, monoBehaviour));
+        States.Add(PlayerStateType.Scope_MagicState, new Scope_MagicState(PlayerStateType.Scope_MagicState, this, playerInputManager, playerTransform, monoBehaviour, animator));
         // 상태들 전부 추가
 
         PushState(PlayerStateType.Idle);

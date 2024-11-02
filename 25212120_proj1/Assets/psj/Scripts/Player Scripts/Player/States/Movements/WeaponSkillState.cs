@@ -26,6 +26,7 @@ public class WeaponSkillState : BaseState<PlayerStateType>
 
     public override void EnterState()
     {
+        playerInputManager.isPeformingAction = true;
         PerformWeaponSkill(playerInputManager.currentRightHandIndex);
     }
 
@@ -84,14 +85,17 @@ public class WeaponSkillState : BaseState<PlayerStateType>
                 if (stateInfo.IsTag("WeaponSkill") && finishedWeaponSkill == true)
                 {
                     animator.SetTrigger("finishedWeaponSkill");
+                    playerInputManager.isPeformingAction = false;
                     stateManager.PopState();
                 }
                 break;
             case 1:
-                if (stateInfo.IsTag("WeaponSkill") && stateInfo.normalizedTime >= 1.0f)
+                if (stateInfo.IsTag("WeaponSkill") && stateInfo.normalizedTime >= 0.95f)
                 {
                     playerInputManager.wantToCheckGround = true;
                     animator.SetTrigger("finishedWeaponSkill");
+                    playerInputManager.isPeformingAction = false;
+
                     stateManager.PopState();
                 }
                 break;
@@ -99,6 +103,8 @@ public class WeaponSkillState : BaseState<PlayerStateType>
                 if (stateInfo.IsTag("WeaponSkill") && stateInfo.normalizedTime > 0.95f)
                 {
                     animator.SetTrigger("finishedWeaponSkill");
+                    playerInputManager.isPeformingAction = false;
+
                     stateManager.PopState();
                 }
                 break;
@@ -110,17 +116,20 @@ public class WeaponSkillState : BaseState<PlayerStateType>
                         // 화살발사
                         animator.SetTrigger("finishedCharging");
                     }
-                    if (stateInfo.IsTag("WeaponSkill") && stateInfo.normalizedTime > 0.95f)
+
+                    if (stateInfo.IsTag("WeaponSkill") && stateInfo.normalizedTime >= 0.999f)
                     {
                         animator.SetTrigger("finishedWeaponSkill");
+                        playerInputManager.isPeformingAction = false;
+                        stateManager.PopState();
+                    }
+                    else if (stateInfo.IsTag("Charge") || stateInfo.IsTag("Charge Start"))
+                    {
+                        animator.SetTrigger("finishedWeaponSkill");
+                        playerInputManager.isPeformingAction = false;
                         stateManager.PopState();
                     }
 
-                    else
-                    {
-                        animator.SetTrigger("finishedWeaponSkill");
-                        stateManager.PopState();
-                    }
                 }
                 break;
         }

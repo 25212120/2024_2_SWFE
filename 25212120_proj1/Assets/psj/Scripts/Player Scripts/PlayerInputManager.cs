@@ -161,13 +161,14 @@ public class PlayerInputManager : MonoBehaviour
     }
     private void OnMovePerformed(InputAction.CallbackContext ctx)
     {
-        if (isPeformingAction) return;
-        moveInput = ctx.ReadValue<Vector2>();
-        animator.SetBool("moveInput", true);
+        if (isPeformingAction == false)
+        {
+            moveInput = ctx.ReadValue<Vector2>();
+            animator.SetBool("moveInput", true);
+        }
     }
     private void OnMoveCanceled(InputAction.CallbackContext ctx)
     {
-        if (isPeformingAction) return;
         moveInput = Vector2.zero;
         animator.SetBool("moveInput", false);
     }

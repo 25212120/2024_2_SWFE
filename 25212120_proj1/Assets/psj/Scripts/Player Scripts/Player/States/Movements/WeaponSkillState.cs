@@ -117,7 +117,7 @@ public class WeaponSkillState : BaseState<PlayerStateType>
                         animator.SetTrigger("finishedCharging");
                     }
 
-                    if (stateInfo.IsTag("WeaponSkill") && stateInfo.normalizedTime >= 0.999f)
+                    if (stateInfo.IsTag("WeaponSkill") && stateInfo.normalizedTime >= 0.99f)
                     {
                         animator.SetTrigger("finishedWeaponSkill");
                         playerInputManager.isPeformingAction = false;

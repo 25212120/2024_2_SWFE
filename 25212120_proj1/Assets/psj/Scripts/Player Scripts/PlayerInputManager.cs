@@ -1,8 +1,22 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections.Generic;
 
 public class PlayerInputManager : MonoBehaviour
 {
+    [SerializeField] public GameObject[] rightHand_Weapons;
+    [SerializeField] public GameObject[] leftHand_Weapons;
+    [SerializeField] public RuntimeAnimatorController[] player_animControllers;
+    public Queue<string> inputQueue = new Queue<string>();
+    public int IndexSwapTo = 0;
+    public int currentRightHandIndex;
+    public int currentLeftHandIndex;
+    public int previousRightHandIndex;
+    public int previousLeftHandIndex;
+
+    // CheckGround를 호출여부를 결정할 수 있음
+    public bool wantToCheckGround = true;
+
     // ChangeState인 경우 (  )Key_Pressed 변수를 설정하고 is(   )는 State 스크립트 내부적으로 변경
     [Header("Player Movement Inputs")]
     public Vector2 moveInput;
@@ -10,14 +24,14 @@ public class PlayerInputManager : MonoBehaviour
 
     [Header("Player Action Inputs")]
     public bool leftButton_Pressed = false;
+    public bool chargeInput = false;
+    public bool F_Key_Pressed = false;
 
     // PushState인 경우 is(    )만 만들고 Stata 스크립트 내부적으로 변경
     [Header("Player Action Handlers")]
-    public bool isDashing = false;
-    public bool isJumping = false;
     public bool isGrounded = true;
     public bool isAttacking = false;
-    // 이후 isPerformingAction으로 묶어버릴 생각임
+    public bool isPeformingAction = false;
 
 
     private Rigidbody rb;
@@ -38,12 +52,22 @@ public class PlayerInputManager : MonoBehaviour
         playerCoolDown = GetComponent<PlayerCoolDownManager>();
 
         stateManager = GetComponent<StateManager<PlayerStateType>>();
+
+        currentRightHandIndex = 0;
+        currentLeftHandIndex = 0;
     }
 
     private void Update()
     {
         leftButton_Pressed = false;
-        Debug.Log(isAttacking);
+        F_Key_Pressed = false;
+    }
+    private void FixedUpdate()
+    {
+        if (wantToCheckGround)
+        {
+            GroundCheck();
+        }
     }
 
     private void OnEnable()
@@ -61,8 +85,18 @@ public class PlayerInputManager : MonoBehaviour
         playerInput.PlayerAction.Jump.performed += OnJumpPerformed;
 
         playerInput.PlayerAction.Attack.performed += OnAttackPerformed;
-    }
 
+        playerInput.PlayerAction.WeaponSkill.performed += OnWeaponSkillPerformed;
+        playerInput.PlayerAction.Charge.performed += OnChargePerformed;
+        playerInput.PlayerAction.Charge.canceled += OnChargeCanceled;
+
+        playerInput.PlayerAction.Interaction.performed += OnInteractionPerformed;
+
+        playerInput.WeaponSwap.SwordAndShield.performed += OnSwapToSwordAndSheildPerformed;
+        playerInput.WeaponSwap.SingleTwoHandeSword.performed += OnSwapToSingleTwoHandeSwordPerformed;
+        playerInput.WeaponSwap.DoubleSwords.performed += OnSwapToDoubleSwordsPerformed;
+        playerInput.WeaponSwap.BowAndArrow.performed += OnSwapToBowAndArrowPerformed;
+    }
     private void OnDisable()
     {
         playerInput.Disable();
@@ -78,12 +112,50 @@ public class PlayerInputManager : MonoBehaviour
         playerInput.PlayerAction.Jump.performed -= OnJumpPerformed;
 
         playerInput.PlayerAction.Attack.performed -= OnAttackPerformed;
+
+        playerInput.PlayerAction.WeaponSkill.performed -= OnWeaponSkillPerformed;
+        playerInput.PlayerAction.Charge.performed -= OnChargePerformed;
+        playerInput.PlayerAction.Charge.canceled -= OnChargeCanceled;
+
+        playerInput.PlayerAction.Interaction.performed -= OnInteractionPerformed;
+
+        playerInput.WeaponSwap.SwordAndShield.performed -= OnSwapToSwordAndSheildPerformed;
+        playerInput.WeaponSwap.SingleTwoHandeSword.performed -= OnSwapToSingleTwoHandeSwordPerformed;
+        playerInput.WeaponSwap.DoubleSwords.performed -= OnSwapToDoubleSwordsPerformed;
+        playerInput.WeaponSwap.BowAndArrow.performed -= OnSwapToSwordAndSheildPerformed;
     }
 
+    private void GroundCheck()
+    {
+        RaycastHit hit;
+        float rayDistance = 0.2f;
+        Vector3 origin = playerTransform.position + Vector3.up * 0.1f;
+
+        if (Physics.Raycast(origin, Vector3.down, out hit, rayDistance))
+        {
+            // 땅에 닿음
+            if (hit.collider != null && hit.collider.CompareTag("Ground"))
+            {
+                if (isGrounded == false)
+                {
+                    isGrounded = true;
+                    animator.SetBool("isInAir", false);
+                }
+            }
+        }
+        else
+        {
+            if (isGrounded)
+            {
+                isGrounded = false;
+                animator.SetBool("isInAir", true);
+            }
+        }
+    }
     private void OnMovePerformed(InputAction.CallbackContext ctx)
     {
-        moveInput = ctx.ReadValue<Vector2>();
-        animator.SetBool("moveInput", true);
+            moveInput = ctx.ReadValue<Vector2>();
+            animator.SetBool("moveInput", true);
     }
     private void OnMoveCanceled(InputAction.CallbackContext ctx)
     {
@@ -102,77 +174,97 @@ public class PlayerInputManager : MonoBehaviour
     }
     private void OnDashPerformed(InputAction.CallbackContext ctx)
     {
-        if (!isDashing && playerCoolDown.CanDash() && isGrounded && !isJumping && !isAttacking)
+        if (playerCoolDown.CanDash() && isGrounded && !isPeformingAction && !isAttacking)
         {
             stateManager.PushState(PlayerStateType.Dash);
         }
-    }
-    public void SetIsDashing(bool value)
-    {
-        isDashing = value;
-    }
+    } 
     private void OnJumpPerformed(InputAction.CallbackContext ctx)
     {
-        if (!isJumping && !isDashing && isGrounded && !isAttacking)
+        if (isGrounded && !isPeformingAction && !isAttacking)
         {
             stateManager.PushState(PlayerStateType.Jump);
         }
     }
-    public void SetIsJumping(bool value)
-    {
-        isJumping = value;
-    }
-    private void FixedUpdate()
-    {
-        GroundCheck();
-    }
-    public void SetIsGrounded(bool value)
-    {
-        isGrounded = value;
-    }
-    private void GroundCheck()
-    {
-        RaycastHit hit;
-        float rayDistance = 0.2f;
-        Vector3 origin = playerTransform.position + Vector3.up * 0.1f;
-
-        if (Physics.Raycast(origin, Vector3.down, out hit, rayDistance))
-        {
-            if (hit.collider != null && hit.collider.CompareTag("Ground"))
-            {
-                if (isGrounded == false)
-                {
-                    SetIsGrounded(true);
-                    animator.SetBool("isInAir", false);
-                }
-            }
-        }
-        else
-        {
-            if (isGrounded)
-            {
-                SetIsGrounded(false);
-                animator.SetBool("isInAir", true);
-            }
-        }
-    }
     private void OnAttackPerformed(InputAction.CallbackContext ctx)
     {
-        if (!isJumping && !isDashing && isGrounded)
+
+        if (isGrounded && !isPeformingAction)
         {
             leftButton_Pressed = true;
-            AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
 
-            if (isAttacking == false)
+            if (!isAttacking)
             {
                 stateManager.PushState(PlayerStateType.Attack);
                 animator.SetTrigger("leftButton_Pressed");
             }
-            else
+            else if (inputQueue.Count < 1)
             {
-                if      (stateInfo.IsName("Combo01_SwordShield"))   animator.SetTrigger("NextCombo");
-                else if (stateInfo.IsName("Combo02_SwordShield"))   animator.SetTrigger("NextCombo");
+                inputQueue.Enqueue("NextCombo");
             }
+        }
+    }
+    private void OnWeaponSkillPerformed(InputAction.CallbackContext ctx)
+    {
+        if (playerCoolDown.CanUseWeaponSkill(currentRightHandIndex) && isGrounded && !isPeformingAction)
+        {
+            if (currentLeftHandIndex != 3)
+            {
+                stateManager.PushState(PlayerStateType.WeaponSkill);
+                animator.SetTrigger("rightButton_Pressed");
+            }
+        }
+    }
+    private void OnChargePerformed(InputAction.CallbackContext ctx)
+    {
+        if (currentLeftHandIndex == 3)
+        {
+            chargeInput = true;
+            stateManager.PushState(PlayerStateType.WeaponSkill);
+            animator.SetTrigger("rightButton_Pressed");
+        }
+    }
+    private void OnChargeCanceled(InputAction.CallbackContext ctx)
+    {
+        if (currentLeftHandIndex == 3)  chargeInput = false;
+    }
+    private void OnInteractionPerformed(InputAction.CallbackContext ctx)
+    {
+        if (isGrounded && !isPeformingAction && !isAttacking)
+        {
+            stateManager.PushState(PlayerStateType.Interaction);
+        }
+    }
+    private void OnSwapToSwordAndSheildPerformed(InputAction.CallbackContext ctx)
+    {
+        if (isGrounded && !isPeformingAction && !isAttacking)
+        {
+            IndexSwapTo = 0;
+            stateManager.PushState(PlayerStateType.WeaponSwap);
+        }
+    }
+    private void OnSwapToSingleTwoHandeSwordPerformed(InputAction.CallbackContext ctx)
+    {
+        if (isGrounded && !isPeformingAction && !isAttacking)
+        {
+            IndexSwapTo = 1;
+            stateManager.PushState(PlayerStateType.WeaponSwap);
+        }
+    }
+    private void OnSwapToDoubleSwordsPerformed(InputAction.CallbackContext ctx)
+    {
+        if (isGrounded && !isPeformingAction && !isAttacking)
+        {
+            IndexSwapTo = 2;
+            stateManager.PushState(PlayerStateType.WeaponSwap);
+        }
+    }
+    private void OnSwapToBowAndArrowPerformed(InputAction.CallbackContext ctx)
+    {
+        if (isGrounded && !isPeformingAction && !isAttacking)
+        {
+            IndexSwapTo = 3;
+            stateManager.PushState(PlayerStateType.WeaponSwap);
         }
     }
 }

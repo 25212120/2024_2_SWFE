@@ -6,5 +6,8 @@ public enum PlayerStateType
     Dash,
     Jump,
     Attack,
-    //Interaction,
+    Interaction,
+    WeaponSwap,
+    WeaponSkill,
+    //Hit(GetHit)
 }

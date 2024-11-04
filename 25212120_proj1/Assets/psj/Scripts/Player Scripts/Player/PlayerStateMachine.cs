@@ -35,6 +35,9 @@ public class PlayerStateMachine : StateManager<PlayerStateType>
         States.Add(PlayerStateType.Scope_MagicState, new Scope_MagicState(PlayerStateType.Scope_MagicState, this, playerInputManager, playerTransform, monoBehaviour, animator));
         // 상태들 전부 추가
 
+        //MagicState
+        States.Add(PlayerStateType.SolarBeam_MagicState, new SolarBeam_MagicState(PlayerStateType.SolarBeam_MagicState, this, playerInputManager, playerTransform, monoBehaviour, animator));
+
         PushState(PlayerStateType.Idle);
 
     }

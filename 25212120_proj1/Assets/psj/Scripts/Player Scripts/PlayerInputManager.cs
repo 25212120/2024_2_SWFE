@@ -19,6 +19,9 @@ public class PlayerInputManager : MonoBehaviour
     // CheckGround를 호출여부를 결정할 수 있음
     public bool wantToCheckGround = true;
 
+    [Header("Magic Spawn Points")]
+    [SerializeField] public Vector3[] magicSpawnPoints;
+
     // ChangeState인 경우 (  )Key_Pressed 변수를 설정하고 is(   )는 State 스크립트 내부적으로 변경
     [Header("Player Movement Inputs")]
     public Vector2 moveInput;
@@ -34,6 +37,8 @@ public class PlayerInputManager : MonoBehaviour
     public bool isGrounded = true;
     public bool isAttacking = false;
     public bool isPeformingAction = false;
+
+    public Vector3 magicPoint;
 
     private Rigidbody rb;
     private Animator animator;

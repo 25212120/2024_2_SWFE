@@ -60,10 +60,14 @@ public class Scope_MagicState : BaseState<PlayerStateType>
     {
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            Debug.Log("Magic Performed");
-            //stateManager.ChangeState(PlayerStateType.FireBall);
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out RaycastHit hitInfo))
+            {
+                playerInputManager.magicPoint = hitInfo.point;
+            }
+
+            stateManager.ChangeState(PlayerStateType.SolarBeam_MagicState);
             playerInputManager.isPeformingAction = false;
-            stateManager.PopState();
         }
         else if (Input.GetKeyDown(KeyCode.Escape))
         {

@@ -36,6 +36,8 @@ public class PlayerStateMachine : StateManager<PlayerStateType>
         // 상태들 전부 추가
 
         //MagicState
+        States.Add(PlayerStateType.FireBall_MagicState, new FireBall_MagicState(PlayerStateType.FireBall_MagicState, this, playerInputManager, playerTransform, monoBehaviour, animator));
+        States.Add(PlayerStateType.Meteor_MagicState, new Meteor_MagicState(PlayerStateType.Meteor_MagicState, this, playerInputManager, playerTransform, monoBehaviour, animator));
         States.Add(PlayerStateType.SolarBeam_MagicState, new SolarBeam_MagicState(PlayerStateType.SolarBeam_MagicState, this, playerInputManager, playerTransform, monoBehaviour, animator));
 
         PushState(PlayerStateType.Idle);

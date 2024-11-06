@@ -51,7 +51,7 @@ public static class Direction
 public class InfiniteWFC : MonoBehaviour
 {
     public Transform player; // 플레이어의 Transform
-    public int tileSize = 20; // 타일 크기
+    public int tileSize = 50; // 타일 크기
     public List<Tile> tileSet; // 사용할 타일 목록
 
     public GameObject tile1Prefab;

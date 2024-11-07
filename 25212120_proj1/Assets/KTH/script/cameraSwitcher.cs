@@ -17,6 +17,10 @@ public class CameraSwitcher : MonoBehaviour
         // 기본 카메라를 가져옴
         topViewCam = GetComponent<Camera>();
 
+        // 카메라를 Orthographic 모드로 설정
+        topViewCam.orthographic = true;
+        topViewCam.orthographicSize = 10f; // 카메라의 줌 크기 (원하는 값으로 조절 가능)
+
         // 탑뷰 모드 시작 시 기본 카메라 위치 설정
         _height = target.position + new Vector3(0, 30, 0); // 기본 높이를 설정
         transform.position = _height;
@@ -26,6 +30,7 @@ public class CameraSwitcher : MonoBehaviour
         shoulderCam.gameObject.SetActive(false);
         topViewCam.enabled = true;
     }
+
 
     void Update()
     {

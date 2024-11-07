@@ -5,15 +5,19 @@ public class HighlightArea : MonoBehaviour
 {
     public float cellSize = 1f; // 그리드 셀 크기
     public int highlightSize = 3; // 강조 영역의 크기 (nxn)
+    public int detailGridResolution = 2; // 강조 영역 내의 세부 그리드 분할 수
     public Material highlightMaterial; // 강조 영역에 적용할 머티리얼
+    public Material ImpossibleMaterial; // 설치 불가 영역에 적용할 머티리얼
     public GameObject turretPrefab; // 포탑 프리팹
 
     private MeshFilter highlightMeshFilter;
+    private MeshRenderer highlightMeshRenderer;
 
     private Vector3 hitPoint;
     private int cellX;
     private int cellZ;
-    private bool isValidHit = false; // 레이캐스트 성공 여부를 추적
+    private bool isValidHit = false; // 레이캐스트 성공 여부
+    private bool isValidPlacement = false; // 배치 가능 여부
 
     private HashSet<Vector2Int> occupiedCells = new HashSet<Vector2Int>(); // 이미 포탑이 배치된 셀들을 추적
 
@@ -41,8 +45,8 @@ public class HighlightArea : MonoBehaviour
     {
         GameObject highlightGO = new GameObject("HighlightArea");
         highlightMeshFilter = highlightGO.AddComponent<MeshFilter>();
-        MeshRenderer meshRenderer = highlightGO.AddComponent<MeshRenderer>();
-        meshRenderer.material = highlightMaterial;
+        highlightMeshRenderer = highlightGO.AddComponent<MeshRenderer>();
+        highlightMeshRenderer.material = new Material(highlightMaterial); // 머티리얼 인스턴스 생성
 
         highlightGO.transform.parent = transform;
     }
@@ -60,10 +64,8 @@ public class HighlightArea : MonoBehaviour
         // 마우스 위치로부터 레이캐스트 생성
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-        // 레이어 마스크 제거 또는 수정
-        // int layerMask = LayerMask.GetMask("Ground"); // 바닥 레이어로 설정
 
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity)) // 레이어 마스크 제거
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity))
         {
             // 그리드 상의 위치 계산
             hitPoint = hit.point;
@@ -71,7 +73,7 @@ public class HighlightArea : MonoBehaviour
             cellX = Mathf.FloorToInt(hitPoint.x / cellSize);
             cellZ = Mathf.FloorToInt(hitPoint.z / cellSize);
 
-            isValidHit = true; // 레이캐스트 성공
+            isValidHit = true;
         }
         else
         {
@@ -99,6 +101,24 @@ public class HighlightArea : MonoBehaviour
             if (highlightMeshFilter != null)
             {
                 highlightMeshFilter.mesh = mesh;
+            }
+
+            // 배치 가능 여부 확인
+            isValidPlacement = CheckPlacementValidity();
+
+            // 강조 영역의 색상 업데이트
+            if (highlightMeshRenderer != null)
+            {
+                if (isValidPlacement)
+                {
+                    // 배치 가능: 녹색
+                    highlightMeshRenderer.material = highlightMaterial;
+                }
+                else
+                {
+                    // 배치 불가: 빨간색
+                    highlightMeshRenderer.material = ImpossibleMaterial;
+                }
             }
         }
         else
@@ -140,24 +160,68 @@ public class HighlightArea : MonoBehaviour
         return mesh;
     }
 
+    bool CheckPlacementValidity()
+    {
+        int halfSize = highlightSize / 2;
+
+        for (int x = cellX - halfSize; x <= cellX + halfSize; x++)
+        {
+            for (int z = cellZ - halfSize; z <= cellZ + halfSize; z++)
+            {
+                Vector2Int cellPos = new Vector2Int(x, z);
+
+                // 셀 점유 상태 확인
+                if (occupiedCells.Contains(cellPos))
+                {
+                    return false; // 이미 점유된 셀이 있음
+                }
+
+                // 셀 중심 좌표 계산
+                Vector3 cellCenter = new Vector3(x * cellSize + cellSize / 2, hitPoint.y + 0.5f, z * cellSize + cellSize / 2);
+                Vector3 halfExtents = new Vector3(cellSize / 2, 0.5f, cellSize / 2);
+
+                // 박스 콜라이더로 검사
+                Collider[] colliders = Physics.OverlapBox(cellCenter, halfExtents, Quaternion.identity);
+
+                foreach (Collider collider in colliders)
+                {
+                    // Ground 태그가 아닌 경우 배치 불가
+                    if (collider.tag != "Ground")
+                    {
+                        return false;
+                    }
+                }
+            }
+        }
+
+        return true; // 모든 지점이 배치 가능함
+    }
+
+
+
     void PlaceTurret()
     {
-        if (!isValidHit)
+        if (!isValidHit || !isValidPlacement)
         {
-            // 마우스가 바닥에 닿지 않은 경우
+            // 배치 불가
             return;
         }
 
-        Vector2Int cellPosition = new Vector2Int(cellX, cellZ);
+        // 강조 영역의 범위 계산
+        int halfSize = highlightSize / 2;
 
-        // 해당 셀이 이미 점유되었는지 확인
-        if (occupiedCells.Contains(cellPosition))
+        List<Vector2Int> cellsToOccupy = new List<Vector2Int>();
+
+        for (int x = cellX - halfSize; x <= cellX + halfSize; x++)
         {
-            Debug.Log("이 셀에는 이미 포탑이 배치되어 있습니다.");
-            return;
+            for (int z = cellZ - halfSize; z <= cellZ + halfSize; z++)
+            {
+                Vector2Int cellPos = new Vector2Int(x, z);
+                cellsToOccupy.Add(cellPos);
+            }
         }
 
-        // 포탑을 배치할 위치 계산
+        // 포탑을 배치할 위치 계산 (강조 영역의 중앙)
         float posX = (cellX + 0.5f) * cellSize;
         float posZ = (cellZ + 0.5f) * cellSize;
         float posY = hitPoint.y; // 지형의 높이를 사용
@@ -169,8 +233,11 @@ public class HighlightArea : MonoBehaviour
             // 포탑 프리팹 인스턴스화
             Instantiate(turretPrefab, position, Quaternion.identity);
 
-            // 해당 셀을 점유된 셀 목록에 추가
-            occupiedCells.Add(cellPosition);
+            // 해당 셀들을 점유된 셀 목록에 추가
+            foreach (Vector2Int cellPos in cellsToOccupy)
+            {
+                occupiedCells.Add(cellPos);
+            }
         }
         else
         {

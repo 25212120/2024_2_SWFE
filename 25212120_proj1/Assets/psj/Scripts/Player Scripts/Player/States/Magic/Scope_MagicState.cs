@@ -66,7 +66,7 @@ public class Scope_MagicState : BaseState<PlayerStateType>
                 playerInputManager.magicPoint = hitInfo.point;
             }
 
-            stateManager.ChangeState(PlayerStateType.SolarBeam_MagicState);
+            stateManager.ChangeState(PlayerStateType.Meteor_MagicState);
             playerInputManager.isPeformingAction = false;
         }
         else if (Input.GetKeyDown(KeyCode.Escape))

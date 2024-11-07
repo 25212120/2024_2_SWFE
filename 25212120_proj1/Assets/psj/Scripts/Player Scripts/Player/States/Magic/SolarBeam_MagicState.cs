@@ -20,10 +20,16 @@ public class SolarBeam_MagicState : BaseState<PlayerStateType>
 
     private GameObject laserPoint;
 
+    private GameObject plantCircle0;
+    private GameObject plantCircle1;
+    private GameObject plantCircle2;
+
     private GameObject instantiatedLaser0;
     private GameObject instantiatedLaser1;
     private GameObject instantiatedLaser2;
     private GameObject instantiatedLaser3;
+
+    private Vector3 magicCirclePos;
 
     private Vector3 spawnPosition0;
     private Vector3 spawnPosition1;
@@ -35,12 +41,16 @@ public class SolarBeam_MagicState : BaseState<PlayerStateType>
     private Vector3 forwardPosition2;
     private Vector3 forwardPosition3;
 
-
     private bool shootLaser = true;
     private bool lasersMovedForward = false;
     public override void EnterState()
     {
         LoadLaserPoint("Prefabs/Magic/Plant/SolarBeam/LaserPoint");
+        LoadPlantCircle0("Prefabs/Magic/Plant/MagicCircleGreen");
+        LoadPlantCircle1("Prefabs/Magic/Plant/MagicCircleGreen 1");
+        LoadPlantCircle2("Prefabs/Magic/Plant/MagicCircleGreen 2");
+        magicCirclePos = playerTransform.position + new Vector3(0, 0.2f, 0);
+        monoBehaviour.StartCoroutine(InstantiatePlantCircles());
         monoBehaviour.StartCoroutine(laserEnable());
 
         InstantiateLasers();
@@ -76,6 +86,18 @@ public class SolarBeam_MagicState : BaseState<PlayerStateType>
     {
         laserPoint = Resources.Load<GameObject>(prefabAddress);
     }
+    private void LoadPlantCircle0(string prefabAddress)
+    {
+        plantCircle0 = Resources.Load<GameObject>(prefabAddress);
+    }
+    private void LoadPlantCircle1(string prefabAddress)
+    {
+        plantCircle1 = Resources.Load<GameObject>(prefabAddress);
+    }
+    private void LoadPlantCircle2(string prefabAddress)
+    {
+        plantCircle2 = Resources.Load<GameObject>(prefabAddress);
+    }
 
     private IEnumerator laserEnable()
     {
@@ -100,6 +122,21 @@ public class SolarBeam_MagicState : BaseState<PlayerStateType>
         forwardPosition1 = spawnPosition1 + playerTransform.forward * forwardDistance;
         forwardPosition2 = spawnPosition2 + playerTransform.forward * forwardDistance;
         forwardPosition3 = spawnPosition3 + playerTransform.forward * forwardDistance;
+    }
+
+    private IEnumerator InstantiatePlantCircles()
+    {
+        GameObject instantiatedPlantCircle0 = Object.Instantiate(plantCircle0, magicCirclePos, Quaternion.Euler(-90, 0, 0));
+        yield return new WaitForSeconds(0.2f);
+        GameObject instantiatedPlantCircle1 = Object.Instantiate(plantCircle1, magicCirclePos, Quaternion.Euler(-90, 0, 0));
+        yield return new WaitForSeconds(0.2f);
+        GameObject instantiatedPlantCircle2 = Object.Instantiate(plantCircle2, magicCirclePos, Quaternion.Euler(-90, 0, 0));
+
+
+        yield return new WaitForSeconds(1.5f);
+        Object.Destroy(instantiatedPlantCircle0);
+        Object.Destroy(instantiatedPlantCircle1);
+        Object.Destroy(instantiatedPlantCircle2);
     }
 
     private void ToggleLaserPositions()
@@ -129,4 +166,5 @@ public class SolarBeam_MagicState : BaseState<PlayerStateType>
         if (instantiatedLaser2 != null) Object.Destroy(instantiatedLaser2);
         if (instantiatedLaser3 != null) Object.Destroy(instantiatedLaser3);
     }
+
 }

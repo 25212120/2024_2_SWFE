@@ -1,74 +1,97 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
+
+public class MapTile
+{
+    public string tileName;
+    public GameObject prefab;
+    public string terrainType;
+    public TileEdge topEdge;
+    public TileEdge bottomEdge;
+    public TileEdge leftEdge;
+    public TileEdge rightEdge;
+    public int rotation; // 회전 상태 (0, 90, 180, 270)
+
+    public MapTile(string name, GameObject prefab, string terrain, TileEdge top, TileEdge bottom, TileEdge left, TileEdge right)
+    {
+        tileName = name;
+        this.prefab = prefab;
+        terrainType = terrain;
+        topEdge = top;
+        bottomEdge = bottom;
+        leftEdge = left;
+        rightEdge = right;
+        rotation = 0; // 초기 회전 상태
+    }
+
+    // 타일 회전 로직
+    public void Rotate()
+    {
+        // 90도 회전 (top -> right -> bottom -> left)
+        TileEdge temp = topEdge;
+        topEdge = leftEdge;
+        leftEdge = bottomEdge;
+        bottomEdge = rightEdge;
+        rightEdge = temp;
+
+        // 회전 상태 업데이트
+        rotation = (rotation + 90) % 360;
+    }
+
+    // 이웃 타일과의 호환성 검사
+    public bool IsCompatibleWithNeighbor(MapTile neighborTile, Vector2Int direction)
+    {
+        if (neighborTile == null) return false;
+
+        if (direction == Vector2Int.up) // 위쪽 검사
+        {
+            return bottomEdge.compatibleEdgeTypes.Contains(neighborTile.topEdge.edgeType);
+        }
+        else if (direction == Vector2Int.down) // 아래쪽 검사
+        {
+            return topEdge.compatibleEdgeTypes.Contains(neighborTile.bottomEdge.edgeType);
+        }
+        else if (direction == Vector2Int.right) // 오른쪽 검사
+        {
+            return leftEdge.compatibleEdgeTypes.Contains(neighborTile.rightEdge.edgeType);
+        }
+        else if (direction == Vector2Int.left) // 왼쪽 검사
+        {
+            return rightEdge.compatibleEdgeTypes.Contains(neighborTile.leftEdge.edgeType);
+        }
+
+        return false;
+    }
+}
+
+public class TileEdge
+{
+    public string edgeType;
+    public List<string> compatibleEdgeTypes;
+}
 
 public class InfiniteWFC : MonoBehaviour
 {
-    // 타일 데이터 구조 정의
-    [System.Serializable]
-    public class TileEdge
-    {
-        public string edgeType;  // 타일의 면 타입
-        public List<string> compatibleEdgeTypes;  // 호환 가능한 면 타입 리스트
-    }
+    private List<MapTile> tiles = new List<MapTile>();
+    public int gridSize = 10; // 그리드 크기
+    public float tileSpacing = 50.0f; // 타일 간격
 
-    [System.Serializable]
-    public class MapTile
-    {
-        public string name;  // 타일 이름
-        public GameObject prefab;  // 타일 프리팹
-        public string terrainType;  // 지형 타입
-        public TileEdge northEdge;  // 북쪽 면
-        public TileEdge eastEdge;  // 동쪽 면
-        public TileEdge southEdge;  // 남쪽 면
-        public TileEdge westEdge;  // 서쪽 면
-
-        public MapTile(string name, GameObject prefab, string terrainType, TileEdge north, TileEdge east, TileEdge south, TileEdge west)
-        {
-            this.name = name;
-            this.prefab = prefab;
-            this.terrainType = terrainType;
-            this.northEdge = north;
-            this.eastEdge = east;
-            this.southEdge = south;
-            this.westEdge = west;
-        }
-    }
-
-    private List<MapTile> tiles = new List<MapTile>();  // 모든 타일 리스트
-    private Dictionary<string, MapTile> tileDictionary; // 이름으로 타일을 관리하기 위한 딕셔너리
-    private List<MapTile>[,] grid;  // 격자에 가능한 타일 리스트를 저장
-
-    public int gridWidth = 10;
-    public int gridHeight = 10;
+    private Tile[,] grid;
+    private System.Random random = new System.Random();
 
     void Start()
     {
-        // 타일 딕셔너리 초기화
-        tileDictionary = new Dictionary<string, MapTile>();
-        InitializeTiles();
-        foreach (MapTile tile in tiles)
-        {
-            tileDictionary.Add(tile.name, tile);
-        }
-
-        // 격자 초기화
-        grid = new List<MapTile>[gridWidth, gridHeight];
-
-        for (int x = 0; x < gridWidth; x++)
-        {
-            for (int y = 0; y < gridHeight; y++)
-            {
-                // 모든 셀에 가능한 모든 타일을 할당
-                grid[x, y] = new List<MapTile>(tiles);
-            }
-        }
-
-        // WFC 알고리즘 시작
-        RunWFC();
+        LoadTilePrefabs();
+        InitializeGrid();
+        CollapseGrid();
+        
+        InstantiateTiles();
     }
 
-    void InitializeTiles()
+    void LoadTilePrefabs()
     {
+        // 타일 프리팹을 여기서 로드 (현재는 구현되지 않음)
         // 타일 프리팹 불러오기
         // forest
         GameObject forestPrefab1 = Resources.Load<GameObject>("forest/Tile1_1");
@@ -142,125 +165,363 @@ public class InfiniteWFC : MonoBehaviour
         tiles.Add(new MapTile("forestTile8", forestPrefab8, "Forest", h1_4, h1_3, h1_2, h1_1));
         tiles.Add(new MapTile("forestTile9", forestPrefab9, "Forest", i1_4, i1_3, i1_2, i1_1));
         tiles.Add(new MapTile("forestTile10", forestPrefab10, "Forest", j1_4, j1_3, j1_2, j1_1));
+        tiles.Add(new MapTile("forestTile11", forestPrefab7, "Forest", g1_4, g1_3, g1_2, g1_1));
+        tiles.Add(new MapTile("forestTile12", forestPrefab7, "Forest", g1_4, g1_3, g1_2, g1_1));
+        tiles.Add(new MapTile("forestTile13", forestPrefab7, "Forest", g1_4, g1_3, g1_2, g1_1));
+        tiles.Add(new MapTile("forestTile14", forestPrefab7, "Forest", g1_4, g1_3, g1_2, g1_1));
+        tiles.Add(new MapTile("forestTile15", forestPrefab7, "Forest", g1_4, g1_3, g1_2, g1_1));
+
+        // 각 타일의 회전된 버전 추가
+        foreach (MapTile originalTile in tiles.ToList()) // 기존 타일 리스트를 복사하여 회전된 타일을 추가
+        {
+            for (int i = 1; i < 4; i++) // 90도, 180도, 270도 회전을 위한 루프
+            {
+                MapTile rotatedTile = new MapTile(
+                    originalTile.tileName + "_rot" + (i * 90),
+                    originalTile.prefab,
+                    originalTile.terrainType,
+                    originalTile.rightEdge, // 90도 회전 시 top -> right
+                    originalTile.topEdge,   // right -> bottom
+                    originalTile.bottomEdge,// left -> top
+                    originalTile.leftEdge   // bottom -> left
+                );
+                rotatedTile.rotation = i * 90; // 회전 상태 설정
+                tiles.Add(rotatedTile);
+            }
+        }
 
     }
 
-    void RunWFC()
+    void InitializeGrid()
     {
-        while (true)
+        // 가능한 모든 타일로 그리드를 초기화
+        grid = new Tile[gridSize, gridSize];
+        for (int x = 0; x < gridSize; x++)
         {
-            // 최소 엔트로피 셀 찾기
-            Vector2Int cellToCollapse = FindLowestEntropyCell();
-            if (cellToCollapse == Vector2Int.one * -1)
-                break;  // 더 이상 배치할 셀이 없다면 종료
-
-            // 타일 선택 및 배치
-            CollapseCell(cellToCollapse);
-
-            // 제약 조건 전파
-            PropagateConstraints(cellToCollapse);
+            for (int y = 0; y < gridSize; y++)
+            {
+                grid[x, y] = new Tile(tiles, new Vector2Int(x, y)); // 가능한 모든 타일 할당
+            }
         }
     }
 
-    Vector2Int FindLowestEntropyCell()
+    void CollapseGrid()
     {
-        Vector2Int lowestEntropyCell = new Vector2Int(-1, -1);
-        int lowestEntropy = int.MaxValue;
+        Stack<(Tile tile, List<MapTile> previousTiles)> backtrackStack = new Stack<(Tile, List<MapTile>)>();
+        int maxIterations = 10000; // 최대 루프 반복 횟수 설정
+        int iterationCount = 0;
 
-        for (int x = 0; x < gridWidth; x++)
+        while (!IsGridCollapsed())
         {
-            for (int y = 0; y < gridHeight; y++)
+            iterationCount++;
+            if (iterationCount > maxIterations)
             {
-                int entropy = grid[x, y].Count;
-                if (entropy > 0 && entropy < lowestEntropy)
+                Debug.LogError("최대 반복 횟수에 도달하여 무한 루프를 방지하기 위해 중지합니다.");
+                break;
+            }
+
+            Tile currentTile = GetTileWithLowestEntropy();
+            if (currentTile == null || currentTile.GetPossibleTiles().Count == 0)
+            {
+                if (backtrackStack.Count > 0)
                 {
-                    lowestEntropy = entropy;
-                    lowestEntropyCell = new Vector2Int(x, y);
+                    // 백트래킹 시도
+                    Backtrack(backtrackStack);
+                }
+                else
+                {
+                    Debug.LogError("백트래킹 가능한 유효한 타일이 없습니다. 백트래킹 스택이 비어 있어 그리드를 초기화합니다.");
+                    InitializeGrid(); // 그리드 초기화 후 다시 시작
+                    iterationCount = 0; // 반복 횟수 초기화
+                }
+            }
+            else if (!currentTile.IsCollapsed) // 이미 배치된 타일이 아니라면
+            {
+                // 백트래킹을 위한 가능한 타일 저장
+                backtrackStack.Push((currentTile, new List<MapTile>(currentTile.GetPossibleTiles())));
+
+                // 현재 타일을 축소 시도
+                currentTile.Collapse(random);
+
+                if (currentTile.GetSelectedTile() == null)
+                {
+                    Debug.LogError($"위치 {currentTile.Position}에서 타일 축소 후 선택된 타일이 없습니다. 가능한 타일 수: {currentTile.GetPossibleTiles().Count}");
+                    continue; // 문제가 있을 경우 다음으로 넘어갑니다.
+                }
+
+                Debug.Log($"위치 {currentTile.Position}의 타일을 {currentTile.GetSelectedTile()?.tileName}로 축소했습니다");
+                InstantiateTileAtPosition(currentTile);
+                PropagateConstraints(currentTile);
+            }
+        }
+
+        
+    }
+
+
+    void Backtrack(Stack<(Tile tile, List<MapTile> previousTiles)> backtrackStack)
+    {
+        while (backtrackStack.Count > 0)
+        {
+            var backtrackData = backtrackStack.Pop();
+            Tile backtrackTile = backtrackData.tile;
+            List<MapTile> previousTiles = backtrackData.previousTiles;
+
+            // 가능한 타일 복원
+            backtrackTile.SetPossibleTiles(previousTiles);
+
+            // 이전에 선택했던 타일을 제외한 나머지 타일들로 재축소 시도
+            List<MapTile> newPossibleTiles = backtrackTile.GetPossibleTiles().Where(tile => tile != backtrackTile.GetSelectedTile()).ToList();
+
+            if (newPossibleTiles.Count > 0)
+            {
+                // 새로운 타일 선택 후 축소
+                backtrackTile.SetPossibleTiles(newPossibleTiles);
+                backtrackTile.Collapse(random);
+                Debug.Log($"위치 {backtrackTile.Position}의 타일을 백트랙킹 후 {backtrackTile.GetSelectedTile()?.tileName}로 재축소했습니다");
+                InstantiateTileAtPosition(backtrackTile);
+                PropagateConstraints(backtrackTile);
+                return; // 백트래킹 성공 시 함수 종료
+            }
+            else
+            {
+                Debug.LogWarning($"위치 {backtrackTile.Position}에서 새로운 가능한 타일이 없습니다. 계속해서 백트랙킹을 시도합니다.");
+            }
+        }
+
+        Debug.LogError("백트랙킹 실패, 적합한 타일을 찾지 못했습니다. 백트래킹 스택이 비어 있어 초기화가 필요합니다.");
+    }
+
+
+
+
+
+    public bool VerifyPlacement(Tile tile, MapTile selectedTile)
+    {
+        foreach (Vector2Int direction in Tile.Directions)
+        {
+            Vector2Int neighborPos = tile.Position + direction;
+            if (IsValidPosition(neighborPos))
+            {
+                Tile neighborTile = grid[neighborPos.x, neighborPos.y];
+                if (neighborTile.IsCollapsed)
+                {
+                    MapTile neighborSelectedTile = neighborTile.GetSelectedTile();
+                    bool isCompatible = selectedTile.IsCompatibleWithNeighbor(neighborSelectedTile, direction);
+
+                    if (!isCompatible)
+                    {
+                        Debug.Log($"위치 {tile.Position}의 타일이 방향 {direction}의 위치 {neighborPos}의 이웃과 호환되지 않습니다");
+                        return false;
+                    }
                 }
             }
         }
-        return lowestEntropyCell;
+        return true;
     }
 
-    void CollapseCell(Vector2Int cell)
+    
+
+    void PropagateConstraints(Tile collapsedTile)
     {
-        // 가능한 타일 중 하나를 무작위로 선택하여 셀을 확정
-        List<MapTile> possibleTiles = grid[cell.x, cell.y];
-
-        MapTile selectedTile = possibleTiles[Random.Range(0, possibleTiles.Count)];
-
-        // 셀에 해당 타일만 남기기
-        grid[cell.x, cell.y] = new List<MapTile> { selectedTile };
-
-        // 여기에서 선택한 타일을 배치하는 로직을 구현
-        GameObject instance = Instantiate(selectedTile.prefab, new Vector3(cell.x, 0, cell.y), Quaternion.identity);
-        // 음수 스케일 허용
-        instance.transform.localScale = new Vector3(
-            Mathf.Abs(instance.transform.localScale.x) * (Random.value > 0.5f ? -1 : 1),
-            Mathf.Abs(instance.transform.localScale.y),
-            Mathf.Abs(instance.transform.localScale.z) * (Random.value > 0.5f ? -1 : 1)
-        );
-
-        // BoxCollider 제거 후 MeshCollider 추가
-        BoxCollider boxCollider = instance.GetComponent<BoxCollider>();
-        if (boxCollider != null)
+        if (collapsedTile == null)
         {
-            Destroy(boxCollider);
+            Debug.LogError("PropagateConstraints 함수에 전달된 collapsedTile이 null입니다.");
+            return;
         }
-        MeshCollider meshCollider = instance.AddComponent<MeshCollider>();
-        meshCollider.convex = true;
-        // 음수 스케일 허용
-        Vector3 originalScale = instance.transform.localScale;
-        instance.transform.localScale = new Vector3(
-            Mathf.Abs(originalScale.x) * (Random.value > 0.5f ? -1 : 1),
-            Mathf.Abs(originalScale.y),
-            Mathf.Abs(originalScale.z) * (Random.value > 0.5f ? -1 : 1)
-        );
-    }
 
-    void PropagateConstraints(Vector2Int cell)
-    {
-        // 셀 주변의 제약 조건을 전파하여 가능성 축소
-        Queue<Vector2Int> cellsToUpdate = new Queue<Vector2Int>();
-        cellsToUpdate.Enqueue(cell);
+        Queue<Tile> propagationQueue = new Queue<Tile>();
+        propagationQueue.Enqueue(collapsedTile);
 
-        while (cellsToUpdate.Count > 0)
+        while (propagationQueue.Count > 0)
         {
-            Vector2Int current = cellsToUpdate.Dequeue();
-            if (grid[current.x, current.y] == null || grid[current.x, current.y].Count == 0) { cellsToUpdate.Enqueue(current); continue; }
-            if (grid[current.x, current.y].Count == 0) return;
-            if (grid[current.x, current.y].Count == 0) return;
-            MapTile currentTile = grid[current.x, current.y][0];
+            Tile currentTile = propagationQueue.Dequeue();
+            Vector2Int position = currentTile.Position;
 
-            // 각 방향에 대해서 호환되지 않는 타일들을 제거
-            UpdateNeighbor(current, Vector2Int.up, currentTile.northEdge, cellsToUpdate);
-            UpdateNeighbor(current, Vector2Int.right, currentTile.eastEdge, cellsToUpdate);
-            UpdateNeighbor(current, Vector2Int.down, currentTile.southEdge, cellsToUpdate);
-            UpdateNeighbor(current, Vector2Int.left, currentTile.westEdge, cellsToUpdate);
+            foreach (Vector2Int direction in Tile.Directions)
+            {
+                Vector2Int neighborPos = position + direction;
+                if (IsValidPosition(neighborPos))
+                {
+                    Tile neighborTile = grid[neighborPos.x, neighborPos.y];
+                    if (neighborTile == null)
+                    {
+                        Debug.LogError($"Neighbor tile at position {neighborPos} is null.");
+                        continue;
+                    }
+
+                    if (!neighborTile.IsCollapsed)
+                    {
+                        List<MapTile> compatibleTiles = new List<MapTile>();
+                        MapTile selectedTile = currentTile.GetSelectedTile();
+
+                        if (selectedTile == null)
+                        {
+                            Debug.LogError($"위치 {currentTile.Position}에서 타일 축소 후 선택된 타일이 없습니다. 가능한 타일 수: {currentTile.GetPossibleTiles().Count}, 가능한 타일 목록: {string.Join(", ", currentTile.GetPossibleTiles().Select(tile => tile.tileName))}");
+                            continue;
+                        }
+
+                        foreach (MapTile possibleTile in neighborTile.GetPossibleTiles())
+                        {
+                            if (selectedTile.IsCompatibleWithNeighbor(possibleTile, direction))
+                            {
+                                compatibleTiles.Add(possibleTile);
+                            }
+                        }
+
+                        // 가능한 타일이 줄어들었다면 업데이트
+                        if (compatibleTiles.Count < neighborTile.GetPossibleTiles().Count)
+                        {
+                            neighborTile.SetPossibleTiles(compatibleTiles);
+                            propagationQueue.Enqueue(neighborTile);
+                        }
+                    }
+                }
+            }
         }
     }
 
-    void UpdateNeighbor(Vector2Int cell, Vector2Int direction, TileEdge currentEdge, Queue<Vector2Int> cellsToUpdate)
+
+    void InstantiateTileAtPosition(Tile tile)
     {
-        Vector2Int neighbor = cell + direction;
-
-        if (neighbor.x < 0 || neighbor.x >= gridWidth || neighbor.y < 0 || neighbor.y >= gridHeight)
-            return;  // 격자 범위를 벗어나는 경우 무시
-
-        List<MapTile> possibleTiles = grid[neighbor.x, neighbor.y];
-        int initialCount = possibleTiles.Count;
-
-        if (possibleTiles == null) return;
-        if (possibleTiles.Count == 0) return;
-        possibleTiles.RemoveAll(tile => !currentEdge.compatibleEdgeTypes.Contains(tile.northEdge.edgeType));
-        if (possibleTiles.Count == 0) possibleTiles.AddRange(tiles); // 가능한 타일이 없으면 전체 타일 다시 추가
-        if (possibleTiles.Count == 0) return;
-        if (possibleTiles.Count == 0) return;
-
-        if (possibleTiles.Count != initialCount)
+        if (tile.IsCollapsed)
         {
-            // 변경이 일어났다면 다시 큐에 추가하여 추가적인 전파 필요
-            cellsToUpdate.Enqueue(neighbor);
+            MapTile selectedTile = tile.GetSelectedTile();
+            if (selectedTile != null && selectedTile.prefab != null)
+            {
+                Vector3 position = new Vector3(tile.Position.x * tileSpacing, 0, tile.Position.y * tileSpacing);
+
+                // 이미 타일이 배치된 곳인지 체크 (기존에 배치된 타일을 지우지 않도록 주의)
+                Collider[] existingTiles = Physics.OverlapBox(position, new Vector3(tileSpacing / 2, 0.1f, tileSpacing / 2));
+                if (existingTiles.Length > 0)
+                {
+                    Debug.LogWarning($"위치 {tile.Position}에 이미 타일이 존재합니다. 타일 배치를 건너뜁니다.");
+                    return;
+                }
+
+                GameObject instantiatedTile = Instantiate(selectedTile.prefab, position, Quaternion.Euler(0, selectedTile.rotation, 0));
+                instantiatedTile.SetActive(true);
+            }
+        }
+    }
+
+    void InstantiateTiles()
+    {
+        for (int x = 0; x < gridSize; x++)
+        {
+            for (int y = 0; y < gridSize; y++)
+            {
+                InstantiateTileAtPosition(grid[x, y]);
+            }
+        }
+    }
+
+    bool IsGridCollapsed()
+    {
+        foreach (Tile tile in grid)
+        {
+            if (!tile.IsCollapsed)
+                return false;
+        }
+        return true;
+    }
+
+    Tile GetTileWithLowestEntropy()
+    {
+        List<Tile> lowestEntropyTiles = new List<Tile>();
+        int lowestEntropy = int.MaxValue;
+
+        foreach (Tile tile in grid)
+        {
+            if (!tile.IsCollapsed && tile.Entropy < lowestEntropy)
+            {
+                lowestEntropy = tile.Entropy;
+                lowestEntropyTiles.Clear();
+                lowestEntropyTiles.Add(tile);
+            }
+            else if (!tile.IsCollapsed && tile.Entropy == lowestEntropy)
+            {
+                lowestEntropyTiles.Add(tile);
+            }
+        }
+
+        return lowestEntropyTiles.Count > 0 ? lowestEntropyTiles[random.Next(lowestEntropyTiles.Count)] : null;
+    }
+
+    bool IsValidPosition(Vector2Int position)
+    {
+        return position.x >= 0 && position.x < gridSize && position.y >= 0 && position.y < gridSize;
+    }
+
+    public class Tile
+    {
+        public static readonly Vector2Int[] Directions =
+        {
+            Vector2Int.up,    // 위쪽
+            Vector2Int.down,  // 아래쪽
+            Vector2Int.right, // 오른쪽
+            Vector2Int.left   // 왼쪽
+        };
+
+        private List<MapTile> possibleTiles;
+        public Vector2Int Position { get; private set; }
+        public bool IsCollapsed => possibleTiles.Count == 1;
+        public int Entropy => possibleTiles.Count;
+
+        public Tile(List<MapTile> allTiles, Vector2Int position)
+        {
+            possibleTiles = new List<MapTile>(allTiles);
+            Position = position;
+        }
+
+        public void Collapse(System.Random random)
+        {
+            if (possibleTiles.Count > 1)
+            {
+                int index = random.Next(possibleTiles.Count);
+                MapTile selectedTile = possibleTiles[index];
+                possibleTiles.Clear();
+                possibleTiles.Add(selectedTile);
+            }
+        }
+
+        public void SetPossibleTiles(List<MapTile> tiles)
+        {
+            possibleTiles = new List<MapTile>(tiles);
+        }
+
+        public List<MapTile> GetPossibleTiles()
+        {
+            return possibleTiles;
+        }
+
+        public MapTile GetSelectedTile()
+        {
+            return IsCollapsed ? possibleTiles.First() : null;
+        }
+    }
+   
+
+
+
+    void OnDrawGizmos()
+    {
+        if (grid == null) return;
+
+        for (int x = 0; x < gridSize; x++)
+        {
+            for (int y = 0; y < gridSize; y++)
+            {
+                Tile tile = grid[x, y];
+                if (tile != null)
+                {
+                    float entropyNormalized = Mathf.InverseLerp(0, tiles.Count, tile.Entropy);
+                    Gizmos.color = Color.Lerp(Color.green, Color.red, entropyNormalized);
+                    Vector3 position = new Vector3(x * tileSpacing, 0, y * tileSpacing);
+                    Gizmos.DrawWireCube(position, new Vector3(tileSpacing, 0.1f, tileSpacing));
+                    UnityEditor.Handles.Label(position + Vector3.up * 0.5f, $"E: {tile.Entropy}");
+                }
+            }
         }
     }
 }

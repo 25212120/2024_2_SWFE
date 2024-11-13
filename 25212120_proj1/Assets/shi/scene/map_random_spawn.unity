@@ -5697,10 +5697,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78fa81c15fbc29d4881cc9f5f99ce920, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 204138755}
-  tileSize: 50
-  perlinScale: 10
-  maxHeight: 5
+  gridSize: 10
+  tileSpacing: 1
+  tileSize: 20
 --- !u!1 &860382681
 GameObject:
   m_ObjectHideFlags: 0

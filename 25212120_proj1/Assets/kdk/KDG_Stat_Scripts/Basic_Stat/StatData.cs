@@ -11,11 +11,6 @@ public class StatData
     [SerializeField][HideInInspector] private float mHpCurrent;
     public float HpCurrent => mHpCurrent;
 
-    [field: Header("초기화 시 최대 마나")]
-    [field: SerializeField] public float mpMax { get; set; }
-    [SerializeField][HideInInspector] private float mMpCurrent;
-    public float MpCurrent => mMpCurrent;
-
     [field: Header("초기화 시 기본 공격력")]
     [field: SerializeField] public float baseAttack { get; set; }
 
@@ -66,12 +61,7 @@ public class StatData
         mHpCurrent = hpMax; // 현재 체력을 최대 체력으로 초기화
     }
 
-    public void SetMpMax(float value)
-    {
-        mpMax = value;
-        mMpCurrent = mpMax; // 현재 마나를 최대 마나로 초기화
-    }
-
+    
     public bool ModifyCurrentHp(float amount)
     {
         mHpCurrent += amount;
@@ -80,61 +70,46 @@ public class StatData
     }
 
 
-    public void ModifyCurrentMp(float amount)
-    {
-        mMpCurrent += amount;
-        mMpCurrent = Mathf.Clamp(mMpCurrent, 0, mpMax); // 최소값 0으로 설정
-    }
 
 
     public void InitStatData()
     {
         mHpCurrent = mHpCurrent == 0 ? hpMax : mHpCurrent;
-        mMpCurrent = mMpCurrent == 0 ? mpMax : mMpCurrent;
+        
     }
 
     public enum StatType
     {
         LEVEL,
         HP,
-        MP,
         ATTACK,
         MOVEMENT_SPEED,
         DEFENSE
     }
 
-    public void UpgradeBaseStat(StatType statType)
+    public void UpgradeBaseStat(StatType statType, float value)
     {
         switch (statType)
         {
-            case StatType.LEVEL: // 레벨
-                ++level;
-                break;
-
             case StatType.HP: // 체력
-                hpMax += 50;
-                ModifyCurrentHp(50);
-                break;
-
-            case StatType.MP: // 마나
-                mpMax += 50;
-                ModifyCurrentMp(50);
+                hpMax += value;
+                ModifyCurrentHp(value); // 현재 체력을 추가된 체력에 맞게 수정
                 break;
 
             case StatType.ATTACK: // 공격력
-                baseAttack += 5;
+                baseAttack += value;
                 break;
 
-            case StatType.MOVEMENT_SPEED: // 속도
-                // movementSpeed 관련 로직 추가
+            case StatType.MOVEMENT_SPEED: // 이동 속도
+                baseMovementSpeed += value;
                 break;
 
-            case StatType.DEFENSE: // 방어
-                // defense 관련 로직 추가
+            case StatType.DEFENSE: // 방어력
+                baseDefense += value;
                 break;
 
             default:
-                Debug.LogError($"인덱스 {statType}은 없음!");
+                Debug.LogError($"인덱스 {statType}은(는) 없습니다!");
                 break;
         }
     }

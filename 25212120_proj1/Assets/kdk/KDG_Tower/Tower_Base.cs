@@ -3,6 +3,7 @@ using UnityEngine;
 public class Tower_Base : MonoBehaviour
 {
     public Transform target;
+    private BaseStructure tower;
 
     [Header("Attributes")]
     public float range = 15f;
@@ -17,6 +18,14 @@ public class Tower_Base : MonoBehaviour
     public Transform firePoint;
     public float rotationTolerance = 5f;  // 목표를 바라보고 있어야 하는 최소 각도 차이 (degrees)
 
+    private void Awake()
+    {
+        tower = GetComponent<BaseStructure>();
+        if (tower == null )
+        {
+            return;
+        }
+    }
     void Start()
     {
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
@@ -76,15 +85,15 @@ public class Tower_Base : MonoBehaviour
     void Shoot()
     {
         GameObject bulletGO = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-        Bullet bullet = bulletGO.GetComponent<Bullet>();
+        var bulletScript = bulletGO.GetComponent<IBullet>(); // IBullet 인터페이스를 사용해 동적으로 찾음
 
-        if (bullet != null)
-            bullet.Seek(target);
+        if (bulletScript != null)
+        {
+            bulletScript.SetTower(tower); // 타워를 총알에 전달
+            bulletScript.Seek(target); // 목표 설정
+            bulletScript.SetTargetPosition(target.position);  // 목표 위치를 총알에 전달
+
+        }
     }
 
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, range);
-    }
 }

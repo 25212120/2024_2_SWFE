@@ -65,7 +65,7 @@ public class MeteorHandler : MonoBehaviour
 
         Destroy(gameObject);
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(0.5f);
         Destroy(instantiatedNovaEffect0);
         Destroy(instantiatedNovaEffect1);
         Destroy(instantiatedNovaEffect2);

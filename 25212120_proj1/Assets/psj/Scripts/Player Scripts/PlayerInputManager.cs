@@ -67,6 +67,7 @@ public class PlayerInputManager : MonoBehaviour
 
     private void Update()
     {
+        //Debug.Log(dim.activeSelf);
         //Debug.Log("LeftButton_Pressed : " + leftButton_Pressed);
         leftButton_Pressed = false;
     }
@@ -232,7 +233,7 @@ public class PlayerInputManager : MonoBehaviour
     }
     private void OnChargePerformed(InputAction.CallbackContext ctx)
     {
-        if (currentLeftHandIndex == 3)
+        if (currentLeftHandIndex == 3 && isPeformingAction == false)
         {
             chargeInput = true;
             stateManager.PushState(PlayerStateType.WeaponSkill);

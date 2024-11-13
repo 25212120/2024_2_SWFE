@@ -13,7 +13,10 @@ public abstract class BaseEntity : MonoBehaviour
 
     public virtual void TakeDamage(float damage)
     {
-        if (statData.ModifyCurrentHp(-damage))
+        // 방어력을 고려한 데미지 처리
+        float effectiveDamage = damage - statData.DefenseCurrent;
+        effectiveDamage = Mathf.Max(effectiveDamage, 0); // 최소 데미지는 0
+        if (statData.ModifyCurrentHp(-effectiveDamage))
         {
             Die();
         }

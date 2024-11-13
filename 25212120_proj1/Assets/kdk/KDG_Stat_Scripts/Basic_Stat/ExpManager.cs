@@ -8,9 +8,11 @@ public class ExpManager : Singleton<ExpManager>
     [Header("경험치 바")]
     [SerializeField] private Image mExpCurrentBar;
 
-    
+
+    [SerializeField] private PlayerStat playerStat; // PlayerStat 인스턴스 참조
+
     /// 플레이어의 현재 경험치
-    
+
     public float ExpCurrent { private set; get; }
 
     
@@ -27,7 +29,7 @@ public class ExpManager : Singleton<ExpManager>
 
     }
 
-    /*
+    
     private IEnumerator CoUpdateExpBarFill(float expPrev)
     {
         float process = 0f;
@@ -46,26 +48,13 @@ public class ExpManager : Singleton<ExpManager>
                 ExpCurrent -= ExpMax;
                 ExpMax *= 2.0f;
 
-                StatManager.instance.LevelUp(); // 스텟메니저 레벨업 호출
+                playerStat.LevelUp();
             }
 
             yield return null;
         }
     }
-    */
-    /*
-    public void DestroyEntity()
-    {
-        // 이미 파괴 대기 상태라면 리턴
-        if (IsWaitDead)
-            return;
-
-        // 파괴 대기상태 활성화
-        IsWaitDead = true;
-
-        // 경험치 지급
-        ExpManager.instance.AddExp(GiveExp); // 몬스터 스텟에서 처치 시 줄 exp 설정
-    }*/
+    
     
 }
     

@@ -2,9 +2,11 @@ using UnityEngine;
 
 public class BaseMonster : BaseEntity
 {
+    [Header("몬스터 경험치")]
+    [SerializeField] protected int expAmount; /// 각 몬스터 클래스마다 설정해주기
     protected override void Awake()
     {
-        base.Awake(); // 부모의 Awake() 호출
+        base.Awake(); 
         InitializeMonsterStats();
     }
 
@@ -18,5 +20,15 @@ public class BaseMonster : BaseEntity
     {
         float damage = statData.AttackCurrent; // 현재 공격력 사용
         target.TakeDamage(damage);
+    }
+    protected override void Die()
+    {
+        base.Die();  // 기본 사망 처리
+
+        AwardExperienceToPlayer();
+    }
+    private void AwardExperienceToPlayer()
+    {
+        ExpManager.Instance.AddExp(expAmount);
     }
 }

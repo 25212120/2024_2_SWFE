@@ -44,7 +44,7 @@ public class Storm_MagicState : BaseState<PlayerStateType>
         overlayObject = playerInputManager.dim;
         magicCirclePos = playerTransform.position + new Vector3(0, 0.2f, 0);
 
-        playerInputManager.isPeformingAction = true;
+        playerInputManager.isPerformingAction = true;
 
         InstantiateRainEffect();
         monoBehaviour.StartCoroutine(InstantiateWaterCircles());
@@ -66,7 +66,7 @@ public class Storm_MagicState : BaseState<PlayerStateType>
     {
         stormfinished = false;
         monoBehaviour.StartCoroutine(DestroyRainEffect());
-        playerInputManager.isPeformingAction = false;
+        playerInputManager.isPerformingAction = false;
     }
 
     public override void CheckTransitions()

@@ -29,7 +29,7 @@ public class Scope_MagicState : BaseState<PlayerStateType>
     {
         playerInputManager.moveInput = Vector2.zero;
         animator.SetBool("moveInput", false);
-        playerInputManager.isPeformingAction = true;
+        playerInputManager.isPerformingAction = true;
 
         overlayObject = playerInputManager.dim;
         rangeSprite = playerInputManager.magicRangeSprite;
@@ -66,12 +66,12 @@ public class Scope_MagicState : BaseState<PlayerStateType>
                 playerInputManager.magicPoint = hitInfo.point;
             }
 
-            stateManager.ChangeState(PlayerStateType.Storm_MagicState);
-            playerInputManager.isPeformingAction = false;
+            stateManager.ChangeState(PlayerStateType.DrainField_MagicState);
+            playerInputManager.isPerformingAction = false;
         }
         else if (Input.GetKeyDown(KeyCode.Escape))
         {
-            playerInputManager.isPeformingAction = false;
+            playerInputManager.isPerformingAction = false;
             Debug.Log("Magic Canceled");
             stateManager.PopState();
         }

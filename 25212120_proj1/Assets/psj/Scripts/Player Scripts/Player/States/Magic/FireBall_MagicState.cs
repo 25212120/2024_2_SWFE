@@ -28,7 +28,7 @@ public class FireBall_MagicState : BaseState<PlayerStateType>
 
     public override void EnterState()
     {
-        playerInputManager.isPeformingAction = true;
+        playerInputManager.isPerformingAction = true;
         LoadFireCircle("Prefabs/Magic/Fire/MagicCircleSimpleYellow");
         LoadFireBall("Prefabs/Magic/Fire/FireBall/FireBallObject");
         LoadFlameThrower("Prefabs/Magic/Fire/FireBall/FlamethrowerSharpFire");
@@ -54,7 +54,7 @@ public class FireBall_MagicState : BaseState<PlayerStateType>
     public override void ExitState()
     {
         finishedCasting = false;
-        playerInputManager.isPeformingAction = false;
+        playerInputManager.isPerformingAction = false;
     }
 
     public override void CheckTransitions()

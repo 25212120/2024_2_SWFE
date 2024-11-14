@@ -16,7 +16,7 @@ public enum PlayerStateType
     Scope_MagicState,
     FireBall_MagicState,
     Meteor_MagicState,
-    SolarBeam_MagicState,
+    DrainField_MagicState,
     Storm_MagicState,
     EarthQuake_MagicState,
 }

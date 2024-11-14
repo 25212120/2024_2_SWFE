@@ -8,7 +8,7 @@ public class StatData
 
     [field: Header("초기화 시 최대 체력")]
     [field: SerializeField] public float hpMax { get; set; }
-    [SerializeField][HideInInspector] private float mHpCurrent;
+    [SerializeField][HideInInspector] public float mHpCurrent;
     public float HpCurrent => mHpCurrent;
 
     [field: Header("초기화 시 최대 마나")]

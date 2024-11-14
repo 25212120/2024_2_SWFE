@@ -1,0 +1,30 @@
+using UnityEngine;
+
+public abstract class BaseEntity : MonoBehaviour
+{
+    [Header("객체의 스탯 정보")]
+    [SerializeField] protected StatData statData;
+
+    protected virtual void Awake()
+    {
+        statData.InitStatData();
+    }
+
+
+    public virtual void TakeDamage(float damage)
+    {
+        // 방어력을 고려한 데미지 처리
+        float effectiveDamage = damage - statData.DefenseCurrent;
+        effectiveDamage = Mathf.Max(effectiveDamage, 0); // 최소 데미지는 0
+        if (statData.ModifyCurrentHp(-effectiveDamage))
+        {
+            Die();
+        }
+    }
+
+    protected virtual void Die()
+    {
+        Debug.Log($"{gameObject.name} has died.");
+        Destroy(gameObject);
+    }
+}

@@ -5,11 +5,11 @@ using UnityEngine;
 
 public enum BiomeType
 {
-    Snow,
-    Forest,
-    Desert
+    Forest, // ½£ ¹ÙÀÌ¿È
+    Desert, // »ח¸· ¹ÙÀÌ¿È
+    Snow,   // ´« ¹ÙÀÌ¿È
+    Volcano // È­»ך ¹ÙÀÌ¿È
 }
-
 
 public class Chunk
 {

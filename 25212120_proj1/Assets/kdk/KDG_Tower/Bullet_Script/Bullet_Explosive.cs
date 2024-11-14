@@ -42,7 +42,7 @@ public class Bullet_Explosive : MonoBehaviour, IBullet
 
 
 
-    void OnCollisionEnter(Collision collision)
+    void OnTriggerEnter(Collider collision)
     {
         // 충돌 효과 생성
         GameObject effectIns = Instantiate(impactEffect, transform.position, transform.rotation);

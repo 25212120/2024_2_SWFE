@@ -1,4 +1,5 @@
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour, IBullet
@@ -23,6 +24,7 @@ public class Bullet : MonoBehaviour, IBullet
         targetPosition = position;
     }
 
+
     void Update()
     {
         if (targetPosition == null)
@@ -42,19 +44,18 @@ public class Bullet : MonoBehaviour, IBullet
     }
 
 
-    void OnCollisionEnter(Collision collision)
+    void OnTriggerEnter(Collider other)
     {
-        BaseMonster targetMonster = collision.gameObject.GetComponent<BaseMonster>();
+        BaseMonster targetMonster = other.gameObject.GetComponent<BaseMonster>();
         if (targetMonster != null)
         {
             tower.Attack(targetMonster); // 구조물이 BaseMonster를 공격하도록 함
         }
-        GameObject effectIns = (GameObject)Instantiate(impactEffect, transform.position, transform.rotation);
-        Destroy(effectIns, 1f);
+        //GameObject effectIns = (GameObject)Instantiate(impactEffect, transform.position, transform.rotation);
+        //Destroy(effectIns, 1f);
 
 
         Destroy(gameObject);
     }
-
 
 }

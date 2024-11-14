@@ -42,7 +42,7 @@ public class Bullet_Heal : MonoBehaviour, IBullet
     }
 
 
-    void OnCollisionEnter(Collision collision)
+    void OnTriggerEnter(Collider collision) 
     {
         BaseMonster targetMonster = collision.gameObject.GetComponent<BaseMonster>();
         if (targetMonster != null)

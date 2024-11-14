@@ -4,4 +4,9 @@ public class Monster_1 : BaseMonster
     {
         base.Awake();
     }
+
+    protected override void Update()
+    {
+        base.Update();
+    }
 }

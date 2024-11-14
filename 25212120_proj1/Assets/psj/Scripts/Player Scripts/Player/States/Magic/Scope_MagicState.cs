@@ -66,7 +66,7 @@ public class Scope_MagicState : BaseState<PlayerStateType>
                 playerInputManager.magicPoint = hitInfo.point;
             }
 
-            stateManager.ChangeState(PlayerStateType.Storm_MagicState);
+            stateManager.ChangeState(PlayerStateType.EarthQuake_MagicState);
             playerInputManager.isPeformingAction = false;
         }
         else if (Input.GetKeyDown(KeyCode.Escape))

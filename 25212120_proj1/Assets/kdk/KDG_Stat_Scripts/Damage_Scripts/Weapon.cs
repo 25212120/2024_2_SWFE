@@ -18,7 +18,6 @@ public class Weapon : MonoBehaviour
         inventory.AddEquipment(newWeapon);
 
         
-        // 무기 장착 후 추가적인 행동 (예: UI 업데이트, 효과음 재생 등)
         Debug.Log($"{gameObject.name} has been equipped.");
     }
 }

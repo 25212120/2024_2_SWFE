@@ -53,7 +53,7 @@ public class StatData
     [Space(30)]
     [Header("외부 클래스를 참조하여 스탯에 추가 효과")]
     [Header("해당 객체의 장비인벤토리, 없을경우 null 가능")]
-    [SerializeField] public EquipmentInventory? equipmentInventory = null; // 장비 인벤토리 (개별적으로 로드하여 사용 가능)
+    [SerializeField] public EquipmentInventory equipmentInventory = null; // 장비 인벤토리 (개별적으로 로드하여 사용 가능)
 
     public void SetHpMax(float value)
     {

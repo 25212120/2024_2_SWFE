@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Weapon_Monster_DamageApply : MonoBehaviour
 {
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider collision)
     {
         // 충돌한 대상이 PlayerStat이나 BaseStructure인지 확인
         PlayerStat playerStat = collision.gameObject.GetComponent<PlayerStat>();

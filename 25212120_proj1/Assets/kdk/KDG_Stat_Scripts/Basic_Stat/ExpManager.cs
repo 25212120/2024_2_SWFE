@@ -20,7 +20,7 @@ public class ExpManager : Singleton<ExpManager>
     
     public float ExpMax { private set; get; } = 100;
 
-    private Coroutine? mCoUpdateExpBarFill;
+    private Coroutine mCoUpdateExpBarFill;
 
     public void AddExp(float amount)
     {

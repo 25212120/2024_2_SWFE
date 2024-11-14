@@ -7,6 +7,8 @@ public class PlayerInputManager : MonoBehaviour
     [SerializeField] public GameObject[] rightHand_Weapons;
     [SerializeField] public GameObject[] leftHand_Weapons;
     [SerializeField] public RuntimeAnimatorController[] player_animControllers;
+    [SerializeField] public GameObject[] magicRangeSprites;
+    public GameObject magicRangeSprite;
     public Queue<string> inputQueue = new Queue<string>();
     public int IndexSwapTo = 0;
     public int currentRightHandIndex;
@@ -17,6 +19,9 @@ public class PlayerInputManager : MonoBehaviour
     // CheckGround를 호출여부를 결정할 수 있음
     public bool wantToCheckGround = true;
 
+    [Header("Magic Spawn Points")]
+    [SerializeField] public Vector3[] magicSpawnPoints;
+
     // ChangeState인 경우 (  )Key_Pressed 변수를 설정하고 is(   )는 State 스크립트 내부적으로 변경
     [Header("Player Movement Inputs")]
     public Vector2 moveInput;
@@ -24,8 +29,8 @@ public class PlayerInputManager : MonoBehaviour
 
     [Header("Player Action Inputs")]
     public bool leftButton_Pressed = false;
+    public bool magicInput = false;
     public bool chargeInput = false;
-    public bool F_Key_Pressed = false;
 
     // PushState인 경우 is(    )만 만들고 Stata 스크립트 내부적으로 변경
     [Header("Player Action Handlers")]
@@ -33,6 +38,7 @@ public class PlayerInputManager : MonoBehaviour
     public bool isAttacking = false;
     public bool isPeformingAction = false;
 
+    public Vector3 magicPoint;
 
     private Rigidbody rb;
     private Animator animator;
@@ -41,6 +47,8 @@ public class PlayerInputManager : MonoBehaviour
     private PlayerCoolDownManager playerCoolDown;
 
     private StateManager<PlayerStateType> stateManager;
+
+    public GameObject dim;
 
     private void Awake()
     {
@@ -59,8 +67,10 @@ public class PlayerInputManager : MonoBehaviour
 
     private void Update()
     {
+        //Debug.Log(dim.activeSelf);
+        //Debug.Log("LeftButton_Pressed : " + leftButton_Pressed);
+        //Debug.Log(isPeformingAction);
         leftButton_Pressed = false;
-        F_Key_Pressed = false;
     }
     private void FixedUpdate()
     {
@@ -96,6 +106,8 @@ public class PlayerInputManager : MonoBehaviour
         playerInput.WeaponSwap.SingleTwoHandeSword.performed += OnSwapToSingleTwoHandeSwordPerformed;
         playerInput.WeaponSwap.DoubleSwords.performed += OnSwapToDoubleSwordsPerformed;
         playerInput.WeaponSwap.BowAndArrow.performed += OnSwapToBowAndArrowPerformed;
+
+        playerInput.PlayerMagic.MagicTest.performed += OnMagicTest;
     }
     private void OnDisable()
     {
@@ -123,6 +135,8 @@ public class PlayerInputManager : MonoBehaviour
         playerInput.WeaponSwap.SingleTwoHandeSword.performed -= OnSwapToSingleTwoHandeSwordPerformed;
         playerInput.WeaponSwap.DoubleSwords.performed -= OnSwapToDoubleSwordsPerformed;
         playerInput.WeaponSwap.BowAndArrow.performed -= OnSwapToSwordAndSheildPerformed;
+
+        playerInput.PlayerMagic.MagicTest.performed -= OnMagicTest;
     }
 
     private void GroundCheck()
@@ -154,8 +168,12 @@ public class PlayerInputManager : MonoBehaviour
     }
     private void OnMovePerformed(InputAction.CallbackContext ctx)
     {
+        if (isPeformingAction == false)
+        {
+            Debug.Log("COME IN");
             moveInput = ctx.ReadValue<Vector2>();
             animator.SetBool("moveInput", true);
+        }
     }
     private void OnMoveCanceled(InputAction.CallbackContext ctx)
     {
@@ -174,7 +192,7 @@ public class PlayerInputManager : MonoBehaviour
     }
     private void OnDashPerformed(InputAction.CallbackContext ctx)
     {
-        if (playerCoolDown.CanDash() && isGrounded && !isPeformingAction && !isAttacking)
+        if (playerCoolDown.CanDash(currentRightHandIndex) && isGrounded && !isPeformingAction && !isAttacking)
         {
             stateManager.PushState(PlayerStateType.Dash);
         }
@@ -217,7 +235,7 @@ public class PlayerInputManager : MonoBehaviour
     }
     private void OnChargePerformed(InputAction.CallbackContext ctx)
     {
-        if (currentLeftHandIndex == 3)
+        if (currentLeftHandIndex == 3 && isPeformingAction == false)
         {
             chargeInput = true;
             stateManager.PushState(PlayerStateType.WeaponSkill);
@@ -265,6 +283,15 @@ public class PlayerInputManager : MonoBehaviour
         {
             IndexSwapTo = 3;
             stateManager.PushState(PlayerStateType.WeaponSwap);
+        }
+    }
+
+
+    private void OnMagicTest(InputAction.CallbackContext ctx)
+    {
+        if (isGrounded && !isPeformingAction && !isAttacking)
+        {
+            stateManager.PushState(PlayerStateType.Scope_MagicState);
         }
     }
 }

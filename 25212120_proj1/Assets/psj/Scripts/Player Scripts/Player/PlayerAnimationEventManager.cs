@@ -19,11 +19,11 @@ public class PlayerAnimationEventManager : MonoBehaviour
     }
     public void MovingWhileAttacking()
     {
-        rb.AddForce(playerTransform.forward * 6f, ForceMode.Impulse);
+        rb.AddForce(playerTransform.forward * 11f, ForceMode.Impulse);
     }
     public void MovingWhileAttacking_DoubleSwords()
     {
-        rb.AddForce(playerTransform.forward * 7f, ForceMode.Impulse);
+        rb.AddForce(playerTransform.forward * 9f, ForceMode.Impulse);
     }
     public void BackStepWhileAttacking_Bow()
     {
@@ -41,7 +41,7 @@ public class PlayerAnimationEventManager : MonoBehaviour
     public void JumpAttackEnd()
     {
         rb.useGravity = true;
-        rb.AddForce(playerTransform.up * -30f, ForceMode.Impulse);
+        rb.AddForce(playerTransform.up * -25f, ForceMode.Impulse);
     }
     public void DisableWeapon()
     {

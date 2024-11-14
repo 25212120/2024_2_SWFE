@@ -1,5 +1,6 @@
 public enum PlayerStateType
 {
+    //Movement
     Idle,
     Walk,
     Sprint,
@@ -10,4 +11,12 @@ public enum PlayerStateType
     WeaponSwap,
     WeaponSkill,
     //Hit(GetHit)
+
+    //Magic
+    Scope_MagicState,
+    FireBall_MagicState,
+    Meteor_MagicState,
+    SolarBeam_MagicState,
+    Storm_MagicState,
+    EarthQuake_MagicState,
 }

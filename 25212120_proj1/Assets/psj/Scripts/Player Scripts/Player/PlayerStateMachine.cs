@@ -32,7 +32,15 @@ public class PlayerStateMachine : StateManager<PlayerStateType>
         States.Add(PlayerStateType.Interaction, new InteractionState(PlayerStateType.Interaction, this, playerInputManager, rb, animator, playerTransform));
         States.Add(PlayerStateType.WeaponSwap, new WeaponSwapState(PlayerStateType.WeaponSwap, this, playerInputManager, animator));
         States.Add(PlayerStateType.WeaponSkill, new WeaponSkillState(PlayerStateType.WeaponSkill, this, playerInputManager, rb, animator,playerTransform, monoBehaviour));
+        States.Add(PlayerStateType.Scope_MagicState, new Scope_MagicState(PlayerStateType.Scope_MagicState, this, playerInputManager, playerTransform, monoBehaviour, animator));
         // 상태들 전부 추가
+
+        //MagicState
+        States.Add(PlayerStateType.FireBall_MagicState, new FireBall_MagicState(PlayerStateType.FireBall_MagicState, this, playerInputManager, playerTransform, monoBehaviour, animator));
+        States.Add(PlayerStateType.Meteor_MagicState, new Meteor_MagicState(PlayerStateType.Meteor_MagicState, this, playerInputManager, playerTransform, monoBehaviour, animator));
+        States.Add(PlayerStateType.SolarBeam_MagicState, new SolarBeam_MagicState(PlayerStateType.SolarBeam_MagicState, this, playerInputManager, playerTransform, monoBehaviour, animator));
+        States.Add(PlayerStateType.Storm_MagicState, new Storm_MagicState(PlayerStateType.Storm_MagicState, this, playerInputManager, playerTransform, monoBehaviour, animator));
+        States.Add(PlayerStateType.EarthQuake_MagicState, new EarthQuake_MagicState(PlayerStateType.EarthQuake_MagicState, this, playerInputManager, playerTransform, monoBehaviour, animator, rb));
 
         PushState(PlayerStateType.Idle);
 

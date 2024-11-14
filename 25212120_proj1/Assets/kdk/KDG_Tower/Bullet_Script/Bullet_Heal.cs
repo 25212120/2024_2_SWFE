@@ -49,6 +49,8 @@ public class Bullet_Heal : MonoBehaviour, IBullet
         {
             tower.Attack(targetMonster); // 구조물이 BaseMonster를 공격하도록 함
         }
+        Destroy(gameObject);
+
         // 힐 범위 내의 플레이어들에게 힐을 주는 로직
         Collider[] colliders = Physics.OverlapSphere(transform.position, healRadius);
         foreach (var collider in colliders)
@@ -65,6 +67,5 @@ public class Bullet_Heal : MonoBehaviour, IBullet
         GameObject effectIns = Instantiate(impactEffect, transform.position, transform.rotation);
         Destroy(effectIns, 1f);
 
-        Destroy(gameObject);
     }
 }

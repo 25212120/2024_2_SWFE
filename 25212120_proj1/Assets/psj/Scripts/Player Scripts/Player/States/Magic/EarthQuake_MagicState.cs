@@ -31,6 +31,8 @@ public class EarthQuake_MagicState : BaseState<PlayerStateType>
 
     private Vector3 magicCirclePos;
 
+    private bool magicfinished;
+
     public override void EnterState()
     {
         LoadEarthCircle0("Prefabs/Magic/Earth/MagicCircleBrown");
@@ -42,6 +44,8 @@ public class EarthQuake_MagicState : BaseState<PlayerStateType>
 
         magicCirclePos = playerTransform.position + new Vector3(0, 0.2f, 0);
 
+        playerInputManager.isPeformingAction = true;
+
         monoBehaviour.StartCoroutine(InstantiateEarthCircles());
         monoBehaviour.StartCoroutine(Jump());
         monoBehaviour.StartCoroutine(InstantiateNova());
@@ -52,7 +56,6 @@ public class EarthQuake_MagicState : BaseState<PlayerStateType>
 
     public override void UpdateState()
     {
-
     }
 
     public override void FixedUpdateState()
@@ -61,10 +64,13 @@ public class EarthQuake_MagicState : BaseState<PlayerStateType>
 
     public override void ExitState()
     {
+        magicfinished = false;
+        playerInputManager.isPeformingAction = false;
     }
 
     public override void CheckTransitions()
     {
+        if (magicfinished == true)  stateManager.PopState();
     }
 
     private void LoadEarthCircle0(string prefabAddress)
@@ -142,6 +148,7 @@ public class EarthQuake_MagicState : BaseState<PlayerStateType>
         // 함수 호출
         knockBack(20);
 
+        magicfinished = true;
 
         yield return new WaitForSeconds(1.5f);
         Object.Destroy(instantiatedNovaBrown0);

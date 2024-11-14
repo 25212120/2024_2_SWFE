@@ -69,6 +69,7 @@ public class PlayerInputManager : MonoBehaviour
     {
         //Debug.Log(dim.activeSelf);
         //Debug.Log("LeftButton_Pressed : " + leftButton_Pressed);
+        //Debug.Log(isPeformingAction);
         leftButton_Pressed = false;
     }
     private void FixedUpdate()
@@ -169,6 +170,7 @@ public class PlayerInputManager : MonoBehaviour
     {
         if (isPeformingAction == false)
         {
+            Debug.Log("COME IN");
             moveInput = ctx.ReadValue<Vector2>();
             animator.SetBool("moveInput", true);
         }

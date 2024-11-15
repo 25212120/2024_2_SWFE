@@ -1,0 +1,122 @@
+{
+    "tiles": [
+        {
+            "tileName": "F_A",
+            "canRotate": false,
+            "sockets": [
+                { "direction": "north", "values": ["A", "B"] },
+                { "direction": "east", "values": ["A", "B"] },
+                { "direction": "south", "values": ["A", "B"] },
+                { "direction": "west", "values": ["A", "B"] }
+            ],
+            "biomes": ["Forest"],
+            "weight": 0.8,
+            "isEdgeTile": true
+        },
+        {
+            "tileName": "F_B",
+            "canRotate": true,
+            "sockets": [
+                { "direction": "north", "values": ["A"] },
+                { "direction": "east", "values": ["A"] },
+                { "direction": "south", "values": ["A"] },
+                { "direction": "west", "values": ["A"] }
+            ],
+            "biomes": ["Forest"],
+            "weight": 0.1,
+            "isEdgeTile": false
+        },
+        {
+            "tileName": "F_C",
+            "canRotate": true,
+            "sockets": [
+                { "direction": "north", "values": ["A"] },
+                { "direction": "east", "values": ["B"] },
+                { "direction": "south", "values": ["A"] },
+                { "direction": "west", "values": ["B"] }
+            ],
+            "biomes": ["Forest"],
+            "weight": 1.0,
+            "isEdgeTile": false
+        },
+        {
+            "tileName": "F_D",
+            "canRotate": true,
+            "sockets": [
+                { "direction": "north", "values": ["A"] },
+                { "direction": "east", "values": ["A"] },
+                { "direction": "south", "values": ["B"] },
+                { "direction": "west", "values": ["B"] }
+            ],
+            "biomes": ["Forest"],
+            "weight": 1.2,
+            "isEdgeTile": false
+        },
+        {
+            "tileName": "F_E",
+            "canRotate": true,
+            "sockets": [
+                { "direction": "north", "values": ["A"] },
+                { "direction": "east", "values": ["A"] },
+                { "direction": "south", "values": ["A","B"] },
+                { "direction": "west", "values": ["A","B"] }
+            ],
+            "biomes": ["Forest"],
+            "weight": 1.2,
+            "isEdgeTile": false
+            
+        },
+        {
+            "tileName": "F_F",
+            "canRotate": true,
+            "sockets": [
+                { "direction": "north", "values": ["A"] },
+                { "direction": "east", "values": ["A"] },
+                { "direction": "south", "values": ["C"] },
+                { "direction": "west", "values": ["A"] }
+            ],
+            "biomes": ["Forest"],
+            "weight": 1,
+            "isEdgeTile": false
+        },
+        {
+            "tileName": "F_G",
+            "canRotate": true,
+            "sockets": [
+                { "direction": "north", "values": ["C"] },
+                { "direction": "east", "values": ["A"] },
+                { "direction": "south", "values": ["C"] },
+                { "direction": "west", "values": ["A"] }
+            ],
+            "biomes": ["Forest"],
+            "weight": 1.4,
+            "isEdgeTile": false
+        },
+        {
+            "tileName": "F_H",
+            "canRotate": true,
+            "sockets": [
+                { "direction": "north", "values": ["C"] },
+                { "direction": "east", "values": ["C"] },
+                { "direction": "south", "values": ["C"] },
+                { "direction": "west", "values": ["A"] }
+            ],
+            "biomes": ["Forest"],
+            "weight": 1.1,
+            "isEdgeTile": false
+        },
+        {
+            "tileName": "F_I",
+            "canRotate": true,
+            "sockets": [
+                { "direction": "north", "values": ["C"] },
+                { "direction": "east", "values": ["C"] },
+                { "direction": "south", "values": ["C"] },
+                { "direction": "west", "values": ["C"] }
+            ],
+            "biomes": ["Forest"],
+            "weight": 0.4,
+            "isEdgeTile": false
+        }
+    ]
+}

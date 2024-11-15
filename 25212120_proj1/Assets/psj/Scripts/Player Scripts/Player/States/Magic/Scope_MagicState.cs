@@ -29,7 +29,7 @@ public class Scope_MagicState : BaseState<PlayerStateType>
     {
         playerInputManager.moveInput = Vector2.zero;
         animator.SetBool("moveInput", false);
-        playerInputManager.isPeformingAction = true;
+        playerInputManager.isPerformingAction = true;
 
         overlayObject = playerInputManager.dim;
         rangeSprite = playerInputManager.magicRangeSprite;
@@ -66,12 +66,12 @@ public class Scope_MagicState : BaseState<PlayerStateType>
                 playerInputManager.magicPoint = hitInfo.point;
             }
 
-            stateManager.ChangeState(PlayerStateType.EarthQuake_MagicState);
-            playerInputManager.isPeformingAction = false;
+            ChangeStateByMagicIndex(playerInputManager.currentMagicIndex);
+            playerInputManager.isPerformingAction = false;
         }
         else if (Input.GetKeyDown(KeyCode.Escape))
         {
-            playerInputManager.isPeformingAction = false;
+            playerInputManager.isPerformingAction = false;
             Debug.Log("Magic Canceled");
             stateManager.PopState();
         }
@@ -85,5 +85,11 @@ public class Scope_MagicState : BaseState<PlayerStateType>
             spritePosition.y += 0.1f;
             instantiatedSprite.transform.position = spritePosition;
         }
+    }
+
+    private void ChangeStateByMagicIndex(int magicIndex)
+    {
+        if (magicIndex == 1)    stateManager.ChangeState(playerInputManager.magic1);
+        else if (magicIndex == 2)    stateManager.ChangeState(playerInputManager.magic2);
     }
 }

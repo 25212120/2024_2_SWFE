@@ -25,7 +25,7 @@ public class JumpState : BaseState<PlayerStateType>
         animator.SetBool("isInAir", true);
 
         // script variables
-        playerInputManager.isPeformingAction = true;
+        playerInputManager.isPerformingAction = true;
         SetJumpDirection();
 
 
@@ -52,7 +52,7 @@ public class JumpState : BaseState<PlayerStateType>
 
     public override void ExitState()
     {
-        playerInputManager.isPeformingAction = false;
+        playerInputManager.isPerformingAction = false;
         animator.ResetTrigger("spaceKey_Pressed");
     }
 

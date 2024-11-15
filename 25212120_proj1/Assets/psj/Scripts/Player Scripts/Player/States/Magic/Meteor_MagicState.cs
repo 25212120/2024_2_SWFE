@@ -36,7 +36,7 @@ public class Meteor_MagicState : BaseState<PlayerStateType>
 
         magicCirclePos = playerTransform.position + new Vector3(0, 0.2f, 0);
 
-        playerInputManager.isPeformingAction = true;
+        playerInputManager.isPerformingAction = true;
         monoBehaviour.StartCoroutine(InstantiateFireCircles());
         spawnPosition = playerInputManager.magicPoint + new Vector3(0, 30f, 0);
         monoBehaviour.StartCoroutine(MagicCasting());
@@ -53,7 +53,7 @@ public class Meteor_MagicState : BaseState<PlayerStateType>
     public override void ExitState()
     {
         finishedCasting = false;
-        playerInputManager.isPeformingAction = false;
+        playerInputManager.isPerformingAction = false;
     }
 
     public override void CheckTransitions()

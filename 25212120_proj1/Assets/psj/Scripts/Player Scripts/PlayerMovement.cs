@@ -356,9 +356,18 @@ public partial class @PlayerMovement: IInputActionCollection2, IDisposable
             ""id"": ""9850ee9d-e789-4821-8633-fd2a6ce4b7cf"",
             ""actions"": [
                 {
-                    ""name"": ""MagicTest"",
+                    ""name"": ""Magic1"",
                     ""type"": ""Button"",
                     ""id"": ""a4f8d6c7-2ef0-4e31-9db8-b86851b9b46a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Magic2"",
+                    ""type"": ""Button"",
+                    ""id"": ""545467f0-3035-4b1d-ae09-61f24d0e9e35"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -369,11 +378,22 @@ public partial class @PlayerMovement: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""cec5e789-530a-44b6-b52c-116379fcf940"",
-                    ""path"": ""<Keyboard>/t"",
+                    ""path"": ""<Keyboard>/j"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""MagicTest"",
+                    ""action"": ""Magic1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""52a8149a-7225-49b8-9ac9-094997a2ee9a"",
+                    ""path"": ""<Keyboard>/k"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Magic2"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -409,7 +429,8 @@ public partial class @PlayerMovement: IInputActionCollection2, IDisposable
         m_WeaponSwap_MagicWand = m_WeaponSwap.FindAction("MagicWand", throwIfNotFound: true);
         // PlayerMagic
         m_PlayerMagic = asset.FindActionMap("PlayerMagic", throwIfNotFound: true);
-        m_PlayerMagic_MagicTest = m_PlayerMagic.FindAction("MagicTest", throwIfNotFound: true);
+        m_PlayerMagic_Magic1 = m_PlayerMagic.FindAction("Magic1", throwIfNotFound: true);
+        m_PlayerMagic_Magic2 = m_PlayerMagic.FindAction("Magic2", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -689,12 +710,14 @@ public partial class @PlayerMovement: IInputActionCollection2, IDisposable
     // PlayerMagic
     private readonly InputActionMap m_PlayerMagic;
     private List<IPlayerMagicActions> m_PlayerMagicActionsCallbackInterfaces = new List<IPlayerMagicActions>();
-    private readonly InputAction m_PlayerMagic_MagicTest;
+    private readonly InputAction m_PlayerMagic_Magic1;
+    private readonly InputAction m_PlayerMagic_Magic2;
     public struct PlayerMagicActions
     {
         private @PlayerMovement m_Wrapper;
         public PlayerMagicActions(@PlayerMovement wrapper) { m_Wrapper = wrapper; }
-        public InputAction @MagicTest => m_Wrapper.m_PlayerMagic_MagicTest;
+        public InputAction @Magic1 => m_Wrapper.m_PlayerMagic_Magic1;
+        public InputAction @Magic2 => m_Wrapper.m_PlayerMagic_Magic2;
         public InputActionMap Get() { return m_Wrapper.m_PlayerMagic; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -704,16 +727,22 @@ public partial class @PlayerMovement: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_PlayerMagicActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_PlayerMagicActionsCallbackInterfaces.Add(instance);
-            @MagicTest.started += instance.OnMagicTest;
-            @MagicTest.performed += instance.OnMagicTest;
-            @MagicTest.canceled += instance.OnMagicTest;
+            @Magic1.started += instance.OnMagic1;
+            @Magic1.performed += instance.OnMagic1;
+            @Magic1.canceled += instance.OnMagic1;
+            @Magic2.started += instance.OnMagic2;
+            @Magic2.performed += instance.OnMagic2;
+            @Magic2.canceled += instance.OnMagic2;
         }
 
         private void UnregisterCallbacks(IPlayerMagicActions instance)
         {
-            @MagicTest.started -= instance.OnMagicTest;
-            @MagicTest.performed -= instance.OnMagicTest;
-            @MagicTest.canceled -= instance.OnMagicTest;
+            @Magic1.started -= instance.OnMagic1;
+            @Magic1.performed -= instance.OnMagic1;
+            @Magic1.canceled -= instance.OnMagic1;
+            @Magic2.started -= instance.OnMagic2;
+            @Magic2.performed -= instance.OnMagic2;
+            @Magic2.canceled -= instance.OnMagic2;
         }
 
         public void RemoveCallbacks(IPlayerMagicActions instance)
@@ -764,6 +793,7 @@ public partial class @PlayerMovement: IInputActionCollection2, IDisposable
     }
     public interface IPlayerMagicActions
     {
-        void OnMagicTest(InputAction.CallbackContext context);
+        void OnMagic1(InputAction.CallbackContext context);
+        void OnMagic2(InputAction.CallbackContext context);
     }
 }

@@ -38,9 +38,12 @@ public class PlayerStateMachine : StateManager<PlayerStateType>
         //MagicState
         States.Add(PlayerStateType.FireBall_MagicState, new FireBall_MagicState(PlayerStateType.FireBall_MagicState, this, playerInputManager, playerTransform, monoBehaviour, animator));
         States.Add(PlayerStateType.Meteor_MagicState, new Meteor_MagicState(PlayerStateType.Meteor_MagicState, this, playerInputManager, playerTransform, monoBehaviour, animator));
-        States.Add(PlayerStateType.SolarBeam_MagicState, new SolarBeam_MagicState(PlayerStateType.SolarBeam_MagicState, this, playerInputManager, playerTransform, monoBehaviour, animator));
+        States.Add(PlayerStateType.DrainField_MagicState, new DrainField_MagicState(PlayerStateType.DrainField_MagicState, this, playerInputManager, playerTransform, monoBehaviour, animator));
         States.Add(PlayerStateType.Storm_MagicState, new Storm_MagicState(PlayerStateType.Storm_MagicState, this, playerInputManager, playerTransform, monoBehaviour, animator));
         States.Add(PlayerStateType.EarthQuake_MagicState, new EarthQuake_MagicState(PlayerStateType.EarthQuake_MagicState, this, playerInputManager, playerTransform, monoBehaviour, animator, rb));
+        States.Add(PlayerStateType.IceSpear_MagicState, new IceSpear_MagicState(PlayerStateType.IceSpear_MagicState, this, playerInputManager, playerTransform, monoBehaviour, animator));
+        States.Add(PlayerStateType.RockFall_MagicState, new RockFall_MagicState(PlayerStateType.RockFall_MagicState, this, playerInputManager, playerTransform, monoBehaviour, animator));
+        States.Add(PlayerStateType.PoisonFog_MagicState, new PoisonFog_MagicState(PlayerStateType.PoisonFog_MagicState, this, playerInputManager, playerTransform, monoBehaviour, animator, rb));
 
         PushState(PlayerStateType.Idle);
 

@@ -334,9 +334,18 @@
             "id": "9850ee9d-e789-4821-8633-fd2a6ce4b7cf",
             "actions": [
                 {
-                    "name": "MagicTest",
+                    "name": "Magic1",
                     "type": "Button",
                     "id": "a4f8d6c7-2ef0-4e31-9db8-b86851b9b46a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Magic2",
+                    "type": "Button",
+                    "id": "545467f0-3035-4b1d-ae09-61f24d0e9e35",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -347,11 +356,22 @@
                 {
                     "name": "",
                     "id": "cec5e789-530a-44b6-b52c-116379fcf940",
-                    "path": "<Keyboard>/t",
+                    "path": "<Keyboard>/j",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "MagicTest",
+                    "action": "Magic1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "52a8149a-7225-49b8-9ac9-094997a2ee9a",
+                    "path": "<Keyboard>/k",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Magic2",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

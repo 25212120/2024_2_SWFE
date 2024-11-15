@@ -17,6 +17,7 @@ public class PlayerInputManager : MonoBehaviour
     public int previousLeftHandIndex;
     public PlayerStateType magic1;
     public PlayerStateType magic2;
+    public int currentMagicIndex;
     // CheckGround를 호출여부를 결정할 수 있음
     public bool wantToCheckGround = true;
 
@@ -66,8 +67,8 @@ public class PlayerInputManager : MonoBehaviour
         currentLeftHandIndex = 0;
 
         // magic init (for test)
-        Magic1Swap(PlayerStateType.Meteor_MagicState);
-        Magic2Swap(PlayerStateType.EarthQuake_MagicState);
+        Magic1Swap(PlayerStateType.PoisonFog_MagicState);
+        Magic2Swap(PlayerStateType.RockFall_MagicState);
     }
 
     private void Update()
@@ -297,7 +298,8 @@ public class PlayerInputManager : MonoBehaviour
     {
         if (isGrounded && !isPerformingAction && !isAttacking)
         {
-            stateManager.PushState(magic1);
+            currentMagicIndex = 1;
+            PushByMagicCase(magic1);
         }
     }
 
@@ -305,7 +307,8 @@ public class PlayerInputManager : MonoBehaviour
     {
         if (isGrounded && !isPerformingAction && !isAttacking)
         {
-            stateManager.PushState(magic2);
+            currentMagicIndex = 2;
+            PushByMagicCase(magic2);
         }
     }
 
@@ -321,9 +324,9 @@ public class PlayerInputManager : MonoBehaviour
     }
 
 
-    private void PushByMagicCase()
+    private void PushByMagicCase(PlayerStateType magicIndex)
     {
-        switch (magic1)
+        switch (magicIndex)
         {
             // Fire
             case PlayerStateType.FireBall_MagicState:
@@ -333,14 +336,27 @@ public class PlayerInputManager : MonoBehaviour
                 stateManager.PushState(PlayerStateType.Scope_MagicState);
                 break;
             // Earth
+            case PlayerStateType.RockFall_MagicState:
+                stateManager.PushState(PlayerStateType.RockFall_MagicState);
+                break;
             case PlayerStateType.EarthQuake_MagicState:
+                stateManager.PushState(PlayerStateType.EarthQuake_MagicState);
                 break;
             // Water
+            case PlayerStateType.IceSpear_MagicState:
+                stateManager.PushState(PlayerStateType.Scope_MagicState);
+                break;
             case PlayerStateType.Storm_MagicState:
+                stateManager.PushState(PlayerStateType.Storm_MagicState);
                 break;
             // Plant
+            case PlayerStateType.PoisonFog_MagicState:
+                stateManager.PushState(PlayerStateType.Scope_MagicState);
+                break;
             case PlayerStateType.DrainField_MagicState:
+                stateManager.PushState(PlayerStateType.DrainField_MagicState);
                 break;
         }
     }
+
 }

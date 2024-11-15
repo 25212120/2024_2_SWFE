@@ -41,6 +41,9 @@ public class PlayerStateMachine : StateManager<PlayerStateType>
         States.Add(PlayerStateType.DrainField_MagicState, new DrainField_MagicState(PlayerStateType.DrainField_MagicState, this, playerInputManager, playerTransform, monoBehaviour, animator));
         States.Add(PlayerStateType.Storm_MagicState, new Storm_MagicState(PlayerStateType.Storm_MagicState, this, playerInputManager, playerTransform, monoBehaviour, animator));
         States.Add(PlayerStateType.EarthQuake_MagicState, new EarthQuake_MagicState(PlayerStateType.EarthQuake_MagicState, this, playerInputManager, playerTransform, monoBehaviour, animator, rb));
+        States.Add(PlayerStateType.IceSpear_MagicState, new IceSpear_MagicState(PlayerStateType.IceSpear_MagicState, this, playerInputManager, playerTransform, monoBehaviour, animator));
+        States.Add(PlayerStateType.RockFall_MagicState, new RockFall_MagicState(PlayerStateType.RockFall_MagicState, this, playerInputManager, playerTransform, monoBehaviour, animator));
+        States.Add(PlayerStateType.PoisonFog_MagicState, new PoisonFog_MagicState(PlayerStateType.PoisonFog_MagicState, this, playerInputManager, playerTransform, monoBehaviour, animator, rb));
 
         PushState(PlayerStateType.Idle);
 

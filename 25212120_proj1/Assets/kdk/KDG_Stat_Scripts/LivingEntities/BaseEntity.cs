@@ -3,7 +3,7 @@ using UnityEngine;
 public abstract class BaseEntity : MonoBehaviour
 {
     [Header("∞¥√º¿« Ω∫≈» ¡§∫∏")]
-    [SerializeField] protected StatData statData;
+    [SerializeField] public StatData statData;
 
     protected virtual void Awake()
     {

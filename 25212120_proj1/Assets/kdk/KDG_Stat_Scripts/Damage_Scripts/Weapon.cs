@@ -15,7 +15,6 @@ public class Weapon : MonoBehaviour
         EquipmentItem newWeapon = new EquipmentItem("Weapon: " + gameObject.name, effect);
 
         // EquipmentInventory에 장비 추가
-        inventory.AddEquipment(newWeapon);
 
         
         Debug.Log($"{gameObject.name} has been equipped.");

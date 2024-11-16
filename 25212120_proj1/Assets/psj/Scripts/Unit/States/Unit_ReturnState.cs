@@ -48,7 +48,7 @@ public class Unit_ReturnState : BaseState<UnitStateType>
             // 충분히 가까워졌으므로 Idle 상태로 전환
             stateManager.ChangeState(UnitStateType.Idle);
         }
-        else if (distanceToSavedPosition <= 10f) // 5f는 원하는 거리로 설정하세요
+        else if (distanceToSavedPosition <= 5f) // 5f는 원하는 거리로 설정하세요
         {
             // 아직 savedPosition에 도달하지 않았지만 충분히 가까워짐
             unit.canDetectEnemy = true; // 적 탐지 재개

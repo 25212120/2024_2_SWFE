@@ -424,6 +424,34 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "CameraControl",
+            "id": "c0e1591a-ae5a-4b9c-9df3-608339a2ec69",
+            "actions": [
+                {
+                    "name": "Transition",
+                    "type": "Value",
+                    "id": "58c1c5d9-318c-4a2f-920c-9b70452e9890",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "c4f862ed-21bb-4031-9475-33eee5c58b5f",
+                    "path": "<Mouse>/scroll",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Transition",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [

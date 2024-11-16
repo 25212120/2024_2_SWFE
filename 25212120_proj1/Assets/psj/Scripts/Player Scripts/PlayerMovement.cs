@@ -446,6 +446,34 @@ public partial class @PlayerMovement: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""CameraControl"",
+            ""id"": ""c0e1591a-ae5a-4b9c-9df3-608339a2ec69"",
+            ""actions"": [
+                {
+                    ""name"": ""Transition"",
+                    ""type"": ""Value"",
+                    ""id"": ""58c1c5d9-318c-4a2f-920c-9b70452e9890"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""c4f862ed-21bb-4031-9475-33eee5c58b5f"",
+                    ""path"": ""<Mouse>/scroll"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Transition"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -483,6 +511,9 @@ public partial class @PlayerMovement: IInputActionCollection2, IDisposable
         m_UnitControl = asset.FindActionMap("UnitControl", throwIfNotFound: true);
         m_UnitControl_Select = m_UnitControl.FindAction("Select", throwIfNotFound: true);
         m_UnitControl_Command_Move = m_UnitControl.FindAction("Command_Move", throwIfNotFound: true);
+        // CameraControl
+        m_CameraControl = asset.FindActionMap("CameraControl", throwIfNotFound: true);
+        m_CameraControl_Transition = m_CameraControl.FindAction("Transition", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -866,6 +897,52 @@ public partial class @PlayerMovement: IInputActionCollection2, IDisposable
         }
     }
     public UnitControlActions @UnitControl => new UnitControlActions(this);
+
+    // CameraControl
+    private readonly InputActionMap m_CameraControl;
+    private List<ICameraControlActions> m_CameraControlActionsCallbackInterfaces = new List<ICameraControlActions>();
+    private readonly InputAction m_CameraControl_Transition;
+    public struct CameraControlActions
+    {
+        private @PlayerMovement m_Wrapper;
+        public CameraControlActions(@PlayerMovement wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Transition => m_Wrapper.m_CameraControl_Transition;
+        public InputActionMap Get() { return m_Wrapper.m_CameraControl; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(CameraControlActions set) { return set.Get(); }
+        public void AddCallbacks(ICameraControlActions instance)
+        {
+            if (instance == null || m_Wrapper.m_CameraControlActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_CameraControlActionsCallbackInterfaces.Add(instance);
+            @Transition.started += instance.OnTransition;
+            @Transition.performed += instance.OnTransition;
+            @Transition.canceled += instance.OnTransition;
+        }
+
+        private void UnregisterCallbacks(ICameraControlActions instance)
+        {
+            @Transition.started -= instance.OnTransition;
+            @Transition.performed -= instance.OnTransition;
+            @Transition.canceled -= instance.OnTransition;
+        }
+
+        public void RemoveCallbacks(ICameraControlActions instance)
+        {
+            if (m_Wrapper.m_CameraControlActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(ICameraControlActions instance)
+        {
+            foreach (var item in m_Wrapper.m_CameraControlActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_CameraControlActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public CameraControlActions @CameraControl => new CameraControlActions(this);
     private int m_PCSchemeIndex = -1;
     public InputControlScheme PCScheme
     {
@@ -906,5 +983,9 @@ public partial class @PlayerMovement: IInputActionCollection2, IDisposable
     {
         void OnSelect(InputAction.CallbackContext context);
         void OnCommand_Move(InputAction.CallbackContext context);
+    }
+    public interface ICameraControlActions
+    {
+        void OnTransition(InputAction.CallbackContext context);
     }
 }

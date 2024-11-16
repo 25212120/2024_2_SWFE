@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using UnityEngine;
 
 public class Unit_MoveState : BaseState<UnitStateType>
@@ -21,14 +22,17 @@ public class Unit_MoveState : BaseState<UnitStateType>
 
     public override void EnterState()
     {
+        unit.isMove = true;
         unit.agent.isStopped = false;
         unit.canDetectEnemy = false;
+        unit.targetEnemy = null;
     }
 
     public override void UpdateState()
     {
         if (!unit.agent.pathPending && unit.agent.remainingDistance <= unit.agent.stoppingDistance)
         {
+            unit.savedPosition = unit.transform.position;
             stateManager.ChangeState(UnitStateType.Idle);
         }
     }
@@ -39,6 +43,7 @@ public class Unit_MoveState : BaseState<UnitStateType>
 
     public override void ExitState()
     {
+        unit.isMove = false;
     }
 
     public override void CheckTransitions()

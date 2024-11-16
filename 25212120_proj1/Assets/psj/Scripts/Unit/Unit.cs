@@ -9,6 +9,8 @@ public class Unit : MonoBehaviour
     public Transform targetEnemy;
     public Vector3 savedPosition;
 
+    public bool isMove = false;
+
     [HideInInspector]
     public UnitStateMachine stateMachine;
 
@@ -77,6 +79,12 @@ public class Unit : MonoBehaviour
         if (closestEnemy != null)
         {
             targetEnemy = closestEnemy;
+
+            if (isMove == true)
+            {
+                savedPosition = transform.position;
+            }
+
             stateMachine.ChangeState(UnitStateType.Chase);
         }
     }

@@ -3,8 +3,8 @@ using System.Collections.Generic;
 
 public class ChunkManager : MonoBehaviour
 {
-    public int chunkWidth = 10; // 청크의 너비
-    public int chunkHeight = 10; // 청크의 높이
+    public int chunkWidth = 5; // 청크의 너비
+    public int chunkHeight = 5; // 청크의 높이
     public Vector2 chunkPosition = Vector2.zero; // 청크의 시작 위치
 
     public TileLoader tileLoader; // 타일 로더

@@ -117,6 +117,19 @@
             "biomes": ["Forest"],
             "weight": 0.4,
             "isEdgeTile": false
+        },
+        {
+            "tileName": "F_J",
+            "canRotate": true,
+            "sockets": [
+                { "direction": "north", "values": ["A"] },
+                { "direction": "east", "values": ["C"] },
+                { "direction": "south", "values": ["C"] },
+                { "direction": "west", "values": ["A"] }
+            ],
+            "biomes": ["Forest"],
+            "weight": 0.4,
+            "isEdgeTile": false
         }
     ]
 }

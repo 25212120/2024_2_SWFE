@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using UnityEngine;
-using System.Linq;
+using UnityEngine; // 추가된 부분
+using System.Linq; // 추가된 부분
 
 public class WaveFunctionCollapse
 {
@@ -15,10 +15,19 @@ public class WaveFunctionCollapse
     public void GenerateChunk(Chunk chunk, Vector2 chunkPosition, List<Tile> allTiles)
     {
         // 바이옴 결정
-        string biome = biomeManager.GetBiomeForPosition(chunkPosition);
+        string biome = biomeManager.GetBiomeForPosition(chunkPosition).Trim();
+        Debug.Log($"바이옴 결정: '{biome}' (길이: {biome.Length})");
+        DebugBiomeString(biome, "결정된 바이옴");
 
         // 바이옴에 맞는 타일 필터링
         List<Tile> filteredTiles = FilterTilesByBiome(biome, allTiles);
+        Debug.Log($"필터링된 타일 수: {filteredTiles.Count}");
+
+        if (filteredTiles.Count == 0)
+        {
+            Debug.LogWarning($"바이옴 '{biome}'에 맞는 타일이 없습니다. 모든 타일을 사용합니다.");
+            filteredTiles = allTiles;
+        }
 
         // 청크 초기화 및 WFC 실행
         InitializeChunk(chunk, filteredTiles);
@@ -26,7 +35,7 @@ public class WaveFunctionCollapse
         bool success = RunWFC(chunk);
         if (!success)
         {
-            Debug.LogError("Failed to generate chunk with WFC.");
+            Debug.LogError("WFC를 사용하여 청크를 생성하는 데 실패했습니다.");
         }
         else
         {
@@ -35,13 +44,28 @@ public class WaveFunctionCollapse
         }
     }
 
+    private void DebugBiomeString(string biome, string context)
+    {
+        var charCodes = biome.Select(c => ((int)c).ToString()).ToArray();
+        string codes = string.Join(", ", charCodes);
+        Debug.Log($"{context} 바이옴 문자열 유니코드 값: [{codes}]");
+    }
+
+
+
     private List<Tile> FilterTilesByBiome(string biome, List<Tile> allTiles)
     {
-        return allTiles.FindAll(tile => tile.biomes.Contains(biome));
+        List<Tile> matchingTiles = allTiles.FindAll(tile => tile.biomes.Any(b => b.Equals(biome, System.StringComparison.OrdinalIgnoreCase)));
+        Debug.Log($"바이옴 '{biome}'에 맞는 타일 수: {matchingTiles.Count}");
+        return matchingTiles;
     }
+
 
     private void InitializeChunk(Chunk chunk, List<Tile> tiles)
     {
+        // 청크의 셀 배열 초기화
+        chunk.cells = new Cell[chunk.width, chunk.height];
+
         for (int x = 0; x < chunk.width; x++)
         {
             for (int y = 0; y < chunk.height; y++)
@@ -68,6 +92,7 @@ public class WaveFunctionCollapse
                             }
                         }
                     }
+                    Debug.Log($"엣지 셀 ({x}, {y}) 가능한 타일 상태 수: {cell.possibleTileStates.Count}");
                 }
                 else
                 {
@@ -83,6 +108,7 @@ public class WaveFunctionCollapse
                             });
                         }
                     }
+                    Debug.Log($"내부 셀 ({x}, {y}) 가능한 타일 상태 수: {cell.possibleTileStates.Count}");
                 }
 
                 chunk.cells[x, y] = cell;
@@ -90,16 +116,19 @@ public class WaveFunctionCollapse
         }
     }
 
-
-
     private bool RunWFC(Chunk chunk)
     {
+        int iteration = 0;
         while (true)
         {
+            iteration++;
+            Debug.Log($"WFC Iteration: {iteration}");
+
             Cell cell = SelectCellWithLowestEntropy(chunk);
             if (cell == null)
             {
                 // 모든 셀이 붕괴됨
+                Debug.Log("모든 셀이 붕괴되었습니다.");
                 return true;
             }
 
@@ -109,28 +138,35 @@ public class WaveFunctionCollapse
             bool success = CollapseCell(cell);
             if (!success)
             {
+                Debug.LogWarning($"셀 ({cell.position.x}, {cell.position.y}) 붕괴 실패. 백트래킹을 시도합니다.");
                 // 백트래킹
                 bool backtrackSuccess = Backtrack(chunk);
                 if (!backtrackSuccess)
                 {
+                    Debug.LogError("백트래킹 실패. WFC 알고리즘을 종료합니다.");
                     return false;
                 }
             }
             else
             {
+                Debug.Log($"셀 ({cell.position.x}, {cell.position.y}) 붕괴 성공: {cell.collapsedTileState.tile.tileName}");
+
                 bool propagateSuccess = PropagateConstraints(chunk, cell);
                 if (!propagateSuccess)
                 {
+                    Debug.LogWarning("제약 전파 실패. 백트래킹을 시도합니다.");
                     // 백트래킹
                     bool backtrackSuccess = Backtrack(chunk);
                     if (!backtrackSuccess)
                     {
+                        Debug.LogError("백트래킹 실패. WFC 알고리즘을 종료합니다.");
                         return false;
                     }
                 }
             }
         }
     }
+
 
     private Cell SelectCellWithLowestEntropy(Chunk chunk)
     {
@@ -262,13 +298,16 @@ public class WaveFunctionCollapse
         var cellSockets = cellState.tile.rotatedSockets[cellState.rotationIndex];
         var neighborSockets = neighborState.tile.rotatedSockets[neighborState.rotationIndex];
 
+        if (!cellSockets.ContainsKey(dirString) || !neighborSockets.ContainsKey(oppositeDirString))
+            return false;
+
         var cellSocketList = cellSockets[dirString];
         var neighborSocketList = neighborSockets[oppositeDirString];
 
         return cellSocketList.Intersect(neighborSocketList).Any();
     }
 
-    private float cellSize = 50.0f; // 셀 크기
+    private float cellSize = 50.0f; // 셀 크기 (타일의 실제 크기에 맞게 조정)
 
     private void InstantiateChunk(Chunk chunk)
     {
@@ -282,7 +321,7 @@ public class WaveFunctionCollapse
                     TileState state = cell.collapsedTileState;
                     if (state.tile.prefab == null)
                     {
-                        Debug.LogError($"Tile prefab is null for tile {state.tile.tileName} at position ({x}, {y}).");
+                        Debug.LogError($"타일 프리팹이 null입니다: {state.tile.tileName} 위치 ({x}, {y})");
                         continue;
                     }
 
@@ -295,7 +334,15 @@ public class WaveFunctionCollapse
                     );
 
                     obj.name = $"{state.tile.tileName}_{x}_{y}";
-                    Debug.Log($"Tile instantiated: {obj.name} at position {position}");
+                    // obj를 청크의 GameObject의 자식으로 설정
+                    obj.transform.parent = chunk.chunkObject.transform;
+
+                    // 타일 생성 로그 추가
+                    Debug.Log($"타일 생성됨: {obj.name} 위치 {position}");
+                }
+                else
+                {
+                    Debug.LogWarning($"셀 ({x}, {y})에 할당된 타일이 없습니다.");
                 }
             }
         }

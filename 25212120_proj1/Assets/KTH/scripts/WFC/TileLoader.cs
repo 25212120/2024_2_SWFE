@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
 
 public class TileLoader : MonoBehaviour
 {
@@ -7,7 +8,10 @@ public class TileLoader : MonoBehaviour
     public TextAsset tileDataJson;
 
     public Dictionary<string, Tile> tiles = new Dictionary<string, Tile>();
-
+    void Awake()
+    {
+        LoadTilesFromJson();
+    }
     void Start()
     {
         if (tileDataJson == null)
@@ -39,10 +43,23 @@ public class TileLoader : MonoBehaviour
                     prefab = Resources.Load<GameObject>($"Tiles/{data.tileName}"),
                     canRotate = data.canRotate,
                     sockets = socketDict,
-                    biomes = data.biomes,
+                    biomes = data.biomes.Select(b => b.Trim()).ToList(),
                     weight = data.weight > 0 ? data.weight : 1.0f,
-                    isEdgeTile = data.isEdgeTile // JSON에서 isEdgeTile 읽기
+                    isEdgeTile = data.isEdgeTile
                 };
+
+                if (tile.biomes.Count == 0)
+                {
+                    Debug.LogWarning($"타일 {tile.tileName}의 바이옴 리스트가 비어있습니다.");
+                }
+                else
+                {
+                    foreach (var biome in tile.biomes)
+                    {
+                        Debug.Log($"타일 {tile.tileName}의 바이옴: '{biome}' (길이: {biome.Length})");
+                        DebugBiomeString(biome, $"타일 {tile.tileName}");
+                    }
+                }
 
                 tile.GenerateRotatedSockets();
                 tiles.Add(data.tileName, tile);
@@ -55,6 +72,15 @@ public class TileLoader : MonoBehaviour
             Debug.LogError($"JSON 로드 중 오류 발생: {e.Message}");
         }
     }
+
+    private void DebugBiomeString(string biome, string context)
+    {
+        var charCodes = biome.Select(c => ((int)c).ToString()).ToArray();
+        string codes = string.Join(", ", charCodes);
+        Debug.Log($"{context} 바이옴 문자열 유니코드 값: [{codes}]");
+    }
+
+
 }
 
 [System.Serializable]

@@ -36,6 +36,10 @@ public class ChunkManager : MonoBehaviour
         // 청크 생성
         Chunk chunk = new Chunk(width, height);
 
+        // 청크의 GameObject를 이 스크립트가 붙은 오브젝트의 자식으로 설정
+        chunk.chunkObject.transform.parent = this.transform;
+        chunk.chunkObject.transform.position = new Vector3(position.x, 0, position.y);
+
         // WFC 알고리즘 실행
         wfc.GenerateChunk(chunk, position, allTiles);
 

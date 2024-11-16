@@ -2,16 +2,20 @@ using UnityEngine;
 
 public class Chunk
 {
-    public int width;
-    public int height;
-    public Cell[,] cells;
-    public GameObject chunkObject; // 추가된 부분
+    public GameObject chunkObject; // 청크를 나타내는 GameObject
+    public Cell[,] cells;         // 청크 내부의 셀 배열
+    public int width;             // 청크의 너비 (셀 단위)
+    public int height;            // 청크의 높이 (셀 단위)
+    public Vector2Int chunkCoord; // 청크의 위치 (청크 단위 좌표)
 
-    public Chunk(int width, int height)
+    // 생성자
+    public Chunk(Vector2Int chunkCoord, int chunkSize)
     {
-        this.width = width;
-        this.height = height;
-        cells = new Cell[width, height];
-        chunkObject = new GameObject("Chunk"); // 청크를 표현하는 GameObject 생성
+        this.chunkCoord = chunkCoord; // 청크 좌표 설정
+        this.width = chunkSize;       // 청크의 너비
+        this.height = chunkSize;      // 청크의 높이
+
+        // 청크 GameObject 생성
+        chunkObject = new GameObject($"Chunk_{chunkCoord.x}_{chunkCoord.y}");
     }
 }

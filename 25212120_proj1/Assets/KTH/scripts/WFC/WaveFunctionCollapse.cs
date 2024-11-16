@@ -1,23 +1,25 @@
 using System.Collections.Generic;
-using UnityEngine; // 추가된 부분
-using System.Linq; // 추가된 부분
+using UnityEngine;
+using System.Linq;
 
 public class WaveFunctionCollapse
 {
     private BiomeManager biomeManager;
+    private float cellSize; // 셀 크기
     private Stack<WaveState> backtrackStack = new Stack<WaveState>();
 
-    public WaveFunctionCollapse(BiomeManager biomeManager)
+    public WaveFunctionCollapse(BiomeManager biomeManager, float cellSize)
     {
         this.biomeManager = biomeManager;
+        this.cellSize = cellSize;
     }
 
-    public void GenerateChunk(Chunk chunk, Vector2 chunkPosition, List<Tile> allTiles)
+    public void GenerateChunk(Chunk chunk, Vector2Int chunkCoord, List<Tile> allTiles, bool isPlayerSpawnChunk)
     {
         // 바이옴 결정
-        string biome = biomeManager.GetBiomeForPosition(chunkPosition).Trim();
-        Debug.Log($"바이옴 결정: '{biome}' (길이: {biome.Length})");
-        DebugBiomeString(biome, "결정된 바이옴");
+        string biome = biomeManager.GetBiomeForPosition(chunkCoord);
+        biome = biome.Trim().ToLowerInvariant();
+        Debug.Log($"바이옴 결정: {biome}");
 
         // 바이옴에 맞는 타일 필터링
         List<Tile> filteredTiles = FilterTilesByBiome(biome, allTiles);
@@ -29,27 +31,58 @@ public class WaveFunctionCollapse
             filteredTiles = allTiles;
         }
 
-        // 청크 초기화 및 WFC 실행
-        InitializeChunk(chunk, filteredTiles);
-
-        bool success = RunWFC(chunk);
-        if (!success)
+        if (isPlayerSpawnChunk)
         {
-            Debug.LogError("WFC를 사용하여 청크를 생성하는 데 실패했습니다.");
+            // 스폰 청크에 기본 타일 설정
+            InitializeChunkWithDefaultTiles(chunk, filteredTiles);
         }
         else
         {
-            // 청크에 타일 인스턴스화
-            InstantiateChunk(chunk);
+            // 일반 청크 생성
+            InitializeChunk(chunk, filteredTiles);
+
+            bool success = RunWFC(chunk);
+            if (!success)
+            {
+                Debug.LogError("WFC를 사용하여 청크를 생성하는 데 실패했습니다.");
+            }
+        }
+
+        // 청크에 타일 인스턴스화
+        InstantiateChunk(chunk);
+    }
+
+    // 스폰 청크에 기본 타일 설정 메서드 추가
+    private void InitializeChunkWithDefaultTiles(Chunk chunk, List<Tile> tiles)
+    {
+        // 청크의 셀 배열 초기화
+        chunk.cells = new Cell[chunk.width, chunk.height];
+
+        // 기본 타일 선택 (예: 첫 번째 타일)
+        Tile defaultTile = tiles[0];
+
+        for (int x = 0; x < chunk.width; x++)
+        {
+            for (int y = 0; y < chunk.height; y++)
+            {
+                Cell cell = new Cell();
+                cell.position = new Vector2Int(x, y);
+
+                // 기본 타일로 셀 붕괴
+                cell.collapsedTileState = new TileState
+                {
+                    tile = defaultTile,
+                    rotationIndex = 0 // 회전 없음
+                };
+
+                // 가능한 타일 상태는 기본 타일 하나만 포함
+                cell.possibleTileStates = new List<TileState> { cell.collapsedTileState };
+
+                chunk.cells[x, y] = cell;
+            }
         }
     }
 
-    private void DebugBiomeString(string biome, string context)
-    {
-        var charCodes = biome.Select(c => ((int)c).ToString()).ToArray();
-        string codes = string.Join(", ", charCodes);
-        Debug.Log($"{context} 바이옴 문자열 유니코드 값: [{codes}]");
-    }
 
 
 
@@ -61,7 +94,7 @@ public class WaveFunctionCollapse
     }
 
 
-    private void InitializeChunk(Chunk chunk, List<Tile> tiles)
+    public void InitializeChunk(Chunk chunk, List<Tile> tiles)
     {
         // 청크의 셀 배열 초기화
         chunk.cells = new Cell[chunk.width, chunk.height];
@@ -307,9 +340,8 @@ public class WaveFunctionCollapse
         return cellSocketList.Intersect(neighborSocketList).Any();
     }
 
-    private float cellSize = 50.0f; // 셀 크기 (타일의 실제 크기에 맞게 조정)
 
-    private void InstantiateChunk(Chunk chunk)
+    public void InstantiateChunk(Chunk chunk)
     {
         for (int x = 0; x < chunk.width; x++)
         {
@@ -325,8 +357,9 @@ public class WaveFunctionCollapse
                         continue;
                     }
 
-                    // 셀 크기를 반영한 좌표 계산
-                    Vector3 position = new Vector3(x * cellSize, 0, y * cellSize);
+                    // 타일 위치 계산 (청크 위치 + 셀 위치)
+                    Vector3 position = chunk.chunkObject.transform.position + new Vector3(x * cellSize, 0, y * cellSize);
+
                     GameObject obj = GameObject.Instantiate(
                         state.tile.prefab,
                         position,
@@ -334,7 +367,6 @@ public class WaveFunctionCollapse
                     );
 
                     obj.name = $"{state.tile.tileName}_{x}_{y}";
-                    // obj를 청크의 GameObject의 자식으로 설정
                     obj.transform.parent = chunk.chunkObject.transform;
 
                     // 타일 생성 로그 추가

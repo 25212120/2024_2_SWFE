@@ -200,7 +200,7 @@
                 {
                     "name": "",
                     "id": "aaacc5fd-a0d4-494b-8320-ff363d73f97d",
-                    "path": "<Mouse>/rightButton",
+                    "path": "<Keyboard>/h",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -211,7 +211,7 @@
                 {
                     "name": "",
                     "id": "ba0edc0a-f6f2-4ebe-a805-35629a95574b",
-                    "path": "<Mouse>/rightButton",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "Hold",
                     "processors": "",
                     "groups": "",
@@ -372,6 +372,54 @@
                     "processors": "",
                     "groups": "",
                     "action": "Magic2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "UnitControl",
+            "id": "6bb3b6e9-e411-4df3-a43b-38d822b3bacc",
+            "actions": [
+                {
+                    "name": "Select",
+                    "type": "Value",
+                    "id": "78da9b96-9ec2-4d90-97b4-577bb89da2f5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Hold(duration=1.401298E-45,pressPoint=0.1)",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Command_Move",
+                    "type": "Button",
+                    "id": "44a92fff-3587-4f19-b084-446397cf02cd",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "9deb958b-072c-4059-9429-3d4934d431e3",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Select",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "277858c6-62e9-4209-80f6-22ec9ecdbc5a",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Command_Move",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

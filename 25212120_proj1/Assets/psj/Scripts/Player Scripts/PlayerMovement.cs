@@ -222,7 +222,7 @@ public partial class @PlayerMovement: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""aaacc5fd-a0d4-494b-8320-ff363d73f97d"",
-                    ""path"": ""<Mouse>/rightButton"",
+                    ""path"": ""<Keyboard>/h"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -233,7 +233,7 @@ public partial class @PlayerMovement: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""ba0edc0a-f6f2-4ebe-a805-35629a95574b"",
-                    ""path"": ""<Mouse>/rightButton"",
+                    ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": ""Hold"",
                     ""processors"": """",
                     ""groups"": """",
@@ -398,6 +398,54 @@ public partial class @PlayerMovement: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""UnitControl"",
+            ""id"": ""6bb3b6e9-e411-4df3-a43b-38d822b3bacc"",
+            ""actions"": [
+                {
+                    ""name"": ""Select"",
+                    ""type"": ""Value"",
+                    ""id"": ""78da9b96-9ec2-4d90-97b4-577bb89da2f5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Hold(duration=1.401298E-45,pressPoint=0.1)"",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Command_Move"",
+                    ""type"": ""Button"",
+                    ""id"": ""44a92fff-3587-4f19-b084-446397cf02cd"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""9deb958b-072c-4059-9429-3d4934d431e3"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Select"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""277858c6-62e9-4209-80f6-22ec9ecdbc5a"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Command_Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -431,6 +479,10 @@ public partial class @PlayerMovement: IInputActionCollection2, IDisposable
         m_PlayerMagic = asset.FindActionMap("PlayerMagic", throwIfNotFound: true);
         m_PlayerMagic_Magic1 = m_PlayerMagic.FindAction("Magic1", throwIfNotFound: true);
         m_PlayerMagic_Magic2 = m_PlayerMagic.FindAction("Magic2", throwIfNotFound: true);
+        // UnitControl
+        m_UnitControl = asset.FindActionMap("UnitControl", throwIfNotFound: true);
+        m_UnitControl_Select = m_UnitControl.FindAction("Select", throwIfNotFound: true);
+        m_UnitControl_Command_Move = m_UnitControl.FindAction("Command_Move", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -760,6 +812,60 @@ public partial class @PlayerMovement: IInputActionCollection2, IDisposable
         }
     }
     public PlayerMagicActions @PlayerMagic => new PlayerMagicActions(this);
+
+    // UnitControl
+    private readonly InputActionMap m_UnitControl;
+    private List<IUnitControlActions> m_UnitControlActionsCallbackInterfaces = new List<IUnitControlActions>();
+    private readonly InputAction m_UnitControl_Select;
+    private readonly InputAction m_UnitControl_Command_Move;
+    public struct UnitControlActions
+    {
+        private @PlayerMovement m_Wrapper;
+        public UnitControlActions(@PlayerMovement wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Select => m_Wrapper.m_UnitControl_Select;
+        public InputAction @Command_Move => m_Wrapper.m_UnitControl_Command_Move;
+        public InputActionMap Get() { return m_Wrapper.m_UnitControl; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(UnitControlActions set) { return set.Get(); }
+        public void AddCallbacks(IUnitControlActions instance)
+        {
+            if (instance == null || m_Wrapper.m_UnitControlActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_UnitControlActionsCallbackInterfaces.Add(instance);
+            @Select.started += instance.OnSelect;
+            @Select.performed += instance.OnSelect;
+            @Select.canceled += instance.OnSelect;
+            @Command_Move.started += instance.OnCommand_Move;
+            @Command_Move.performed += instance.OnCommand_Move;
+            @Command_Move.canceled += instance.OnCommand_Move;
+        }
+
+        private void UnregisterCallbacks(IUnitControlActions instance)
+        {
+            @Select.started -= instance.OnSelect;
+            @Select.performed -= instance.OnSelect;
+            @Select.canceled -= instance.OnSelect;
+            @Command_Move.started -= instance.OnCommand_Move;
+            @Command_Move.performed -= instance.OnCommand_Move;
+            @Command_Move.canceled -= instance.OnCommand_Move;
+        }
+
+        public void RemoveCallbacks(IUnitControlActions instance)
+        {
+            if (m_Wrapper.m_UnitControlActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IUnitControlActions instance)
+        {
+            foreach (var item in m_Wrapper.m_UnitControlActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_UnitControlActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public UnitControlActions @UnitControl => new UnitControlActions(this);
     private int m_PCSchemeIndex = -1;
     public InputControlScheme PCScheme
     {
@@ -795,5 +901,10 @@ public partial class @PlayerMovement: IInputActionCollection2, IDisposable
     {
         void OnMagic1(InputAction.CallbackContext context);
         void OnMagic2(InputAction.CallbackContext context);
+    }
+    public interface IUnitControlActions
+    {
+        void OnSelect(InputAction.CallbackContext context);
+        void OnCommand_Move(InputAction.CallbackContext context);
     }
 }

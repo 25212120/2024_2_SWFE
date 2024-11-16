@@ -1,0 +1,115 @@
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+public class UnitController : MonoBehaviour
+{
+    private List<GameObject> SelectedUnits = new List<GameObject>();
+    private Vector2 startPos;
+    private Vector2 endPos;
+    private bool isSelecting = false;
+
+    private PlayerMovement playerInput;
+
+    public RectTransform selectionBox;
+    private Canvas canvas;
+
+    private InputAction select;
+
+    private void Awake()
+    {
+        playerInput = new PlayerMovement();
+        canvas = selectionBox.GetComponentInParent<Canvas>();
+    }
+
+    private void OnEnable()
+    {
+        playerInput.Enable();
+
+        playerInput.UnitControl.Select.performed += OnSelectPerformed;
+        playerInput.UnitControl.Select.canceled += OnSelectCanceled;
+    }
+
+    void OnSelectPerformed(InputAction.CallbackContext ctx)
+    {
+
+        if (isSelecting == false)
+        {
+            isSelecting = true;
+            startPos = Mouse.current.position.ReadValue();
+
+            selectionBox.gameObject.SetActive(true);
+            selectionBox.sizeDelta = Vector2.zero;
+        }
+    }
+
+    void OnSelectCanceled(InputAction.CallbackContext ctx)
+    {
+        isSelecting = false;
+        selectionBox.gameObject.SetActive(false);
+        SelectUnitsInRecTangle();
+    }
+
+    private void Update()
+    {
+        if (isSelecting == true)
+        {
+            endPos = Mouse.current.position.ReadValue();
+            UpdateSelectionBox();
+        }
+    }
+
+    void UpdateSelectionBox()
+    {
+        Vector2 mousePos = Mouse.current.position.ReadValue();
+
+        Vector2 startPosCanvas;
+        Vector2 endPosCanvas;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.transform as RectTransform, startPos, canvas.worldCamera, out startPosCanvas);
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.transform as RectTransform, mousePos, canvas.worldCamera, out endPosCanvas);
+
+        Vector2 center = (startPosCanvas + endPosCanvas) / 2;
+
+        selectionBox.localPosition = center;
+
+        float sizeX = Mathf.Abs(startPosCanvas.x - endPosCanvas.x);
+        float sizeY = Mathf.Abs(startPosCanvas.y - endPosCanvas.y);
+
+        selectionBox.sizeDelta = new Vector2(sizeX, sizeY);
+    }
+
+    void SelectUnitsInRecTangle()
+    {
+        Vector2 min = Vector2.Min(startPos, endPos);
+        Vector2 max = Vector2.Max(startPos, endPos);
+
+        Rect selectionRect = new Rect(min, max - min);
+
+        foreach (GameObject unit in SelectedUnits)
+        {
+            Transform greenCircle = unit.transform.Find("GreenCircle");
+            if (greenCircle != null)
+            {
+                greenCircle.gameObject.SetActive(false);
+            }
+        }
+        SelectedUnits.Clear();
+
+
+
+        foreach (GameObject unit in GameObject.FindGameObjectsWithTag("unit"))
+        {
+            Vector3 screenPos = Camera.main.WorldToScreenPoint(unit.transform.position);
+
+            if (screenPos.z >= 0 && selectionRect.Contains(screenPos))
+            {
+                SelectedUnits.Add(unit);
+                Transform greenCircle = unit.transform.Find("GreenCircle");
+                if (greenCircle != null)
+                {
+                    greenCircle.gameObject.SetActive(true);
+                }
+            }
+        }
+    }
+}

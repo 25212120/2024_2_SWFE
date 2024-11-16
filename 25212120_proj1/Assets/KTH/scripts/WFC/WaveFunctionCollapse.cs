@@ -16,10 +16,28 @@ public class WaveFunctionCollapse
 
     public void GenerateChunk(Chunk chunk, Vector2Int chunkCoord, List<Tile> allTiles, bool isPlayerSpawnChunk)
     {
+        // 청크의 월드 위치 계산
+        float chunkWorldSize = chunk.width * cellSize;
+        Vector2 chunkWorldPosition = new Vector2(
+            chunkCoord.x * chunkWorldSize,
+            chunkCoord.y * chunkWorldSize
+        );
+
+        // 청크의 중앙 위치 사용 (옵션)
+        chunkWorldPosition += new Vector2(chunkWorldSize / 2, chunkWorldSize / 2);
+
+        // 디버그 로그 추가
+        Debug.Log($"청크 {chunkCoord}의 chunkWorldSize: {chunkWorldSize}, chunkWorldPosition: {chunkWorldPosition}");
+
         // 바이옴 결정
-        string biome = biomeManager.GetBiomeForPosition(chunkCoord);
+        string biome = biomeManager.GetBiomeForPosition(chunkWorldPosition);
         biome = biome.Trim().ToLowerInvariant();
-        Debug.Log($"바이옴 결정: {biome}");
+
+        // 노이즈 값 로그 출력
+        float noiseValue = biomeManager.GetNoiseValue(chunkWorldPosition);
+        Debug.Log($"청크 {chunkCoord}의 노이즈 값: {noiseValue:F4}, 바이옴: {biome}");
+
+
 
         // 바이옴에 맞는 타일 필터링
         List<Tile> filteredTiles = FilterTilesByBiome(biome, allTiles);
@@ -47,11 +65,65 @@ public class WaveFunctionCollapse
                 Debug.LogError("WFC를 사용하여 청크를 생성하는 데 실패했습니다.");
             }
         }
-
-        // 청크에 타일 인스턴스화
-        InstantiateChunk(chunk);
     }
 
+    // 청크에 색상을 적용하는 메서드 추가
+    private void ApplyColorToChunk(Chunk chunk, Color color)
+    {
+        // 청크에 Plane을 추가하여 색상을 표시
+        GameObject plane = GameObject.CreatePrimitive(PrimitiveType.Plane);
+        plane.transform.parent = chunk.chunkObject.transform;
+        plane.transform.localPosition = new Vector3(chunk.width * cellSize / 2, 0.01f, chunk.height * cellSize / 2);
+        plane.transform.localScale = new Vector3(chunk.width * cellSize / 10, 1, chunk.height * cellSize / 10);
+
+        // Plane의 색상 설정
+        Renderer renderer = plane.GetComponent<Renderer>();
+        renderer.material = new Material(Shader.Find("Standard"));
+        renderer.material.color = color;
+
+        // Plane의 이름 설정
+        plane.name = "BiomeVisualizer";
+    }
+
+    // 타일을 인스턴스화하는 메서드
+    public void InstantiateChunk(Chunk chunk)
+    {
+        for (int x = 0; x < chunk.width; x++)
+        {
+            for (int y = 0; y < chunk.height; y++)
+            {
+                Cell cell = chunk.cells[x, y];
+                if (cell.collapsedTileState != null)
+                {
+                    TileState state = cell.collapsedTileState;
+                    if (state.tile.prefab == null)
+                    {
+                        Debug.LogError($"타일 프리팹이 null입니다: {state.tile.tileName} 위치 ({x}, {y})");
+                        continue;
+                    }
+
+                    // 타일 위치 계산 (청크 위치 + 셀 위치)
+                    Vector3 position = chunk.chunkObject.transform.position + new Vector3(x * cellSize, 0, y * cellSize);
+
+                    GameObject obj = GameObject.Instantiate(
+                        state.tile.prefab,
+                        position,
+                        Quaternion.Euler(0, state.tile.rotationAngles[state.rotationIndex], 0)
+                    );
+
+                    obj.name = $"{state.tile.tileName}_{x}_{y}";
+                    obj.transform.parent = chunk.chunkObject.transform;
+
+                    // 타일 생성 로그 추가
+                    Debug.Log($"타일 생성됨: {obj.name} 위치 {position}");
+                }
+                else
+                {
+                    Debug.LogWarning($"셀 ({x}, {y})에 할당된 타일이 없습니다.");
+                }
+            }
+        }
+    }
     // 스폰 청크에 기본 타일 설정 메서드 추가
     private void InitializeChunkWithDefaultTiles(Chunk chunk, List<Tile> tiles)
     {
@@ -338,46 +410,6 @@ public class WaveFunctionCollapse
         var neighborSocketList = neighborSockets[oppositeDirString];
 
         return cellSocketList.Intersect(neighborSocketList).Any();
-    }
-
-
-    public void InstantiateChunk(Chunk chunk)
-    {
-        for (int x = 0; x < chunk.width; x++)
-        {
-            for (int y = 0; y < chunk.height; y++)
-            {
-                Cell cell = chunk.cells[x, y];
-                if (cell.collapsedTileState != null)
-                {
-                    TileState state = cell.collapsedTileState;
-                    if (state.tile.prefab == null)
-                    {
-                        Debug.LogError($"타일 프리팹이 null입니다: {state.tile.tileName} 위치 ({x}, {y})");
-                        continue;
-                    }
-
-                    // 타일 위치 계산 (청크 위치 + 셀 위치)
-                    Vector3 position = chunk.chunkObject.transform.position + new Vector3(x * cellSize, 0, y * cellSize);
-
-                    GameObject obj = GameObject.Instantiate(
-                        state.tile.prefab,
-                        position,
-                        Quaternion.Euler(0, state.tile.rotationAngles[state.rotationIndex], 0)
-                    );
-
-                    obj.name = $"{state.tile.tileName}_{x}_{y}";
-                    obj.transform.parent = chunk.chunkObject.transform;
-
-                    // 타일 생성 로그 추가
-                    Debug.Log($"타일 생성됨: {obj.name} 위치 {position}");
-                }
-                else
-                {
-                    Debug.LogWarning($"셀 ({x}, {y})에 할당된 타일이 없습니다.");
-                }
-            }
-        }
     }
 
 

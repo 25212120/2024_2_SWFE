@@ -1,5 +1,5 @@
 
-public class Tower_Test_1 : BaseStructure
+public class HealTower : BaseStructure
 {
     protected override void Awake()
     {

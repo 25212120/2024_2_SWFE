@@ -21,7 +21,7 @@ public class Tower_Base : MonoBehaviour
     private void Awake()
     {
         tower = GetComponent<BaseStructure>();
-        if (tower == null )
+        if (tower == null)
         {
             return;
         }
@@ -39,7 +39,10 @@ public class Tower_Base : MonoBehaviour
 
         foreach (GameObject enemy in enemies)
         {
-            float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
+            // Y축을 무시하고, X, Z만 비교 (높이에 관계없이 거리 계산)
+            Vector3 flatEnemyPosition = new Vector3(enemy.transform.position.x, transform.position.y, enemy.transform.position.z);
+            float distanceToEnemy = Vector3.Distance(transform.position, flatEnemyPosition);
+
             if (distanceToEnemy < shortestDistance)
             {
                 shortestDistance = distanceToEnemy;
@@ -62,7 +65,10 @@ public class Tower_Base : MonoBehaviour
         if (target == null)
             return;
 
-        Vector3 dir = target.position - transform.position;
+        // Y축을 무시하고 X, Z 평면에서만 회전
+        Vector3 dir = new Vector3(target.position.x, transform.position.y, target.position.z) - transform.position;
+
+        // 목표를 바라보는 회전 (Y축을 무시한 회전)
         Quaternion lookRotation = Quaternion.LookRotation(dir);
         Vector3 rotation = Quaternion.Lerp(partToRotate.rotation, lookRotation, Time.deltaTime * turnSpeed).eulerAngles;
         partToRotate.rotation = Quaternion.Euler(0f, rotation.y, 0f);
@@ -92,8 +98,6 @@ public class Tower_Base : MonoBehaviour
             bulletScript.SetTower(tower); // 타워를 총알에 전달
             bulletScript.Seek(target); // 목표 설정
             bulletScript.SetTargetPosition(target.position);  // 목표 위치를 총알에 전달
-
         }
     }
-
 }

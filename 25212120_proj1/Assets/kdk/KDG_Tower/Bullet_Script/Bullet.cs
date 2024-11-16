@@ -51,8 +51,8 @@ public class Bullet : MonoBehaviour, IBullet
         {
             tower.Attack(targetMonster); // 구조물이 BaseMonster를 공격하도록 함
         }
-        //GameObject effectIns = (GameObject)Instantiate(impactEffect, transform.position, transform.rotation);
-        //Destroy(effectIns, 1f);
+        GameObject effectIns = (GameObject)Instantiate(impactEffect, transform.position, transform.rotation);
+        Destroy(effectIns, 1f);
 
 
         Destroy(gameObject);

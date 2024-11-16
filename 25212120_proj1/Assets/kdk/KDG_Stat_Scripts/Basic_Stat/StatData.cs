@@ -21,39 +21,34 @@ public class StatData
     [field: SerializeField] public float baseDefense { get; set; }
 
     //현재 스텟 계산
-    public float DefenseCurrent
-    {
-        get
-        {
-            return baseDefense + buffController.BuffStat.defense +
-            (equipmentInventory is not null ? equipmentInventory.CurrentEquipmentEffect.Defense : 0f);
-        }
-    }
-    public float MovementSpeedCurrent
-    {
-        get
-        {
-            return baseMovementSpeed + buffController.BuffStat.movementSpeed +
-            (equipmentInventory is not null ? equipmentInventory.CurrentEquipmentEffect.MovementSpeed : 0f);
-        }
-    }
-    // 현재 공격력 계산
     public float AttackCurrent
     {
         get
         {
-            return baseAttack + buffController.BuffStat.attack +
-            (equipmentInventory is not null ? equipmentInventory.CurrentEquipmentEffect.Attack : 0f);
+            return baseAttack + buffController.BuffStat.attack;
+        }
+    }
+
+    public float MovementSpeedCurrent
+    {
+        get
+        {
+            return baseMovementSpeed + buffController.BuffStat.movementSpeed;
+        }
+    }
+
+    public float DefenseCurrent
+    {
+        get
+        {
+            return baseDefense + buffController.BuffStat.defense;
         }
     }
     // 외부 클래스
 
     [HideInInspector] public BuffController buffController = new BuffController(); // 버프 컨트롤러 (모두에게 고유)
 
-    [Space(30)]
-    [Header("외부 클래스를 참조하여 스탯에 추가 효과")]
-    [Header("해당 객체의 장비인벤토리, 없을경우 null 가능")]
-    [SerializeField] public EquipmentInventory equipmentInventory = null; // 장비 인벤토리 (개별적으로 로드하여 사용 가능)
+ 
 
     public void SetHpMax(float value)
     {
@@ -91,6 +86,10 @@ public class StatData
     {
         switch (statType)
         {
+            case StatType.LEVEL:
+                level++;
+                break;
+
             case StatType.HP: // 체력
                 hpMax += value;
                 ModifyCurrentHp(value); // 현재 체력을 추가된 체력에 맞게 수정

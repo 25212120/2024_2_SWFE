@@ -1,0 +1,410 @@
+{
+    "tiles": [
+        {
+            "tileName": "F_A",
+            "canRotate": false,
+            "sockets": [
+                { "direction": "north", "values": ["A","B"] },
+                { "direction": "east", "values": ["A","B"] },
+                { "direction": "south", "values": ["A","B"] },
+                { "direction": "west", "values": ["A","B"] }
+            ],
+            "biomes": ["Forest"],
+            "weight": 1,
+            "isEdgeTile": true
+        },
+        {
+            "tileName": "F_B",
+            "canRotate": true,
+            "sockets": [
+                { "direction": "north", "values": ["B"] },
+                { "direction": "east", "values": ["B"] },
+                { "direction": "south", "values": ["B"] },
+                { "direction": "west", "values": ["B"] }
+            ],
+            "biomes": ["Forest"],
+            "weight": 0.2,
+            "isEdgeTile": false
+        },
+        {
+            "tileName": "F_C",
+            "canRotate": true,
+            "sockets": [
+                { "direction": "north", "values": ["A","B"]},
+                { "direction": "east", "values": ["A"] },
+                { "direction": "south", "values": ["A","B"]},
+                { "direction": "west", "values": ["A"] }
+            ],
+            "biomes": ["Forest"],
+            "weight": 1.0,
+            "isEdgeTile": false
+        },
+        {
+            "tileName": "F_D",
+            "canRotate": true,
+            "sockets": [
+                { "direction": "north", "values": ["A","B"]},
+                { "direction": "east", "values": ["A","B"] },
+                { "direction": "south", "values": ["A"] },
+                { "direction": "west", "values": ["A"] }
+            ],
+            "biomes": ["Forest"],
+            "weight": 1,
+            "isEdgeTile": false
+        },
+        {
+            "tileName": "F_E",
+            "canRotate": true,
+            "sockets": [
+                { "direction": "north", "values":["A","B"]},
+                { "direction": "east", "values": ["A","B"] },
+                { "direction": "south", "values": ["A"] },
+                { "direction": "west", "values": ["A"] }
+            ],
+            "biomes": ["Forest"],
+            "weight": 1,
+            "isEdgeTile": false
+            
+        },
+        {
+            "tileName": "F_F",
+            "canRotate": true,
+            "sockets": [
+                { "direction": "north", "values": ["B"] },
+                { "direction": "east", "values": ["B"] },
+                { "direction": "south", "values": ["C"] },
+                { "direction": "west", "values": ["B"] }
+            ],
+            "biomes": ["Forest"],
+            "weight": 1,
+            "isEdgeTile": false
+        },
+        {
+            "tileName": "F_G",
+            "canRotate": true,
+            "sockets": [
+                { "direction": "north", "values": ["C"] },
+                { "direction": "east", "values": ["B"] },
+                { "direction": "south", "values": ["C"] },
+                { "direction": "west", "values": ["B"] }
+            ],
+            "biomes": ["Forest"],
+            "weight":1,
+            "isEdgeTile": false
+        },
+        {
+            "tileName": "F_H",
+            "canRotate": true,
+            "sockets": [
+                { "direction": "north", "values": ["C"] },
+                { "direction": "east", "values": ["C"] },
+                { "direction": "south", "values": ["C"] },
+                { "direction": "west", "values": ["B"] }
+            ],
+            "biomes": ["Forest"],
+            "weight": 1,
+            "isEdgeTile": false
+        },
+        {
+            "tileName": "F_I",
+            "canRotate": true,
+            "sockets": [
+                { "direction": "north", "values": ["C"] },
+                { "direction": "east", "values": ["C"] },
+                { "direction": "south", "values": ["C"] },
+                { "direction": "west", "values": ["C"] }
+            ],
+            "biomes": ["Forest"],
+            "weight": 1,
+            "isEdgeTile": false
+        },
+        {
+            "tileName": "F_J",
+            "canRotate": true,
+            "sockets": [
+                { "direction": "north", "values": ["A"] },
+                { "direction": "east", "values": ["C"] },
+                { "direction": "south", "values": ["C"] },
+                { "direction": "west", "values": ["A"] }
+            ],
+            "biomes": ["Forest"],
+            "weight": 1,
+            "isEdgeTile": false
+        },
+        {
+            "tileName": "V_A",
+            "canRotate": false,
+            "sockets": [
+                { "direction": "north", "values": ["A", "B","D"] },
+                { "direction": "east", "values": ["A", "B","D"] },
+                { "direction": "south", "values": ["A", "B","D"] },
+                { "direction": "west", "values": ["A", "B","D"] }
+            ],
+            "biomes": ["Volcano"],
+            "weight": 1,
+            "isEdgeTile": true
+        },
+        {
+            "tileName": "V_B",
+            "canRotate": true,
+            "sockets": [
+                { "direction": "north", "values": ["A", "B","D"] },
+                { "direction": "east", "values": ["A", "B","D"] },
+                { "direction": "south", "values": ["A", "B","D"] },
+                { "direction": "west", "values": ["A", "B","D"] }
+            ],
+            "biomes": ["Volcano"],
+            "weight": 1,
+            "isEdgeTile": false
+        },
+        {
+            "tileName": "V_C",
+            "canRotate": true,
+            "sockets": [
+                { "direction": "north", "values": ["A", "B","D"] },
+                { "direction": "east", "values": ["A", "B","D"] },
+                { "direction": "south", "values": ["A", "B","D"] },
+                { "direction": "west", "values": ["A", "B","D"] }
+            ],
+            "biomes": ["Volcano"],
+            "weight": 1,
+            "isEdgeTile": false
+        },
+        {
+            "tileName": "V_D",
+            "canRotate": true,
+            "sockets": [
+                { "direction": "north", "values": ["A", "B","D"] },
+                { "direction": "east", "values": ["A", "B","D"] },
+                { "direction": "south", "values": ["A", "B","D"] },
+                { "direction": "west", "values": ["A", "B","D"] }
+            ],
+            "biomes": ["Volcano"],
+            "weight": 1,
+            "isEdgeTile": false
+        },
+        {
+            "tileName": "V_E",
+            "canRotate": true,
+            "sockets": [
+                { "direction": "north", "values": ["A"] },
+                { "direction": "east", "values": ["A"] },
+                { "direction": "south", "values": ["C"] },
+                { "direction": "west", "values": ["A"] }
+            ],
+            "biomes": ["Volcano"],
+            "weight": 1,
+            "isEdgeTile": false
+        },
+        {
+            "tileName": "V_F",
+            "canRotate": true,
+            "sockets": [
+                { "direction": "north", "values": ["C"] },
+                { "direction": "east", "values": ["A"] },
+                { "direction": "south", "values": ["C"] },
+                { "direction": "west", "values": ["A"] }
+            ],
+            "biomes": ["Volcano"],
+            "weight": 1,
+            "isEdgeTile": false
+        },
+        {
+            "tileName": "V_G",
+            "canRotate": true,
+            "sockets": [
+                { "direction": "north", "values": ["A","B"] },
+                { "direction": "east", "values": ["C"] },
+                { "direction": "south", "values": ["C"] },
+                { "direction": "west", "values": ["A"] }
+            ],
+            "biomes": ["Volcano"],
+            "weight": 1,
+            "isEdgeTile": false
+        },
+        {
+            "tileName": "V_H",
+            "canRotate": true,
+            "sockets": [
+                { "direction": "north", "values": ["C"] },
+                { "direction": "east", "values": ["C"] },
+                { "direction": "south", "values": ["C"] },
+                { "direction": "west", "values": ["C"] }
+            ],
+            "biomes": ["Volcano"],
+            "weight": 1,
+            "isEdgeTile": false
+        },
+        {
+            "tileName": "V_I",
+            "canRotate": true,
+            "sockets": [
+                { "direction": "north", "values": ["C"] },
+                { "direction": "east", "values": ["D"] },
+                { "direction": "south", "values": ["C"] },
+                { "direction": "west", "values": ["A"] }
+            ],
+            "biomes": ["Volcano"],
+            "weight": 1,
+            "isEdgeTile": false
+        },
+        {
+            "tileName": "S_A",
+            "canRotate": true,
+            "sockets": [
+                { "direction": "north", "values": ["A"]},
+                { "direction": "east", "values": ["A", "B"] },
+                { "direction": "south", "values": ["A", "B"] },
+                { "direction": "west", "values": ["A", "B"] }
+            ],
+            "biomes": ["Sand"],
+            "weight": 1,
+            "isEdgeTile": false
+        },
+        {
+            "tileName": "S_B",
+            "canRotate": false,
+            "sockets": [
+                { "direction": "north", "values": ["D"] },
+                { "direction": "east", "values": ["A"] },
+                { "direction": "south", "values": ["A"] },
+                { "direction": "west", "values": ["D"] }
+            ],
+            "biomes": ["Sand"],
+            "weight": 1,
+            "isEdgeTile": false
+        },
+        {
+            "tileName": "S_C",
+            "canRotate": false,
+            "sockets": [
+                { "direction": "north", "values": ["A", "B","D"] },
+                { "direction": "east", "values": ["A", "B","D"] },
+                { "direction": "south", "values": ["A", "B","D"] },
+                { "direction": "west", "values": ["A", "B","D"] }
+            ],
+            "biomes": ["Sand"],
+            "weight": 1,
+            "isEdgeTile": true
+        },
+        {
+            "tileName": "S_D",
+            "canRotate": true,
+            "sockets": [
+                { "direction": "north", "values": ["A", "B"] },
+                { "direction": "east", "values": ["A", "B"] },
+                { "direction": "south", "values": ["A", "B"] },
+                { "direction": "west", "values": ["A", "B"] }
+            ],
+            "biomes": ["Sand"],
+            "weight": 1,
+            "isEdgeTile": false
+        },
+        {
+            "tileName": "S_E",
+            "canRotate": true,
+            "sockets": [
+                { "direction": "north", "values": ["A","B"] },
+                { "direction": "east", "values": ["B"] },
+                { "direction": "south", "values": ["B"] },
+                { "direction": "west", "values": ["A","B"] }
+            ],
+            "biomes": ["Sand"],
+            "weight": 1,
+            "isEdgeTile": false
+        },
+        {
+            "tileName": "S_F",
+            "canRotate": true,
+            "sockets": [
+                { "direction": "north", "values": ["A"] },
+                { "direction": "east", "values": ["A"] },
+                { "direction": "south", "values": ["A"] },
+                { "direction": "west", "values": ["A"] }
+            ],
+            "biomes": ["Sand"],
+            "weight": 0.2,
+            "isEdgeTile": false
+        },
+        {
+            "tileName": "I_A",
+            "canRotate": false,
+            "sockets": [
+                { "direction": "north", "values": ["A","B"] },
+                { "direction": "east", "values": ["A","B"] },
+                { "direction": "south", "values": ["A","B"] },
+                { "direction": "west", "values": ["A","B"] }
+            ],
+            "biomes": ["Snow"],
+            "weight": 1,
+            "isEdgeTile": true
+        },
+        {
+            "tileName": "I_B",
+            "canRotate": true,
+            "sockets": [
+                { "direction": "north", "values": ["B"] },
+                { "direction": "east", "values": ["B"] },
+                { "direction": "south", "values": ["B"] },
+                { "direction": "west", "values": ["B"] }
+            ],
+            "biomes": ["Snow"],
+            "weight": 1,
+            "isEdgeTile": false
+        },
+        {
+            "tileName": "I_C",
+            "canRotate": true,
+            "sockets": [
+                { "direction": "north", "values": ["B"]},
+                { "direction": "east", "values": ["B"] },
+                { "direction": "south", "values": ["B"]},
+                { "direction": "west", "values": ["B"] }
+            ],
+            "biomes": ["Snow"],
+            "weight": 1.0,
+            "isEdgeTile": false
+        },
+        {
+            "tileName": "I_D",
+            "canRotate": true,
+            "sockets": [
+                { "direction": "north", "values": ["A","B"]},
+                { "direction": "east", "values": ["A","B"] },
+                { "direction": "south", "values": ["A","B"] },
+                { "direction": "west", "values": ["A"] }
+            ],
+            "biomes": ["Snow"],
+            "weight": 1,
+            "isEdgeTile": false
+        },
+        {
+            "tileName": "I_E",
+            "canRotate": true,
+            "sockets": [
+                { "direction": "north", "values":["A","B"]},
+                { "direction": "east", "values": ["A","B"] },
+                { "direction": "south", "values": ["A","B"]},
+                { "direction": "west", "values": ["A"] }
+            ],
+            "biomes": ["Snow"],
+            "weight": 1,
+            "isEdgeTile": false
+            
+        },
+        {
+            "tileName": "I_F",
+            "canRotate": true,
+            "sockets": [
+                { "direction": "north", "values": ["B"] },
+                { "direction": "east", "values": ["B"] },
+                { "direction": "south", "values": ["B"] },
+                { "direction": "west", "values": ["B"] }
+            ],
+            "biomes": ["Snow"],
+            "weight": 1,
+            "isEdgeTile": false
+        }
+       
+    ]
+}

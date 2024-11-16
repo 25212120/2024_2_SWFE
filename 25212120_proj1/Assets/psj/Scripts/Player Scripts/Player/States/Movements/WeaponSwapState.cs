@@ -25,7 +25,7 @@ public class WeaponSwapState : BaseState<PlayerStateType>
             stateManager.PopState();
             return;
         }
-        playerInputManager.isPeformingAction = true;
+        playerInputManager.isPerformingAction = true;
 
         playerInputManager.previousRightHandIndex = playerInputManager.currentRightHandIndex;
         playerInputManager.previousLeftHandIndex = playerInputManager.currentLeftHandIndex;
@@ -51,7 +51,7 @@ public class WeaponSwapState : BaseState<PlayerStateType>
         SaveAnimatorParameters();
         animator.runtimeAnimatorController = playerInputManager.player_animControllers[playerInputManager.currentRightHandIndex];
         ReapplyAnimatorParameters();
-        playerInputManager.isPeformingAction = false;
+        playerInputManager.isPerformingAction = false;
     }
 
     public override void CheckTransitions()

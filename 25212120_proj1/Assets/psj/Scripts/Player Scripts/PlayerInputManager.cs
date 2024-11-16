@@ -15,7 +15,9 @@ public class PlayerInputManager : MonoBehaviour
     public int currentLeftHandIndex;
     public int previousRightHandIndex;
     public int previousLeftHandIndex;
-
+    public PlayerStateType magic1;
+    public PlayerStateType magic2;
+    public int currentMagicIndex;
     // CheckGround를 호출여부를 결정할 수 있음
     public bool wantToCheckGround = true;
 
@@ -36,7 +38,7 @@ public class PlayerInputManager : MonoBehaviour
     [Header("Player Action Handlers")]
     public bool isGrounded = true;
     public bool isAttacking = false;
-    public bool isPeformingAction = false;
+    public bool isPerformingAction = false;
 
     public Vector3 magicPoint;
 
@@ -63,6 +65,10 @@ public class PlayerInputManager : MonoBehaviour
 
         currentRightHandIndex = 0;
         currentLeftHandIndex = 0;
+
+        // magic init (for test)
+        Magic1Swap(PlayerStateType.PoisonFog_MagicState);
+        Magic2Swap(PlayerStateType.RockFall_MagicState);
     }
 
     private void Update()
@@ -107,7 +113,8 @@ public class PlayerInputManager : MonoBehaviour
         playerInput.WeaponSwap.DoubleSwords.performed += OnSwapToDoubleSwordsPerformed;
         playerInput.WeaponSwap.BowAndArrow.performed += OnSwapToBowAndArrowPerformed;
 
-        playerInput.PlayerMagic.MagicTest.performed += OnMagicTest;
+        playerInput.PlayerMagic.Magic1.performed += OnMagic1Performed;
+        playerInput.PlayerMagic.Magic2.performed += OnMagic2Performed;
     }
     private void OnDisable()
     {
@@ -136,7 +143,8 @@ public class PlayerInputManager : MonoBehaviour
         playerInput.WeaponSwap.DoubleSwords.performed -= OnSwapToDoubleSwordsPerformed;
         playerInput.WeaponSwap.BowAndArrow.performed -= OnSwapToSwordAndSheildPerformed;
 
-        playerInput.PlayerMagic.MagicTest.performed -= OnMagicTest;
+        playerInput.PlayerMagic.Magic1.performed -= OnMagic1Performed;
+        playerInput.PlayerMagic.Magic2.performed -= OnMagic2Performed;
     }
 
     private void GroundCheck()
@@ -168,7 +176,7 @@ public class PlayerInputManager : MonoBehaviour
     }
     private void OnMovePerformed(InputAction.CallbackContext ctx)
     {
-        if (isPeformingAction == false)
+        if (isPerformingAction == false)
         {
             Debug.Log("COME IN");
             moveInput = ctx.ReadValue<Vector2>();
@@ -192,14 +200,14 @@ public class PlayerInputManager : MonoBehaviour
     }
     private void OnDashPerformed(InputAction.CallbackContext ctx)
     {
-        if (playerCoolDown.CanDash(currentRightHandIndex) && isGrounded && !isPeformingAction && !isAttacking)
+        if (playerCoolDown.CanDash(currentRightHandIndex) && isGrounded && !isPerformingAction && !isAttacking)
         {
             stateManager.PushState(PlayerStateType.Dash);
         }
     } 
     private void OnJumpPerformed(InputAction.CallbackContext ctx)
     {
-        if (isGrounded && !isPeformingAction && !isAttacking)
+        if (isGrounded && !isPerformingAction && !isAttacking)
         {
             stateManager.PushState(PlayerStateType.Jump);
         }
@@ -207,7 +215,7 @@ public class PlayerInputManager : MonoBehaviour
     private void OnAttackPerformed(InputAction.CallbackContext ctx)
     {
 
-        if (isGrounded && !isPeformingAction)
+        if (isGrounded && !isPerformingAction)
         {
             leftButton_Pressed = true;
 
@@ -224,7 +232,7 @@ public class PlayerInputManager : MonoBehaviour
     }
     private void OnWeaponSkillPerformed(InputAction.CallbackContext ctx)
     {
-        if (playerCoolDown.CanUseWeaponSkill(currentRightHandIndex) && isGrounded && !isPeformingAction)
+        if (playerCoolDown.CanUseWeaponSkill(currentRightHandIndex) && isGrounded && !isPerformingAction)
         {
             if (currentLeftHandIndex != 3)
             {
@@ -235,7 +243,7 @@ public class PlayerInputManager : MonoBehaviour
     }
     private void OnChargePerformed(InputAction.CallbackContext ctx)
     {
-        if (currentLeftHandIndex == 3 && isPeformingAction == false)
+        if (currentLeftHandIndex == 3 && isPerformingAction == false)
         {
             chargeInput = true;
             stateManager.PushState(PlayerStateType.WeaponSkill);
@@ -248,14 +256,14 @@ public class PlayerInputManager : MonoBehaviour
     }
     private void OnInteractionPerformed(InputAction.CallbackContext ctx)
     {
-        if (isGrounded && !isPeformingAction && !isAttacking)
+        if (isGrounded && !isPerformingAction && !isAttacking)
         {
             stateManager.PushState(PlayerStateType.Interaction);
         }
     }
     private void OnSwapToSwordAndSheildPerformed(InputAction.CallbackContext ctx)
     {
-        if (isGrounded && !isPeformingAction && !isAttacking)
+        if (isGrounded && !isPerformingAction && !isAttacking)
         {
             IndexSwapTo = 0;
             stateManager.PushState(PlayerStateType.WeaponSwap);
@@ -263,7 +271,7 @@ public class PlayerInputManager : MonoBehaviour
     }
     private void OnSwapToSingleTwoHandeSwordPerformed(InputAction.CallbackContext ctx)
     {
-        if (isGrounded && !isPeformingAction && !isAttacking)
+        if (isGrounded && !isPerformingAction && !isAttacking)
         {
             IndexSwapTo = 1;
             stateManager.PushState(PlayerStateType.WeaponSwap);
@@ -271,7 +279,7 @@ public class PlayerInputManager : MonoBehaviour
     }
     private void OnSwapToDoubleSwordsPerformed(InputAction.CallbackContext ctx)
     {
-        if (isGrounded && !isPeformingAction && !isAttacking)
+        if (isGrounded && !isPerformingAction && !isAttacking)
         {
             IndexSwapTo = 2;
             stateManager.PushState(PlayerStateType.WeaponSwap);
@@ -279,19 +287,76 @@ public class PlayerInputManager : MonoBehaviour
     }
     private void OnSwapToBowAndArrowPerformed(InputAction.CallbackContext ctx)
     {
-        if (isGrounded && !isPeformingAction && !isAttacking)
+        if (isGrounded && !isPerformingAction && !isAttacking)
         {
             IndexSwapTo = 3;
             stateManager.PushState(PlayerStateType.WeaponSwap);
         }
     }
 
-
-    private void OnMagicTest(InputAction.CallbackContext ctx)
+    private void OnMagic1Performed(InputAction.CallbackContext ctx)
     {
-        if (isGrounded && !isPeformingAction && !isAttacking)
+        if (isGrounded && !isPerformingAction && !isAttacking)
         {
-            stateManager.PushState(PlayerStateType.Scope_MagicState);
+            currentMagicIndex = 1;
+            PushByMagicCase(magic1);
         }
     }
+
+    private void OnMagic2Performed(InputAction.CallbackContext ctx)
+    {
+        if (isGrounded && !isPerformingAction && !isAttacking)
+        {
+            currentMagicIndex = 2;
+            PushByMagicCase(magic2);
+        }
+    }
+
+    public void Magic1Swap(PlayerStateType type)
+    {
+        if (magic1 == type || magic2 == type) return;
+        magic1 = type;
+    }
+    public void Magic2Swap(PlayerStateType type)
+    {
+        if (magic1 == type || magic2 == type) return;
+        magic2 = type;
+    }
+
+
+    private void PushByMagicCase(PlayerStateType magicIndex)
+    {
+        switch (magicIndex)
+        {
+            // Fire
+            case PlayerStateType.FireBall_MagicState:
+                stateManager.PushState(PlayerStateType.Scope_MagicState);
+                break;
+            case PlayerStateType.Meteor_MagicState:
+                stateManager.PushState(PlayerStateType.Scope_MagicState);
+                break;
+            // Earth
+            case PlayerStateType.RockFall_MagicState:
+                stateManager.PushState(PlayerStateType.RockFall_MagicState);
+                break;
+            case PlayerStateType.EarthQuake_MagicState:
+                stateManager.PushState(PlayerStateType.EarthQuake_MagicState);
+                break;
+            // Water
+            case PlayerStateType.IceSpear_MagicState:
+                stateManager.PushState(PlayerStateType.Scope_MagicState);
+                break;
+            case PlayerStateType.Storm_MagicState:
+                stateManager.PushState(PlayerStateType.Storm_MagicState);
+                break;
+            // Plant
+            case PlayerStateType.PoisonFog_MagicState:
+                stateManager.PushState(PlayerStateType.Scope_MagicState);
+                break;
+            case PlayerStateType.DrainField_MagicState:
+                stateManager.PushState(PlayerStateType.DrainField_MagicState);
+                break;
+        }
+    }
+
 }

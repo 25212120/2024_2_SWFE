@@ -44,7 +44,7 @@ public class EarthQuake_MagicState : BaseState<PlayerStateType>
 
         magicCirclePos = playerTransform.position + new Vector3(0, 0.2f, 0);
 
-        playerInputManager.isPeformingAction = true;
+        playerInputManager.isPerformingAction = true;
 
         monoBehaviour.StartCoroutine(InstantiateEarthCircles());
         monoBehaviour.StartCoroutine(Jump());
@@ -65,7 +65,7 @@ public class EarthQuake_MagicState : BaseState<PlayerStateType>
     public override void ExitState()
     {
         magicfinished = false;
-        playerInputManager.isPeformingAction = false;
+        playerInputManager.isPerformingAction = false;
     }
 
     public override void CheckTransitions()

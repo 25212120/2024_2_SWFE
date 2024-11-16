@@ -3804,7 +3804,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 2147484224
+    m_Bits: 2147486272
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 8600000, guid: 4641a3150062c314084e3a9ea6cc99a7, type: 2}
   m_TargetDisplay: 0
@@ -9292,9 +9292,12 @@ MonoBehaviour:
   currentLeftHandIndex: 0
   previousRightHandIndex: 0
   previousLeftHandIndex: 0
+  magic1: 0
+  magic2: 0
+  currentMagicIndex: 0
   wantToCheckGround: 1
   magicSpawnPoints:
-  - {x: 0, y: 3, z: 0}
+  - {x: 0, y: 5, z: 0}
   - {x: -4, y: 2, z: 0}
   - {x: -1.5, y: 4, z: 0}
   - {x: 1.5, y: 4, z: 0}
@@ -9306,7 +9309,7 @@ MonoBehaviour:
   chargeInput: 0
   isGrounded: 1
   isAttacking: 0
-  isPeformingAction: 0
+  isPerformingAction: 0
   magicPoint: {x: 0, y: 0, z: 0}
   dim: {fileID: 1528821285}
 --- !u!1 &6048773443557982161

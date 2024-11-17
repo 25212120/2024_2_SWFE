@@ -75,6 +75,8 @@ public class EquipmentInventory : MonoBehaviour
     [Header("초기 장비 목록")]
     [SerializeField] private EquipmentItem[] availableEquipments = new EquipmentItem[4];  // 4개의 장비 목록
     public EquipmentItem currentEquipment;  // 현재 장착된 장비
+    [SerializeField] private GameObject[] rightHandWeapons;  // 오른쪽 손에 장착할 무기들
+    public int currentRightHandIndex = 0;  // 현재 오른쪽 손에 장착된 무기의 인덱스
 
     private PlayerStat playerstat;
     private int currentIndex = 0;  // 현재 장착된 장비의 인덱스 (순차적으로 교체)
@@ -88,10 +90,46 @@ public class EquipmentInventory : MonoBehaviour
             Debug.LogError("PlayerStat 또는 StatData 컴포넌트를 찾을 수 없습니다! 장비 효과를 적용할 수 없습니다.");
             return;
         }
+        SetupInitialEquipments();
 
         // 기본 장비를 첫 번째 아이템으로 설정
         Equip(availableEquipments[currentIndex]);
     }
+
+    public void SetupInitialEquipments()
+    {
+        // 각 장비의 초기 효과와 레벨업 시 증가하는 수치 설정
+        availableEquipments[0] = new EquipmentItem("SwordAndSheild", new EquipmentEffect { Attack = 10, MovementSpeed = 3, Defense = 5 })
+        {
+            attackIncreasePerLevel = 1f, // 공격력 증가량
+            movementSpeedIncreasePerLevel = 1f, // 이동속도 증가량
+            defenseIncreasePerLevel = 1f // 방어력 증가량
+        };
+
+        availableEquipments[1] = new EquipmentItem("SingleTwoHandeSword", new EquipmentEffect { Attack = 15, MovementSpeed = 1, Defense = 2 })
+        {
+            attackIncreasePerLevel = 1f, // 공격력 증가량
+            movementSpeedIncreasePerLevel = 1f, // 이동속도 증가량
+            defenseIncreasePerLevel = 1f // 방어력 증가량
+        };
+
+        availableEquipments[2] = new EquipmentItem("DoubleSwords", new EquipmentEffect { Attack = 20, MovementSpeed = 5, Defense = -5 })
+        {
+            attackIncreasePerLevel = 1f, // 공격력 증가량
+            movementSpeedIncreasePerLevel = 1f, // 이동속도 증가량
+            defenseIncreasePerLevel = 1f // 방어력 감소량
+        };
+
+        availableEquipments[3] = new EquipmentItem("BowAndArrow", new EquipmentEffect { Attack = 15, MovementSpeed = 7, Defense = -5 })
+        {
+            attackIncreasePerLevel = 1f, // 공격력 증가량
+            movementSpeedIncreasePerLevel = 1f, // 이동속도 증가량
+            defenseIncreasePerLevel = 1f // 방어력 감소량
+        };
+
+        Debug.Log("장비가 초기화되었습니다.");
+    }
+
 
     // 장비 교체 메서드 (스왑)
     public void Equip(EquipmentItem newEquipment)
@@ -106,6 +144,14 @@ public class EquipmentInventory : MonoBehaviour
         currentEquipment = newEquipment;
         ApplyEquipmentEffect(currentEquipment.effect);
         Debug.Log($"{currentEquipment.itemName} 장비를 장착했습니다.");
+    }
+
+    public void EquipByIndex(int index)
+    {
+        if (index >= 0 && index < availableEquipments.Length)
+        {
+            Equip(availableEquipments[index]);
+        }
     }
 
     // 장비 효과를 StatData에 반영하는 메서드
@@ -132,17 +178,6 @@ public class EquipmentInventory : MonoBehaviour
         Debug.Log($"장비 효과 제거: 공격력: {playerstat.statData.baseAttack}, 이동속도: {playerstat.statData.baseMovementSpeed}, 방어력: {playerstat.statData.baseDefense}");
     }
 
-    // 순차적으로 장비 교체 (1번 키 입력시)
-    private void Update()
-    {
-        // "1" 키가 눌렸을 때 장비 교체
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            // 현재 장착된 장비의 인덱스를 다음 장비로 변경 (4개 순차적으로)
-            currentIndex = (currentIndex + 1) % availableEquipments.Length;
-            Equip(availableEquipments[currentIndex]);
-        }
-    }
 
     // 현재 장착된 장비를 확인하는 메서드
     public void PrintCurrentEquipment()

@@ -48,6 +48,19 @@ public class MaterialManager : MonoBehaviour
         return resources.ContainsKey(resourceType) ? resources[resourceType] : 0;
     }
 
+    public void GainResource(ResourceType resourceType, int amount)
+    {
+        if (amount > 0)
+        {
+            resources[resourceType] += amount;
+            Debug.Log($"{resourceType}를 {amount}만큼 획득했습니다. 현재 보유량: {resources[resourceType]}");
+        }
+        else
+        {
+            Debug.LogWarning("획득할 자원의 양은 0보다 커야 합니다.");
+        }
+    }
+
     // 자원 획득 함수 (확률 적용)
     public void GainResourceWithChance(ResourceType resourceType, int amount, float dropChance)
     {

@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
+using static BaseStructure;
 
-public class BaseStructure : BaseEntity
+public abstract class BaseUnit : BaseEntity
 {
     [Header("업그레이드에 필요한 자원")]
     [SerializeField] private List<ResourceRequirement> upgradeRequirements = new List<ResourceRequirement>(); // 업그레이드에 필요한 자원 리스트
@@ -41,7 +42,7 @@ public class BaseStructure : BaseEntity
         Debug.Log("업그레이드 완료: 공격력 +5, 체력 +50");
     }
 
-    public virtual void Repair(float amount)
+    public void Heal(float amount)
     {
         statData.ModifyCurrentHp(amount);
     }
@@ -52,16 +53,9 @@ public class BaseStructure : BaseEntity
         target.TakeDamage(damage);
     }
 
+
     protected override void Die()
     {
         base.Die();
-    }
-
-    // 업그레이드에 필요한 자원 클래스
-    [System.Serializable]
-    public class ResourceRequirement
-    {
-        public MaterialManager.ResourceType resourceType; // 자원 타입
-        public int amount;                                // 자원 수량
     }
 }

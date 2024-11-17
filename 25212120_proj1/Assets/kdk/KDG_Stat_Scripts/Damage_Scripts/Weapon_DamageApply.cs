@@ -13,9 +13,16 @@ public class Weapon_DamageApply : MonoBehaviour
         PlayerStat playerStat = GetComponentInParent<PlayerStat>(); 
         if (playerStat != null)
         {
-            Debug.Log("HANDLEATTACK");
             playerStat.Attack(monster);
         }
 
+    }
+    private void HandleAttack(BaseUnit unit)
+    {
+        BaseMonster monster = GetComponentInParent<BaseMonster>();
+        if (monster != null)
+        {
+            monster.Attack(unit);  
+        }
     }
 }

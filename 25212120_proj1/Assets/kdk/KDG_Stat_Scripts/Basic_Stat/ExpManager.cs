@@ -25,7 +25,7 @@ public class ExpManager : Singleton<ExpManager>
         if (ExpCurrent >= ExpMax)
         {
             // 레벨업 처리
-            while (ExpCurrent >= ExpMax)
+            if (ExpCurrent >= ExpMax)
             {
                 ExpCurrent -= ExpMax;  // 남은 경험치를 현재 최대 경험치보다 작은 값으로 만듦
                 ExpMax *= 2.0f;        // 최대 경험치를 2배로 증가

@@ -73,7 +73,7 @@ public class EquipmentItem
 public class EquipmentInventory : MonoBehaviour
 {
     [Header("초기 장비 목록")]
-    [SerializeField] private EquipmentItem[] availableEquipments = new EquipmentItem[4];  // 4개의 장비 목록
+    [SerializeField] public EquipmentItem[] availableEquipments = new EquipmentItem[4];  // 4개의 장비 목록
     public EquipmentItem currentEquipment;  // 현재 장착된 장비
     [SerializeField] private GameObject[] rightHandWeapons;  // 오른쪽 손에 장착할 무기들
     public int currentRightHandIndex = 0;  // 현재 오른쪽 손에 장착된 무기의 인덱스

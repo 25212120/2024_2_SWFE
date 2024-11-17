@@ -6,11 +6,12 @@ public class MaterialManager : MonoBehaviour
     // 자원 타입 정의
     public enum ResourceType
     {
-        Wood,       // 나무
-        Stone,      // 돌
-        Metal,      // 금속
-        Crystal,    // 크리스탈
-        WoodEssence,     // 에센스
+        Money,       // 재화(돈)
+        Wood,        // 나무
+        Stone,       // 돌
+        Metal,       // 금속
+        Crystal,     // 크리스탈
+        WoodEssence, // 에센스
         IceEssence,
         FireEssence,
         SandEssence
@@ -34,6 +35,7 @@ public class MaterialManager : MonoBehaviour
             Destroy(gameObject); // 이미 인스턴스가 존재하면 객체를 파괴
         }
 
+        // 자원 초기화
         foreach (ResourceType resource in System.Enum.GetValues(typeof(ResourceType)))
         {
             resources[resource] = 0;  // 초기 자원 값 0으로 설정
@@ -46,17 +48,25 @@ public class MaterialManager : MonoBehaviour
         return resources.ContainsKey(resourceType) ? resources[resourceType] : 0;
     }
 
-    // 자원 획득 함수
-    public void GainResource(ResourceType resourceType, int amount)
+    // 자원 획득 함수 (확률 적용)
+    public void GainResourceWithChance(ResourceType resourceType, int amount, float dropChance)
     {
-        if (amount > 0)
+        // 확률에 맞게 자원 획득
+        if (Random.value <= dropChance)
         {
-            resources[resourceType] += amount;
-            Debug.Log($"{resourceType}를 {amount}만큼 획득했습니다. 현재 보유량: {resources[resourceType]}");
+            if (amount > 0)
+            {
+                resources[resourceType] += amount;
+                Debug.Log($"{resourceType}를 {amount}만큼 획득했습니다. 현재 보유량: {resources[resourceType]}");
+            }
+            else
+            {
+                Debug.LogWarning("획득할 자원의 양은 0보다 커야 합니다.");
+            }
         }
         else
         {
-            Debug.LogWarning("획득할 자원의 양은 0보다 커야 합니다.");
+            Debug.Log($"{resourceType} 획득에 실패했습니다. 확률: {dropChance * 100}%");
         }
     }
 

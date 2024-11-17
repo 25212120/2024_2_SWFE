@@ -9,12 +9,20 @@ public class BaseMonster : BaseEntity
     [Header("몬스터 자원 드랍")]
     [SerializeField] protected List<ResourceDrop> resourceDrops = new List<ResourceDrop>();  // 자원 드랍 리스트
 
-    // ResourceDrop 클래스를 BaseMonster 클래스 내부에 정의
     [System.Serializable]
     public class ResourceDrop
     {
         public MaterialManager.ResourceType resourceType;  // 자원 타입
         public int amount;  // 자원 수량
+        public float dropChance;  // 드랍 확률 (0~1)
+
+        // 드랍 확률을 설정
+        public ResourceDrop(MaterialManager.ResourceType resourceType, int amount, float dropChance)
+        {
+            this.resourceType = resourceType;
+            this.amount = amount;
+            this.dropChance = dropChance;
+        }
     }
 
     protected override void Awake()
@@ -52,8 +60,8 @@ public class BaseMonster : BaseEntity
         // 자원 드랍 처리
         foreach (var resourceDrop in resourceDrops)
         {
-            MaterialManager.Instance.GainResource(resourceDrop.resourceType, resourceDrop.amount);
-            Debug.Log($"{gameObject.name} 드랍: {resourceDrop.amount} {resourceDrop.resourceType}");
+            MaterialManager.Instance.GainResourceWithChance(resourceDrop.resourceType, resourceDrop.amount, resourceDrop.dropChance);
+            Debug.Log($"{gameObject.name} 드랍: {resourceDrop.amount} {resourceDrop.resourceType} 확률: {resourceDrop.dropChance * 100}%");
         }
     }
 }

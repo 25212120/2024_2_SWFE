@@ -319,6 +319,8 @@ MonoBehaviour:
     movementSpeedIncreasePerLevel: 0
     defenseIncreasePerLevel: 0
     maxExperience: 0
+  rightHandWeapons: []
+  currentRightHandIndex: 0
 --- !u!1 &682832537
 GameObject:
   m_ObjectHideFlags: 0
@@ -653,6 +655,7 @@ MonoBehaviour:
   resourceDrops:
   - resourceType: 0
     amount: 2
+    dropChance: 0
 --- !u!1 &2039570452
 GameObject:
   m_ObjectHideFlags: 0

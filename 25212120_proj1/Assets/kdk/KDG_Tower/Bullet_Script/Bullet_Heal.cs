@@ -62,6 +62,13 @@ public class Bullet_Heal : MonoBehaviour, IBullet
                 playerStat.Heal(healAmount); // 힐 적용
                 Debug.Log($"힐을 받은 플레이어: {playerStat.name} | 힐 양: {healAmount}");
             }
+
+            BaseUnit unit = collider.GetComponent<BaseUnit>();
+            if (unit != null)
+            {
+                unit.Heal(healAmount); // 힐 적용
+                Debug.Log($"힐을 받은 유닛: {unit.name} | 힐 양: {healAmount}");
+            }
         }
         // 충돌 효과 생성
         GameObject effectIns = Instantiate(impactEffect, transform.position, transform.rotation);

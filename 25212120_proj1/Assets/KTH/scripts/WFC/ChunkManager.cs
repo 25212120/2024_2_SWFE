@@ -4,8 +4,8 @@ using UnityEngine;
 public class ChunkManager : MonoBehaviour
 {
     public GameObject player; // 플레이어 오브젝트
-    public int chunkSize = 7; // 청크 크기 (셀 단위)
-    public int gridSize = 3;   // nxn 범위의 청크 관리 (홀수로 설정)
+    public int chunkSize = 10; // 청크 크기 (셀 단위)
+    public int gridSize = 5;   // nxn 범위의 청크 관리 (홀수로 설정)
     public float cellSize = 50f; // 타일의 크기
 
     private Dictionary<Vector2Int, Chunk> existingChunks = new Dictionary<Vector2Int, Chunk>(); // 이미 생성된 청크

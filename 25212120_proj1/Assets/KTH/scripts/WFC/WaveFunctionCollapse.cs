@@ -67,23 +67,6 @@ public class WaveFunctionCollapse
         }
     }
 
-    // 청크에 색상을 적용하는 메서드 추가
-    private void ApplyColorToChunk(Chunk chunk, Color color)
-    {
-        // 청크에 Plane을 추가하여 색상을 표시
-        GameObject plane = GameObject.CreatePrimitive(PrimitiveType.Plane);
-        plane.transform.parent = chunk.chunkObject.transform;
-        plane.transform.localPosition = new Vector3(chunk.width * cellSize / 2, 0.01f, chunk.height * cellSize / 2);
-        plane.transform.localScale = new Vector3(chunk.width * cellSize / 10, 1, chunk.height * cellSize / 10);
-
-        // Plane의 색상 설정
-        Renderer renderer = plane.GetComponent<Renderer>();
-        renderer.material = new Material(Shader.Find("Standard"));
-        renderer.material.color = color;
-
-        // Plane의 이름 설정
-        plane.name = "BiomeVisualizer";
-    }
 
     // 타일을 인스턴스화하는 메서드
     public void InstantiateChunk(Chunk chunk)

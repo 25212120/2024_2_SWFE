@@ -8,6 +8,4 @@ public class Unit_Test : BaseUnit
     {
         base.Attack(target);
     }
-
-
 }

@@ -82,4 +82,27 @@ public class PlayerAnimationEventManager : MonoBehaviour
         return Vector3.zero;
     }
 
+    public void EnableWeaponCollider()
+    {
+        Collider collider = playerInputManager.rightHand_Weapons[playerInputManager.currentRightHandIndex].GetComponent<Collider>();
+        collider.enabled = true;
+    }
+    public void EnableWeaponCollider1()
+    {
+        Collider collider = playerInputManager.rightHand_Weapons[playerInputManager.currentLeftHandIndex].GetComponent<Collider>();
+        collider.enabled = true;
+    }
+
+    public void DisableWeaponCollider()
+    {
+        Collider collider = playerInputManager.rightHand_Weapons[playerInputManager.currentRightHandIndex].GetComponent<Collider>();
+        collider.enabled = false;
+    }
+
+    public void DisableWeaponCollider1()
+    {
+        Collider collider = playerInputManager.leftHand_Weapons[playerInputManager.currentLeftHandIndex].GetComponent<Collider>();
+        collider.enabled = true;
+    }
+
 }

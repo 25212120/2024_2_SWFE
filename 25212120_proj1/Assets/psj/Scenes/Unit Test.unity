@@ -4256,7 +4256,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 0.20245692, y: 1.2688129, z: 0.08353808}
   m_Center: {x: 0.0013665019, y: -0.7991368, z: 0.0000003523096}
@@ -7770,11 +7770,11 @@ GameObject:
   - component: {fileID: 852333862}
   - component: {fileID: 852333861}
   - component: {fileID: 852333860}
-  - component: {fileID: 852333859}
   - component: {fileID: 852333858}
   - component: {fileID: 852333868}
   - component: {fileID: 852333870}
   - component: {fileID: 852333871}
+  - component: {fileID: 852333859}
   - component: {fileID: 852333869}
   m_Layer: 7
   m_Name: Player
@@ -7812,9 +7812,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   statData:
     <level>k__BackingField: 1
-    <hpMax>k__BackingField: 100
+    <hpMax>k__BackingField: 0
     mHpCurrent: 0
-    <baseAttack>k__BackingField: 51
+    <baseAttack>k__BackingField: 10
     <baseMovementSpeed>k__BackingField: 1
     <baseDefense>k__BackingField: 0
     equipmentInventory: {fileID: 0}
@@ -7881,6 +7881,7 @@ MonoBehaviour:
   magic2: 0
   currentMagicIndex: 0
   wantToCheckGround: 1
+  isDead: 0
   magicSpawnPoints:
   - {x: 0, y: 5, z: 0}
   - {x: -4, y: 2, z: 0}
@@ -10867,6 +10868,7 @@ GameObject:
   - component: {fileID: 1206252550}
   - component: {fileID: 1206252552}
   - component: {fileID: 1206252551}
+  - component: {fileID: 1206252553}
   m_Layer: 7
   m_Name: Sword4_R
   m_TagString: Untagged
@@ -10939,6 +10941,27 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1206252549}
   m_Mesh: {fileID: 4300040, guid: dc603c42b6599174e901596a1f756de4, type: 3}
+--- !u!65 &1206252553
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1206252549}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Size: {x: 0.35543996, y: 1.4816417, z: 0.16071229}
+  m_Center: {x: 0.0046505034, y: -0.18229765, z: 0.0000003516859}
 --- !u!1 &1207710473
 GameObject:
   m_ObjectHideFlags: 0
@@ -11383,6 +11406,7 @@ GameObject:
   - component: {fileID: 1243256183}
   - component: {fileID: 1243256185}
   - component: {fileID: 1243256184}
+  - component: {fileID: 1243256186}
   m_Layer: 7
   m_Name: Sword3_L
   m_TagString: Untagged
@@ -11455,6 +11479,27 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1243256182}
   m_Mesh: {fileID: 4300012, guid: dc603c42b6599174e901596a1f756de4, type: 3}
+--- !u!65 &1243256186
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1243256182}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Size: {x: 0.2794724, y: 1.3743814, z: 0.0904242}
+  m_Center: {x: 0.006323434, y: -0.896265, z: 0.00000039422267}
 --- !u!1 &1255946471
 GameObject:
   m_ObjectHideFlags: 0
@@ -15377,6 +15422,7 @@ GameObject:
   - component: {fileID: 1622615872}
   - component: {fileID: 1622615874}
   - component: {fileID: 1622615873}
+  - component: {fileID: 1622615875}
   m_Layer: 7
   m_Name: Sword7_L
   m_TagString: Untagged
@@ -15449,6 +15495,27 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1622615871}
   m_Mesh: {fileID: 4300172, guid: dc603c42b6599174e901596a1f756de4, type: 3}
+--- !u!65 &1622615875
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1622615871}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Size: {x: 0.5253131, y: 1.5638291, z: 0.09609499}
+  m_Center: {x: 0.00794742, y: -1.0143008, z: 0.00000019231547}
 --- !u!1 &1631913086
 GameObject:
   m_ObjectHideFlags: 0

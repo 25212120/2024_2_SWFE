@@ -21,6 +21,8 @@ public class PlayerInputManager : MonoBehaviour
     // CheckGround를 호출여부를 결정할 수 있음
     public bool wantToCheckGround = true;
 
+    public bool isDead = false;
+
     [Header("Magic Spawn Points")]
     [SerializeField] public Vector3[] magicSpawnPoints;
 
@@ -46,6 +48,7 @@ public class PlayerInputManager : MonoBehaviour
     private Animator animator;
     private Transform playerTransform;
     private PlayerMovement playerInput;
+    private PlayerStat stat;
     private PlayerCoolDownManager playerCoolDown;
 
     private StateManager<PlayerStateType> stateManager;
@@ -57,6 +60,7 @@ public class PlayerInputManager : MonoBehaviour
         playerInput = new PlayerMovement();
 
         rb = GetComponent<Rigidbody>();
+        stat = GetComponent<PlayerStat>();
         animator = GetComponent<Animator>();
         playerTransform = GetComponent<Transform>();
         playerCoolDown = GetComponent<PlayerCoolDownManager>();
@@ -73,10 +77,11 @@ public class PlayerInputManager : MonoBehaviour
 
     private void Update()
     {
-        //Debug.Log(dim.activeSelf);
-        //Debug.Log("LeftButton_Pressed : " + leftButton_Pressed);
-        //Debug.Log(isPeformingAction);
         leftButton_Pressed = false;
+        if (isDead == false)
+        {
+            CurrentHealthCheck();
+        }
     }
     private void FixedUpdate()
     {
@@ -147,6 +152,15 @@ public class PlayerInputManager : MonoBehaviour
         playerInput.PlayerMagic.Magic2.performed -= OnMagic2Performed;
     }
 
+    private void CurrentHealthCheck()
+    {
+        float currentHealth = stat.GetCurrentHP();
+
+        if (currentHealth <= 0)
+        {
+            stateManager.PushState(PlayerStateType.Die);
+        }
+    }
     private void GroundCheck()
     {
         RaycastHit hit;
@@ -293,7 +307,6 @@ public class PlayerInputManager : MonoBehaviour
             stateManager.PushState(PlayerStateType.WeaponSwap);
         }
     }
-
     private void OnMagic1Performed(InputAction.CallbackContext ctx)
     {
         if (isGrounded && !isPerformingAction && !isAttacking)
@@ -302,7 +315,6 @@ public class PlayerInputManager : MonoBehaviour
             PushByMagicCase(magic1);
         }
     }
-
     private void OnMagic2Performed(InputAction.CallbackContext ctx)
     {
         if (isGrounded && !isPerformingAction && !isAttacking)
@@ -311,7 +323,6 @@ public class PlayerInputManager : MonoBehaviour
             PushByMagicCase(magic2);
         }
     }
-
     public void Magic1Swap(PlayerStateType type)
     {
         if (magic1 == type || magic2 == type) return;

@@ -34,4 +34,5 @@ public abstract class BaseEntity : MonoBehaviour
         Debug.Log($"{gameObject.name} has died.");
         Destroy(gameObject);
     }
+
 }

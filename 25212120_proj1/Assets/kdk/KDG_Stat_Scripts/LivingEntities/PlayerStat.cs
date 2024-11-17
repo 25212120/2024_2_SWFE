@@ -23,4 +23,9 @@ public class PlayerStat : BaseEntity
     {
         statData.ModifyCurrentHp(healAmount);
     }
+
+    public float GetCurrentHP()
+    {
+        return statData.HpCurrent;
+    }
 }

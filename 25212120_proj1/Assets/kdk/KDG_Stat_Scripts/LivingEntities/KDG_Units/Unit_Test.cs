@@ -1,4 +1,4 @@
-public class MagicTower : BaseUnit
+public class Unit_Test : BaseUnit
 {
     protected override void Awake()
     {
@@ -9,8 +9,5 @@ public class MagicTower : BaseUnit
         base.Attack(target);
     }
 
-    public override void Heal(float amount)
-    {
-        base.Heal(amount);
-    }
+
 }

@@ -19289,12 +19289,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2645ae3783a6d7840b68406bde432982, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 15
   explosionRadius: 5
-  explosionDamage: 0
-  speed: 20
-  gravity: -8
-  rotationSpeed: 5
+  explosionDamage: 1
+  rotationSpeed: 3
   impactEffect: {fileID: 195742, guid: 2627fc2da59a3804c889d97cc203e8e8, type: 3}
+  gravity: -8
 --- !u!135 &2202881286722702237
 SphereCollider:
   m_ObjectHideFlags: 0

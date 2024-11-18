@@ -21,13 +21,18 @@ public class Unit_AttackState : BaseState<UnitStateType>
 
     public override void EnterState()
     {
+        animator.SetTrigger("attack");
+
         unit.agent.isStopped = true;
         unit.canDetectEnemy = false;
     }
 
     public override void UpdateState()
     {
-
+        Vector3 direction = (unit.targetEnemy.position - unit.transform.position).normalized;
+        direction.y = 0;
+        unit.transform.rotation = Quaternion.RotateTowards(unit.transform.rotation, Quaternion.LookRotation(direction), 1440f * Time.deltaTime);
+        unit.Attack();
     }
 
     public override void FixedUpdateState()
@@ -36,6 +41,7 @@ public class Unit_AttackState : BaseState<UnitStateType>
 
     public override void ExitState()
     {
+        animator.ResetTrigger("attack");
     }
 
     public override void CheckTransitions()
@@ -52,9 +58,6 @@ public class Unit_AttackState : BaseState<UnitStateType>
             stateManager.ChangeState(UnitStateType.Chase);
             return;
         }
-
-        unit.transform.LookAt(unit.targetEnemy);
-        unit.Attack();
 
         float distanceFromSavedPosition = Vector3.Distance(unit.transform.position, unit.savedPosition);
         if (distanceFromSavedPosition > unit.maxDistanceFromSavedPosition)

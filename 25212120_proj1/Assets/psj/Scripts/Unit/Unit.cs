@@ -35,6 +35,8 @@ public class Unit : MonoBehaviour
 
     private void Start()
     {
+        agent.updatePosition = false;
+        agent.updateRotation = false;
         savedPosition = transform.position;
         stateMachine.PushState(UnitStateType.Idle);
     }
@@ -96,7 +98,8 @@ public class Unit : MonoBehaviour
         if (attackCooldown <= 0f)
         {
             Debug.Log($"{gameObject.name}이(가) {targetEnemy.name}을(를) 공격합니다.");
-            attackCooldown = 1f / attackSpeed;
+            attackCooldown = 1f / attackSpeed; 
+            animator.SetTrigger("attack");
         }
         else
         {

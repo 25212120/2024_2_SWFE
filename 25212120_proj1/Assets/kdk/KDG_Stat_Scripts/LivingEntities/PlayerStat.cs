@@ -21,4 +21,6 @@ public class PlayerStat : BaseEntity
         target.TakeDamage(damage);
     }
 
+    
+
 }

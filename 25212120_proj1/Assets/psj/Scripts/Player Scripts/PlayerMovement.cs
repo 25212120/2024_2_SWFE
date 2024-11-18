@@ -350,6 +350,34 @@ public partial class @PlayerMovement: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""UI"",
+            ""id"": ""451ef07c-4865-4631-9886-fbb713ca9bd3"",
+            ""actions"": [
+                {
+                    ""name"": ""resource pannel"",
+                    ""type"": ""Button"",
+                    ""id"": ""29636800-b077-4206-9625-c110596e0d14"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""3bf08e78-5332-4c0b-a5df-764e2ca1806b"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""resource pannel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -379,6 +407,9 @@ public partial class @PlayerMovement: IInputActionCollection2, IDisposable
         m_WeaponSwap_DoubleSwords = m_WeaponSwap.FindAction("DoubleSwords", throwIfNotFound: true);
         m_WeaponSwap_BowAndArrow = m_WeaponSwap.FindAction("BowAndArrow", throwIfNotFound: true);
         m_WeaponSwap_MagicWand = m_WeaponSwap.FindAction("MagicWand", throwIfNotFound: true);
+        // UI
+        m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
+        m_UI_resourcepannel = m_UI.FindAction("resource pannel", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -654,6 +685,52 @@ public partial class @PlayerMovement: IInputActionCollection2, IDisposable
         }
     }
     public WeaponSwapActions @WeaponSwap => new WeaponSwapActions(this);
+
+    // UI
+    private readonly InputActionMap m_UI;
+    private List<IUIActions> m_UIActionsCallbackInterfaces = new List<IUIActions>();
+    private readonly InputAction m_UI_resourcepannel;
+    public struct UIActions
+    {
+        private @PlayerMovement m_Wrapper;
+        public UIActions(@PlayerMovement wrapper) { m_Wrapper = wrapper; }
+        public InputAction @resourcepannel => m_Wrapper.m_UI_resourcepannel;
+        public InputActionMap Get() { return m_Wrapper.m_UI; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(UIActions set) { return set.Get(); }
+        public void AddCallbacks(IUIActions instance)
+        {
+            if (instance == null || m_Wrapper.m_UIActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_UIActionsCallbackInterfaces.Add(instance);
+            @resourcepannel.started += instance.OnResourcepannel;
+            @resourcepannel.performed += instance.OnResourcepannel;
+            @resourcepannel.canceled += instance.OnResourcepannel;
+        }
+
+        private void UnregisterCallbacks(IUIActions instance)
+        {
+            @resourcepannel.started -= instance.OnResourcepannel;
+            @resourcepannel.performed -= instance.OnResourcepannel;
+            @resourcepannel.canceled -= instance.OnResourcepannel;
+        }
+
+        public void RemoveCallbacks(IUIActions instance)
+        {
+            if (m_Wrapper.m_UIActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IUIActions instance)
+        {
+            foreach (var item in m_Wrapper.m_UIActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_UIActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public UIActions @UI => new UIActions(this);
     private int m_PCSchemeIndex = -1;
     public InputControlScheme PCScheme
     {
@@ -684,5 +761,9 @@ public partial class @PlayerMovement: IInputActionCollection2, IDisposable
         void OnDoubleSwords(InputAction.CallbackContext context);
         void OnBowAndArrow(InputAction.CallbackContext context);
         void OnMagicWand(InputAction.CallbackContext context);
+    }
+    public interface IUIActions
+    {
+        void OnResourcepannel(InputAction.CallbackContext context);
     }
 }

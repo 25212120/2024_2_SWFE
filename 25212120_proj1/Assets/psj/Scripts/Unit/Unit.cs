@@ -1,47 +1,55 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Unit : MonoBehaviour
+public abstract class Unit : MonoBehaviour
 {
-    // 공통 변수
+    [Header("Components")]
     public NavMeshAgent agent;
     public Animator animator;
     public Transform targetEnemy;
-    public Vector3 savedPosition;
 
+    [Header("Position Data")]
+    public Vector3 savedPosition;
     public bool isMove = false;
+
+    [Header("Unit Parameters")]
+    public float detectionRange = 15f;
+    public float attackRange = 2f;
+    public float attackSpeed = 1f;
+    public float maxDistanceFromSavedPosition = 20f;
 
     [HideInInspector]
     public UnitStateMachine stateMachine;
-
-    // 설정 가능한 변수들
-    public float detectionRange = 15f;
-    public float attackRange = 2f;
-    public float maxDistanceFromSavedPosition = 20f;
-    public float attackSpeed = 1f;
-
-    // 내부 변수
     [HideInInspector]
     public bool canDetectEnemy = true;
     [HideInInspector]
     public float attackCooldown = 0f;
 
-    private void Awake()
+    protected virtual void Awake()
     {
+        // Get required components
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
         stateMachine = GetComponent<UnitStateMachine>();
+
+        // Ensure this GameObject has the "unit" tag for UnitController detection
+        if (gameObject.tag != "unit")
+        {
+            gameObject.tag = "unit";
+            Debug.LogWarning($"Set missing 'unit' tag on {gameObject.name}");
+        }
     }
 
-    private void Start()
+    protected virtual void Start()
     {
         agent.updatePosition = false;
         agent.updateRotation = false;
         savedPosition = transform.position;
         stateMachine.PushState(UnitStateType.Idle);
+        InitializeUnitParameters();
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         if (canDetectEnemy)
         {
@@ -49,18 +57,18 @@ public class Unit : MonoBehaviour
         }
     }
 
-    // 공통 함수들
+    // Abstract method that each unit type must implement
+    protected abstract void InitializeUnitParameters();
+    protected abstract void PerformAttack();
 
-
-
-    // 이동 명령 처리
+    // Public method called by UnitController
     public void MoveToPosition(Vector3 position)
     {
+        isMove = true;
         agent.SetDestination(position);
         stateMachine.ChangeState(UnitStateType.Move);
     }
 
-    // 가장 가까운 적 탐지
     public void DetectEnemy()
     {
         Collider[] colliders = Physics.OverlapSphere(transform.position, detectionRange);
@@ -84,7 +92,7 @@ public class Unit : MonoBehaviour
         {
             targetEnemy = closestEnemy;
 
-            if (isMove == true)
+            if (isMove)
             {
                 savedPosition = transform.position;
             }
@@ -97,9 +105,8 @@ public class Unit : MonoBehaviour
     {
         if (attackCooldown <= 0f)
         {
-            Debug.Log($"{gameObject.name}이(가) {targetEnemy.name}을(를) 공격합니다.");
-            attackCooldown = 1f / attackSpeed; 
-            animator.SetTrigger("attack");
+            PerformAttack();
+            attackCooldown = 1f / attackSpeed;
         }
         else
         {

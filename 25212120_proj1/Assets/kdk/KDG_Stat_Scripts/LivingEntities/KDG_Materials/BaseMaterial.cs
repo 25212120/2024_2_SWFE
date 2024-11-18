@@ -30,9 +30,11 @@ public class BaseMaterial : MonoBehaviour
         materialManager = GetComponent<MaterialManager>();
     }
 
-    private Coroutine dieCoroutine;  
+    private Coroutine dieCoroutine;
 
+    public bool finished = false;
     public bool WaitSuccess = false;
+
     public virtual void MaterialDie(float waittime)
     {
         if (dieCoroutine != null)
@@ -46,19 +48,26 @@ public class BaseMaterial : MonoBehaviour
     // 코루틴: waittime 후에 Die 호출
     private IEnumerator DieAfterWait(float waittime)
     {
-        yield return new WaitForSeconds(waittime);  // waittime만큼 대기
+        float elapsedTime = 0f; // 경과 시간 추적
 
-        // 코루틴이 실행 중이면 False로 바뀌면 취소
-        if (!WaitSuccess)
+        // WaitSuccess가 false로 변경되거나 시간이 초과될 때까지 대기
+        while (elapsedTime < waittime)
         {
-            CancelMaterialDie();  // 취소
-            yield break;
+            if (!WaitSuccess) // WaitSuccess가 false로 변경되면 즉시 취소
+            {
+                CancelMaterialDie();
+                yield break;
+            }
+
+            elapsedTime += Time.deltaTime; // 경과 시간 누적
+            yield return null; // 다음 프레임까지 대기
         }
 
-        Die();
+        // 대기 완료 후 Die 실행
+        finished = true;
     }
 
-    protected virtual void Die()
+    public virtual void Die()
     {
         Destroy(gameObject);  
         DropResources();  // 자원 드랍

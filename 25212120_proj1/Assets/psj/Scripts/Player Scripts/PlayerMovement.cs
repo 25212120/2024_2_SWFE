@@ -152,7 +152,7 @@ public partial class @PlayerMovement: IInputActionCollection2, IDisposable
                     ""id"": ""23226e91-dbcc-48cf-90cc-58412e2decce"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Hold"",
                     ""initialStateCheck"": false
                 },
                 {

@@ -1,3 +1,5 @@
+using System.Threading;
+using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -17,10 +19,20 @@ public class InteractionState : BaseState<PlayerStateType>
         this.rb = rb;
     }
 
+    private GameObject targetResource;
+    private Material_Test material;
+
     public override void EnterState()
     {
         animator.SetTrigger("F_Key_Pressed");
-        playerInputManager.isPerformingAction = true;
+        targetResource = GetClosestResource();
+        if (targetResource == null) stateManager.PopState();
+        else
+        {
+            material = targetResource.GetComponent<Material_Test>();
+            material.MaterialDie(4f);
+            playerInputManager.isPerformingAction = true;
+        }
     }
 
     public override void UpdateState()
@@ -35,23 +47,40 @@ public class InteractionState : BaseState<PlayerStateType>
     {
         // Interaction Logics
         animator.SetTrigger("finishedInteracting");
-        playerInputManager.isPerformingAction = true;
+        material.SetWaitSuccess_False();
+        playerInputManager.isPerformingAction = false;
         animator.ResetTrigger("F_Key_Pressed");
+        material.Die();
     }
 
     public override void CheckTransitions()
     {
-        // 이후 자원마다 상호작용 시간 정해질 시 loop time 활성화하고 transition 조건 재설정
-        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
-
-        float normalizedTime = stateInfo.normalizedTime % 1;
-
-        if (stateInfo.IsName("Interaction") == true && normalizedTime >= 0.95f)
+        if (material.finished == true)
         {
+            material.finished = false;
             stateManager.PopState();
         }
     }
 
-    // 1. 상호작용 방향으로 캐릭터 회전
-    // 2. 자원 종류마다 상호작용 시간 다르게 적용
+    public GameObject GetClosestResource()
+    {
+        Collider[] hitColliders = Physics.OverlapSphere(playerTransform.position, 4f);
+        GameObject closestResource = null;
+        float closestDistance = Mathf.Infinity;
+
+        foreach (var collider in hitColliders)
+        {
+            if (collider.CompareTag("Resource"))
+            {
+                float distance = Vector3.Distance(playerTransform.position, collider.transform.position);
+                if (distance < closestDistance)
+                {
+                    closestDistance = distance;
+                    closestResource = collider.gameObject;
+                }
+            }
+        }
+
+        return closestResource;
+    }
 }

@@ -118,6 +118,7 @@ public class PlayerInputManager : MonoBehaviour
         playerInput.PlayerAction.Charge.canceled += OnChargeCanceled;
 
         playerInput.PlayerAction.Interaction.performed += OnInteractionPerformed;
+        playerInput.PlayerAction.Interaction.canceled += OnInteractionCanceled;
 
         playerInput.WeaponSwap.SwordAndShield.performed += OnSwapToSwordAndShieldPerformed;
         playerInput.WeaponSwap.SingleTwoHandeSword.performed += OnSwapToSingleTwoHandSwordPerformed;
@@ -287,6 +288,12 @@ public class PlayerInputManager : MonoBehaviour
         {
             stateManager.PushState(PlayerStateType.Interaction);
         }
+    }
+
+    public bool interactionFinished = false;
+    private void OnInteractionCanceled(InputAction.CallbackContext ctx)
+    {
+            stateManager.ChangeState(PlayerStateType.Idle);
     }
     private void OnSwapToSwordAndShieldPerformed(InputAction.CallbackContext ctx)
     {

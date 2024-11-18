@@ -15,7 +15,7 @@ public class DieState : BaseState<PlayerStateType>
     {
         playerInputManager.isDead = true;
         playerInputManager.enabled = false;
-        animator.SetTrigger("Dead");
+        animator.SetTrigger("dead");
         Debug.Log("Player Dead");
     }
 

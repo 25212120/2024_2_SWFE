@@ -44,7 +44,7 @@ public class HitState : BaseState<PlayerStateType>
     {
         AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
 
-        if (stateInfo.IsTag("Hit") && stateInfo.normalizedTime >= 0.5f)
+        if (stateInfo.IsTag("Hit") && stateInfo.normalizedTime >= 0.2f)
         {
             stateManager.PopState();
         }

@@ -5,12 +5,10 @@ public class Weapon_Monster_DamageApply : MonoBehaviour
     private void OnTriggerEnter(Collider collision)
     {
         // 충돌한 대상이 PlayerStat이나 BaseStructure인지 확인
-        PlayerInputManager playerInputManager = collision.gameObject.GetComponent<PlayerInputManager>();
         PlayerStat playerStat = collision.gameObject.GetComponent<PlayerStat>();
         if (playerStat != null)
         {
             // 몬스터가 플레이어에게 데미지 주기
-            playerInputManager.isHit = true;
             HandleAttack(playerStat);
             return;
         }

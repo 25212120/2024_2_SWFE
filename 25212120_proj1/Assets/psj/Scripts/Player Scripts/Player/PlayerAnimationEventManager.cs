@@ -36,7 +36,7 @@ public class PlayerAnimationEventManager : MonoBehaviour
     public void JumpAttackStart()
     {
         rb.useGravity = false;
-        rb.AddForce(playerTransform.up * 15f, ForceMode.Impulse);
+        rb.AddForce(playerTransform.up * 10f, ForceMode.Impulse);
     }
     public void JumpAttackEnd()
     {

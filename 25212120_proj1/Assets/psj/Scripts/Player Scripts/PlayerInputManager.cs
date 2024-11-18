@@ -20,6 +20,7 @@ public class PlayerInputManager : MonoBehaviour
     public int currentMagicIndex;
     // CheckGround를 호출여부를 결정할 수 있음
     public bool wantToCheckGround = true;
+    public bool isCollidingHorizontally = false;
 
     [Header("Magic Spawn Points")]
     [SerializeField] public Vector3[] magicSpawnPoints;
@@ -363,6 +364,25 @@ public class PlayerInputManager : MonoBehaviour
                 stateManager.PushState(PlayerStateType.DrainField_MagicState);
                 break;
         }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+            foreach (ContactPoint contact in collision.contacts)
+        {
+            Vector3 normal = contact.normal;
+
+            if (Mathf.Abs(normal.y) < 0.1f)
+            {
+                isCollidingHorizontally = true;
+                break;
+            }
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        isCollidingHorizontally = false;
     }
 
 }

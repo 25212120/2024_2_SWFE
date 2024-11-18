@@ -1240,6 +1240,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LightTower_1
       objectReference: {fileID: 0}
+    - target: {fileID: 6682663913110514752, guid: 7e25d30468467734b8051ee9447fc655, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5433,15 +5437,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8381768123871117060, guid: 146784e3111eb5c4bb338e4949202900, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.7
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 8381768123871117060, guid: 146784e3111eb5c4bb338e4949202900, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.7
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 8381768123871117060, guid: 146784e3111eb5c4bb338e4949202900, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.7
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 8381768123871117060, guid: 146784e3111eb5c4bb338e4949202900, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6384,15 +6388,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8381768123871117060, guid: 146784e3111eb5c4bb338e4949202900, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.7
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 8381768123871117060, guid: 146784e3111eb5c4bb338e4949202900, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.7
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 8381768123871117060, guid: 146784e3111eb5c4bb338e4949202900, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.7
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 8381768123871117060, guid: 146784e3111eb5c4bb338e4949202900, type: 3}
       propertyPath: m_LocalPosition.x
@@ -8044,6 +8048,7 @@ MonoBehaviour:
   magic2: 0
   currentMagicIndex: 0
   wantToCheckGround: 1
+  isCollidingHorizontally: 0
   magicSpawnPoints:
   - {x: 0, y: 5, z: 0}
   - {x: -4, y: 2, z: 0}
@@ -8125,7 +8130,7 @@ Rigidbody:
   m_GameObject: {fileID: 852333857}
   serializedVersion: 4
   m_Mass: 1
-  m_Drag: 7
+  m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -12680,15 +12685,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8381768123871117060, guid: 146784e3111eb5c4bb338e4949202900, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.7
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 8381768123871117060, guid: 146784e3111eb5c4bb338e4949202900, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.7
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 8381768123871117060, guid: 146784e3111eb5c4bb338e4949202900, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.7
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 8381768123871117060, guid: 146784e3111eb5c4bb338e4949202900, type: 3}
       propertyPath: m_LocalPosition.x
@@ -21067,15 +21072,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8381768123871117060, guid: 146784e3111eb5c4bb338e4949202900, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.7
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 8381768123871117060, guid: 146784e3111eb5c4bb338e4949202900, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.7
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 8381768123871117060, guid: 146784e3111eb5c4bb338e4949202900, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.7
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 8381768123871117060, guid: 146784e3111eb5c4bb338e4949202900, type: 3}
       propertyPath: m_LocalPosition.x

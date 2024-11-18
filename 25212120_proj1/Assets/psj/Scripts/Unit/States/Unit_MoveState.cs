@@ -22,6 +22,8 @@ public class Unit_MoveState : BaseState<UnitStateType>
 
     public override void EnterState()
     {
+        animator.SetBool("move", true);
+
         unit.isMove = true;
         unit.agent.isStopped = false;
         unit.canDetectEnemy = false;
@@ -30,10 +32,22 @@ public class Unit_MoveState : BaseState<UnitStateType>
 
     public override void UpdateState()
     {
-        if (!unit.agent.pathPending && unit.agent.remainingDistance <= unit.agent.stoppingDistance)
+        Vector3 velocity = unit.agent.desiredVelocity;
+        velocity.y = 0; // Y축 제거
+
+        // 목표 방향을 따라 빠르게 회전
+        if (velocity.sqrMagnitude > 0.01f) // 이동 중인 경우에만 회전
         {
-            unit.savedPosition = unit.transform.position;
-            stateManager.ChangeState(UnitStateType.Idle);
+            float rotationSpeed = 1000f; // 빠른 회전 속도
+            unit.transform.rotation = Quaternion.RotateTowards(
+                unit.transform.rotation,
+                Quaternion.LookRotation(velocity),
+                rotationSpeed * Time.deltaTime
+            );
+
+            unit.transform.position += velocity * Time.deltaTime;
+
+            unit.agent.nextPosition = unit.transform.position;
         }
     }
 
@@ -43,11 +57,18 @@ public class Unit_MoveState : BaseState<UnitStateType>
 
     public override void ExitState()
     {
+        animator.SetBool("move", false);
         unit.isMove = false;
     }
 
     public override void CheckTransitions()
     {
+        if (!unit.agent.pathPending && unit.agent.remainingDistance <= unit.agent.stoppingDistance)
+        {
+            unit.agent.isStopped = true;
+            unit.savedPosition = unit.transform.position;
+            stateManager.ChangeState(UnitStateType.Idle);
+        }
     }
 
 }

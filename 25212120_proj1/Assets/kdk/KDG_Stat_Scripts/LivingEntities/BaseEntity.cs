@@ -32,6 +32,10 @@ public abstract class BaseEntity : MonoBehaviour
     protected virtual void Die()
     {
         Debug.Log($"{gameObject.name} has died.");
-        Destroy(gameObject);
+        if (gameObject.CompareTag("Player") == false)
+        {
+            Destroy(gameObject);
+        }
     }
+
 }

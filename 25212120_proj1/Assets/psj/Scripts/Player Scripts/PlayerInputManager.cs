@@ -21,6 +21,9 @@ public class PlayerInputManager : MonoBehaviour
     // CheckGround를 호출여부를 결정할 수 있음
     public bool wantToCheckGround = true;
     public bool isCollidingHorizontally = false;
+    public bool isDead = false;
+    public bool isDefending = false;
+    public bool isHit = false;
 
     [Header("Magic Spawn Points")]
     [SerializeField] public Vector3[] magicSpawnPoints;
@@ -47,6 +50,7 @@ public class PlayerInputManager : MonoBehaviour
     private Animator animator;
     private Transform playerTransform;
     private PlayerMovement playerInput;
+    private PlayerStat playerStat;
     private PlayerCoolDownManager playerCoolDown;
     private EquipmentInventory equipmentInventory;
 
@@ -61,6 +65,7 @@ public class PlayerInputManager : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
         playerTransform = GetComponent<Transform>();
+        playerStat = GetComponent<PlayerStat>();
         playerCoolDown = GetComponent<PlayerCoolDownManager>();
         equipmentInventory = GetComponent<EquipmentInventory>();
 
@@ -79,6 +84,9 @@ public class PlayerInputManager : MonoBehaviour
         //Debug.Log(dim.activeSelf);
         //Debug.Log("LeftButton_Pressed : " + leftButton_Pressed);
         //Debug.Log(isPeformingAction);
+        GetHitCheck();
+        hpCheck();
+
         leftButton_Pressed = false;
     }
     private void FixedUpdate()
@@ -150,6 +158,14 @@ public class PlayerInputManager : MonoBehaviour
         playerInput.PlayerMagic.Magic2.performed -= OnMagic2Performed;
     }
 
+    private void hpCheck()
+    {
+        float currentHp = playerStat.GetCurrentHP();
+        if (currentHp <= 0)
+        {
+            stateManager.PushState(PlayerStateType.Die);
+        }
+    }
     private void GroundCheck()
     {
         RaycastHit hit;
@@ -213,6 +229,14 @@ public class PlayerInputManager : MonoBehaviour
         if (isGrounded && !isPerformingAction && !isAttacking)
         {
             stateManager.PushState(PlayerStateType.Jump);
+        }
+    }
+
+    private void GetHitCheck()
+    {
+        if (isHit == true)
+        {
+            stateManager.PushState(PlayerStateType.Hit);
         }
     }
     private void OnAttackPerformed(InputAction.CallbackContext ctx)
@@ -378,11 +402,6 @@ public class PlayerInputManager : MonoBehaviour
                 break;
             }
         }
-    }
-
-    private void OnCollisionExit(Collision collision)
-    {
-        isCollidingHorizontally = false;
     }
 
 }

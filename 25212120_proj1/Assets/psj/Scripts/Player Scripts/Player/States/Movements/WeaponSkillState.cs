@@ -143,8 +143,13 @@ public class WeaponSkillState : BaseState<PlayerStateType>
 
     private IEnumerator Defend()
     {
+        playerInputManager.isDefending = true;
+
         yield return new WaitForSeconds(3f);
+        playerInputManager.isDefending = false;
+
         finishedWeaponSkill = true;
+
     }
 
     private void JumpAttack_SingleTwoHandedSword()

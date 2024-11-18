@@ -30447,8 +30447,22 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
+  - time: 0
+    functionName: EnableWeaponCollider
+    data: 
+    objectReferenceParameter: {fileID: 11500000, guid: c59c92b57f400f94d83b7952f7501c09, type: 3}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
   - time: 0.3
     functionName: MovingWhileAttacking
+    data: 
+    objectReferenceParameter: {fileID: 11500000, guid: c59c92b57f400f94d83b7952f7501c09, type: 3}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.56666666
+    functionName: DisableWeaponCollider
     data: 
     objectReferenceParameter: {fileID: 11500000, guid: c59c92b57f400f94d83b7952f7501c09, type: 3}
     floatParameter: 0

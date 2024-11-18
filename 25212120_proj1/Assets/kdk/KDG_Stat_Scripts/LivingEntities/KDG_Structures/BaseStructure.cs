@@ -5,17 +5,44 @@ public class BaseStructure : BaseEntity
 {
     [Header("업그레이드에 필요한 자원")]
     [SerializeField] private List<ResourceRequirement> upgradeRequirements = new List<ResourceRequirement>(); // 업그레이드에 필요한 자원 리스트
+    [SerializeField] private Material upgradedMaterial;  // 업그레이드 후 외형을 변경할 기본 머티리얼
+    [SerializeField] private Mesh upgradedMesh;         // 업그레이드 후 사용할 메쉬 (선택사항)
+
+    [Header("에센스 업그레이드에 따른 외형 변경")]
+    [SerializeField] private Material iceEssenceMaterial;   // IceEssence에 해당하는 머티리얼
+    [SerializeField] private Material fireEssenceMaterial;  // FireEssence에 해당하는 머티리얼
+    [SerializeField] private Material sandEssenceMaterial;  // SandEssence에 해당하는 머티리얼
+    [SerializeField] private Material woodEssenceMaterial;  // WoodEssence에 해당하는 머티리얼
+
+    [Header("일반 업그레이드 시 적용될 스텟")]
+    [SerializeField] private StatUpgrade statUpgrade = new StatUpgrade(); // 업그레이드 시 적용될 스텟 증가값
+
+    private Renderer structureRenderer;
+    private MeshFilter meshFilter;
 
     protected override void Awake()
     {
         base.Awake();
+        structureRenderer = GetComponent<Renderer>();  
+        meshFilter = GetComponent<MeshFilter>();       
     }
 
-    // 자원 소모하여 업그레이드 수행
-    public bool Upgrade()
+    // 일반 자원 업그레이드 (에센스 제외)
+    public bool UpgradeWithoutEssence()
     {
-        // 업그레이드에 필요한 자원들을 모두 소모할 수 있는지 확인
+        
+        List<ResourceRequirement> nonEssenceRequirements = new List<ResourceRequirement>();
+
         foreach (var requirement in upgradeRequirements)
+        {
+            if (!IsEssenceResource(requirement.resourceType))
+            {
+                nonEssenceRequirements.Add(requirement);
+            }
+        }
+
+        // 일반 자원들로 업그레이드가 가능한지 확인
+        foreach (var requirement in nonEssenceRequirements)
         {
             if (!MaterialManager.Instance.ConsumeResource(requirement.resourceType, requirement.amount))
             {
@@ -27,18 +54,152 @@ public class BaseStructure : BaseEntity
 
         // 모든 자원 소비가 성공하면 업그레이드 진행
         PerformUpgrade();
-
         return true;
     }
 
-    // 업그레이드 진행 (스텟을 증가시킴)
+    // 에센스 자원을 사용하여 업그레이드 진행
+    public bool UpgradeWithEssence(MaterialManager.ResourceType essenceType)
+    {
+        List<ResourceRequirement> essenceRequirements = new List<ResourceRequirement>();
+
+        foreach (var requirement in upgradeRequirements)
+        {
+            // 에센스 자원만 추출
+            if (IsEssenceResource(requirement.resourceType))
+            {
+                essenceRequirements.Add(requirement);
+            }
+        }
+
+        // 에센스 자원들만으로 업그레이드가 가능한지 확인
+        bool essenceConsumed = false;
+        foreach (var requirement in essenceRequirements)
+        {
+            if (requirement.resourceType == essenceType) // 지정된 에센스 자원만 소모
+            {
+                if (!MaterialManager.Instance.ConsumeResource(requirement.resourceType, requirement.amount))
+                {
+                    // 자원이 부족하면 업그레이드 실패
+                    Debug.LogWarning($"{requirement.resourceType} 자원이 부족합니다. 외형 변경 실패.");
+                    return false;
+                }
+                essenceConsumed = true;
+                break; // 에센스는 한 종류만 사용하므로 한 번만 소모
+            }
+        }
+
+        if (!essenceConsumed)
+        {
+            // 지정된 에센스 자원이 없으면 실패
+            Debug.LogWarning("유효한 에센스 자원이 부족합니다. 외형 변경 실패.");
+            return false;
+        }
+
+        // 에센스를 소모하고 외형 변경
+        ChangeAppearanceWithEssence(essenceType);
+        AddEssenceUpgradeScript(essenceType);
+        // 업그레이드 완료
+        return true;
+    }
+
+    private void AddEssenceUpgradeScript(MaterialManager.ResourceType essenceType)
+    {
+        switch (essenceType)
+        {
+            case MaterialManager.ResourceType.IceEssence:
+                // IceEssence에 해당하는 스크립트를 추가
+                if (structureRenderer != null && iceEssenceMaterial != null)
+                    structureRenderer.material = iceEssenceMaterial;
+
+                break;
+
+            case MaterialManager.ResourceType.FireEssence:
+                // FireEssence에 해당하는 스크립트를 추가
+                if (structureRenderer != null && fireEssenceMaterial != null)
+                    structureRenderer.material = fireEssenceMaterial;
+
+                // FireEssence 스크립트 추가
+                if (GetComponent<FireEssence_Upgarde>() == null)  // 중복 추가 방지
+                    gameObject.AddComponent<FireEssence_Upgarde>();
+
+                break;
+
+            case MaterialManager.ResourceType.SandEssence:
+                // SandEssence에 해당하는 머티리얼로 변경
+                if (structureRenderer != null && sandEssenceMaterial != null)
+                    structureRenderer.material = sandEssenceMaterial;
+
+                if (GetComponent<SandEssence_Upgrade>() == null)  // 중복 추가 방지
+                    gameObject.AddComponent<SandEssence_Upgrade>();
+                break;
+
+            case MaterialManager.ResourceType.WoodEssence:
+                // WoodEssence에 해당하는 머티리얼로 변경
+                if (structureRenderer != null && woodEssenceMaterial != null)
+                    structureRenderer.material = woodEssenceMaterial;
+                break;
+
+            default:
+                Debug.LogWarning("알 수 없는 에센스 타입입니다.");
+                break;
+        }
+    }
+    // 에센스에 따른 외형 변경
+    private void ChangeAppearanceWithEssence(MaterialManager.ResourceType essenceType)
+    {
+        switch (essenceType)
+        {
+            case MaterialManager.ResourceType.IceEssence:
+                if (structureRenderer != null && iceEssenceMaterial != null)
+                    structureRenderer.material = iceEssenceMaterial;  // IceEssence에 해당하는 머티리얼로 변경
+                break;
+
+            case MaterialManager.ResourceType.FireEssence:
+                if (structureRenderer != null && fireEssenceMaterial != null)
+                    structureRenderer.material = fireEssenceMaterial;  // FireEssence에 해당하는 머티리얼로 변경
+                break;
+
+            case MaterialManager.ResourceType.SandEssence:
+                if (structureRenderer != null && sandEssenceMaterial != null)
+                    structureRenderer.material = sandEssenceMaterial;  // SandEssence에 해당하는 머티리얼로 변경
+                break;
+
+            case MaterialManager.ResourceType.WoodEssence:
+                if (structureRenderer != null && woodEssenceMaterial != null)
+                    structureRenderer.material = woodEssenceMaterial;  // WoodEssence에 해당하는 머티리얼로 변경
+                break;
+
+            default:
+                Debug.LogWarning("알 수 없는 에센스 타입입니다.");
+                break;
+        }
+
+        
+    }
+
+    // 자원이 에센스인지 확인하는 함수
+    private bool IsEssenceResource(MaterialManager.ResourceType resourceType)
+    {
+        switch (resourceType)
+        {
+            case MaterialManager.ResourceType.WoodEssence:
+            case MaterialManager.ResourceType.IceEssence:
+            case MaterialManager.ResourceType.FireEssence:
+            case MaterialManager.ResourceType.SandEssence:
+                return true; // 에센스 자원일 경우 true 반환
+            default:
+                return false; // 에센스가 아닌 자원
+        }
+    }
+
     private void PerformUpgrade()
     {
-        // 스텟을 증가시키는 로직 (예시: 공격력과 체력 증가)
-        statData.UpgradeBaseStat(StatData.StatType.ATTACK, 5); // 예시: 공격력 +5
-        statData.UpgradeBaseStat(StatData.StatType.HP, 50);   // 예시: 체력 +50
+        // 스텟을 증가시키는 로직 (StatUpgrade 클래스에서 정의된 값만큼 증가)
+        statData.UpgradeBaseStat(StatData.StatType.ATTACK, statUpgrade.attackIncrease); // 공격력 증가
+        statData.UpgradeBaseStat(StatData.StatType.DEFENSE, statUpgrade.defenseIncrease); // 방어력 증가
+        statData.UpgradeBaseStat(StatData.StatType.HP, statUpgrade.healthIncrease); // 체력 증가
 
-        Debug.Log("업그레이드 완료: 공격력 +5, 체력 +50");
+        Debug.Log("업그레이드 완료: 공격력 + " + statUpgrade.attackIncrease + ", 방어력 + " + statUpgrade.defenseIncrease + ", 체력 + " + statUpgrade.healthIncrease);
     }
 
     public virtual void Repair(float amount)

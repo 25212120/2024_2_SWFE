@@ -1,8 +1,9 @@
 
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BaseMaterial : BaseEntity
+public class BaseMaterial : MonoBehaviour
 {
     private MaterialManager materialManager;
 
@@ -24,29 +25,74 @@ public class BaseMaterial : BaseEntity
             this.dropChance = dropChance;
         }
     }
-
-    public virtual void MaterialDie()
+    protected virtual void Awake()
     {
-        Die();
-    }
-    protected override void Awake()
-    {
-        base.Awake();
         materialManager = GetComponent<MaterialManager>();
     }
-    protected override void Die()
+
+    private Coroutine dieCoroutine;  
+
+    public bool WaitSuccess = false;
+    public virtual void MaterialDie(float waittime)
     {
-        base.Die();
-        DropResources();
+        if (dieCoroutine != null)
+        {
+            StopCoroutine(dieCoroutine);
+        }
+        WaitSuccess = true;  // 코루틴 실행 전 True로 설정
+        dieCoroutine = StartCoroutine(DieAfterWait(waittime));
     }
 
+    // 코루틴: waittime 후에 Die 호출
+    private IEnumerator DieAfterWait(float waittime)
+    {
+        yield return new WaitForSeconds(waittime);  // waittime만큼 대기
+
+        // 코루틴이 실행 중이면 False로 바뀌면 취소
+        if (!WaitSuccess)
+        {
+            CancelMaterialDie();  // 취소
+            yield break;
+        }
+
+        Die();
+    }
+
+    protected virtual void Die()
+    {
+        Destroy(gameObject);  
+        DropResources();  // 자원 드랍
+    }
+
+    // 자원 드랍 처리
     private void DropResources()
     {
-        // 자원 드랍 처리
         foreach (var resourceDrop in resourceDrops)
         {
             MaterialManager.Instance.GainResourceWithChance(resourceDrop.resourceType, resourceDrop.amount, resourceDrop.dropChance);
             Debug.Log($"{gameObject.name} 드랍: {resourceDrop.amount} {resourceDrop.resourceType} 확률: {resourceDrop.dropChance * 100}%");
+        }
+    }
+
+    // 피격 시 호출
+    public void CancelMaterialDie()
+    {
+        if (dieCoroutine != null)
+        {
+            StopCoroutine(dieCoroutine);
+            dieCoroutine = null;  
+            Debug.Log("MaterialDie 취소됨");
+        }
+        WaitSuccess = false; // 코루틴을 취소하면 상태를 False로 설정
+    }
+
+    // WaitSuccess를 변경하여 코루틴을 취소
+    public void SetWaitSuccess_False()
+    {
+        WaitSuccess = false;
+        if (!WaitSuccess && dieCoroutine != null)
+        {
+            CancelMaterialDie();
         }
     }
 }

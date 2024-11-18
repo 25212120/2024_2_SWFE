@@ -17,12 +17,4 @@ public class Weapon_DamageApply : MonoBehaviour
         }
 
     }
-    private void HandleAttack(BaseUnit unit)
-    {
-        BaseMonster monster = GetComponentInParent<BaseMonster>();
-        if (monster != null)
-        {
-            monster.Attack(unit);  
-        }
-    }
 }

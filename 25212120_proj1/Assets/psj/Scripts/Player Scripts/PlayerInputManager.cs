@@ -21,6 +21,7 @@ public class PlayerInputManager : MonoBehaviour
     // CheckGround를 호출여부를 결정할 수 있음
     public bool wantToCheckGround = true;
     public bool isCollidingHorizontally = false;
+    public bool isDefending = false;
 
     public bool isDead = false;
 
@@ -379,7 +380,7 @@ public class PlayerInputManager : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-            foreach (ContactPoint contact in collision.contacts)
+        foreach (ContactPoint contact in collision.contacts)
         {
             Vector3 normal = contact.normal;
 
@@ -389,6 +390,11 @@ public class PlayerInputManager : MonoBehaviour
                 break;
             }
         }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+    
     }
 
     private void OnCollisionExit(Collision collision)

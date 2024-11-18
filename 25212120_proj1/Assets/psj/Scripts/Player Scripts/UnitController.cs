@@ -65,45 +65,54 @@ public class UnitController : MonoBehaviour
     }
     void MoveUnitsToPosition()
     {
-            Vector2 mouseScreenPosition = Mouse.current.position.ReadValue();
-            Ray ray = Camera.main.ScreenPointToRay(mouseScreenPosition);
-            RaycastHit hit;
+        Vector2 mouseScreenPosition = Mouse.current.position.ReadValue();
+        Ray ray = Camera.main.ScreenPointToRay(mouseScreenPosition);
+        RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit))
+        if (Physics.Raycast(ray, out hit))
+        {
+            Vector3 destination = hit.point;
+
+            int unitCount = SelectedUnits.Count;
+            int gridSize = Mathf.CeilToInt(Mathf.Sqrt(unitCount));
+            float spacing = 1.5f; // 유닛 간 간격
+
+            // 격자의 중앙을 기준으로 오프셋을 계산
+            float offsetX = (gridSize - 1) * spacing / 2;
+            float offsetZ = (gridSize - 1) * spacing / 2;
+
+            Quaternion rotation = Quaternion.Euler(0, Camera.main.transform.eulerAngles.y, 0);
+
+            int index = 0;
+
+            for (int x = 0; x < gridSize; x++)
             {
-                Vector3 destination = hit.point;
-
-                int unitCount = SelectedUnits.Count;
-                int unitsPerRow = Mathf.CeilToInt(Mathf.Sqrt(unitCount));
-                float spacing = 1.5f;
-
-                Vector3 moveDirection = (destination - Camera.main.transform.position).normalized;
-                Quaternion rotation = Quaternion.LookRotation(moveDirection);
-
-            for (int i = 0; i < unitCount; i++)
-            {
-                GameObject unitObject = SelectedUnits[i];
-                Unit unit = unitObject.GetComponent<Unit>();
-
-                int row = i / unitsPerRow;
-                int column = i % unitsPerRow;
-
-                Vector3 offset = rotation * new Vector3(column * spacing, 0, row * spacing);
-
-                Vector3 unitDestination = destination + offset - rotation * new Vector3((unitsPerRow - 1) * spacing / 2, 0, (unitsPerRow - 1) * spacing / 2);
-
-                NavMeshHit navHit;
-                if (NavMesh.SamplePosition(unitDestination, out navHit, 1.0f, NavMesh.AllAreas))
+                for (int z = 0; z < gridSize; z++)
                 {
-                    unit.MoveToPosition(navHit.position);
-                }
-                else
-                {
-                    Debug.Log($"유닛 {unit.gameObject.name}이(가) NavMesh 위에 있지 않습니다.");
+                    if (index >= unitCount)
+                        break;
+
+                    Vector3 unitPosition = new Vector3(x * spacing - offsetX, 0, z * spacing - offsetZ);
+                    Vector3 rotatedPosition = rotation * unitPosition;
+                    Vector3 unitDestination = destination + rotatedPosition;
+
+                    GameObject unitObject = SelectedUnits[index];
+                    Unit unit = unitObject.GetComponent<Unit>();
+
+                    NavMeshHit navHit;
+                    if (NavMesh.SamplePosition(unitDestination, out navHit, 1.0f, NavMesh.AllAreas))
+                    {
+                        unit.MoveToPosition(navHit.position);
+                    }
+                    else
+                    {
+                        Debug.Log($"유닛 {unit.gameObject.name}이(가) NavMesh 위에 있지 않습니다.");
+                    }
+
+                    index++;
                 }
             }
         }
-
     }
 
     private void Update()

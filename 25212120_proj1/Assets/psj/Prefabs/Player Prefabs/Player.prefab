@@ -13578,7 +13578,7 @@ Rigidbody:
   m_GameObject: {fileID: 7733253676307657119}
   serializedVersion: 4
   m_Mass: 1
-  m_Drag: 7
+  m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -13691,6 +13691,7 @@ MonoBehaviour:
   magic2: 0
   currentMagicIndex: 0
   wantToCheckGround: 1
+  isCollidingHorizontally: 0
   isDead: 0
   magicSpawnPoints:
   - {x: 0, y: 5, z: 0}
@@ -13814,7 +13815,7 @@ MonoBehaviour:
     <baseAttack>k__BackingField: 10
     <baseMovementSpeed>k__BackingField: 1
     <baseDefense>k__BackingField: 0
-    equipmentInventory: {fileID: 0}
+  equipmentInventory: {fileID: 0}
 --- !u!208 &789213622087573943
 NavMeshObstacle:
   m_ObjectHideFlags: 0

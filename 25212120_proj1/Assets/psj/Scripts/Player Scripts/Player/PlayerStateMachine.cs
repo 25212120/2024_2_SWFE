@@ -29,6 +29,7 @@ public class PlayerStateMachine : StateManager<PlayerStateType>
 
         // ´Ü¹ß¼º State
         States.Add(PlayerStateType.Dash, new DashState(PlayerStateType.Dash, this, playerInputManager, rb, animator, playerTransform, playerCoolDownmanager));
+        States.Add(PlayerStateType.Hit, new HitState(PlayerStateType.Hit, this, playerInputManager, animator, playerTransform));
         States.Add(PlayerStateType.Jump, new JumpState(PlayerStateType.Jump, this, playerInputManager, rb, animator, playerTransform));
         States.Add(PlayerStateType.Attack, new AttackState(PlayerStateType.Attack, this, playerInputManager, rb, animator, playerTransform));
         States.Add(PlayerStateType.Interaction, new InteractionState(PlayerStateType.Interaction, this, playerInputManager, rb, animator, playerTransform));

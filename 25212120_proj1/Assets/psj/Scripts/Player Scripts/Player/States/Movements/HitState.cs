@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 public class HitState : BaseState<PlayerStateType>
@@ -7,7 +6,8 @@ public class HitState : BaseState<PlayerStateType>
     private Transform playerTransform;
     private PlayerInputManager playerInputManager;
 
-    public HitState(PlayerStateType key, StateManager<PlayerStateType> stateManager, PlayerInputManager inputManager, Animator animator, Transform playerTransform) : base(key, stateManager)
+    public HitState(PlayerStateType key, StateManager<PlayerStateType> stateManager, PlayerInputManager inputManager, Animator animator, Transform playerTransform)
+            : base(key, stateManager)
     {
         this.playerTransform = playerTransform;
         this.animator = animator;
@@ -16,15 +16,15 @@ public class HitState : BaseState<PlayerStateType>
 
     public override void EnterState()
     {
-        if(playerInputManager.isDefending == true)
+        playerInputManager.isHit = false;
+
+        if (playerInputManager.isDefending == true)
         {
             animator.SetTrigger("getHitWhileDefending");
-            animator.ResetTrigger("getHitWhileDefending");
         }
         else
         {
             animator.SetTrigger("getHit");
-            animator.ResetTrigger("getHit");
         }
     }
 
@@ -44,12 +44,9 @@ public class HitState : BaseState<PlayerStateType>
     {
         AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
 
-        if (stateInfo.normalizedTime >= 1.0f)
+        if (stateInfo.IsTag("Hit") && stateInfo.normalizedTime >= 0.5f)
         {
-            if (stateInfo.IsTag("GetHit"))
-            {
-                stateManager.PopState();
-            }
+            stateManager.PopState();
         }
     }
 }

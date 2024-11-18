@@ -417,7 +417,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -615,6 +615,10 @@ PrefabInstance:
     - target: {fileID: 1061544406661462813, guid: 8c9316d8920ae32428637abbbcef71a4, type: 3}
       propertyPath: m_Name
       value: Unit (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1061544406661462813, guid: 8c9316d8920ae32428637abbbcef71a4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8352061588872985161, guid: 8c9316d8920ae32428637abbbcef71a4, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3777,6 +3781,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Unit (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 1061544406661462813, guid: 8c9316d8920ae32428637abbbcef71a4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8352061588872985161, guid: 8c9316d8920ae32428637abbbcef71a4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3.154807
@@ -3833,6 +3841,10 @@ PrefabInstance:
     - target: {fileID: 1061544406661462813, guid: 8c9316d8920ae32428637abbbcef71a4, type: 3}
       propertyPath: m_Name
       value: Unit
+      objectReference: {fileID: 0}
+    - target: {fileID: 1061544406661462813, guid: 8c9316d8920ae32428637abbbcef71a4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8352061588872985161, guid: 8c9316d8920ae32428637abbbcef71a4, type: 3}
       propertyPath: m_LocalPosition.x

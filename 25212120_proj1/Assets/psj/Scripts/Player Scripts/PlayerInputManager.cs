@@ -21,9 +21,9 @@ public class PlayerInputManager : MonoBehaviour
     // CheckGround를 호출여부를 결정할 수 있음
     public bool wantToCheckGround = true;
     public bool isCollidingHorizontally = false;
-    public bool isDefending = false;
-
     public bool isDead = false;
+    public bool isDefending = false;
+    public bool isHit = false;
 
     [Header("Magic Spawn Points")]
     [SerializeField] public Vector3[] magicSpawnPoints;
@@ -50,7 +50,7 @@ public class PlayerInputManager : MonoBehaviour
     private Animator animator;
     private Transform playerTransform;
     private PlayerMovement playerInput;
-    private PlayerStat stat;
+    private PlayerStat playerStat;
     private PlayerCoolDownManager playerCoolDown;
     private EquipmentInventory equipmentInventory;
 
@@ -63,9 +63,9 @@ public class PlayerInputManager : MonoBehaviour
         playerInput = new PlayerMovement();
 
         rb = GetComponent<Rigidbody>();
-        stat = GetComponent<PlayerStat>();
         animator = GetComponent<Animator>();
         playerTransform = GetComponent<Transform>();
+        playerStat = GetComponent<PlayerStat>();
         playerCoolDown = GetComponent<PlayerCoolDownManager>();
         equipmentInventory = GetComponent<EquipmentInventory>();
 
@@ -81,11 +81,13 @@ public class PlayerInputManager : MonoBehaviour
 
     private void Update()
     {
+        //Debug.Log(dim.activeSelf);
+        //Debug.Log("LeftButton_Pressed : " + leftButton_Pressed);
+        //Debug.Log(isPeformingAction);
+        GetHitCheck();
+        hpCheck();
+
         leftButton_Pressed = false;
-        if (isDead == false)
-        {
-            CurrentHealthCheck();
-        }
     }
     private void FixedUpdate()
     {
@@ -156,11 +158,10 @@ public class PlayerInputManager : MonoBehaviour
         playerInput.PlayerMagic.Magic2.performed -= OnMagic2Performed;
     }
 
-    private void CurrentHealthCheck()
+    private void hpCheck()
     {
-        float currentHealth = stat.GetCurrentHP();
-
-        if (currentHealth <= 0)
+        float currentHp = playerStat.GetCurrentHP();
+        if (currentHp <= 0)
         {
             stateManager.PushState(PlayerStateType.Die);
         }
@@ -228,6 +229,14 @@ public class PlayerInputManager : MonoBehaviour
         if (isGrounded && !isPerformingAction && !isAttacking)
         {
             stateManager.PushState(PlayerStateType.Jump);
+        }
+    }
+
+    private void GetHitCheck()
+    {
+        if (isHit == true)
+        {
+            stateManager.PushState(PlayerStateType.Hit);
         }
     }
     private void OnAttackPerformed(InputAction.CallbackContext ctx)
@@ -315,6 +324,7 @@ public class PlayerInputManager : MonoBehaviour
             equipmentInventory.Equip(equipmentInventory.availableEquipments[currentRightHandIndex]);
         }
     }
+
     private void OnMagic1Performed(InputAction.CallbackContext ctx)
     {
         if (isGrounded && !isPerformingAction && !isAttacking)
@@ -323,6 +333,7 @@ public class PlayerInputManager : MonoBehaviour
             PushByMagicCase(magic1);
         }
     }
+
     private void OnMagic2Performed(InputAction.CallbackContext ctx)
     {
         if (isGrounded && !isPerformingAction && !isAttacking)
@@ -331,6 +342,7 @@ public class PlayerInputManager : MonoBehaviour
             PushByMagicCase(magic2);
         }
     }
+
     public void Magic1Swap(PlayerStateType type)
     {
         if (magic1 == type || magic2 == type) return;
@@ -380,7 +392,7 @@ public class PlayerInputManager : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        foreach (ContactPoint contact in collision.contacts)
+            foreach (ContactPoint contact in collision.contacts)
         {
             Vector3 normal = contact.normal;
 
@@ -390,16 +402,6 @@ public class PlayerInputManager : MonoBehaviour
                 break;
             }
         }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-    
-    }
-
-    private void OnCollisionExit(Collision collision)
-    {
-        isCollidingHorizontally = false;
     }
 
 }

@@ -1,7 +1,4 @@
-using System.Threading;
-using UnityEditor.Rendering;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class InteractionState : BaseState<PlayerStateType>
 {
@@ -29,6 +26,7 @@ public class InteractionState : BaseState<PlayerStateType>
         if (targetResource == null) stateManager.PopState();
         else
         {
+
             material = targetResource.GetComponent<Material_Test>();
             material.MaterialDie(4f);
             playerInputManager.isPerformingAction = true;
@@ -37,10 +35,18 @@ public class InteractionState : BaseState<PlayerStateType>
 
     public override void UpdateState()
     {
+
     }
 
     public override void FixedUpdateState()
     {
+        Vector3 direction = (targetResource.transform.position - playerTransform.position).normalized;
+        direction.y = 0;
+        if (direction != Vector3.zero)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(direction);
+            playerTransform.rotation = Quaternion.Slerp(playerTransform.rotation, targetRotation, Time.deltaTime * 20f);
+        }
     }
 
     public override void ExitState()
@@ -50,7 +56,6 @@ public class InteractionState : BaseState<PlayerStateType>
         material.SetWaitSuccess_False();
         playerInputManager.isPerformingAction = false;
         animator.ResetTrigger("F_Key_Pressed");
-        material.Die();
     }
 
     public override void CheckTransitions()
@@ -59,6 +64,7 @@ public class InteractionState : BaseState<PlayerStateType>
         {
             material.finished = false;
             stateManager.PopState();
+            material.Die();
         }
     }
 

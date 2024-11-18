@@ -24,7 +24,7 @@ public class SprintState : BaseState<PlayerStateType>
 
     public override void FixedUpdateState()
     {
-        MovePlayer();
+        SprintPlayer();
         RotatePlayer();
     }
 
@@ -45,6 +45,7 @@ public class SprintState : BaseState<PlayerStateType>
     }
 
     // SprintState Logic
+    private float maxSpeed = 10f;
 
     private float sprintSpeed = 100f;
     private float rotationSpeed = 10f;
@@ -53,6 +54,17 @@ public class SprintState : BaseState<PlayerStateType>
     private Vector3 inputDirection;
     private Vector3 moveDirection;
 
+    void SprintPlayer()
+    {
+        if (rb.velocity.magnitude < maxSpeed)
+        {
+            MovePlayer();
+        }
+        else
+        {
+            rb.velocity = rb.velocity.normalized * maxSpeed;
+        }
+    }
 
     void MovePlayer()
     {
@@ -63,6 +75,15 @@ public class SprintState : BaseState<PlayerStateType>
         moveDirection = rotation * inputDirection;
 
         rb.AddForce(moveDirection.normalized * sprintSpeed);
+    }
+
+    void LimitVelocity()
+    {
+        Vector3 velocity = rb.velocity;
+        if(velocity.magnitude > maxSpeed)
+        {
+            rb.velocity = velocity.normalized * maxSpeed;
+        }
     }
 
     void RotatePlayer()

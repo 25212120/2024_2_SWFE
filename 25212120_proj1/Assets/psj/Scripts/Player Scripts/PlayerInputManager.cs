@@ -20,6 +20,7 @@ public class PlayerInputManager : MonoBehaviour
     public int currentMagicIndex;
     // CheckGround를 호출여부를 결정할 수 있음
     public bool wantToCheckGround = true;
+    public bool isCollidingHorizontally = false;
 
     public bool isDead = false;
 
@@ -50,6 +51,7 @@ public class PlayerInputManager : MonoBehaviour
     private PlayerMovement playerInput;
     private PlayerStat stat;
     private PlayerCoolDownManager playerCoolDown;
+    private EquipmentInventory equipmentInventory;
 
     private StateManager<PlayerStateType> stateManager;
 
@@ -64,6 +66,7 @@ public class PlayerInputManager : MonoBehaviour
         animator = GetComponent<Animator>();
         playerTransform = GetComponent<Transform>();
         playerCoolDown = GetComponent<PlayerCoolDownManager>();
+        equipmentInventory = GetComponent<EquipmentInventory>();
 
         stateManager = GetComponent<StateManager<PlayerStateType>>();
 
@@ -113,8 +116,8 @@ public class PlayerInputManager : MonoBehaviour
 
         playerInput.PlayerAction.Interaction.performed += OnInteractionPerformed;
 
-        playerInput.WeaponSwap.SwordAndShield.performed += OnSwapToSwordAndSheildPerformed;
-        playerInput.WeaponSwap.SingleTwoHandeSword.performed += OnSwapToSingleTwoHandeSwordPerformed;
+        playerInput.WeaponSwap.SwordAndShield.performed += OnSwapToSwordAndShieldPerformed;
+        playerInput.WeaponSwap.SingleTwoHandeSword.performed += OnSwapToSingleTwoHandSwordPerformed;
         playerInput.WeaponSwap.DoubleSwords.performed += OnSwapToDoubleSwordsPerformed;
         playerInput.WeaponSwap.BowAndArrow.performed += OnSwapToBowAndArrowPerformed;
 
@@ -143,10 +146,10 @@ public class PlayerInputManager : MonoBehaviour
 
         playerInput.PlayerAction.Interaction.performed -= OnInteractionPerformed;
 
-        playerInput.WeaponSwap.SwordAndShield.performed -= OnSwapToSwordAndSheildPerformed;
-        playerInput.WeaponSwap.SingleTwoHandeSword.performed -= OnSwapToSingleTwoHandeSwordPerformed;
+        playerInput.WeaponSwap.SwordAndShield.performed -= OnSwapToSwordAndShieldPerformed;
+        playerInput.WeaponSwap.SingleTwoHandeSword.performed -= OnSwapToSingleTwoHandSwordPerformed;
         playerInput.WeaponSwap.DoubleSwords.performed -= OnSwapToDoubleSwordsPerformed;
-        playerInput.WeaponSwap.BowAndArrow.performed -= OnSwapToSwordAndSheildPerformed;
+        playerInput.WeaponSwap.BowAndArrow.performed -= OnSwapToSwordAndShieldPerformed;
 
         playerInput.PlayerMagic.Magic1.performed -= OnMagic1Performed;
         playerInput.PlayerMagic.Magic2.performed -= OnMagic2Performed;
@@ -275,20 +278,22 @@ public class PlayerInputManager : MonoBehaviour
             stateManager.PushState(PlayerStateType.Interaction);
         }
     }
-    private void OnSwapToSwordAndSheildPerformed(InputAction.CallbackContext ctx)
+    private void OnSwapToSwordAndShieldPerformed(InputAction.CallbackContext ctx)
     {
         if (isGrounded && !isPerformingAction && !isAttacking)
         {
             IndexSwapTo = 0;
             stateManager.PushState(PlayerStateType.WeaponSwap);
+            equipmentInventory.Equip(equipmentInventory.availableEquipments[currentRightHandIndex]);
         }
     }
-    private void OnSwapToSingleTwoHandeSwordPerformed(InputAction.CallbackContext ctx)
+    private void OnSwapToSingleTwoHandSwordPerformed(InputAction.CallbackContext ctx)
     {
         if (isGrounded && !isPerformingAction && !isAttacking)
         {
             IndexSwapTo = 1;
             stateManager.PushState(PlayerStateType.WeaponSwap);
+            equipmentInventory.Equip(equipmentInventory.availableEquipments[currentRightHandIndex]);
         }
     }
     private void OnSwapToDoubleSwordsPerformed(InputAction.CallbackContext ctx)
@@ -297,6 +302,7 @@ public class PlayerInputManager : MonoBehaviour
         {
             IndexSwapTo = 2;
             stateManager.PushState(PlayerStateType.WeaponSwap);
+            equipmentInventory.Equip(equipmentInventory.availableEquipments[currentRightHandIndex]);
         }
     }
     private void OnSwapToBowAndArrowPerformed(InputAction.CallbackContext ctx)
@@ -305,6 +311,7 @@ public class PlayerInputManager : MonoBehaviour
         {
             IndexSwapTo = 3;
             stateManager.PushState(PlayerStateType.WeaponSwap);
+            equipmentInventory.Equip(equipmentInventory.availableEquipments[currentRightHandIndex]);
         }
     }
     private void OnMagic1Performed(InputAction.CallbackContext ctx)
@@ -368,6 +375,25 @@ public class PlayerInputManager : MonoBehaviour
                 stateManager.PushState(PlayerStateType.DrainField_MagicState);
                 break;
         }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+            foreach (ContactPoint contact in collision.contacts)
+        {
+            Vector3 normal = contact.normal;
+
+            if (Mathf.Abs(normal.y) < 0.1f)
+            {
+                isCollidingHorizontally = true;
+                break;
+            }
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        isCollidingHorizontally = false;
     }
 
 }

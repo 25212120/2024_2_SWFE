@@ -73,7 +73,7 @@ public class JumpState : BaseState<PlayerStateType>
     // JumpState Logic
 
     private Vector3 jumpDirection;
-    private float jumpForce = 40f;
+    private float jumpForce = 25f;
     private Vector3 initialHorizontalVelocity;
 
     // 점프 직전 방향으로 방향 설정
@@ -90,6 +90,11 @@ public class JumpState : BaseState<PlayerStateType>
     // 점프 직전 수평 이동속도 유지
     private void MaintainHorizontalVelocity()
     {
+        if (playerInputManager.isCollidingHorizontally == true)
+        {
+            return;
+        }
+
         Vector3 currentVelocity = rb.velocity;
         currentVelocity.y = 0;
 

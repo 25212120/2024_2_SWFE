@@ -44,16 +44,19 @@ public class Bullet_Follow : MonoBehaviour, IBullet
     // 충돌 시 호출되는 함수
     void OnTriggerEnter(Collider collision) 
     {
-        BaseMonster targetMonster = collision.gameObject.GetComponent<BaseMonster>();
-        if (targetMonster != null)
+        if (collision.gameObject.CompareTag("Enemy"))
         {
-            tower.Attack(targetMonster); // 구조물이 BaseMonster를 공격하도록 함
+            BaseMonster targetMonster = collision.gameObject.GetComponent<BaseMonster>();
+            if (targetMonster != null)
+            {
+                tower.Attack(targetMonster); // 구조물이 BaseMonster를 공격하도록 함
+            }
+            // 충돌 효과 생성
+            GameObject effectIns = Instantiate(impactEffect, transform.position, transform.rotation);
+            Destroy(effectIns, 1f);
+
+
+            Destroy(gameObject);
         }
-        // 충돌 효과 생성
-        GameObject effectIns = Instantiate(impactEffect, transform.position, transform.rotation);
-        Destroy(effectIns, 1f);
-
-
-        Destroy(gameObject);
     }
 }

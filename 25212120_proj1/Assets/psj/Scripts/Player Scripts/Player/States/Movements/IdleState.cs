@@ -15,6 +15,7 @@ public class IdleState : BaseState<PlayerStateType>
 
     public override void EnterState()
     {
+        rb.velocity = Vector3.zero;
     }
 
     public override void UpdateState()

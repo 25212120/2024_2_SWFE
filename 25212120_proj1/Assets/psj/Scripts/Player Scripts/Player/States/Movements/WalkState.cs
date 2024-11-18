@@ -27,7 +27,7 @@ public class WalkState : BaseState<PlayerStateType>
 
     public override void FixedUpdateState()
     {
-        MovePlayer();
+        WalkPlayer();
         RotatePlayer();
     }
 
@@ -50,6 +50,8 @@ public class WalkState : BaseState<PlayerStateType>
 
     // WalkState Logic
 
+    private float maxSpeed = 7f;
+
     private float walkSpeed = 70f;
     private float rotationSpeed = 7f;
     private float horizontalInput;
@@ -57,6 +59,18 @@ public class WalkState : BaseState<PlayerStateType>
     private Vector3 inputDirection;
     private Vector3 moveDirection;
 
+
+    private void WalkPlayer()
+    {
+        if (rb.velocity.magnitude < maxSpeed)
+        {
+            MovePlayer();
+        }
+        else
+        {
+            rb.velocity = rb.velocity.normalized * maxSpeed;
+        }
+    }
 
     void MovePlayer()
     {

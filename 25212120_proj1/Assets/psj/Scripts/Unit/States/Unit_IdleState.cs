@@ -40,5 +40,10 @@ public class Unit_IdleState : BaseState<UnitStateType>
 
     public override void CheckTransitions()
     {
+        float tolerance = 0.05f;
+        if (Vector3.Distance(unitTransform.position, unit.savedPosition) > tolerance)
+        {
+            stateManager.ChangeState(UnitStateType.Return);
+        }
     }
 }

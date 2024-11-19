@@ -29,29 +29,33 @@ public class Unit_ChaseState : BaseState<UnitStateType>
 
     public override void UpdateState()
     {
-        unit.agent.SetDestination(unit.targetEnemy.position);
+        unit.DetectEnemy();
+
+        if (unit.targetEnemy == null)
+        {
+            stateManager.ChangeState(UnitStateType.Idle);
+            return;
+        }
+        else 
+        {
+            unit.agent.SetDestination(unit.targetEnemy.position);
+        }
 
         Vector3 velocity = unit.agent.desiredVelocity;
-        velocity.y = 0; // Y축 제거
+        velocity.y = 0;
 
-        // 목표 방향을 따라 빠르게 회전
-        if (velocity.sqrMagnitude > 0.01f) // 이동 중인 경우에만 회전
+        if (velocity.sqrMagnitude > 0.01f)
         {
-            float rotationSpeed = 1000f; // 빠른 회전 속도
+            float rotationSpeed = 1000f;
             unit.transform.rotation = Quaternion.RotateTowards(
                 unit.transform.rotation,
                 Quaternion.LookRotation(velocity),
                 rotationSpeed * Time.deltaTime
             );
             unit.transform.position += velocity * Time.deltaTime;
-
             unit.agent.nextPosition = unit.transform.position;
         }
 
-        // 직접 이동
-       
-
-        // 목표 지점 도달 여부 확인
 
     }
 
@@ -66,11 +70,6 @@ public class Unit_ChaseState : BaseState<UnitStateType>
 
     public override void CheckTransitions()
     {
-        if (unit.targetEnemy == null)
-        {
-            stateManager.ChangeState(UnitStateType.Idle);
-            return;
-        }
 
         if (unit.agent.remainingDistance <= unit.agent.stoppingDistance)
         {

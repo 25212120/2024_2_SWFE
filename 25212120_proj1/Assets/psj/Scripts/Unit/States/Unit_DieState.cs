@@ -19,9 +19,10 @@ public class Unit_DieState : BaseState<UnitStateType>
     public override void EnterState()
     {
         animator.SetTrigger("dead");
+        unit.gameObject.layer = LayerMask.NameToLayer("Dead");
         monoBeahviour.StartCoroutine(Die());
     }
-
+        
     public override void UpdateState()
     {
     }
@@ -40,7 +41,9 @@ public class Unit_DieState : BaseState<UnitStateType>
 
     private IEnumerator Die()
     {
-        yield return new WaitForSeconds(2f);
+        unit.gameObject.GetComponent<Collider>().enabled = false;
+
+        yield return new WaitForSeconds(2.5f);
         UnityEngine.Object.Destroy(unit.gameObject);
     }
 }

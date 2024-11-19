@@ -15,15 +15,11 @@ public class Weapon_DamageApply : MonoBehaviour
         {
             playerStat.Attack(monster);
         }
-
-    }
-    private void HandleAttack(BaseUnit unit)
-    {
-        BaseMonster monster = GetComponentInParent<BaseMonster>();
-        if (monster != null)
+        BaseUnit unit = GetComponentInParent<BaseUnit>();
+        if (unit != null)
         {
-            monster.Attack(unit);
+            unit.Attack(monster);
         }
-    }
 
+    }
 }

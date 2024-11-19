@@ -25,14 +25,14 @@ public abstract class BaseEntity : MonoBehaviour
         effectiveDamage = Mathf.Max(effectiveDamage, 0); // 최소 데미지는 0
         if (statData.ModifyCurrentHp(-effectiveDamage))
         {
-            //Die();
+            Die();
         }
     }
 
     protected virtual void Die()
     {
         Debug.Log($"{gameObject.name} has died.");
-        if (gameObject.CompareTag("Player") == false)
+        if (gameObject.CompareTag("Player") == false && gameObject.CompareTag("Enemy") && gameObject.CompareTag("unit"))
         {
             Destroy(gameObject);
         }

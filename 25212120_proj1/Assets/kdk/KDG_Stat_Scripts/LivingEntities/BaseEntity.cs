@@ -25,7 +25,7 @@ public abstract class BaseEntity : MonoBehaviour
         effectiveDamage = Mathf.Max(effectiveDamage, 0); // 최소 데미지는 0
         if (statData.ModifyCurrentHp(-effectiveDamage))
         {
-            Die();
+            //Die();
         }
     }
 

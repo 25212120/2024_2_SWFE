@@ -7,33 +7,34 @@ public class Weapon_Monster_DamageApply : MonoBehaviour
         // 충돌한 대상이 PlayerStat이나 BaseStructure인지 확인
         PlayerInputManager playerInputManager = collision.gameObject.GetComponent<PlayerInputManager>();
         PlayerStat playerStat = collision.gameObject.GetComponent<PlayerStat>();
+        BaseStructure structure = collision.gameObject.GetComponent<BaseStructure>();
+        BaseUnit unit = collision.gameObject.GetComponent<BaseUnit>();
+
         if (playerStat != null)
         {
             // 몬스터가 플레이어에게 데미지 주기
             playerInputManager.isHit = true;
-            HandleAttack(playerStat);
+            HandleAttack_1(playerStat);
             return;
         }
 
-        BaseStructure structure = collision.gameObject.GetComponent<BaseStructure>();
-        if (structure != null)
+        else if (structure != null)
         {
             // 몬스터가 구조물에게 데미지 주기
-            HandleAttack(structure);
+            HandleAttack_2(structure);
             return;
         }
 
-        BaseUnit unit = collision.gameObject.GetComponent<BaseUnit>();
-        if (structure != null)
+        else if (unit != null)
         {
             // 몬스터가 구조물에게 데미지 주기
-            HandleAttack(unit);
+            HandleAttack_3(unit);
             return;
         }
         // 플레이어나 구조물이 아닌 다른 객체와의 충돌에는 데미지를 주지 않음
     }
 
-    private void HandleAttack(PlayerStat playerStat)
+    private void HandleAttack_1(PlayerStat playerStat)
     {
         BaseMonster monster = GetComponentInParent<BaseMonster>();
         if (monster != null)
@@ -42,7 +43,7 @@ public class Weapon_Monster_DamageApply : MonoBehaviour
         }
     }
 
-    private void HandleAttack(BaseStructure structure)
+    private void HandleAttack_2(BaseStructure structure)
     {
         BaseMonster monster = GetComponentInParent<BaseMonster>();
         if (monster != null)
@@ -50,7 +51,7 @@ public class Weapon_Monster_DamageApply : MonoBehaviour
             monster.Attack(structure);  // 몬스터가 구조물을 공격
         }
     }
-    private void HandleAttack(BaseUnit unit)
+    private void HandleAttack_3(BaseUnit unit)
     {
         BaseMonster monster = GetComponentInParent<BaseMonster>();
         if (monster != null)

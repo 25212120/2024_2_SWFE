@@ -4,59 +4,59 @@ public class Weapon_Monster_DamageApply : MonoBehaviour
 {
     private void OnTriggerEnter(Collider collision)
     {
-        // Ãæµ¹ÇÑ ´ë»óÀÌ PlayerStatÀÌ³ª BaseStructureÀÎÁö È®ÀÎ
+        // ï¿½æµ¹ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ PlayerStatï¿½Ì³ï¿½ BaseStructureï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
         PlayerInputManager playerInputManager = collision.gameObject.GetComponent<PlayerInputManager>();
         PlayerStat playerStat = collision.gameObject.GetComponent<PlayerStat>();
+        BaseStructure structure = collision.gameObject.GetComponent<BaseStructure>();
+        BaseUnit unit = collision.gameObject.GetComponent<BaseUnit>();
+
         if (playerStat != null)
         {
-            // ¸ó½ºÅÍ°¡ ÇÃ·¹ÀÌ¾î¿¡°Ô µ¥¹ÌÁö ÁÖ±â
+            // ï¿½ï¿½ï¿½Í°ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾î¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö±ï¿½
             playerInputManager.isHit = true;
-            HandleAttack(playerStat);
+            HandleAttack_1(playerStat);
             return;
         }
 
-        BaseStructure structure = collision.gameObject.GetComponent<BaseStructure>();
-        Unit unit_psj = collision.gameObject.GetComponent<Unit>();
-        if (structure != null)
+        else if (structure != null)
         {
-            // ¸ó½ºÅÍ°¡ ±¸Á¶¹°¿¡°Ô µ¥¹ÌÁö ÁÖ±â
-            HandleAttack(structure);
+            // ï¿½ï¿½ï¿½Í°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö±ï¿½
+            HandleAttack_2(structure);
             return;
         }
 
-        BaseUnit unit = collision.gameObject.GetComponent<BaseUnit>();
-        if (structure != null)
+        else if (unit != null)
         {
-            // ¸ó½ºÅÍ°¡ ±¸Á¶¹°¿¡°Ô µ¥¹ÌÁö ÁÖ±â
-            HandleAttack(unit);
+            // ï¿½ï¿½ï¿½Í°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö±ï¿½
+            HandleAttack_3(unit);
             return;
         }
-        // ÇÃ·¹ÀÌ¾î³ª ±¸Á¶¹°ÀÌ ¾Æ´Ñ ´Ù¸¥ °´Ã¼¿ÍÀÇ Ãæµ¹¿¡´Â µ¥¹ÌÁö¸¦ ÁÖÁö ¾ÊÀ½
+        // ï¿½Ã·ï¿½ï¿½Ì¾î³ª ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½Ù¸ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½ ï¿½æµ¹ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     }
 
-    private void HandleAttack(PlayerStat playerStat)
+    private void HandleAttack_1(PlayerStat playerStat)
     {
         BaseMonster monster = GetComponentInParent<BaseMonster>();
         if (monster != null)
         {
-            monster.Attack(playerStat);  // ¸ó½ºÅÍ°¡ ÇÃ·¹ÀÌ¾î¸¦ °ø°Ý
+            monster.Attack(playerStat);  // ï¿½ï¿½ï¿½Í°ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾î¸¦ ï¿½ï¿½ï¿½ï¿½
         }
     }
 
-    private void HandleAttack(BaseStructure structure)
+    private void HandleAttack_2(BaseStructure structure)
     {
         BaseMonster monster = GetComponentInParent<BaseMonster>();
         if (monster != null)
         {
-            monster.Attack(structure);  // ¸ó½ºÅÍ°¡ ±¸Á¶¹°À» °ø°Ý
+            monster.Attack(structure);  // ï¿½ï¿½ï¿½Í°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         }
     }
-    private void HandleAttack(BaseUnit unit)
+    private void HandleAttack_3(BaseUnit unit)
     {
         BaseMonster monster = GetComponentInParent<BaseMonster>();
         if (monster != null)
         {
-            monster.Attack(unit);  // ¸ó½ºÅÍ°¡ À¯´ÖÀ» °ø°Ý
+            monster.Attack(unit);  // ï¿½ï¿½ï¿½Í°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         }
     }
 }

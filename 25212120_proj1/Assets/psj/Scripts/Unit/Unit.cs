@@ -7,6 +7,7 @@ public abstract class Unit : MonoBehaviour
     public NavMeshAgent agent;
     public Animator animator;
     public Transform targetEnemy;
+    public Unit_Test unitStat;
 
     [Header("Position Data")]
     public Vector3 savedPosition;
@@ -30,6 +31,7 @@ public abstract class Unit : MonoBehaviour
         // Get required components
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
+        unitStat = GetComponent<Unit_Test>();
         stateMachine = GetComponent<UnitStateMachine>();
 
         // Ensure this GameObject has the "unit" tag for UnitController detection
@@ -51,6 +53,8 @@ public abstract class Unit : MonoBehaviour
 
     protected virtual void Update()
     {
+        HPCheck();
+
         if (canDetectEnemy)
         {
             DetectEnemy();
@@ -113,4 +117,13 @@ public abstract class Unit : MonoBehaviour
             attackCooldown -= Time.deltaTime;
         }
     }
+
+    public void HPCheck()
+    {
+        if (unitStat.GetCurrentHP() <= 0)
+        {
+            stateMachine.PushState(UnitStateType.Die);
+        }
+    }
+
 }

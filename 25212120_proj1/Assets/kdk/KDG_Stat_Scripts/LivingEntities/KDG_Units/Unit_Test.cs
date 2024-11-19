@@ -8,4 +8,9 @@ public class Unit_Test : BaseUnit
     {
         base.Attack(target);
     }
+
+    public float GetCurrentHP()
+    {
+        return statData.HpCurrent;   
+    }
 }

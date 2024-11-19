@@ -14,7 +14,6 @@ public class Warrior : Unit
         if (targetEnemy != null)
         {
             animator.SetTrigger("attack");
-            Debug.Log($"Warrior {gameObject.name} attacks {targetEnemy.name}!");
         }
     }
 }

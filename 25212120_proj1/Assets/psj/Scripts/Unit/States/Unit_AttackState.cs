@@ -29,10 +29,13 @@ public class Unit_AttackState : BaseState<UnitStateType>
 
     public override void UpdateState()
     {
-        Vector3 direction = (unit.targetEnemy.position - unit.transform.position).normalized;
-        direction.y = 0;
-        unit.transform.rotation = Quaternion.RotateTowards(unit.transform.rotation, Quaternion.LookRotation(direction), 1440f * Time.deltaTime);
-        unit.Attack();
+        if (unit.targetEnemy != null)
+        {
+            Vector3 direction = (unit.targetEnemy.position - unit.transform.position).normalized;
+            direction.y = 0;
+            unit.transform.rotation = Quaternion.RotateTowards(unit.transform.rotation, Quaternion.LookRotation(direction), 1440f * Time.deltaTime);
+            unit.Attack();
+        }
     }
 
     public override void FixedUpdateState()

@@ -16,6 +16,7 @@ public class Weapon_Monster_DamageApply : MonoBehaviour
         }
 
         BaseStructure structure = collision.gameObject.GetComponent<BaseStructure>();
+        Unit unit_psj = collision.gameObject.GetComponent<Unit>();
         if (structure != null)
         {
             // 몬스터가 구조물에게 데미지 주기

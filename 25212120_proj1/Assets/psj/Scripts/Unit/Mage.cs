@@ -1,8 +1,15 @@
+using System.Collections;
 using UnityEngine;
 
 public class Mage : Unit
 {
-    //[SerializeField] private GameObject spellPrefab;
+    private GameObject spellPrefab;
+
+    protected override void Start()
+    {
+        LoadSpellPrefab("Prefabs/Unit/MagicNovaBlue");
+        base.Start();
+    }
 
     protected override void InitializeUnitParameters()
     {
@@ -14,16 +21,27 @@ public class Mage : Unit
     protected override void PerformAttack()
     {
         animator.SetTrigger("attack");
-        Debug.Log("Mage Attacked");
-        /*if (targetEnemy != null)
+        if (targetEnemy != null)
         {
             if (spellPrefab != null)
             {
-                GameObject spell = Instantiate(spellPrefab,
-                    targetEnemy.position,
-                    Quaternion.identity);
+                StartCoroutine(InstantiateSpell());
             }
         }
-        */
+    }
+    
+    private void LoadSpellPrefab(string prefabAddress)
+    {
+        spellPrefab = Resources.Load<GameObject>(prefabAddress);
+    }
+
+    private IEnumerator InstantiateSpell()
+    {
+        yield return new WaitForSeconds(0.5f);
+        GameObject instantiatedSpell = Instantiate(spellPrefab, targetEnemy.position, Quaternion.Euler(-90, 0, 0));
+
+        yield return new WaitForSeconds(2f);
+
+        Destroy(instantiatedSpell);
     }
 }

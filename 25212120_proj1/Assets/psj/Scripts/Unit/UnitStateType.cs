@@ -6,5 +6,7 @@ public enum UnitStateType
     Return,
     Chase,
 
+    Die,
+
     Attack,
 }

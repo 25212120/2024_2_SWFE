@@ -27,6 +27,7 @@ public class UnitStateMachine : StateManager<UnitStateType>
         States.Add(UnitStateType.Attack, new Unit_AttackState(UnitStateType.Attack, this, unitTransform, controller, animator, rb, monoBehaviour, unit));
         States.Add(UnitStateType.Return, new Unit_ReturnState(UnitStateType.Return, this, unitTransform, controller, animator, rb, monoBehaviour, unit));
         States.Add(UnitStateType.Chase, new Unit_ChaseState(UnitStateType.Chase, this, unitTransform, controller, animator, rb, monoBehaviour, unit));
+        States.Add(UnitStateType.Die, new Unit_DieState(UnitStateType.Die, this, animator, monoBehaviour, unit));
 
     }
 

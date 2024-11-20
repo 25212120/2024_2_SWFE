@@ -14,6 +14,11 @@ public class Monster_1 : BaseMonster
         base.Update();
     }
 
+    public float GetCurrentHP()
+    {
+        return statData.HpCurrent;
+    }
+
 
 
 }

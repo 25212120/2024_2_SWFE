@@ -5,7 +5,7 @@ public class Warrior : Unit
     protected override void InitializeUnitParameters()
     {
         detectionRange = 10f;
-        attackRange = 2f;
+        attackRange = 1.5f;
         attackSpeed = 1.2f;
     }
 

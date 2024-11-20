@@ -21,16 +21,25 @@ public class Unit_AttackState : BaseState<UnitStateType>
 
     public override void EnterState()
     {
-        animator.SetTrigger("attack");
-
         unit.agent.isStopped = true;
         unit.canDetectEnemy = false;
+
+        if (unit.targetEnemy != null && Vector3.Distance(unit.transform.position, unit.targetEnemy.position) <= unit.attackRange)
+        {
+             unit.Attack();
+        }
     }
 
     public override void UpdateState()
     {
+        if (unit.targetEnemy == null || unit.targetEnemy.Equals(null))
+        {
+            unit.canDetectEnemy = true;
+        }
+
         if (unit.targetEnemy != null)
         {
+            unit.canDetectEnemy = false;
             Vector3 direction = (unit.targetEnemy.position - unit.transform.position).normalized;
             direction.y = 0;
             unit.transform.rotation = Quaternion.RotateTowards(unit.transform.rotation, Quaternion.LookRotation(direction), 1440f * Time.deltaTime);
@@ -45,27 +54,28 @@ public class Unit_AttackState : BaseState<UnitStateType>
     public override void ExitState()
     {
         animator.ResetTrigger("attack");
+        unit.agent.isStopped = false;
     }
 
     public override void CheckTransitions()
     {
-        if (unit.targetEnemy == null)
+        if (unit.targetEnemy != null)
         {
-            stateManager.ChangeState(UnitStateType.Idle);
-            return;
-        }
+            float distanceToEnemy = Vector3.Distance(unit.transform.position, unit.targetEnemy.position);
+            if (distanceToEnemy > unit.attackRange)
+            {
+                stateManager.ChangeState(UnitStateType.Chase);
+            }
 
-        float distanceToEnemy = Vector3.Distance(unit.transform.position, unit.targetEnemy.position);
-        if (distanceToEnemy > unit.attackRange)
+            float distanceFromSavedPosition = Vector3.Distance(unit.transform.position, unit.savedPosition);
+            if (distanceFromSavedPosition > unit.maxDistanceFromSavedPosition)
+            {
+                stateManager.ChangeState(UnitStateType.Return);
+            }
+        }
+        else
         {
             stateManager.ChangeState(UnitStateType.Chase);
-            return;
-        }
-
-        float distanceFromSavedPosition = Vector3.Distance(unit.transform.position, unit.savedPosition);
-        if (distanceFromSavedPosition > unit.maxDistanceFromSavedPosition)
-        {
-            stateManager.ChangeState(UnitStateType.Return);
         }
     }
 

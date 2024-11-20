@@ -19,8 +19,15 @@ public class Unit_ChaseState : BaseState<UnitStateType>
         this.rb = rb;
     }
 
+    private float sqrVelocity;
+
     public override void EnterState()
     {
+        if (unit.targetEnemy == null)
+        {
+            unit.DetectEnemy();
+        }
+
         animator.SetBool("move", true);
 
         unit.agent.isStopped = false;
@@ -29,29 +36,22 @@ public class Unit_ChaseState : BaseState<UnitStateType>
 
     public override void UpdateState()
     {
-        unit.agent.SetDestination(unit.targetEnemy.position);
 
         Vector3 velocity = unit.agent.desiredVelocity;
-        velocity.y = 0; // Y축 제거
+        velocity.y = 0;
 
-        // 목표 방향을 따라 빠르게 회전
-        if (velocity.sqrMagnitude > 0.01f) // 이동 중인 경우에만 회전
+        if (velocity.sqrMagnitude > 0.01f)
         {
-            float rotationSpeed = 1000f; // 빠른 회전 속도
+            float rotationSpeed = 1000f;
             unit.transform.rotation = Quaternion.RotateTowards(
                 unit.transform.rotation,
                 Quaternion.LookRotation(velocity),
                 rotationSpeed * Time.deltaTime
             );
             unit.transform.position += velocity * Time.deltaTime;
-
             unit.agent.nextPosition = unit.transform.position;
         }
 
-        // 직접 이동
-       
-
-        // 목표 지점 도달 여부 확인
 
     }
 
@@ -66,30 +66,33 @@ public class Unit_ChaseState : BaseState<UnitStateType>
 
     public override void CheckTransitions()
     {
-        if (unit.targetEnemy == null)
-        {
-            stateManager.ChangeState(UnitStateType.Idle);
-            return;
-        }
+        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
 
         if (unit.agent.remainingDistance <= unit.agent.stoppingDistance)
         {
-            // 목표 지점에 도달한 경우 처리
-            unit.agent.isStopped = true;
-            stateManager.ChangeState(UnitStateType.Idle); // Idle 상태로 전환
+            stateManager.ChangeState(UnitStateType.Idle);
         }
 
-
-        float distanceToEnemy = Vector3.Distance(unit.transform.position, unit.targetEnemy.position);
-        if (distanceToEnemy <= unit.attackRange)
+        if (unit.targetEnemy != null)
         {
-            stateManager.ChangeState(UnitStateType.Attack);
+            float distanceToEnemy = Vector3.Distance(unit.transform.position, unit.targetEnemy.position);
+            if (distanceToEnemy <= unit.attackRange)
+            {
+                stateManager.ChangeState(UnitStateType.Attack);
+            }
+
+            //너무 멀리 떨어진 경우
+            float distanceFromSavedPosition = Vector3.Distance(unit.transform.position, unit.savedPosition);
+            if (distanceFromSavedPosition > unit.maxDistanceFromSavedPosition)
+            {
+                stateManager.ChangeState(UnitStateType.Return);
+            }
         }
-
-        float distanceFromSavedPosition = Vector3.Distance(unit.transform.position, unit.savedPosition);
-        if (distanceFromSavedPosition > unit.maxDistanceFromSavedPosition)
+        else
         {
-            stateManager.ChangeState(UnitStateType.Return);
+            unit.DetectEnemy();
+            //enemy가 없는 경우
+            if (unit.targetEnemy == null) stateManager.ChangeState(UnitStateType.Return);
         }
     }
 

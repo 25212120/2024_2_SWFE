@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
@@ -169,9 +170,14 @@ public class UnitController : MonoBehaviour
 
         Rect selectionRect = new Rect(min, max - min);
 
-        foreach (GameObject unit in SelectedUnits)
+        for (int i = SelectedUnits.Count - 1; i >= 0; i--)
         {
-            Transform greenCircle = unit.transform.Find("GreenCircle");
+            if (SelectedUnits[i] == null) 
+            {
+                SelectedUnits.RemoveAt(i);
+                continue;
+            }
+            Transform greenCircle = SelectedUnits[i].transform.Find("GreenCircle");
             if (greenCircle != null)
             {
                 greenCircle.gameObject.SetActive(false);
@@ -183,6 +189,8 @@ public class UnitController : MonoBehaviour
 
         foreach (GameObject unit in GameObject.FindGameObjectsWithTag("unit"))
         {
+            if (unit == null) continue;
+
             Vector3 screenPos = Camera.main.WorldToScreenPoint(unit.transform.position);
 
             if (screenPos.z >= 0 && selectionRect.Contains(screenPos))

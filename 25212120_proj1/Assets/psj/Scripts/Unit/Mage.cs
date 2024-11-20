@@ -37,8 +37,10 @@ public class Mage : Unit
 
     private IEnumerator InstantiateSpell()
     {
+        Vector3 novaPoint = targetEnemy.position;
+        novaPoint.y = 0.3f;
         yield return new WaitForSeconds(0.5f);
-        GameObject instantiatedSpell = Instantiate(spellPrefab, targetEnemy.position, Quaternion.Euler(-90, 0, 0));
+        GameObject instantiatedSpell = Instantiate(spellPrefab, novaPoint, Quaternion.Euler(-90, 0, 0));
 
         yield return new WaitForSeconds(2f);
 

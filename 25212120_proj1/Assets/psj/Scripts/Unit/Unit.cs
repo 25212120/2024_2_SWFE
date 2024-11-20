@@ -28,18 +28,10 @@ public abstract class Unit : MonoBehaviour
 
     protected virtual void Awake()
     {
-        // Get required components
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
         unitStat = GetComponent<Unit_Test>();
         stateMachine = GetComponent<UnitStateMachine>();
-
-        // Ensure this GameObject has the "unit" tag for UnitController detection
-        if (gameObject.tag != "unit")
-        {
-            gameObject.tag = "unit";
-            Debug.LogWarning($"Set missing 'unit' tag on {gameObject.name}");
-        }
     }
 
     protected virtual void Start()
@@ -55,9 +47,26 @@ public abstract class Unit : MonoBehaviour
     {
         HPCheck();
 
+
+
         if (canDetectEnemy)
         {
             DetectEnemy();
+        }
+
+        if (targetEnemy != null && targetEnemy.gameObject.layer == LayerMask.NameToLayer("Dead"))
+        {
+            targetEnemy = null;
+        }
+
+        if (targetEnemy != null)
+        {
+            float distance = Vector3.Distance(transform.position, targetEnemy.position);
+            float threshold = 1f;
+            if (distance >= threshold)
+            {
+                agent.SetDestination(targetEnemy.transform.position);
+            }
         }
     }
 
@@ -81,7 +90,7 @@ public abstract class Unit : MonoBehaviour
 
         foreach (Collider collider in colliders)
         {
-            if (collider.CompareTag("Enemy"))
+            if (collider.CompareTag("Enemy") && collider.gameObject.layer != LayerMask.NameToLayer("Dead"))
             {
                 float distance = Vector3.Distance(transform.position, collider.transform.position);
                 if (distance < closestDistance)

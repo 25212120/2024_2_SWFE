@@ -28,15 +28,25 @@ public class UnitController : MonoBehaviour
 
     private void OnEnable()
     {
+        // **************************************************
+        //if(photonView.IsMine == false) return;
+        // **************************************************
         playerInput.Enable();
 
         playerInput.UnitControl.Select.performed += OnSelectPerformed;
         playerInput.UnitControl.Select.canceled += OnSelectCanceled;
     }
 
+    private void OnDisable()
+    {
+        playerInput.Disable();
+
+        playerInput.UnitControl.Select.performed -= OnSelectPerformed;
+        playerInput.UnitControl.Select.canceled -= OnSelectCanceled;
+    }
+
     void OnSelectPerformed(InputAction.CallbackContext ctx)
     {
-
         if (isSelecting == false)
         {
             isSelecting = true;

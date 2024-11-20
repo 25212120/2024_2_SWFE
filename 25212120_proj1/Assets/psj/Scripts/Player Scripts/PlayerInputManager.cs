@@ -99,6 +99,10 @@ public class PlayerInputManager : MonoBehaviour
 
     private void OnEnable()
     {
+        // **************************************************
+        //if (photonView.IsMine == false) return;
+        // **************************************************
+
         playerInput.Enable();
 
         playerInput.PlayerMove.Move.performed += OnMovePerformed;
@@ -130,6 +134,10 @@ public class PlayerInputManager : MonoBehaviour
     }
     private void OnDisable()
     {
+        // **************************************************
+        //if(photonView.IsMine == false) return;
+        // **************************************************
+
         playerInput.Disable();
 
         playerInput.PlayerMove.Move.performed -= OnMovePerformed;

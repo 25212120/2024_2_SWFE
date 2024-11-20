@@ -420,6 +420,24 @@ public partial class @PlayerMovement: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Specify_Warrior"",
+                    ""type"": ""Value"",
+                    ""id"": ""14d1d5f4-2cf9-46db-8aac-3e2a7c61ec34"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Hold(duration=0.2)"",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Specify_Mage"",
+                    ""type"": ""Value"",
+                    ""id"": ""4580fcbd-af8f-4b5d-9eb2-377810663ecd"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Hold(duration=0.2)"",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -442,6 +460,28 @@ public partial class @PlayerMovement: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Command_Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fee7b5b8-fb2b-4b28-b619-8f8d79784e84"",
+                    ""path"": ""<Keyboard>/z"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Specify_Warrior"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bce7ace6-a985-47d5-804f-7db6787af087"",
+                    ""path"": ""<Keyboard>/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Specify_Mage"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -511,6 +551,8 @@ public partial class @PlayerMovement: IInputActionCollection2, IDisposable
         m_UnitControl = asset.FindActionMap("UnitControl", throwIfNotFound: true);
         m_UnitControl_Select = m_UnitControl.FindAction("Select", throwIfNotFound: true);
         m_UnitControl_Command_Move = m_UnitControl.FindAction("Command_Move", throwIfNotFound: true);
+        m_UnitControl_Specify_Warrior = m_UnitControl.FindAction("Specify_Warrior", throwIfNotFound: true);
+        m_UnitControl_Specify_Mage = m_UnitControl.FindAction("Specify_Mage", throwIfNotFound: true);
         // CameraControl
         m_CameraControl = asset.FindActionMap("CameraControl", throwIfNotFound: true);
         m_CameraControl_Transition = m_CameraControl.FindAction("Transition", throwIfNotFound: true);
@@ -849,12 +891,16 @@ public partial class @PlayerMovement: IInputActionCollection2, IDisposable
     private List<IUnitControlActions> m_UnitControlActionsCallbackInterfaces = new List<IUnitControlActions>();
     private readonly InputAction m_UnitControl_Select;
     private readonly InputAction m_UnitControl_Command_Move;
+    private readonly InputAction m_UnitControl_Specify_Warrior;
+    private readonly InputAction m_UnitControl_Specify_Mage;
     public struct UnitControlActions
     {
         private @PlayerMovement m_Wrapper;
         public UnitControlActions(@PlayerMovement wrapper) { m_Wrapper = wrapper; }
         public InputAction @Select => m_Wrapper.m_UnitControl_Select;
         public InputAction @Command_Move => m_Wrapper.m_UnitControl_Command_Move;
+        public InputAction @Specify_Warrior => m_Wrapper.m_UnitControl_Specify_Warrior;
+        public InputAction @Specify_Mage => m_Wrapper.m_UnitControl_Specify_Mage;
         public InputActionMap Get() { return m_Wrapper.m_UnitControl; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -870,6 +916,12 @@ public partial class @PlayerMovement: IInputActionCollection2, IDisposable
             @Command_Move.started += instance.OnCommand_Move;
             @Command_Move.performed += instance.OnCommand_Move;
             @Command_Move.canceled += instance.OnCommand_Move;
+            @Specify_Warrior.started += instance.OnSpecify_Warrior;
+            @Specify_Warrior.performed += instance.OnSpecify_Warrior;
+            @Specify_Warrior.canceled += instance.OnSpecify_Warrior;
+            @Specify_Mage.started += instance.OnSpecify_Mage;
+            @Specify_Mage.performed += instance.OnSpecify_Mage;
+            @Specify_Mage.canceled += instance.OnSpecify_Mage;
         }
 
         private void UnregisterCallbacks(IUnitControlActions instance)
@@ -880,6 +932,12 @@ public partial class @PlayerMovement: IInputActionCollection2, IDisposable
             @Command_Move.started -= instance.OnCommand_Move;
             @Command_Move.performed -= instance.OnCommand_Move;
             @Command_Move.canceled -= instance.OnCommand_Move;
+            @Specify_Warrior.started -= instance.OnSpecify_Warrior;
+            @Specify_Warrior.performed -= instance.OnSpecify_Warrior;
+            @Specify_Warrior.canceled -= instance.OnSpecify_Warrior;
+            @Specify_Mage.started -= instance.OnSpecify_Mage;
+            @Specify_Mage.performed -= instance.OnSpecify_Mage;
+            @Specify_Mage.canceled -= instance.OnSpecify_Mage;
         }
 
         public void RemoveCallbacks(IUnitControlActions instance)
@@ -983,6 +1041,8 @@ public partial class @PlayerMovement: IInputActionCollection2, IDisposable
     {
         void OnSelect(InputAction.CallbackContext context);
         void OnCommand_Move(InputAction.CallbackContext context);
+        void OnSpecify_Warrior(InputAction.CallbackContext context);
+        void OnSpecify_Mage(InputAction.CallbackContext context);
     }
     public interface ICameraControlActions
     {

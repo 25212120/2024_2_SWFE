@@ -398,6 +398,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Specify_Warrior",
+                    "type": "Value",
+                    "id": "14d1d5f4-2cf9-46db-8aac-3e2a7c61ec34",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Hold(duration=0.2)",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Specify_Mage",
+                    "type": "Value",
+                    "id": "4580fcbd-af8f-4b5d-9eb2-377810663ecd",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Hold(duration=0.2)",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -420,6 +438,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Command_Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fee7b5b8-fb2b-4b28-b619-8f8d79784e84",
+                    "path": "<Keyboard>/z",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Specify_Warrior",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bce7ace6-a985-47d5-804f-7db6787af087",
+                    "path": "<Keyboard>/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Specify_Mage",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

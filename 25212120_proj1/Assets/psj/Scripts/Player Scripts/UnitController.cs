@@ -19,6 +19,9 @@ public class UnitController : MonoBehaviour
     public RectTransform selectionBox;
     private Canvas canvas;
 
+    public bool SpecifyWarrior = false;
+    public bool SpecifyMage = false;
+
     private InputAction select;
 
     private void Awake()
@@ -36,6 +39,10 @@ public class UnitController : MonoBehaviour
 
         playerInput.UnitControl.Select.performed += OnSelectPerformed;
         playerInput.UnitControl.Select.canceled += OnSelectCanceled;
+        playerInput.UnitControl.Specify_Warrior.performed += OnSpecifyWarriorPerformed;
+        playerInput.UnitControl.Specify_Warrior.canceled += OnSpecifyWarriorCanceled;
+        playerInput.UnitControl.Specify_Mage.performed += OnSpecifyMagePerformed;
+        playerInput.UnitControl.Specify_Mage.canceled += OnSpecifyMageCanceled;
     }
 
     private void OnDisable()
@@ -74,6 +81,24 @@ public class UnitController : MonoBehaviour
             SelectUnitsInRecTangle();
         }
     }
+
+    void OnSpecifyWarriorPerformed(InputAction.CallbackContext ctx)
+    {
+        SpecifyWarrior = true;
+    }
+    void OnSpecifyWarriorCanceled(InputAction.CallbackContext ctx)
+    {
+        SpecifyWarrior = false;
+    }
+    void OnSpecifyMagePerformed(InputAction.CallbackContext ctx)
+    {
+        SpecifyMage = true;
+    }
+    void OnSpecifyMageCanceled(InputAction.CallbackContext ctx)
+    {
+        SpecifyMage = false;
+    }
+
     void MoveUnitsToPosition()
     {
         Vector2 mouseScreenPosition = Mouse.current.position.ReadValue();
@@ -170,13 +195,15 @@ public class UnitController : MonoBehaviour
 
         Rect selectionRect = new Rect(min, max - min);
 
+        // 이전 선택된 유닛 초기화
         for (int i = SelectedUnits.Count - 1; i >= 0; i--)
         {
-            if (SelectedUnits[i] == null) 
+            if (SelectedUnits[i] == null)
             {
                 SelectedUnits.RemoveAt(i);
                 continue;
             }
+
             Transform greenCircle = SelectedUnits[i].transform.Find("GreenCircle");
             if (greenCircle != null)
             {
@@ -185,8 +212,7 @@ public class UnitController : MonoBehaviour
         }
         SelectedUnits.Clear();
 
-
-
+        // 모든 유닛을 탐색
         foreach (GameObject unit in GameObject.FindGameObjectsWithTag("unit"))
         {
             if (unit == null) continue;
@@ -195,13 +221,40 @@ public class UnitController : MonoBehaviour
 
             if (screenPos.z >= 0 && selectionRect.Contains(screenPos))
             {
-                SelectedUnits.Add(unit);
-                Transform greenCircle = unit.transform.Find("GreenCircle");
-                if (greenCircle != null)
+                // Warrior만 선택
+                if (SpecifyWarrior && !SpecifyMage)
                 {
-                    greenCircle.gameObject.SetActive(true);
+                    if (unit.GetComponent<Warrior>() != null)
+                    {
+                        AddUnitToSelection(unit);
+                    }
+                }
+                // Mage만 선택
+                else if (SpecifyMage && !SpecifyWarrior)
+                {
+                    if (unit.GetComponent<Mage>() != null)
+                    {
+                        AddUnitToSelection(unit);
+                    }
+                }
+                // 아무 조건도 없을 때 모든 유닛 선택
+                else if (!SpecifyWarrior && !SpecifyMage)
+                {
+                    AddUnitToSelection(unit);
                 }
             }
+        }
+    }
+
+    // 선택된 유닛에 추가하고 하이라이트 활성화
+    void AddUnitToSelection(GameObject unit)
+    {
+        SelectedUnits.Add(unit);
+
+        Transform greenCircle = unit.transform.Find("GreenCircle");
+        if (greenCircle != null)
+        {
+            greenCircle.gameObject.SetActive(true);
         }
     }
 }

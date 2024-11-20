@@ -13,7 +13,6 @@ public class Weapon_Monster_DamageApply : MonoBehaviour
         if (playerStat != null)
         {
             // ���Ͱ� �÷��̾�� ������ �ֱ�
-            playerInputManager.isHit = true;
             HandleAttack_1(playerStat);
             return;
         }

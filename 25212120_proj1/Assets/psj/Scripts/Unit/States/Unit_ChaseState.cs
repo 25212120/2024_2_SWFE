@@ -19,8 +19,15 @@ public class Unit_ChaseState : BaseState<UnitStateType>
         this.rb = rb;
     }
 
+    private float sqrVelocity;
+
     public override void EnterState()
     {
+        if (unit.targetEnemy == null)
+        {
+            unit.DetectEnemy();
+        }
+
         animator.SetBool("move", true);
 
         unit.agent.isStopped = false;
@@ -29,17 +36,6 @@ public class Unit_ChaseState : BaseState<UnitStateType>
 
     public override void UpdateState()
     {
-        unit.DetectEnemy();
-
-        if (unit.targetEnemy == null)
-        {
-            stateManager.ChangeState(UnitStateType.Idle);
-            return;
-        }
-        else 
-        {
-            unit.agent.SetDestination(unit.targetEnemy.position);
-        }
 
         Vector3 velocity = unit.agent.desiredVelocity;
         velocity.y = 0;
@@ -70,25 +66,33 @@ public class Unit_ChaseState : BaseState<UnitStateType>
 
     public override void CheckTransitions()
     {
+        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
 
         if (unit.agent.remainingDistance <= unit.agent.stoppingDistance)
         {
-            // 목표 지점에 도달한 경우 처리
-            unit.agent.isStopped = true;
-            stateManager.ChangeState(UnitStateType.Idle); // Idle 상태로 전환
+            stateManager.ChangeState(UnitStateType.Idle);
         }
 
-
-        float distanceToEnemy = Vector3.Distance(unit.transform.position, unit.targetEnemy.position);
-        if (distanceToEnemy <= unit.attackRange)
+        if (unit.targetEnemy != null)
         {
-            stateManager.ChangeState(UnitStateType.Attack);
+            float distanceToEnemy = Vector3.Distance(unit.transform.position, unit.targetEnemy.position);
+            if (distanceToEnemy <= unit.attackRange)
+            {
+                stateManager.ChangeState(UnitStateType.Attack);
+            }
+
+            //너무 멀리 떨어진 경우
+            float distanceFromSavedPosition = Vector3.Distance(unit.transform.position, unit.savedPosition);
+            if (distanceFromSavedPosition > unit.maxDistanceFromSavedPosition)
+            {
+                stateManager.ChangeState(UnitStateType.Return);
+            }
         }
-
-        float distanceFromSavedPosition = Vector3.Distance(unit.transform.position, unit.savedPosition);
-        if (distanceFromSavedPosition > unit.maxDistanceFromSavedPosition)
+        else
         {
-            stateManager.ChangeState(UnitStateType.Return);
+            unit.DetectEnemy();
+            //enemy가 없는 경우
+            if (unit.targetEnemy == null) stateManager.ChangeState(UnitStateType.Return);
         }
     }
 

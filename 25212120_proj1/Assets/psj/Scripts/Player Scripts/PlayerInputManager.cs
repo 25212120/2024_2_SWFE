@@ -23,6 +23,7 @@ public class PlayerInputManager : MonoBehaviour
     public bool isCollidingHorizontally = false;
     public bool isDead = false;
     public bool isDefending = false;
+    // 데미지 주는 쪽에서 isHit = true해주면 hit animation재생가능
     public bool isHit = false;
 
     [Header("Magic Spawn Points")]

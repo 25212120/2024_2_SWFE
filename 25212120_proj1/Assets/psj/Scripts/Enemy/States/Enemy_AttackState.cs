@@ -1,3 +1,4 @@
+using UnityEditor.Rendering;
 using UnityEngine;
 
 public class Enemy_AttackState : BaseState<EnemyStateType>
@@ -24,13 +25,18 @@ public class Enemy_AttackState : BaseState<EnemyStateType>
         animator.SetTrigger("attack");
 
         enemy.agent.isStopped = true;
-        enemy.canDetect = false;
     }
 
     public override void UpdateState()
     {
+        if (enemy.target == null || enemy.target.Equals(null))
+        {
+            enemy.canDetect = true;
+        }
+
         if (enemy.target != null)
         {
+            enemy.canDetect = false;
             Vector3 direction = (enemy.target.position - enemy.transform.position).normalized;
             direction.y = 0;
             enemy.transform.rotation = Quaternion.RotateTowards(enemy.transform.rotation, Quaternion.LookRotation(direction), 1440f * Time.deltaTime);
@@ -45,20 +51,16 @@ public class Enemy_AttackState : BaseState<EnemyStateType>
     public override void ExitState()
     {
         animator.ResetTrigger("attack");
+        enemy.attackCooldown = 1f / enemy.attackSpeed;
+        enemy.canDetect = true;
+        enemy.agent.isStopped = true;
     }
 
     public override void CheckTransitions()
     {
-        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
-
-        if (enemy.target == null)
+        if (enemy.canAttack == false)
         {
-            if (stateInfo.IsTag("Attack") && stateInfo.normalizedTime >= 1.0f)
-
-            {
-                stateManager.ChangeState(EnemyStateType.Chase);
-                return;
-            }
+            stateManager.ChangeState(EnemyStateType.Chase);
         }
     }
 }

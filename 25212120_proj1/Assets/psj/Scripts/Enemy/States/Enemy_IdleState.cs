@@ -27,6 +27,7 @@ public class Enemy_IdleState : BaseState<EnemyStateType>
 
     public override void ExitState()
     {
+        enemy.agent.isStopped = false;
     }
 
     public override void CheckTransitions()

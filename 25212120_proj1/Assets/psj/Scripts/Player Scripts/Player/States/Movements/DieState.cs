@@ -16,6 +16,8 @@ public class DieState : BaseState<PlayerStateType>
         playerInputManager.isDead = true;
         playerInputManager.enabled = false;
         animator.SetTrigger("dead");
+        playerInputManager.gameObject.layer = LayerMask.NameToLayer("Dead");
+        playerInputManager.GetComponent<Collider>().enabled = false;
         Debug.Log("Player Dead");
     }
 

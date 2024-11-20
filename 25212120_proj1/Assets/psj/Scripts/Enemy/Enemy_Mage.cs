@@ -5,6 +5,7 @@ public class Enemy_Mage : Enemy
 {
     private GameObject spellPrefab;
 
+
     protected override void Start()
     {
         LoadSpellPrefab("Prefabs/Enemy/MagicNovaGreen");
@@ -20,13 +21,10 @@ public class Enemy_Mage : Enemy
 
     protected override void PerformAttack()
     {
-        animator.SetTrigger("attack");
-        if (target != null)
+        if (Vector3.Distance(transform.position, target.transform.position) <= attackRange)
         {
-            if (spellPrefab != null)
-            {
-                StartCoroutine(InstantiateSpell());
-            }
+            animator.SetTrigger("attack");
+            StartCoroutine(InstantiateSpell());
         }
     }
 
@@ -38,12 +36,17 @@ public class Enemy_Mage : Enemy
     private IEnumerator InstantiateSpell()
     {
         yield return new WaitForSeconds(0.5f);
-        Vector3 novaPoint = target.position;
-        novaPoint.y = 0.1f;
-        GameObject instantiatedSpell = Instantiate(spellPrefab, novaPoint, Quaternion.Euler(-90, 0, 0));
 
-        yield return new WaitForSeconds(2f);
+        if (target != null)
+        {
+            Vector3 novaPoint = target.position;
+            novaPoint.y = 0.2f;
+            GameObject instantiatedSpell = Instantiate(spellPrefab, novaPoint, Quaternion.Euler(-90, 0, 0));
 
-        Destroy(instantiatedSpell);
+            yield return new WaitForSeconds(2f);
+
+            Destroy(instantiatedSpell);
+        }
     }
+
 }

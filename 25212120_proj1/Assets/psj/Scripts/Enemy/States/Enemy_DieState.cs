@@ -20,7 +20,6 @@ public class Enemy_DieState : BaseState<EnemyStateType>
     {
         animator.SetTrigger("dead");
         enemyStat.gameObject.layer = LayerMask.NameToLayer("Dead");
-        Debug.Log("Layer changed to: " + LayerMask.LayerToName(enemyStat.gameObject.layer));
         monoBeahviour.StartCoroutine(Die());
     }
 

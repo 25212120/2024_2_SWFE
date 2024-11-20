@@ -26,4 +26,11 @@ public class EnemyStateMachine : StateManager<EnemyStateType>
         States.Add(EnemyStateType.Idle , new Enemy_IdleState(EnemyStateType.Idle, this, animator,enemy));
     }
 
+    protected override void Update()
+    {
+        base.Update();
+        Debug.Log(gameObject + " : " + CurrentState.ToString());
+    }
+
+
 }

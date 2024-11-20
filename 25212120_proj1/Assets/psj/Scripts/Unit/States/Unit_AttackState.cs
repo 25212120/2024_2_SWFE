@@ -32,26 +32,18 @@ public class Unit_AttackState : BaseState<UnitStateType>
 
     public override void UpdateState()
     {
+        if (unit.targetEnemy == null || unit.targetEnemy.Equals(null))
+        {
+            unit.canDetectEnemy = true;
+        }
+
         if (unit.targetEnemy != null)
         {
-            float distanceToEnemy = Vector3.Distance(unit.transform.position, unit.targetEnemy.position);
-
-            if (distanceToEnemy > unit.attackRange)
-            {
-                AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
-                if (stateInfo.IsTag("Attack") && stateInfo.normalizedTime >= 0.8f)
-                {
-                    unit.agent.isStopped = false; // 이동 가능하도록 설정
-                    stateManager.ChangeState(UnitStateType.Chase);
-                }
-            }
-            else
-            {
-                Vector3 direction = (unit.targetEnemy.position - unit.transform.position).normalized;
-                direction.y = 0;
-                unit.transform.rotation = Quaternion.RotateTowards(unit.transform.rotation, Quaternion.LookRotation(direction), 1440f * Time.deltaTime);
-                unit.Attack();
-            }
+            unit.canDetectEnemy = false;
+            Vector3 direction = (unit.targetEnemy.position - unit.transform.position).normalized;
+            direction.y = 0;
+            unit.transform.rotation = Quaternion.RotateTowards(unit.transform.rotation, Quaternion.LookRotation(direction), 1440f * Time.deltaTime);
+            unit.Attack();
         }
     }
 
@@ -62,21 +54,28 @@ public class Unit_AttackState : BaseState<UnitStateType>
     public override void ExitState()
     {
         animator.ResetTrigger("attack");
+        unit.agent.isStopped = false;
     }
 
     public override void CheckTransitions()
     {
-        if (unit.targetEnemy == null)
+        if (unit.targetEnemy != null)
         {
-            stateManager.ChangeState(UnitStateType.Idle);
-            return;
-        }
+            float distanceToEnemy = Vector3.Distance(unit.transform.position, unit.targetEnemy.position);
+            if (distanceToEnemy > unit.attackRange)
+            {
+                stateManager.ChangeState(UnitStateType.Chase);
+            }
 
-        float distanceFromSavedPosition = Vector3.Distance(unit.transform.position, unit.savedPosition);
-        if (distanceFromSavedPosition > unit.maxDistanceFromSavedPosition)
+            float distanceFromSavedPosition = Vector3.Distance(unit.transform.position, unit.savedPosition);
+            if (distanceFromSavedPosition > unit.maxDistanceFromSavedPosition)
+            {
+                stateManager.ChangeState(UnitStateType.Return);
+            }
+        }
+        else
         {
-            unit.agent.isStopped = false; // 이동 가능하도록 설정
-            stateManager.ChangeState(UnitStateType.Return);
+            stateManager.ChangeState(UnitStateType.Chase);
         }
     }
 

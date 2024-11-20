@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Enemy_ChaseState : BaseState<EnemyStateType>
 {
@@ -19,22 +21,18 @@ public class Enemy_ChaseState : BaseState<EnemyStateType>
         this.rb = rb;
     }
 
+
     public override void EnterState()
     {
         enemy.DetectBasedOnPriority();
-        if (enemy.target == null)
-        {
-            enemy.target = enemy.core.transform;
-        }
 
         animator.SetBool("move", true);
+        enemy.canDetect = true;
         enemy.agent.isStopped = false;
     }
 
     public override void UpdateState()
     {
-        enemy.agent.SetDestination(enemy.target.position);
-
         Vector3 velocity = enemy.agent.desiredVelocity;
         velocity.y = 0;
 
@@ -59,8 +57,7 @@ public class Enemy_ChaseState : BaseState<EnemyStateType>
 
     public override void CheckTransitions()
     {
-        float distanceToTarget = Vector3.Distance(enemy.transform.position, enemy.target.position);
-        if (distanceToTarget <= enemy.attackRange)
+        if (enemy.canAttack == true)
         {
             stateManager.ChangeState(EnemyStateType.Attack);
         }

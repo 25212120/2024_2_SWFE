@@ -3,9 +3,12 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
+using Photon.Pun;
+using Photon.Realtime;
 
 public class UnitController : MonoBehaviour
 {
+    private PhotonView pv;
     private List<GameObject> SelectedUnits = new List<GameObject>();
     private Vector2 startPos;
     private Vector2 endPos;
@@ -26,15 +29,16 @@ public class UnitController : MonoBehaviour
 
     private void Awake()
     {
+        pv = GetComponent<PhotonView>();
         playerInput = new PlayerMovement();
         canvas = selectionBox.GetComponentInParent<Canvas>();
     }
 
     private void OnEnable()
     {
-        // **************************************************
-        //if(photonView.IsMine == false) return;
-        // **************************************************
+
+        if(pv.IsMine == false) return;
+
         playerInput.Enable();
 
         playerInput.UnitControl.Select.performed += OnSelectPerformed;
@@ -47,6 +51,8 @@ public class UnitController : MonoBehaviour
 
     private void OnDisable()
     {
+        if (pv.IsMine == false) return;
+
         playerInput.Disable();
 
         playerInput.UnitControl.Select.performed -= OnSelectPerformed;

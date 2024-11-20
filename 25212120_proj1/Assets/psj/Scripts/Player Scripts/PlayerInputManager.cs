@@ -1,6 +1,10 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
+using Photon.Pun;
+using Photon.Realtime;
+
+
 
 public class PlayerInputManager : MonoBehaviour
 {
@@ -54,13 +58,14 @@ public class PlayerInputManager : MonoBehaviour
     private PlayerStat playerStat;
     private PlayerCoolDownManager playerCoolDown;
     private EquipmentInventory equipmentInventory;
-
+    private PhotonView pv;
     private StateManager<PlayerStateType> stateManager;
 
     public GameObject dim;
 
     private void Awake()
     {
+        pv = GetComponent<PhotonView>();
         playerInput = new PlayerMovement();
 
         rb = GetComponent<Rigidbody>();
@@ -100,9 +105,9 @@ public class PlayerInputManager : MonoBehaviour
 
     private void OnEnable()
     {
-        // **************************************************
-        //if (photonView.IsMine == false) return;
-        // **************************************************
+
+        if (pv.IsMine == false) return;
+
 
         playerInput.Enable();
 

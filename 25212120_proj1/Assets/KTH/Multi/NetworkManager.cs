@@ -2,17 +2,19 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class NetworkManager : MonoBehaviourPunCallbacks
 {
     [SerializeField] private string gameVersion = "1.0"; // Photon 버전
     [SerializeField] private byte maxPlayersPerRoom = 2; // 최대 플레이어 수
 
-
     private void Start()
     {
-        // Photon 서버에 연결
+        // 씬 동기화 활성화
+        PhotonNetwork.AutomaticallySyncScene = true;
+
+        // Photon 서버 연결
+        Debug.Log("Connecting to Photon Server...");
         PhotonNetwork.GameVersion = gameVersion;
         PhotonNetwork.ConnectUsingSettings();
     }
@@ -57,18 +59,24 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         Debug.Log($"Joined Room: {PhotonNetwork.CurrentRoom.Name}");
+        Debug.Log($"PhotonNetwork.IsMasterClient: {PhotonNetwork.IsMasterClient}");
+        Debug.Log($"PhotonNetwork.AutomaticallySyncScene: {PhotonNetwork.AutomaticallySyncScene}");
+        Debug.Log($"Player Count: {PhotonNetwork.CurrentRoom.PlayerCount}/{PhotonNetwork.CurrentRoom.MaxPlayers}");
+
         UpdatePlayerCount();
     }
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
-        Debug.Log($"{newPlayer.NickName} joined the room. Player count: {PhotonNetwork.CurrentRoom.PlayerCount}");
+        Debug.Log($"{newPlayer.NickName} joined the room.");
+        Debug.Log($"Current Player Count: {PhotonNetwork.CurrentRoom.PlayerCount}/{PhotonNetwork.CurrentRoom.MaxPlayers}");
+
         UpdatePlayerCount();
 
-        // 인원이 다 차면 게임 화면으로 이동
+        // 인원이 다 찼을 때 게임 씬으로 전환
         if (PhotonNetwork.CurrentRoom.PlayerCount == PhotonNetwork.CurrentRoom.MaxPlayers)
         {
-            Debug.Log("Room is full. Loading game scene...");
+            Debug.Log("Room is full. Triggering scene load...");
             LoadGameScene();
         }
     }
@@ -85,6 +93,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         {
             int playerCount = PhotonNetwork.CurrentRoom.PlayerCount;
             int maxPlayers = PhotonNetwork.CurrentRoom.MaxPlayers;
+            Debug.Log($"Player Count Updated: {playerCount}/{maxPlayers}");
         }
     }
 
@@ -92,7 +101,13 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         if (PhotonNetwork.IsMasterClient)
         {
-            PhotonNetwork.LoadLevel("GameScene"); // 게임 씬 이름
+            Debug.Log("MasterClient is triggering the scene load...");
+            Debug.Log($"PhotonNetwork.AutomaticallySyncScene: {PhotonNetwork.AutomaticallySyncScene}");
+            PhotonNetwork.LoadLevel("GameScene");
+        }
+        else
+        {
+            Debug.LogWarning("Non-MasterClient attempted to load the scene. Ignoring.");
         }
     }
 
@@ -104,5 +119,15 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public override void OnJoinRoomFailed(short returnCode, string message)
     {
         Debug.LogError($"Failed to join room: {message}");
+    }
+
+    private void Update()
+    {
+        // 실시간으로 네트워크 상태 확인
+        Debug.Log($"PhotonNetwork.NetworkClientState: {PhotonNetwork.NetworkClientState}");
+        if (PhotonNetwork.CurrentRoom != null)
+        {
+            Debug.Log($"Room Name: {PhotonNetwork.CurrentRoom.Name}, Players: {PhotonNetwork.CurrentRoom.PlayerCount}/{PhotonNetwork.CurrentRoom.MaxPlayers}");
+        }
     }
 }

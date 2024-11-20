@@ -203,10 +203,10 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
-  m_Size: {x: 0.9601913, y: 0.12193498, z: 0.2138823}
-  m_Center: {x: -0.50299275, y: 0.0033659784, z: -0.007345504}
+  m_Size: {x: 0.96019125, y: 0.19188638, z: 0.25429162}
+  m_Center: {x: -0.50299156, y: 0.0018638503, z: -0.0067068096}
 --- !u!114 &7967679381581282759
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2834,6 +2834,7 @@ GameObject:
   - component: {fileID: 8899850210958781973}
   - component: {fileID: 6929589336336879477}
   - component: {fileID: 47501548483335918}
+  - component: {fileID: 406631110425132882}
   m_Layer: 0
   m_Name: Unit_Warrior
   m_TagString: unit
@@ -3040,6 +3041,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68fb61dd52d977a49a70ec26750e15d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &406631110425132882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5255339065769172694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fb9e2a1c6b64ec48b86a46dd2163557, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meleeWeapon: {fileID: 8221254199555748256}
 --- !u!1 &5311117629997742863
 GameObject:
   m_ObjectHideFlags: 0

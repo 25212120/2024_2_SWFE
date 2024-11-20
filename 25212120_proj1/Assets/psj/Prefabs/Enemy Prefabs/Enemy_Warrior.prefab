@@ -481,6 +481,8 @@ GameObject:
   - component: {fileID: 5522145987586485422}
   - component: {fileID: 7627804818686558409}
   - component: {fileID: 4719103689079168720}
+  - component: {fileID: 4019202009396023093}
+  - component: {fileID: 541731565514983681}
   m_Layer: 8
   m_Name: UD_weapon_Sword_A
   m_TagString: Untagged
@@ -553,6 +555,39 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &4019202009396023093
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 713944995561029038}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Size: {x: 0.8676312, y: 0.17393677, z: 0.25018114}
+  m_Center: {x: -0.45742577, y: -0.0010803791, z: -0.0055829715}
+--- !u!114 &541731565514983681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 713944995561029038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4e8367fbbbdab44b8621e63f002c56c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &785545332728405453
 GameObject:
   m_ObjectHideFlags: 0
@@ -5002,6 +5037,7 @@ GameObject:
   - component: {fileID: 1942496809722494711}
   - component: {fileID: 1005261654913409338}
   - component: {fileID: 1458557199774770045}
+  - component: {fileID: 708600616957248081}
   m_Layer: 8
   m_Name: Enemy_Warrior
   m_TagString: Enemy
@@ -5128,7 +5164,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   statData:
     <level>k__BackingField: 1
-    <hpMax>k__BackingField: 100
+    <hpMax>k__BackingField: 10
     mHpCurrent: 0
     <baseAttack>k__BackingField: 1
     <baseMovementSpeed>k__BackingField: 1
@@ -5180,6 +5216,19 @@ CapsuleCollider:
   m_Height: 1.7
   m_Direction: 1
   m_Center: {x: 0, y: 0.7, z: 0}
+--- !u!114 &708600616957248081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8240625172253900827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a63c029f68cf2a4785857ee8014f541, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meleeWeapon: {fileID: 4019202009396023093}
 --- !u!1 &8283947521058961601
 GameObject:
   m_ObjectHideFlags: 0

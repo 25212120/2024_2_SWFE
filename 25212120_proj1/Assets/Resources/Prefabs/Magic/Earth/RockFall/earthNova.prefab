@@ -4887,6 +4887,7 @@ GameObject:
   - component: {fileID: 8216826}
   - component: {fileID: 10875930}
   - component: {fileID: 11402096}
+  - component: {fileID: 3817583961485950141}
   m_Layer: 0
   m_Name: earthNova
   m_TagString: Untagged
@@ -9869,6 +9870,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   life: 0.3
   onLifeEnd: 2
+--- !u!135 &3817583961485950141
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 126184}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 1.34
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &149638
 GameObject:
   m_ObjectHideFlags: 0

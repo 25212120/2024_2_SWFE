@@ -28973,6 +28973,7 @@ GameObject:
   - component: {fileID: 8218714}
   - component: {fileID: 10855728}
   - component: {fileID: 11495504}
+  - component: {fileID: 934156992542752359}
   m_Layer: 0
   m_Name: NovaFireRed 2
   m_TagString: Untagged
@@ -33959,3 +33960,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   life: 0.3
   onLifeEnd: 2
+--- !u!135 &934156992542752359
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 184608}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 4.1
+  m_Center: {x: 0, y: 0, z: 0}

@@ -1,3 +1,4 @@
+using UnityEditor.U2D.Aseprite;
 using UnityEngine;
 
 public class ExpManager : Singleton<ExpManager>
@@ -37,4 +38,15 @@ public class ExpManager : Singleton<ExpManager>
             }
         }
     }
+
+    public float GetCurrentEXP()
+    {
+        return ExpCurrent;
+    }
+
+    public float EXPMAX()
+    {
+        return ExpMax;
+    }
+
 }

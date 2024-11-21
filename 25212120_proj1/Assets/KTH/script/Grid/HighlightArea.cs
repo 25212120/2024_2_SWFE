@@ -21,6 +21,7 @@ public class HighlightArea : MonoBehaviour
 
     private HashSet<Vector2Int> occupiedCells = new HashSet<Vector2Int>(); // 이미 포탑이 배치된 셀들을 추적
     private float currentRotation = 0f; // 현재 타워의 회전 각도
+    private GameObject previewTurret; // 미리 보기용 포탑 인스턴스
 
     void Start()
     {
@@ -126,6 +127,8 @@ public class HighlightArea : MonoBehaviour
                     highlightMeshRenderer.material = ImpossibleMaterial;
                 }
             }
+            UpdatePreviewTurret();
+
         }
         else
         {
@@ -133,6 +136,12 @@ public class HighlightArea : MonoBehaviour
             if (highlightMeshFilter != null)
             {
                 highlightMeshFilter.mesh = null;
+            }
+
+            // 미리보기 포탑 비활성화
+            if (previewTurret != null)
+            {
+                previewTurret.SetActive(false);
             }
         }
     }
@@ -203,7 +212,31 @@ public class HighlightArea : MonoBehaviour
         return true; // 모든 지점이 배치 가능함
     }
 
+    void UpdatePreviewTurret()
+    {
+        if (previewTurret == null)
+        {
+            // 미리 보기용 포탑을 생성
+            previewTurret = Instantiate(turretPrefab);
+            previewTurret.SetActive(false); // 초기에는 비활성화
+        }
 
+        // 미리 보기용 포탑을 활성화하고 위치 및 회전 적용
+        if (isValidHit && previewTurret != null)
+        {
+            previewTurret.SetActive(true);
+
+            // 포탑의 위치는 하이라이트 영역의 중앙으로 설정
+            float posX = (cellX + 0.5f) * cellSize;
+            float posZ = (cellZ + 0.5f) * cellSize;
+            float posY = hitPoint.y; // 지형의 높이를 사용
+            Vector3 position = new Vector3(posX, posY, posZ);
+
+            // 회전 값 적용
+            Quaternion rotation = Quaternion.Euler(0f, currentRotation, 0f);
+            previewTurret.transform.SetPositionAndRotation(position, rotation);
+        }
+    }
 
     void PlaceTurret()
     {

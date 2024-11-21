@@ -18,6 +18,11 @@ public class Monster_1 : BaseMonster
     {
         return statData.HpCurrent;
     }
+    
+    public float GetMaxHp()
+    {
+        return statData.hpMax;
+    }
 
 
 

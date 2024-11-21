@@ -20,6 +20,7 @@ public class HighlightArea : MonoBehaviour
     private bool isValidPlacement = false; // 배치 가능 여부
 
     private HashSet<Vector2Int> occupiedCells = new HashSet<Vector2Int>(); // 이미 포탑이 배치된 셀들을 추적
+    private float currentRotation = 0f; // 현재 타워의 회전 각도
 
     void Start()
     {
@@ -28,6 +29,11 @@ public class HighlightArea : MonoBehaviour
 
     void Update()
     {
+        // Q 키를 눌러 타워 회전
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            RotateTurret();
+        }
         // 마우스 위치 업데이트
         UpdateMousePosition();
 
@@ -226,7 +232,7 @@ public class HighlightArea : MonoBehaviour
         float posZ = (cellZ + 0.5f) * cellSize;
         float posY = hitPoint.y; // 지형의 높이를 사용
         Vector3 position = new Vector3(posX, posY, posZ);
-
+        /*
         // 포탑 프리팹이 할당되었는지 확인
         if (turretPrefab != null)
         {
@@ -242,6 +248,35 @@ public class HighlightArea : MonoBehaviour
         else
         {
             Debug.LogError("포탑 프리팹이 할당되지 않았습니다.");
+        }
+        */
+        if (turretPrefab != null)
+        {
+            // 포탑 프리팹 인스턴스화 및 회전 적용
+            Quaternion rotation = Quaternion.Euler(0f, currentRotation, 0f);
+            Instantiate(turretPrefab, position, rotation);
+
+            // 해당 셀들을 점유된 셀 목록에 추가
+            foreach (Vector2Int cellPos in cellsToOccupy)
+            {
+                occupiedCells.Add(cellPos);
+            }
+        }
+        else
+        {
+            Debug.LogError("포탑 프리팹이 할당되지 않았습니다.");
+        }
+    }
+
+    void RotateTurret()
+    {
+        // 타워 회전 각도 90도 증가
+        currentRotation += 90f;
+
+        // 회전 범위 제한 (0-360도)
+        if (currentRotation >= 360f)
+        {
+            currentRotation = 0f;
         }
     }
 }

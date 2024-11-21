@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3877477959814200444}
   - component: {fileID: 2321032163723539773}
   - component: {fileID: 5171530604836602501}
+  - component: {fileID: -2929608545494377043}
   m_Layer: 0
   m_Name: ArrowTower_Bullet
   m_TagString: Untagged
@@ -150,3 +151,17 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &-2929608545494377043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 954667802420848280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a60fdd2f1665b04bbd2445a0fd51ed6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  burnDamage: 5
+  burnDuration: 5

@@ -31,7 +31,7 @@ public abstract class BaseEntity : MonoBehaviour
     protected virtual void Die()
     {
         Debug.Log($"{gameObject.name} has died.");
-        if (gameObject.CompareTag("Player") == false && gameObject.CompareTag("Enemy") && gameObject.CompareTag("unit"))
+        if (gameObject.CompareTag("Player") == false && gameObject.CompareTag("Enemy") == false && gameObject.CompareTag("unit") == false)
         {
             Destroy(gameObject);
         }

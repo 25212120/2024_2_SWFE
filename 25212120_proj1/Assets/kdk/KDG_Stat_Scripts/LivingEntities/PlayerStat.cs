@@ -154,4 +154,9 @@ public class PlayerStat : BaseEntity
     {
         return statData.HpCurrent;
     }
+    
+    public float GetMaxHp()
+    {
+        return statData.hpMax;
+    }
 }

@@ -1,10 +1,19 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class Weapon_Monster_DamageApply : MonoBehaviour
+public class Enemy_Mage_Attack : MonoBehaviour
 {
+    BaseMonster enemyStat;
+
+    private void Awake()
+    {
+        enemyStat = GetComponentInParent<BaseMonster>();
+    }
+
     private void OnTriggerEnter(Collider collision)
     {
-        // ì¶©ëŒí•œ ëŒ€ìƒì´ PlayerStatì´ë‚˜ BaseStructureì¸ì§€ í™•ì¸
+        // Ãæµ¹ÇÑ ´ë»óÀÌ PlayerStatÀÌ³ª BaseStructureÀÎÁö È®ÀÎ
         PlayerInputManager playerInputManager = collision.gameObject.GetComponent<PlayerInputManager>();
         PlayerStat playerStat = collision.gameObject.GetComponent<PlayerStat>();
         BaseStructure structure = collision.gameObject.GetComponent<BaseStructure>();
@@ -12,26 +21,25 @@ public class Weapon_Monster_DamageApply : MonoBehaviour
 
         if (playerStat != null)
         {
-            // ëª¬ìŠ¤í„°ê°€ í”Œë ˆì´ì–´ì—ê²Œ ë°ë¯¸ì§€ ì£¼ê¸°
-            playerInputManager.isHit = true;
+            // ¸ó½ºÅÍ°¡ ÇÃ·¹ÀÌ¾î¿¡°Ô µ¥¹ÌÁö ÁÖ±â
             HandleAttack_1(playerStat);
             return;
         }
 
         else if (structure != null)
         {
-            // ëª¬ìŠ¤í„°ê°€ êµ¬ì¡°ë¬¼ì—ê²Œ ë°ë¯¸ì§€ ì£¼ê¸°
+            // ¸ó½ºÅÍ°¡ ±¸Á¶¹°¿¡°Ô µ¥¹ÌÁö ÁÖ±â
             HandleAttack_2(structure);
             return;
         }
 
         else if (unit != null)
         {
-            // ëª¬ìŠ¤í„°ê°€ êµ¬ì¡°ë¬¼ì—ê²Œ ë°ë¯¸ì§€ ì£¼ê¸°
+            // ¸ó½ºÅÍ°¡ ±¸Á¶¹°¿¡°Ô µ¥¹ÌÁö ÁÖ±â
             HandleAttack_3(unit);
             return;
         }
-        // í”Œë ˆì´ì–´ë‚˜ êµ¬ì¡°ë¬¼ì´ ì•„ë‹Œ ë‹¤ë¥¸ ê°ì²´ì™€ì˜ ì¶©ëŒì—ëŠ” ë°ë¯¸ì§€ë¥¼ ì£¼ì§€ ì•ŠìŒ
+        // ÇÃ·¹ÀÌ¾î³ª ±¸Á¶¹°ÀÌ ¾Æ´Ñ ´Ù¸¥ °´Ã¼¿ÍÀÇ Ãæµ¹¿¡´Â µ¥¹ÌÁö¸¦ ÁÖÁö ¾ÊÀ½
     }
 
     private void HandleAttack_1(PlayerStat playerStat)
@@ -39,7 +47,7 @@ public class Weapon_Monster_DamageApply : MonoBehaviour
         BaseMonster monster = GetComponentInParent<BaseMonster>();
         if (monster != null)
         {
-            monster.Attack(playerStat);  // ëª¬ìŠ¤í„°ê°€ í”Œë ˆì´ì–´ë¥¼ ê³µê²©
+            monster.Attack(playerStat);  // ¸ó½ºÅÍ°¡ ÇÃ·¹ÀÌ¾î¸¦ °ø°İ
         }
     }
 
@@ -48,7 +56,7 @@ public class Weapon_Monster_DamageApply : MonoBehaviour
         BaseMonster monster = GetComponentInParent<BaseMonster>();
         if (monster != null)
         {
-            monster.Attack(structure);  // ëª¬ìŠ¤í„°ê°€ êµ¬ì¡°ë¬¼ì„ ê³µê²©
+            monster.Attack(structure);  // ¸ó½ºÅÍ°¡ ±¸Á¶¹°À» °ø°İ
         }
     }
     private void HandleAttack_3(BaseUnit unit)
@@ -56,7 +64,8 @@ public class Weapon_Monster_DamageApply : MonoBehaviour
         BaseMonster monster = GetComponentInParent<BaseMonster>();
         if (monster != null)
         {
-            monster.Attack(unit);  // ëª¬ìŠ¤í„°ê°€ ìœ ë‹›ì„ ê³µê²©
+            monster.Attack(unit);  // ¸ó½ºÅÍ°¡ À¯´ÖÀ» °ø°İ
         }
     }
+
 }

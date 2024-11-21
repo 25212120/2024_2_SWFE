@@ -42,6 +42,8 @@ public class Enemy_Mage : Enemy
             Vector3 novaPoint = target.position;
             novaPoint.y = 0.2f;
             GameObject instantiatedSpell = Instantiate(spellPrefab, novaPoint, Quaternion.Euler(-90, 0, 0));
+            instantiatedSpell.transform.SetParent(transform, true);
+            instantiatedSpell.SetActive(true);
 
             yield return new WaitForSeconds(2f);
 

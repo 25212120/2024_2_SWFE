@@ -9704,13 +9704,14 @@ GameObject:
   - component: {fileID: 19864098}
   - component: {fileID: 19901468}
   - component: {fileID: 7168094550154830538}
+  - component: {fileID: 3574407777476011798}
   m_Layer: 0
   m_Name: MagicNovaBlue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &435182
 Transform:
   m_ObjectHideFlags: 0
@@ -14564,6 +14565,18 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 2.3
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3574407777476011798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 185518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19e0d76c7949ddb49983d79142b32883, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1512930392282828
 GameObject:
   m_ObjectHideFlags: 0

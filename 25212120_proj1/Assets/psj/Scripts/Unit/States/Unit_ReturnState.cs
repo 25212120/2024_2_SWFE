@@ -68,7 +68,7 @@ public class Unit_ReturnState : BaseState<UnitStateType>
     {
         float distanceToSavedPosition = Vector3.Distance(unit.transform.position, unit.savedPosition);
 
-        if (distanceToSavedPosition <= 0.3f)
+        if (distanceToSavedPosition <= 0.5f)
         {
             Debug.Log("if문 안으로 진입함");
             unit.agent.isStopped = true;

@@ -13,7 +13,7 @@ public abstract class BaseEntity : MonoBehaviour
     // Debug ¿ë
     protected virtual void Update()
     {
-        //Debug.Log(statData.HpCurrent + " : " + gameObject.name);
+        Debug.Log(statData.HpCurrent + " : " + gameObject.name);
     }
     // Debug ¿ë
 

@@ -6,6 +6,7 @@ public class PlayerStat : BaseEntity
     public EquipmentInventory equipmentInventory; // EquipmentInventory 컴포넌트 참조
     private PlayerInputManager  playerInputManager;
     public PlayerInventory playerInventory;
+
     private void Start()
     {
         equipmentInventory = GetComponent<EquipmentInventory>(); // EquipmentInventory를 Player 오브젝트에 연결
@@ -113,6 +114,7 @@ public class PlayerStat : BaseEntity
             Debug.Log($"{magic2.magicType} 마법의 경험치: {magic2.experience}");
         }
     }
+
 
     // 첫 번째 장착된 마법을 반환하는 메서드
     public PlayerMagic GetEquippedMagic1()

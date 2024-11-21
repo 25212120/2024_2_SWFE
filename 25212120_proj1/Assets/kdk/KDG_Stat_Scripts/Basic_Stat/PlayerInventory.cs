@@ -16,6 +16,10 @@ public class PlayerMagic
     public int level = 1;               // 마법의 레벨
     public float experience = 0f;       // 마법 경험치
     public float maxExperience = 100f;  // 마법 최대 경험치
+    public bool MagicSkillTree_Wood = false;
+    public bool MagicSkillTree_Fire = false;
+    public bool MagicSkillTree_Ice = false;
+    public bool MagicSkillTree_Sand = false;
 
     // 마법 레벨업 시 효과 증가
     public void LevelUp()
@@ -24,8 +28,35 @@ public class PlayerMagic
         effect.MagicAttack += 5f;
         maxExperience *= 2.0f;
         experience = 0f;
-
         Debug.Log($"{magicType} 마법 레벨업! 현재 레벨: {level}, 공격력: {effect.MagicAttack}");
+        if (level >= 5)
+        {
+            UnlockSkillTree();
+        }
+    }
+    private void UnlockSkillTree()
+    {
+        switch (magicType)
+        {
+            case PlayerMagicType.Wood:
+                MagicSkillTree_Wood = true;
+                Debug.Log("Wood 마법 스킬 트리 활성화!");
+                break;
+            case PlayerMagicType.Fire:
+                MagicSkillTree_Fire = true;
+                Debug.Log("Fire 마법 스킬 트리 활성화!");
+                break;
+            case PlayerMagicType.Ice:
+                MagicSkillTree_Ice = true;
+                Debug.Log("Ice 마법 스킬 트리 활성화!");
+                break;
+            case PlayerMagicType.Sand:
+                MagicSkillTree_Sand = true;
+                Debug.Log("Sand 마법 스킬 트리 활성화!");
+                break;
+            default:
+                break;
+        }
     }
 
     // 경험치 추가 및 레벨업 처리
@@ -49,6 +80,8 @@ public class PlayerInventory : MonoBehaviour
     // 이전에 적용한 마법을 추적할 변수들
     private PlayerMagic previousMagic1;
     private PlayerMagic previousMagic2;
+
+
 
 
     private void Start()

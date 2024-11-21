@@ -8,6 +8,7 @@ public class PlayerStateMachine : StateManager<PlayerStateType>
     private Transform playerTransform;
     private PlayerInputManager playerInputManager;
     private PlayerCoolDownManager playerCoolDownmanager;
+    private PlayerStat playerStat;
     private Animator animator;
     private Rigidbody rb;
     private MonoBehaviour monoBehaviour;
@@ -19,6 +20,7 @@ public class PlayerStateMachine : StateManager<PlayerStateType>
         animator = GetComponent<Animator>();
         playerTransform = GetComponent<Transform>();
         rb = GetComponent<Rigidbody>();
+        playerStat = GetComponent<PlayerStat>();
         monoBehaviour = GetComponent<MonoBehaviour>();
 
         // 지속 State
@@ -34,7 +36,7 @@ public class PlayerStateMachine : StateManager<PlayerStateType>
         States.Add(PlayerStateType.Attack, new AttackState(PlayerStateType.Attack, this, playerInputManager, rb, animator, playerTransform));
         States.Add(PlayerStateType.Interaction, new InteractionState(PlayerStateType.Interaction, this, playerInputManager, rb, animator, playerTransform));
         States.Add(PlayerStateType.WeaponSwap, new WeaponSwapState(PlayerStateType.WeaponSwap, this, playerInputManager, animator));
-        States.Add(PlayerStateType.WeaponSkill, new WeaponSkillState(PlayerStateType.WeaponSkill, this, playerInputManager, rb, animator,playerTransform, monoBehaviour));
+        States.Add(PlayerStateType.WeaponSkill, new WeaponSkillState(PlayerStateType.WeaponSkill, this, playerInputManager, rb, animator,playerTransform, monoBehaviour, playerStat));
         States.Add(PlayerStateType.Scope_MagicState, new Scope_MagicState(PlayerStateType.Scope_MagicState, this, playerInputManager, playerTransform, monoBehaviour, animator));
         // 상태들 전부 추가
 

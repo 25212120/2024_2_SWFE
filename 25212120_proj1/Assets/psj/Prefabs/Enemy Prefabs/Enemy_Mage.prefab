@@ -420,6 +420,10 @@ MonoBehaviour:
     <baseAttack>k__BackingField: 10
     <baseMovementSpeed>k__BackingField: 1
     <baseDefense>k__BackingField: 0
+    <baseMagicAttack_Wood>k__BackingField: 0
+    <baseMagicAttack_Fire>k__BackingField: 0
+    <baseMagicAttack_Ice>k__BackingField: 0
+    <baseMagicAttack_Sand>k__BackingField: 0
   expAmount: 0
   resourceDrops: []
 --- !u!136 &7513228536627924679
@@ -453,8 +457,8 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 814815882946568033}
   serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
+  m_Mass: 2
+  m_Drag: 2
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}

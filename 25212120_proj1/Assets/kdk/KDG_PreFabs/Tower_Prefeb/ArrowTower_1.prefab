@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 3424314106465383720}
   - component: {fileID: 5241877292402568062}
   - component: {fileID: 31037136219838744}
+  - component: {fileID: 6598235216295875145}
   m_Layer: 0
   m_Name: ArrowTower_1
   m_TagString: Untagged
@@ -157,7 +158,39 @@ MonoBehaviour:
     <baseAttack>k__BackingField: 0
     <baseMovementSpeed>k__BackingField: 0
     <baseDefense>k__BackingField: 0
-    equipmentInventory: {fileID: 0}
+  upgradeRequirements: []
+  upgradedMaterial: {fileID: 0}
+  upgradedMesh: {fileID: 0}
+  iceEssenceMaterial: {fileID: 0}
+  fireEssenceMaterial: {fileID: 0}
+  sandEssenceMaterial: {fileID: 0}
+  woodEssenceMaterial: {fileID: 0}
+  statUpgrade:
+    attackIncrease: 0
+    defenseIncrease: 0
+    healthIncrease: 0
+--- !u!114 &6598235216295875145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7136315603604069242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c898260404bcb0409eb77ddec897106, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  range: 35
+  fireRate: 1
+  enemyTag: Enemy
+  partToRotate: {fileID: 7326219151896084176}
+  turnSpeed: 7
+  bulletPrefab: {fileID: 954667802420848280, guid: 6a5a6573cd52b9e42a66cde9b8f4926d, type: 3}
+  firePoint: {fileID: 1523648534338565721}
+  rotationTolerance: 2
+  maxTargetsToAttack: 1
 --- !u!1 &8048049335508591453
 GameObject:
   m_ObjectHideFlags: 0
@@ -275,8 +308,6 @@ GameObject:
   - component: {fileID: 3640334758138989689}
   - component: {fileID: 6979494482018815221}
   - component: {fileID: 4184307742502528135}
-  - component: {fileID: 8384449404359544110}
-  - component: {fileID: 1075192214684738776}
   m_Layer: 0
   m_Name: crossbow
   m_TagString: Untagged
@@ -372,45 +403,3 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 4.185313, y: 1.9217055, z: 2.1245868}
   m_Center: {x: 0, y: 0.96085274, z: 0}
---- !u!114 &8384449404359544110
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8218505402996119362}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a9c688d8ef44c0747940a75070b4fc4b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  statData:
-    <level>k__BackingField: 1
-    <hpMax>k__BackingField: 0
-    mHpCurrent: 0
-    <baseAttack>k__BackingField: 0
-    <baseMovementSpeed>k__BackingField: 0
-    <baseDefense>k__BackingField: 0
-    equipmentInventory: {fileID: 0}
---- !u!114 &1075192214684738776
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8218505402996119362}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c898260404bcb0409eb77ddec897106, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  range: 35
-  fireRate: 1
-  enemyTag: Enemy
-  partToRotate: {fileID: 7326219151896084176}
-  turnSpeed: 7
-  bulletPrefab: {fileID: 954667802420848280, guid: 6a5a6573cd52b9e42a66cde9b8f4926d, type: 3}
-  firePoint: {fileID: 1523648534338565721}
-  rotationTolerance: 2
-  maxTargetsToAttack: 1

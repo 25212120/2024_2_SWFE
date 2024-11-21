@@ -12,12 +12,8 @@ public class Weapon_Monster_DamageApply : MonoBehaviour
 
         if (playerStat != null)
         {
-<<<<<<< Updated upstream
-            // ���Ͱ� �÷��̾�� ������ �ֱ�
-=======
             // 몬스터가 플레이어에게 데미지 주기
             playerInputManager.isHit = true;
->>>>>>> Stashed changes
             HandleAttack_1(playerStat);
             return;
         }

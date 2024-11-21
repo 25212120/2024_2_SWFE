@@ -78,7 +78,7 @@ public class PlayerInputManager : MonoBehaviour
         currentLeftHandIndex = 0;
 
         // magic init (for test)
-        Magic1Swap(PlayerStateType.PoisonFog_MagicState);
+        Magic1Swap(PlayerStateType.EarthQuake_MagicState);
         Magic2Swap(PlayerStateType.RockFall_MagicState);
     }
 
@@ -87,7 +87,7 @@ public class PlayerInputManager : MonoBehaviour
         //Debug.Log(dim.activeSelf);
         //Debug.Log("LeftButton_Pressed : " + leftButton_Pressed);
         //Debug.Log(isPeformingAction);
-        GetHitCheck();
+        //GetHitCheck();
         hpCheck();
 
         leftButton_Pressed = false;
@@ -345,7 +345,7 @@ public class PlayerInputManager : MonoBehaviour
 
     private void OnMagic1Performed(InputAction.CallbackContext ctx)
     {
-        if (isGrounded && !isPerformingAction && !isAttacking)
+        if (isGrounded && !isPerformingAction && !isAttacking && playerCoolDown.CanUseMagic(magic1))
         {
             currentMagicIndex = 1;
             PushByMagicCase(magic1);
@@ -354,7 +354,7 @@ public class PlayerInputManager : MonoBehaviour
 
     private void OnMagic2Performed(InputAction.CallbackContext ctx)
     {
-        if (isGrounded && !isPerformingAction && !isAttacking)
+        if (isGrounded && !isPerformingAction && !isAttacking && playerCoolDown.CanUseMagic(magic2))
         {
             currentMagicIndex = 2;
             PushByMagicCase(magic2);
@@ -363,13 +363,13 @@ public class PlayerInputManager : MonoBehaviour
 
     public void Magic1Swap(PlayerStateType type)
     {
-        if (magic1 == type || magic2 == type) return;
+        if (magic1 == type || magic2 == type || !playerCoolDown.CanUseMagic(magic1)) return;
         magic1 = type;
         UpdateMagic();
     }
     public void Magic2Swap(PlayerStateType type)
     {
-        if (magic1 == type || magic2 == type) return;
+        if (magic1 == type || magic2 == type || !playerCoolDown.CanUseMagic(magic2)) return;
         magic2 = type;
         UpdateMagic();
     }

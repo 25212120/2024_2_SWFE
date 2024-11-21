@@ -1,15 +1,17 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class WeaponSkillState : BaseState<PlayerStateType>
 {
     private Animator animator;
     private Transform playerTransform;
     private PlayerInputManager playerInputManager;
+    private PlayerStat playerStat;
     private Rigidbody rb;
     private MonoBehaviour monoBehaviour;
 
-    public WeaponSkillState(PlayerStateType key, StateManager<PlayerStateType> stateManager, PlayerInputManager inputManager, Rigidbody rb, Animator animator, Transform playerTransform, MonoBehaviour monoBehaviour)
+    public WeaponSkillState(PlayerStateType key, StateManager<PlayerStateType> stateManager, PlayerInputManager inputManager, Rigidbody rb, Animator animator, Transform playerTransform, MonoBehaviour monoBehaviour, PlayerStat playerStat)
             : base(key, stateManager)
     {
         this.playerTransform = playerTransform;
@@ -17,6 +19,7 @@ public class WeaponSkillState : BaseState<PlayerStateType>
         this.playerInputManager = inputManager;
         this.rb = rb;
         this.monoBehaviour = monoBehaviour;
+        this.playerStat = playerStat;
     }
 
     private bool finishedWeaponSkill = false;
@@ -24,10 +27,13 @@ public class WeaponSkillState : BaseState<PlayerStateType>
     private float chargeTime = 2f;
     private float chargedTime = 0f;
 
+    private LayerMask enemyLayer;
+
     public override void EnterState()
     {
         playerInputManager.isPerformingAction = true;
         PerformWeaponSkill(playerInputManager.currentRightHandIndex);
+        enemyLayer = LayerMask.GetMask("Enemy");
     }
 
     public override void UpdateState()
@@ -154,14 +160,51 @@ public class WeaponSkillState : BaseState<PlayerStateType>
 
     private void JumpAttack_SingleTwoHandedSword()
     {
-        // ¾Ö´Ï¸ÞÀÌ¼Ç
-        
+        monoBehaviour.StartCoroutine(jumpAtk());
+    }
+
+    private IEnumerator jumpAtk()
+    {
+        yield return new WaitForSeconds(1f);
+        Collider[] hitColliders = Physics.OverlapSphere(playerTransform.position, 4f, enemyLayer);
+
+        foreach (Collider collider in hitColliders)
+        {
+            if (collider != null)
+            {
+                BaseMonster enemyStat = collider.GetComponent<BaseMonster>();
+                playerStat.Attack(enemyStat);
+
+                Transform enemyTransform = collider.GetComponent<Transform>();
+                Rigidbody rb = collider.GetComponent<Rigidbody>();
+                NavMeshAgent agent = collider.GetComponent<NavMeshAgent>();
+                agent.enabled = false;
+                float distance = Vector3.Distance(playerTransform.position, enemyTransform.position);
+                if (distance <= 4f)
+                {
+                    Vector3 knockbackDirection = (enemyTransform.position - playerTransform.position).normalized;
+                    rb.AddForce(knockbackDirection * 40f, ForceMode.Impulse);
+                }
+                agent.enabled = true;
+            }
+        }
     }
 
     private void Rage_DoubleSwords()
     {
         // ¾Ö´Ï¸ÞÀÌ¼Ç (ÀÌÆåÆ®)
+        BuffController buffController = playerInputManager.GetComponent<BuffController>();
+        Buff rage = new Buff(5f, 0f, 0f);
+        monoBehaviour.StartCoroutine(RageBuff(buffController, rage, 10f));
+       
         // ½ºÅÈµþ±ï
+    }
+
+    private IEnumerator RageBuff(BuffController buffController, Buff buff, float time)
+    {
+        buffController.ApplyBuff(buff);
+        yield return new WaitForSeconds(time);
+        buffController.RemoveBuff(buff);
     }
 
     private void ChargeShot_Bow()

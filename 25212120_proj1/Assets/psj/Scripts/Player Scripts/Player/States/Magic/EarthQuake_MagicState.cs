@@ -1,8 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
-using UnityEngine.UIElements;
-using Unity.VisualScripting;
+using UnityEngine.AI;
 
 public class EarthQuake_MagicState : BaseState<PlayerStateType>
 {
@@ -64,6 +63,12 @@ public class EarthQuake_MagicState : BaseState<PlayerStateType>
 
     public override void ExitState()
     {
+        findEnemies(100);
+        foreach(GameObject enemy in enemies)
+        {
+            NavMeshAgent agent = enemy.GetComponent<NavMeshAgent>();
+            agent.enabled = true;
+        }
         magicfinished = false;
         playerInputManager.isPerformingAction = false;
     }
@@ -135,7 +140,7 @@ public class EarthQuake_MagicState : BaseState<PlayerStateType>
     }
     private IEnumerator InstantiateNova()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1.3f);
         GameObject instantiatedNovaBrown0 = Object.Instantiate(novaBrown0, magicCirclePos, Quaternion.Euler(-90, 0, 0));
         // 함수 호출
         knockBack(8);
@@ -167,6 +172,8 @@ public class EarthQuake_MagicState : BaseState<PlayerStateType>
         {
             if (hitCollider.CompareTag("Enemy"))
             {
+                NavMeshAgent agent = hitCollider.GetComponent<NavMeshAgent>();
+                agent.enabled = false;
                 enemies.Add(hitCollider.gameObject);
             }
         }

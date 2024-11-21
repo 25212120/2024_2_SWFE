@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
+using JetBrains.Annotations;
+using UnityEditor.Profiling.Memory.Experimental;
 
 public class PlayerInputManager : MonoBehaviour
 {
@@ -417,6 +419,57 @@ public class PlayerInputManager : MonoBehaviour
                 isCollidingHorizontally = true;
                 break;
             }
+        }
+    }
+
+
+    public int GetElement1Index()
+    {
+        switch (magic1)
+        {
+            case PlayerStateType.PoisonFog_MagicState:
+                return 0;
+            case PlayerStateType.DrainField_MagicState:
+                return 0;
+            case PlayerStateType.FireBall_MagicState:
+                return 1;
+            case PlayerStateType.Meteor_MagicState:
+                return 1;
+            case PlayerStateType.IceSpear_MagicState:
+                return 2;
+            case PlayerStateType.Storm_MagicState:
+                return 2;
+            case PlayerStateType.RockFall_MagicState:
+                return 3;
+            case PlayerStateType.EarthQuake_MagicState:
+                return 3;
+            default:
+                return -1;
+        }
+    }
+    
+    public int GetElement2Index()
+    {
+        switch (magic2)
+        {
+            case PlayerStateType.PoisonFog_MagicState:
+                return 0;
+            case PlayerStateType.DrainField_MagicState:
+                return 0;
+            case PlayerStateType.FireBall_MagicState:
+                return 1;
+            case PlayerStateType.Meteor_MagicState:
+                return 1;
+            case PlayerStateType.IceSpear_MagicState:
+                return 2;
+            case PlayerStateType.Storm_MagicState:
+                return 2;
+            case PlayerStateType.RockFall_MagicState:
+                return 3;
+            case PlayerStateType.EarthQuake_MagicState:
+                return 3;
+            default:
+                return -1;
         }
     }
 

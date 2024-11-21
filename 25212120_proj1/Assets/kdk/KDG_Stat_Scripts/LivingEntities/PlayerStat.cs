@@ -62,7 +62,7 @@ public class PlayerStat : BaseEntity
                     return; // 알 수 없는 마법 타입 처리
             }
 
-            target.TakeDamage(damage1);
+            target.TakeDamage(damage1); 
 
             magic.AddExperience(damage1);
             Debug.Log($"{magic.magicType} 마법의 경험치: {magic.experience}");

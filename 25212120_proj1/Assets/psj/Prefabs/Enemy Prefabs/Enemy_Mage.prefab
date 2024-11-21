@@ -265,6 +265,7 @@ GameObject:
   - component: {fileID: 8304866902536242614}
   - component: {fileID: 2720272403483773184}
   - component: {fileID: 7513228536627924679}
+  - component: {fileID: 3168569662820714898}
   m_Layer: 8
   m_Name: Enemy_Mage
   m_TagString: Enemy
@@ -398,6 +399,7 @@ MonoBehaviour:
   stateMachine: {fileID: 0}
   attackCooldown: 0
   canDetect: 1
+  canAttack: 0
   core: {fileID: 0}
 --- !u!114 &2720272403483773184
 MonoBehaviour:
@@ -413,9 +415,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   statData:
     <level>k__BackingField: 1
-    <hpMax>k__BackingField: 10
+    <hpMax>k__BackingField: 50
     mHpCurrent: 0
-    <baseAttack>k__BackingField: 1
+    <baseAttack>k__BackingField: 10
     <baseMovementSpeed>k__BackingField: 1
     <baseDefense>k__BackingField: 0
   expAmount: 0
@@ -443,6 +445,33 @@ CapsuleCollider:
   m_Height: 1.7
   m_Direction: 1
   m_Center: {x: 0, y: 0.7, z: 0}
+--- !u!54 &3168569662820714898
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 814815882946568033}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 116
+  m_CollisionDetection: 1
 --- !u!1 &1049172302039466081
 GameObject:
   m_ObjectHideFlags: 0

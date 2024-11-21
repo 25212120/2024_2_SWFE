@@ -41,6 +41,8 @@ public class Mage : Unit
         novaPoint.y = 0.3f;
         yield return new WaitForSeconds(0.5f);
         GameObject instantiatedSpell = Instantiate(spellPrefab, novaPoint, Quaternion.Euler(-90, 0, 0));
+        instantiatedSpell.transform.SetParent(transform, true);
+        instantiatedSpell.SetActive(true);  
 
         yield return new WaitForSeconds(2f);
 

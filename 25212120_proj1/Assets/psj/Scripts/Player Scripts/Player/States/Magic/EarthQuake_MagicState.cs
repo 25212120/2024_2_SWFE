@@ -1,8 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
-using UnityEngine.UIElements;
-using Unity.VisualScripting;
+using UnityEngine.AI;
 
 public class EarthQuake_MagicState : BaseState<PlayerStateType>
 {
@@ -11,8 +10,9 @@ public class EarthQuake_MagicState : BaseState<PlayerStateType>
     private Animator animator;
     private Rigidbody rb;
     private MonoBehaviour monoBehaviour;
+    private PlayerStat playerStat;
 
-    public EarthQuake_MagicState(PlayerStateType key, StateManager<PlayerStateType> stateManager, PlayerInputManager inputManager, Transform playerTransform, MonoBehaviour monoBehaviour, Animator animator, Rigidbody rb)
+    public EarthQuake_MagicState(PlayerStateType key, StateManager<PlayerStateType> stateManager, PlayerInputManager inputManager, Transform playerTransform, MonoBehaviour monoBehaviour, Animator animator, Rigidbody rb, PlayerStat playerStat)
             : base(key, stateManager)
     {
         this.playerTransform = playerTransform;
@@ -20,6 +20,7 @@ public class EarthQuake_MagicState : BaseState<PlayerStateType>
         this.rb = rb;
         this.monoBehaviour = monoBehaviour;
         this.animator = animator;
+        this.playerStat = playerStat;
     }
 
     private GameObject earthCircle0;
@@ -64,6 +65,12 @@ public class EarthQuake_MagicState : BaseState<PlayerStateType>
 
     public override void ExitState()
     {
+        findEnemies(100);
+        foreach(GameObject enemy in enemies)
+        {
+            NavMeshAgent agent = enemy.GetComponent<NavMeshAgent>();
+            agent.enabled = true;
+        }
         magicfinished = false;
         playerInputManager.isPerformingAction = false;
     }
@@ -135,7 +142,7 @@ public class EarthQuake_MagicState : BaseState<PlayerStateType>
     }
     private IEnumerator InstantiateNova()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1.3f);
         GameObject instantiatedNovaBrown0 = Object.Instantiate(novaBrown0, magicCirclePos, Quaternion.Euler(-90, 0, 0));
         // 함수 호출
         knockBack(8);
@@ -167,6 +174,8 @@ public class EarthQuake_MagicState : BaseState<PlayerStateType>
         {
             if (hitCollider.CompareTag("Enemy"))
             {
+                NavMeshAgent agent = hitCollider.GetComponent<NavMeshAgent>();
+                agent.enabled = false;
                 enemies.Add(hitCollider.gameObject);
             }
         }
@@ -196,11 +205,13 @@ public class EarthQuake_MagicState : BaseState<PlayerStateType>
         foreach (GameObject enemy in enemies)
         {
             Transform enemyTransform = enemy.GetComponent<Transform>();
+            BaseMonster enemyStat = enemy.GetComponent<BaseMonster>();
             Rigidbody rb = enemy.GetComponent <Rigidbody>();
 
             float distance = Vector3.Distance(playerTransform.position, enemyTransform.position);
             if (distance <= novaRadius)
             {
+                playerStat.MagicAttack(enemyStat, 3);
                 Vector3 knockbackDirection = (enemyTransform.position - playerTransform.position).normalized;
                 rb.AddForce(knockbackDirection * 40f, ForceMode.Impulse);
             }

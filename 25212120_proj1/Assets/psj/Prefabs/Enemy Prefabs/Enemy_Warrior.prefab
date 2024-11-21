@@ -5038,6 +5038,7 @@ GameObject:
   - component: {fileID: 1005261654913409338}
   - component: {fileID: 1458557199774770045}
   - component: {fileID: 708600616957248081}
+  - component: {fileID: 6092425433300782920}
   m_Layer: 8
   m_Name: Enemy_Warrior
   m_TagString: Enemy
@@ -5170,6 +5171,10 @@ MonoBehaviour:
     <baseAttack>k__BackingField: 5
     <baseMovementSpeed>k__BackingField: 1
     <baseDefense>k__BackingField: 0
+    <baseMagicAttack_Wood>k__BackingField: 0
+    <baseMagicAttack_Fire>k__BackingField: 0
+    <baseMagicAttack_Ice>k__BackingField: 0
+    <baseMagicAttack_Sand>k__BackingField: 0
   expAmount: 0
   resourceDrops: []
 --- !u!195 &1005261654913409338
@@ -5230,6 +5235,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meleeWeapon: {fileID: 4019202009396023093}
+--- !u!54 &6092425433300782920
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8240625172253900827}
+  serializedVersion: 4
+  m_Mass: 2
+  m_Drag: 2
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 116
+  m_CollisionDetection: 1
 --- !u!1 &8283947521058961601
 GameObject:
   m_ObjectHideFlags: 0

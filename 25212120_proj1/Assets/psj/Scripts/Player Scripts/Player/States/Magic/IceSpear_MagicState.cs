@@ -10,14 +10,16 @@ public class IceSpear_MagicState : BaseState<PlayerStateType>
     private PlayerInputManager playerInputManager;
     private Animator animator;
     private MonoBehaviour monoBehaviour;
+    private PlayerStat playerStat;
 
-    public IceSpear_MagicState(PlayerStateType key, StateManager<PlayerStateType> stateManager, PlayerInputManager inputManager, Transform playerTransform, MonoBehaviour monoBehaviour, Animator animator)
+    public IceSpear_MagicState(PlayerStateType key, StateManager<PlayerStateType> stateManager, PlayerInputManager inputManager, Transform playerTransform, MonoBehaviour monoBehaviour, Animator animator, PlayerStat playerStat)
             : base(key, stateManager)
     {
         this.playerTransform = playerTransform;
         this.playerInputManager = inputManager;
         this.monoBehaviour = monoBehaviour;
         this.animator = animator;
+        this.playerStat = playerStat;
     }
 
     private GameObject waterCircle0;

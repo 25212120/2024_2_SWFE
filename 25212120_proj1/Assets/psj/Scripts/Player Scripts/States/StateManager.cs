@@ -28,6 +28,7 @@ public abstract class StateManager<EState> : MonoBehaviour where EState : Enum
             CurrentState.UpdateState(); 
             CurrentState.CheckTransitions();
         }
+
     }
 
     protected virtual void FixedUpdate()

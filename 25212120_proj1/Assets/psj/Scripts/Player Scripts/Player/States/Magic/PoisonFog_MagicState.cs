@@ -9,8 +9,9 @@ public class PoisonFog_MagicState : BaseState<PlayerStateType>
     private Animator animator;
     private Rigidbody rb;
     private MonoBehaviour monoBehaviour;
+    private PlayerStat playerStat;
 
-    public PoisonFog_MagicState(PlayerStateType key, StateManager<PlayerStateType> stateManager, PlayerInputManager inputManager, Transform playerTransform, MonoBehaviour monoBehaviour, Animator animator, Rigidbody rb)
+    public PoisonFog_MagicState(PlayerStateType key, StateManager<PlayerStateType> stateManager, PlayerInputManager inputManager, Transform playerTransform, MonoBehaviour monoBehaviour, Animator animator, Rigidbody rb, PlayerStat playerStat)
             : base(key, stateManager)
     {
         this.playerTransform = playerTransform;
@@ -18,6 +19,7 @@ public class PoisonFog_MagicState : BaseState<PlayerStateType>
         this.rb = rb;
         this.monoBehaviour = monoBehaviour;
         this.animator = animator;
+        this.playerStat = playerStat;
     }
 
     private GameObject plantCircle0;

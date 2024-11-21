@@ -118,9 +118,7 @@ public class ShowUIOnEnter : MonoBehaviour
                 weaponUIPanels[weaponIndex].SetActive(true);
             }
 
-            // 무기 인덱스 업데이트 및 무기 교체
-            playerInputManager.IndexSwapTo = weaponIndex;
-            playerInputManager.GetStateManager().PushState(PlayerStateType.WeaponSwap);
+            
         }
     }
 }

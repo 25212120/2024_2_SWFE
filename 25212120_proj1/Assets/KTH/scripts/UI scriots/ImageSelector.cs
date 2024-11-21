@@ -8,11 +8,15 @@ public class ImageSelector : MonoBehaviour
     public Button displaySkillSlot2; // 두 번째 스킬 슬롯에 사용할 Button 컴포넌트
     public List<Button> skillButtons; // 여러 개의 스킬 버튼들 (Inspector에서 할당)
     public List<Image> highlightImages; // 각 스킬에 대한 하이라이트 이미지들 (Inspector에서 할당)
+    public PlayerInputManager playerInputManager; // PlayerInputManager 참조 (Inspector에서 할당)
 
     private int highlightedSkillIndex = -1; // 현재 하이라이트된 스킬 인덱스 (-1은 선택되지 않음을 의미)
+    private PlayerStateType slot1Skill = PlayerStateType.None;
+    private PlayerStateType slot2Skill = PlayerStateType.None;
 
     void Start()
     {
+
         // 각 버튼에 클릭 이벤트를 동적으로 연결
         for (int i = 0; i < skillButtons.Count; i++)
         {
@@ -58,27 +62,47 @@ public class ImageSelector : MonoBehaviour
             return; // 선택된 스킬이 없으면 아무 작업도 하지 않음
         }
 
-        Image selectedSkillImage = skillButtons[highlightedSkillIndex].GetComponent<Image>();
-        if (selectedSkillImage != null)
+        // 스킬 타입 설정 (임시로 인덱스 값을 사용하여 설정)
+        PlayerStateType selectedSkill = (PlayerStateType)highlightedSkillIndex + 13;
+
+        // 중복된 스킬 할당 방지
+        if ((slotNumber == 1 && selectedSkill == slot2Skill) || (slotNumber == 2 && selectedSkill == slot1Skill))
         {
-            if (slotNumber == 1 && displaySkillSlot1 != null)
-            {
-                displaySkillSlot1.GetComponent<Image>().sprite = selectedSkillImage.sprite;
-                Debug.Log("Assigned to Slot 1 with sprite: " + selectedSkillImage.sprite.name);
-            }
-            else if (slotNumber == 2 && displaySkillSlot2 != null)
-            {
-                displaySkillSlot2.GetComponent<Image>().sprite = selectedSkillImage.sprite;
-                Debug.Log("Assigned to Slot 2 with sprite: " + selectedSkillImage.sprite.name);
-            }
+            Debug.Log("Skill is already assigned to the other slot.");
+            return;
         }
-        else
+
+        // PlayerInputManager의 Magic1Swap 또는 Magic2Swap 호출
+        if (slotNumber == 1)
         {
-            Debug.Log("Selected Skill Image or Sprite is null");
+            playerInputManager.Magic1Swap(selectedSkill);
+            slot1Skill = selectedSkill;
+            UpdateSlotImage(displaySkillSlot1, highlightedSkillIndex);
+        }
+        else if (slotNumber == 2)
+        {
+            playerInputManager.Magic2Swap(selectedSkill);
+            slot2Skill = selectedSkill;
+            UpdateSlotImage(displaySkillSlot2, highlightedSkillIndex);
         }
 
         // 스킬을 슬롯에 할당한 후 하이라이트를 비활성화
         highlightImages[highlightedSkillIndex].gameObject.SetActive(false);
         highlightedSkillIndex = -1;
+    }
+
+    // 슬롯의 이미지를 업데이트하는 함수
+    private void UpdateSlotImage(Button slotButton, int skillIndex)
+    {
+        Image selectedSkillImage = skillButtons[skillIndex].GetComponent<Image>();
+        if (selectedSkillImage != null)
+        {
+            slotButton.GetComponent<Image>().sprite = selectedSkillImage.sprite;
+            Debug.Log($"Assigned skill to slot with sprite: {selectedSkillImage.sprite.name}");
+        }
+        else
+        {
+            Debug.Log("Selected Skill Image or Sprite is null");
+        }
     }
 }

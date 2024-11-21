@@ -147,6 +147,7 @@ public class BaseStructure : BaseEntity
     // 에센스에 따른 외형 변경
     private void ChangeAppearanceWithEssence(MaterialManager.ResourceType essenceType)
     {
+        // 부모 오브젝트의 Material 변경
         switch (essenceType)
         {
             case MaterialManager.ResourceType.IceEssence:
@@ -174,7 +175,47 @@ public class BaseStructure : BaseEntity
                 break;
         }
 
-        
+        // 자식 오브젝트들의 Material 변경
+        ChangeChildrenMaterials(essenceType);
+    }
+
+    private void ChangeChildrenMaterials(MaterialManager.ResourceType essenceType)
+    {
+        // 자식 오브젝트들 중에서 Renderer 컴포넌트를 찾아서 Material을 변경
+        Renderer[] childRenderers = GetComponentsInChildren<Renderer>();
+
+        foreach (Renderer childRenderer in childRenderers)
+        {
+            if (childRenderer != null)
+            {
+                switch (essenceType)
+                {
+                    case MaterialManager.ResourceType.IceEssence:
+                        if (iceEssenceMaterial != null)
+                            childRenderer.material = iceEssenceMaterial;
+                        break;
+
+                    case MaterialManager.ResourceType.FireEssence:
+                        if (fireEssenceMaterial != null)
+                            childRenderer.material = fireEssenceMaterial;
+                        break;
+
+                    case MaterialManager.ResourceType.SandEssence:
+                        if (sandEssenceMaterial != null)
+                            childRenderer.material = sandEssenceMaterial;
+                        break;
+
+                    case MaterialManager.ResourceType.WoodEssence:
+                        if (woodEssenceMaterial != null)
+                            childRenderer.material = woodEssenceMaterial;
+                        break;
+
+                    default:
+                        Debug.LogWarning("알 수 없는 에센스 타입입니다.");
+                        break;
+                }
+            }
+        }
     }
 
     // 자원이 에센스인지 확인하는 함수

@@ -1,5 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+
+
 
 [System.Serializable]
 public class EquipmentEffect
@@ -68,8 +71,14 @@ public class EquipmentItem
         effect.Defense = level * defenseIncreasePerLevel;
     }
 }
+public enum PlayerMagicType
+{
+    Wood,   // 나무 마법
+    Fire,  // 불 마법
+    Ice,   // 얼음 마법
+    Sand  // 사막 마법
 
-
+}
 public class EquipmentInventory : MonoBehaviour
 {
     [Header("초기 장비 목록")]
@@ -80,6 +89,9 @@ public class EquipmentInventory : MonoBehaviour
 
     private PlayerStat playerstat;
     private int currentIndex = 0;  // 현재 장착된 장비의 인덱스 (순차적으로 교체)
+
+
+    private PlayerInputManager playerInputManager;
 
     private void Start()
     {
@@ -130,6 +142,7 @@ public class EquipmentInventory : MonoBehaviour
         Debug.Log("장비가 초기화되었습니다.");
     }
 
+   
 
     // 장비 교체 메서드 (스왑)
     public void Equip(EquipmentItem newEquipment)

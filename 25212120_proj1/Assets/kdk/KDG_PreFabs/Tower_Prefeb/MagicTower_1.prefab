@@ -43,8 +43,6 @@ GameObject:
   - component: {fileID: 6675423118448978902}
   - component: {fileID: 1365739259155150701}
   - component: {fileID: 518290380765579057}
-  - component: {fileID: 4556337719088519203}
-  - component: {fileID: 5876289502076235254}
   m_Layer: 0
   m_Name: sphere
   m_TagString: Untagged
@@ -138,48 +136,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.6705602, y: 1.7034321, z: 1.645055}
   m_Center: {x: 0, y: 0.85171604, z: 0}
---- !u!114 &4556337719088519203
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2686311256862669349}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c898260404bcb0409eb77ddec897106, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  range: 25
-  fireRate: 0.7
-  enemyTag: Enemy
-  partToRotate: {fileID: 1619637294513417664}
-  turnSpeed: 10
-  bulletPrefab: {fileID: 183996, guid: 1cb287844fa928a46b15be38794a1c9f, type: 3}
-  firePoint: {fileID: 3708961759044515691}
-  rotationTolerance: 5
-  maxTargetsToAttack: 3
---- !u!114 &5876289502076235254
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2686311256862669349}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 49b85693fa8171f4495e36b9c283f035, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  statData:
-    <level>k__BackingField: 1
-    <hpMax>k__BackingField: 0
-    mHpCurrent: 0
-    <baseAttack>k__BackingField: 0
-    <baseMovementSpeed>k__BackingField: 0
-    <baseDefense>k__BackingField: 0
-    equipmentInventory: {fileID: 0}
 --- !u!1 &5240998751932139802
 GameObject:
   m_ObjectHideFlags: 0
@@ -193,6 +149,7 @@ GameObject:
   - component: {fileID: 1969869974122313385}
   - component: {fileID: 4752776727269994024}
   - component: {fileID: 2652201781641914724}
+  - component: {fileID: 1042753725620618206}
   m_Layer: 0
   m_Name: MagicTower_1
   m_TagString: Untagged
@@ -307,4 +264,36 @@ MonoBehaviour:
     <baseAttack>k__BackingField: 0
     <baseMovementSpeed>k__BackingField: 0
     <baseDefense>k__BackingField: 0
-    equipmentInventory: {fileID: 0}
+  upgradeRequirements: []
+  upgradedMaterial: {fileID: 0}
+  upgradedMesh: {fileID: 0}
+  iceEssenceMaterial: {fileID: 0}
+  fireEssenceMaterial: {fileID: 0}
+  sandEssenceMaterial: {fileID: 0}
+  woodEssenceMaterial: {fileID: 0}
+  statUpgrade:
+    attackIncrease: 0
+    defenseIncrease: 0
+    healthIncrease: 0
+--- !u!114 &1042753725620618206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5240998751932139802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c898260404bcb0409eb77ddec897106, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  range: 25
+  fireRate: 0.7
+  enemyTag: Enemy
+  partToRotate: {fileID: 1619637294513417664}
+  turnSpeed: 10
+  bulletPrefab: {fileID: 183996, guid: 1cb287844fa928a46b15be38794a1c9f, type: 3}
+  firePoint: {fileID: 3708961759044515691}
+  rotationTolerance: 5
+  maxTargetsToAttack: 1

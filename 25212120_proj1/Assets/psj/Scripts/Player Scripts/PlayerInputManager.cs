@@ -365,11 +365,13 @@ public class PlayerInputManager : MonoBehaviour
     {
         if (magic1 == type || magic2 == type) return;
         magic1 = type;
+        UpdateMagic();
     }
     public void Magic2Swap(PlayerStateType type)
     {
         if (magic1 == type || magic2 == type) return;
         magic2 = type;
+        UpdateMagic();
     }
 
 
@@ -472,5 +474,24 @@ public class PlayerInputManager : MonoBehaviour
                 return -1;
         }
     }
+    PlayerInventory playerInventory;
+    public void Start()
+    {
+        playerInventory = GetComponent<PlayerInventory>(); // PlayerInventory 컴포넌트를 찾아서 저장
 
+    }
+
+    public void UpdateMagic()
+    {
+        // GetElement1Index()와 GetElement2Index()로 각각 마법 인덱스를 가져옴
+        int magic1Index = GetElement1Index();  // 첫 번째 마법 인덱스
+        int magic2Index = GetElement2Index();  // 두 번째 마법 인덱스
+
+        if (playerInventory != null)
+        {
+            // PlayerInventory의 ChangeMagic 메서드를 호출하여 두 마법을 변경
+            playerInventory.ChangeMagic((PlayerMagicType)magic1Index, (PlayerMagicType)magic2Index);
+        }
+    }
 }
+

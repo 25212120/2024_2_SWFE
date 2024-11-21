@@ -77,11 +77,10 @@ public class Tower_Base : MonoBehaviour
 
         // 목표를 바라보는 회전 (Y축을 무시한 회전)
         Quaternion lookRotation = Quaternion.LookRotation(dir);
-        Vector3 rotation = Quaternion.Lerp(partToRotate.rotation, lookRotation, Time.deltaTime * turnSpeed).eulerAngles;
-        partToRotate.rotation = Quaternion.Euler(0f, rotation.y, 0f);
+        partToRotate.rotation = Quaternion.Slerp(partToRotate.rotation, lookRotation, Time.deltaTime * turnSpeed);
 
         // 목표를 바라보고 있는지 확인 (각도 차이 체크)
-        float angleToTarget = Vector3.Angle(transform.forward, dir);
+        float angleToTarget = Vector3.Angle(partToRotate.forward, dir);
 
         if (angleToTarget <= rotationTolerance) // 목표를 정확히 바라보고 있으면
         {
@@ -94,6 +93,7 @@ public class Tower_Base : MonoBehaviour
 
         fireCountdown -= Time.deltaTime;
     }
+
 
     void Shoot()
     {

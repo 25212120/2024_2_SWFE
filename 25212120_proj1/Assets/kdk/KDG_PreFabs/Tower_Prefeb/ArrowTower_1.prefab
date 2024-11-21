@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 3424314106465383720}
   - component: {fileID: 5241877292402568062}
   - component: {fileID: 31037136219838744}
+  - component: {fileID: 6598235216295875145}
   m_Layer: 0
   m_Name: ArrowTower_1
   m_TagString: Untagged
@@ -95,7 +96,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 19033e0c86c1b574282d5fc1a7245425, type: 2}
+  - {fileID: 2100000, guid: d4a87f966d947954eab585359e616b54, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -157,7 +158,51 @@ MonoBehaviour:
     <baseAttack>k__BackingField: 0
     <baseMovementSpeed>k__BackingField: 0
     <baseDefense>k__BackingField: 0
-    equipmentInventory: {fileID: 0}
+    <baseMagicAttack_Wood>k__BackingField: 0
+    <baseMagicAttack_Fire>k__BackingField: 0
+    <baseMagicAttack_Ice>k__BackingField: 0
+    <baseMagicAttack_Sand>k__BackingField: 0
+  upgradeRequirements:
+  - resourceType: 5
+    amount: 1
+  - resourceType: 6
+    amount: 1
+  - resourceType: 7
+    amount: 1
+  - resourceType: 8
+    amount: 1
+  upgradedMaterial: {fileID: 2100000, guid: d4a87f966d947954eab585359e616b54, type: 2}
+  upgradedMesh: {fileID: 0}
+  iceEssenceMaterial: {fileID: 2100000, guid: 19033e0c86c1b574282d5fc1a7245425, type: 2}
+  fireEssenceMaterial: {fileID: 2100000, guid: 6c5efc6333002024084e8960fb24a354, type: 2}
+  sandEssenceMaterial: {fileID: 2100000, guid: a642a98ec95f45e4fab9e3af34300406, type: 2}
+  woodEssenceMaterial: {fileID: 2100000, guid: ad51808147893aa4daa19dfad93c9990, type: 2}
+  statUpgrade:
+    attackIncrease: 0
+    defenseIncrease: 0
+    healthIncrease: 0
+--- !u!114 &6598235216295875145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7136315603604069242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c898260404bcb0409eb77ddec897106, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  range: 35
+  fireRate: 1
+  enemyTag: Enemy
+  partToRotate: {fileID: 7326219151896084176}
+  turnSpeed: 7
+  bulletPrefab: {fileID: 954667802420848280, guid: 6a5a6573cd52b9e42a66cde9b8f4926d, type: 3}
+  firePoint: {fileID: 1523648534338565721}
+  rotationTolerance: 2
+  maxTargetsToAttack: 1
 --- !u!1 &8048049335508591453
 GameObject:
   m_ObjectHideFlags: 0
@@ -275,8 +320,6 @@ GameObject:
   - component: {fileID: 3640334758138989689}
   - component: {fileID: 6979494482018815221}
   - component: {fileID: 4184307742502528135}
-  - component: {fileID: 8384449404359544110}
-  - component: {fileID: 1075192214684738776}
   m_Layer: 0
   m_Name: crossbow
   m_TagString: Untagged
@@ -329,7 +372,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 19033e0c86c1b574282d5fc1a7245425, type: 2}
+  - {fileID: 2100000, guid: d4a87f966d947954eab585359e616b54, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -372,45 +415,3 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 4.185313, y: 1.9217055, z: 2.1245868}
   m_Center: {x: 0, y: 0.96085274, z: 0}
---- !u!114 &8384449404359544110
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8218505402996119362}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a9c688d8ef44c0747940a75070b4fc4b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  statData:
-    <level>k__BackingField: 1
-    <hpMax>k__BackingField: 0
-    mHpCurrent: 0
-    <baseAttack>k__BackingField: 0
-    <baseMovementSpeed>k__BackingField: 0
-    <baseDefense>k__BackingField: 0
-    equipmentInventory: {fileID: 0}
---- !u!114 &1075192214684738776
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8218505402996119362}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c898260404bcb0409eb77ddec897106, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  range: 35
-  fireRate: 1
-  enemyTag: Enemy
-  partToRotate: {fileID: 7326219151896084176}
-  turnSpeed: 7
-  bulletPrefab: {fileID: 954667802420848280, guid: 6a5a6573cd52b9e42a66cde9b8f4926d, type: 3}
-  firePoint: {fileID: 1523648534338565721}
-  rotationTolerance: 2
-  maxTargetsToAttack: 1

@@ -4667,6 +4667,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7733253676307657119, guid: f9c137e7891118a4684446bdef465b3a, type: 3}
       insertIndex: 12
       addedObject: {fileID: 1330162139}
+    - targetCorrespondingSourceObject: {fileID: 7733253676307657119, guid: f9c137e7891118a4684446bdef465b3a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1330162153}
     - targetCorrespondingSourceObject: {fileID: 3970350319685285199, guid: f9c137e7891118a4684446bdef465b3a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1300813599}
@@ -5170,6 +5173,59 @@ MonoBehaviour:
     maxExperience: 0
   rightHandWeapons: []
   currentRightHandIndex: 0
+--- !u!114 &1330162153
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1330162125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81fb56dc44beb2946802f6ed8bf203db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerMagics:
+  - magicType: 0
+    effect:
+      MagicAttack: 0
+    level: 1
+    experience: 0
+    maxExperience: 100
+    MagicSkillTree_Wood: 0
+    MagicSkillTree_Fire: 0
+    MagicSkillTree_Ice: 0
+    MagicSkillTree_Sand: 0
+  - magicType: 0
+    effect:
+      MagicAttack: 0
+    level: 1
+    experience: 0
+    maxExperience: 100
+    MagicSkillTree_Wood: 0
+    MagicSkillTree_Fire: 0
+    MagicSkillTree_Ice: 0
+    MagicSkillTree_Sand: 0
+  - magicType: 0
+    effect:
+      MagicAttack: 0
+    level: 1
+    experience: 0
+    maxExperience: 100
+    MagicSkillTree_Wood: 0
+    MagicSkillTree_Fire: 0
+    MagicSkillTree_Ice: 0
+    MagicSkillTree_Sand: 0
+  - magicType: 0
+    effect:
+      MagicAttack: 0
+    level: 1
+    experience: 0
+    maxExperience: 100
+    MagicSkillTree_Wood: 0
+    MagicSkillTree_Fire: 0
+    MagicSkillTree_Ice: 0
+    MagicSkillTree_Sand: 0
 --- !u!1001 &1347112394
 PrefabInstance:
   m_ObjectHideFlags: 0

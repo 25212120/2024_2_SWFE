@@ -10,18 +10,22 @@ public class PlayerCoolDownManager : MonoBehaviour
     private bool isBowWeaponSkillOnCoolTime = false;
 
 
-    private float dashCoolTime = 0.7f;
+    private float dashCoolTime_SwordShield = 1f;
+    private float dashCoolTime_SingleTwoHandSword = 1.3f;
+    private float dashCoolTime_DoubleSwords = 0.7f;
+    private float dashCoolTime_Bow = 1.8f;
+
     // 스킬 시전되는 동안의 시간 + 맞추고 싶은 쿨타임
     private float weaponSkillCoolTime_SwordShield = 6f;
     private float weaponSkillCoolTime_SingleTwoHandSword = 6f;
     private float weaponSkillCoolTime_DoubleSwords = 3f;
     private float weaponSkillCoolTime_Bow = 12f;
 
-    public bool CanDash()
+    public bool CanDash(int weaponIndex)
     {
         if (!isDashOnCoolTime)
         {
-            StartCoroutine(StartDashCoolTime());
+            StartCoroutine(StartDashCoolTime(weaponIndex));
             return true;
         }
         return false;
@@ -64,10 +68,29 @@ public class PlayerCoolDownManager : MonoBehaviour
         }
     }
 
-    private IEnumerator StartDashCoolTime()
+    private IEnumerator StartDashCoolTime(int weaponIndex)
     {
         isDashOnCoolTime = true;
-        yield return new WaitForSeconds(dashCoolTime);
+
+        float selectedDashCoolTime = 0f;
+
+        switch (weaponIndex)
+        {
+            case 0:
+                selectedDashCoolTime = dashCoolTime_SwordShield;
+                break;
+            case 1:
+                selectedDashCoolTime = dashCoolTime_SingleTwoHandSword;
+                break;
+            case 2:
+                selectedDashCoolTime = dashCoolTime_DoubleSwords;
+                break;
+            case 3:
+                selectedDashCoolTime = dashCoolTime_Bow;
+                break;
+        }
+
+        yield return new WaitForSeconds(selectedDashCoolTime);
         isDashOnCoolTime = false;
     }
 

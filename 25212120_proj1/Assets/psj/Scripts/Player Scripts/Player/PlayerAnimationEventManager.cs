@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class PlayerAnimationEventManager : MonoBehaviour
@@ -19,11 +16,11 @@ public class PlayerAnimationEventManager : MonoBehaviour
     }
     public void MovingWhileAttacking()
     {
-        rb.AddForce(playerTransform.forward * 6f, ForceMode.Impulse);
+        rb.AddForce(playerTransform.forward * 11f, ForceMode.Impulse);
     }
     public void MovingWhileAttacking_DoubleSwords()
     {
-        rb.AddForce(playerTransform.forward * 7f, ForceMode.Impulse);
+        rb.AddForce(playerTransform.forward * 9f, ForceMode.Impulse);
     }
     public void BackStepWhileAttacking_Bow()
     {
@@ -36,12 +33,12 @@ public class PlayerAnimationEventManager : MonoBehaviour
     public void JumpAttackStart()
     {
         rb.useGravity = false;
-        rb.AddForce(playerTransform.up * 15f, ForceMode.Impulse);
+        rb.AddForce(playerTransform.up * 10f, ForceMode.Impulse);
     }
     public void JumpAttackEnd()
     {
         rb.useGravity = true;
-        rb.AddForce(playerTransform.up * -30f, ForceMode.Impulse);
+        rb.AddForce(playerTransform.up * -25f, ForceMode.Impulse);
     }
     public void DisableWeapon()
     {
@@ -80,6 +77,29 @@ public class PlayerAnimationEventManager : MonoBehaviour
         }
 
         return Vector3.zero;
+    }
+
+    public void EnableWeaponCollider()
+    {
+        Collider collider = playerInputManager.rightHand_Weapons[playerInputManager.currentRightHandIndex].GetComponent<Collider>();
+        collider.enabled = true;
+    }
+    public void EnableWeaponCollider1()
+    {
+        Collider collider = playerInputManager.rightHand_Weapons[playerInputManager.currentLeftHandIndex].GetComponent<Collider>();
+        collider.enabled = true;
+    }
+
+    public void DisableWeaponCollider()
+    {
+        Collider collider = playerInputManager.rightHand_Weapons[playerInputManager.currentRightHandIndex].GetComponent<Collider>();
+        collider.enabled = false;
+    }
+
+    public void DisableWeaponCollider1()
+    {
+        Collider collider = playerInputManager.leftHand_Weapons[playerInputManager.currentLeftHandIndex].GetComponent<Collider>();
+        collider.enabled = true;
     }
 
 }

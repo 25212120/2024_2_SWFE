@@ -40,8 +40,11 @@ public class PlayerInputManager : MonoBehaviour
     private PlayerMovement playerInput;
     private PlayerCoolDownManager playerCoolDown;
 
-    private StateManager<PlayerStateType> stateManager;
-
+    public StateManager<PlayerStateType> stateManager;
+    public StateManager<PlayerStateType> GetStateManager()
+    {
+        return stateManager;
+    }
     private void Awake()
     {
         playerInput = new PlayerMovement();
@@ -267,4 +270,7 @@ public class PlayerInputManager : MonoBehaviour
             stateManager.PushState(PlayerStateType.WeaponSwap);
         }
     }
+
+    
+
 }

@@ -21,8 +21,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     public override void OnConnectedToMaster()
     {
-        Debug.Log("Connected to Master Server");
-        PhotonNetwork.JoinLobby(); // 로비 참가
     }
 
     public override void OnJoinedLobby()
@@ -58,11 +56,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-        Debug.Log($"Joined Room: {PhotonNetwork.CurrentRoom.Name}");
-        Debug.Log($"PhotonNetwork.IsMasterClient: {PhotonNetwork.IsMasterClient}");
-        Debug.Log($"PhotonNetwork.AutomaticallySyncScene: {PhotonNetwork.AutomaticallySyncScene}");
-        Debug.Log($"Player Count: {PhotonNetwork.CurrentRoom.PlayerCount}/{PhotonNetwork.CurrentRoom.MaxPlayers}");
-
+        
         UpdatePlayerCount();
     }
 
@@ -123,11 +117,5 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     private void Update()
     {
-        // 실시간으로 네트워크 상태 확인
-        Debug.Log($"PhotonNetwork.NetworkClientState: {PhotonNetwork.NetworkClientState}");
-        if (PhotonNetwork.CurrentRoom != null)
-        {
-            Debug.Log($"Room Name: {PhotonNetwork.CurrentRoom.Name}, Players: {PhotonNetwork.CurrentRoom.PlayerCount}/{PhotonNetwork.CurrentRoom.MaxPlayers}");
-        }
     }
 }

@@ -91,7 +91,7 @@ public class PlayerInputManager : MonoBehaviour
         //Debug.Log("LeftButton_Pressed : " + leftButton_Pressed);
         //Debug.Log(isPeformingAction);
         GetHitCheck();
-        hpCheck();
+        //hpCheck();
 
         leftButton_Pressed = false;
     }

@@ -24,6 +24,9 @@ public class Monster_1 : BaseMonster
         return statData.hpMax;
     }
 
-
+    public float GetMaxHP()
+    {
+        return statData.hpMax;
+    }
 
 }

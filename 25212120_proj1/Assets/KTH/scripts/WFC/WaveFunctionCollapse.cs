@@ -13,7 +13,7 @@ public class WaveFunctionCollapse
         this.biomeManager = biomeManager;
         this.cellSize = cellSize;
     }
-
+    /*
     public void GenerateChunk(Chunk chunk, Vector2Int chunkCoord, List<Tile> allTiles, bool isPlayerSpawnChunk)
     {
         // 청크의 월드 위치 계산
@@ -26,6 +26,9 @@ public class WaveFunctionCollapse
         // 청크의 중앙 위치 사용 (옵션)
         chunkWorldPosition += new Vector2(chunkWorldSize / 2, chunkWorldSize / 2);
 
+        // 청크 객체의 위치 설정
+        chunk.chunkObject.transform.position = new Vector3(chunkWorldPosition.x, 0, chunkWorldPosition.y);
+
         // 디버그 로그 추가
         Debug.Log($"청크 {chunkCoord}의 chunkWorldSize: {chunkWorldSize}, chunkWorldPosition: {chunkWorldPosition}");
 
@@ -36,8 +39,6 @@ public class WaveFunctionCollapse
         // 노이즈 값 로그 출력
         float noiseValue = biomeManager.GetNoiseValue(chunkWorldPosition);
         Debug.Log($"청크 {chunkCoord}의 노이즈 값: {noiseValue:F4}, 바이옴: {biome}");
-
-
 
         // 바이옴에 맞는 타일 필터링
         List<Tile> filteredTiles = FilterTilesByBiome(biome, allTiles);
@@ -66,7 +67,6 @@ public class WaveFunctionCollapse
             }
         }
     }
-
 
     // 타일을 인스턴스화하는 메서드
     public void InstantiateChunk(Chunk chunk)
@@ -107,6 +107,92 @@ public class WaveFunctionCollapse
             }
         }
     }
+    */
+    public void GenerateChunk(Chunk chunk, Vector2Int chunkCoord, List<Tile> allTiles, bool isPlayerSpawnChunk)
+    {
+        // 청크의 월드 위치는 이미 Chunk 생성자에서 설정됨
+        Debug.Log($"WaveFunctionCollapse: Generating chunk at {chunkCoord} with position {chunk.chunkObject.transform.position}");
+
+        // 바이옴 결정
+        string biome = biomeManager.GetBiomeForPosition(new Vector2(chunk.chunkObject.transform.position.x, chunk.chunkObject.transform.position.z));
+        biome = biome.Trim().ToLowerInvariant();
+
+        // 노이즈 값 로그 출력
+        float noiseValue = biomeManager.GetNoiseValue(new Vector2(chunk.chunkObject.transform.position.x, chunk.chunkObject.transform.position.z));
+        Debug.Log($"청크 {chunkCoord}의 노이즈 값: {noiseValue:F4}, 바이옴: {biome}");
+
+        // 바이옴에 맞는 타일 필터링
+        List<Tile> filteredTiles = FilterTilesByBiome(biome, allTiles);
+        Debug.Log($"필터링된 타일 수: {filteredTiles.Count}");
+
+        if (filteredTiles.Count == 0)
+        {
+            Debug.LogWarning($"바이옴 '{biome}'에 맞는 타일이 없습니다. 모든 타일을 사용합니다.");
+            filteredTiles = allTiles;
+        }
+
+        if (isPlayerSpawnChunk)
+        {
+            // 스폰 청크에 기본 타일 설정
+            InitializeChunkWithDefaultTiles(chunk, filteredTiles);
+        }
+        else
+        {
+            // 일반 청크 생성
+            InitializeChunk(chunk, filteredTiles);
+
+            bool success = RunWFC(chunk);
+            if (!success)
+            {
+                Debug.LogError("WFC를 사용하여 청크를 생성하는 데 실패했습니다.");
+            }
+        }
+    }
+
+    public void InstantiateChunk(Chunk chunk)
+    {
+        Debug.Log($"WaveFunctionCollapse: Instantiating chunk at {chunk.chunkCoord} with chunk position {chunk.chunkObject.transform.position}");
+
+        for (int x = 0; x < chunk.width; x++)
+        {
+            for (int y = 0; y < chunk.height; y++)
+            {
+                Cell cell = chunk.cells[x, y];
+                if (cell.collapsedTileState != null)
+                {
+                    TileState state = cell.collapsedTileState;
+                    if (state.tile.prefab == null)
+                    {
+                        Debug.LogError($"WaveFunctionCollapse: Tile prefab is null for '{state.tile.tileName}' at cell ({x}, {y})");
+                        continue;
+                    }
+
+                    // 타일 위치 계산 (청크 위치 + 셀 위치)
+                    Vector3 position = chunk.chunkObject.transform.position + new Vector3(x * cellSize, 0, y * cellSize);
+                    Debug.Log($"InstantiateChunk: Calculated position for tile '{state.tile.tileName}' at cell ({x}, {y}) is {position}");
+
+                    GameObject obj = GameObject.Instantiate(
+                        state.tile.prefab,
+                        position,
+                        Quaternion.Euler(0, state.tile.rotationAngles[state.rotationIndex], 0)
+                    );
+
+                    obj.name = $"{state.tile.tileName}_{x}_{y}";
+                    obj.transform.parent = chunk.chunkObject.transform;
+
+                    // 타일 생성 로그 추가
+                    Debug.Log($"WaveFunctionCollapse: Created tile '{obj.name}' at {position}");
+                }
+                else
+                {
+                    Debug.LogWarning($"WaveFunctionCollapse: No tile assigned to cell ({x}, {y}) in chunk {chunk.chunkCoord}");
+                }
+            }
+        }
+
+        Debug.Log($"WaveFunctionCollapse: Completed instantiating chunk at {chunk.chunkCoord}");
+    }
+
     // 스폰 청크에 기본 타일 설정 메서드 추가
     private void InitializeChunkWithDefaultTiles(Chunk chunk, List<Tile> tiles)
     {
@@ -138,16 +224,12 @@ public class WaveFunctionCollapse
         }
     }
 
-
-
-
     private List<Tile> FilterTilesByBiome(string biome, List<Tile> allTiles)
     {
         List<Tile> matchingTiles = allTiles.FindAll(tile => tile.biomes.Any(b => b.Equals(biome, System.StringComparison.OrdinalIgnoreCase)));
         Debug.Log($"바이옴 '{biome}'에 맞는 타일 수: {matchingTiles.Count}");
         return matchingTiles;
     }
-
 
     public void InitializeChunk(Chunk chunk, List<Tile> tiles)
     {
@@ -254,7 +336,6 @@ public class WaveFunctionCollapse
             }
         }
     }
-
 
     private Cell SelectCellWithLowestEntropy(Chunk chunk)
     {
@@ -394,8 +475,6 @@ public class WaveFunctionCollapse
 
         return cellSocketList.Intersect(neighborSocketList).Any();
     }
-
-
 
     // 방향 벡터
     private static readonly Vector2Int[] Directions = {

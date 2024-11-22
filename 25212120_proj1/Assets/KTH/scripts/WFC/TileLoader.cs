@@ -7,7 +7,7 @@ public class TileLoader : MonoBehaviour
     [Header("Tile Data JSON")]
     public TextAsset tileDataJson;
 
-    // 로드된 타일을 저장하는 딕셔너리
+    // 로드된 타일을 저장하는 딕셔너리 (타일 이름을 키로 사용)
     public Dictionary<string, Tile> tiles = new Dictionary<string, Tile>();
 
     // 로드된 타일 리스트를 제공하는 속성 추가
@@ -67,7 +67,7 @@ public class TileLoader : MonoBehaviour
                 // 회전된 소켓 생성
                 tile.GenerateRotatedSockets();
 
-                // 딕셔너리에 타일 추가
+                // 딕셔너리에 타일 추가 (타일 이름을 키로 사용)
                 tiles.Add(data.tileName, tile);
             }
 
@@ -75,6 +75,13 @@ public class TileLoader : MonoBehaviour
             LoadedTiles = tiles.Values.ToList();
 
             Debug.Log($"{tiles.Count}개의 타일이 로드되었습니다!");
+
+            // 로드된 모든 타일 이름 출력
+            Debug.Log("Loaded Tiles:");
+            foreach (var t in LoadedTiles)
+            {
+                Debug.Log(t.tileName);
+            }
         }
         catch (System.Exception e)
         {

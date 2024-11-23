@@ -9,55 +9,31 @@ public class Unit_SpawnManager : BaseStructure
 
     [Header("유닛 스폰 설정")]
     [SerializeField] private GameObject unitPrefab; // 소환할 유닛의 프리팹
-    private Transform spawnPoint; // 유닛이 소환될 위치 (사용자가 클릭으로 설정)
-
+    private Transform spawnPoint; // 유닛이 소환될 위치 
     private Camera mainCamera;
 
     void Start()
     {
-        mainCamera = Camera.main; // 메인 카메라 참조
+        mainCamera = Camera.main;
     }
 
     protected override void Update()
     {
-        // 스폰 포인트 설정
-        if (spawnPoint == null)
-        {
-            HandleSpawnPointSelection();
-        }
-
         // 자원 소비 후 유닛 소환
-        if (Input.GetKeyDown(KeyCode.S)) // 예: S 키로 소환
+        if (Input.GetKeyDown(KeyCode.X)) // X 키로 소환
         {
             Spawn();
         }
     }
 
-    private void HandleSpawnPointSelection()
-    {
-        if (Input.GetMouseButtonDown(0)) // 마우스 왼쪽 버튼 클릭 시
-        {
-            Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-
-            if (Physics.Raycast(ray, out hit))
-            {
-                // 스폰 포인트로 설정
-                spawnPoint = new GameObject("SpawnPoint").transform; // 새로운 게임 오브젝트로 설정
-                spawnPoint.position = hit.point; // 클릭한 지점에 스폰 포인트 설정
-                Debug.Log("스폰 포인트가 설정되었습니다.");
-            }
-        }
-    }
-
     public bool Spawn()
     {
-        // 업그레이드에 필요한 자원들을 모두 소모할 수 있는지 확인
+        // 스폰에 필요한 자원들을 모두 소모할 수 있는지 확인
         foreach (var requirement in spawnRequirements)
         {
             if (!MaterialManager.Instance.ConsumeResource(requirement.resourceType, requirement.amount))
             {
-                // 자원이 부족하면 업그레이드 실패
+                // 자원이 부족하면 스폰 실패
                 Debug.LogWarning($"{requirement.resourceType} 자원이 부족합니다. 유닛 스폰 실패.");
                 return false;
             }
@@ -81,5 +57,12 @@ public class Unit_SpawnManager : BaseStructure
         {
             Debug.LogWarning("유닛 프리팹 또는 스폰 포인트가 설정되지 않았습니다.");
         }
+    }
+
+    // 각 타워의 스폰 포인트를 설정하는 메서드
+    public void SetSpawnPoint(Vector3 newSpawnPosition)
+    {
+        spawnPoint.position = newSpawnPosition;
+        Debug.Log($"스폰 포인트가 ({newSpawnPosition.x}, {newSpawnPosition.z})로 설정되었습니다.");
     }
 }

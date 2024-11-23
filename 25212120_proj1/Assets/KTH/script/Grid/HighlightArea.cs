@@ -18,14 +18,18 @@ public class HighlightArea : MonoBehaviour
     private int cellZ;
     private bool isValidHit = false; // 레이캐스트 성공 여부
     private bool isValidPlacement = false; // 배치 가능 여부
+    public OccupiedCell_Manager occupiedCell_Manager;
 
-    private HashSet<Vector2Int> occupiedCells = new HashSet<Vector2Int>(); // 이미 포탑이 배치된 셀들을 추적
     private float currentRotation = 0f; // 현재 타워의 회전 각도
     private GameObject previewTurret; // 미리 보기용 포탑 인스턴스
 
     void Start()
     {
         CreateHighlightObject();
+        if (occupiedCell_Manager == null)
+        {
+            occupiedCell_Manager = FindObjectOfType<OccupiedCell_Manager>();  // 자동으로 찾기
+        }
     }
 
     void Update()
@@ -186,7 +190,7 @@ public class HighlightArea : MonoBehaviour
                 Vector2Int cellPos = new Vector2Int(x, z);
 
                 // 셀 점유 상태 확인
-                if (occupiedCells.Contains(cellPos))
+                if (occupiedCell_Manager.occupiedCells.Contains(cellPos))
                 {
                     return false; // 이미 점유된 셀이 있음
                 }
@@ -285,14 +289,12 @@ public class HighlightArea : MonoBehaviour
         */
         if (turretPrefab != null)
         {
-            // 포탑 프리팹 인스턴스화 및 회전 적용
             Quaternion rotation = Quaternion.Euler(0f, currentRotation, 0f);
             Instantiate(turretPrefab, position, rotation);
 
-            // 해당 셀들을 점유된 셀 목록에 추가
             foreach (Vector2Int cellPos in cellsToOccupy)
             {
-                occupiedCells.Add(cellPos);
+                occupiedCell_Manager.occupiedCells.Add(cellPos);
             }
         }
         else
@@ -303,10 +305,8 @@ public class HighlightArea : MonoBehaviour
 
     void RotateTurret()
     {
-        // 타워 회전 각도 90도 증가
         currentRotation += 90f;
 
-        // 회전 범위 제한 (0-360도)
         if (currentRotation >= 360f)
         {
             currentRotation = 0f;

@@ -14,7 +14,6 @@ public class Tile
     public List<Dictionary<string, List<string>>> rotatedSockets = new List<Dictionary<string, List<string>>>();
     public List<int> rotationAngles = new List<int>();
 
-
     public void GenerateRotatedSockets()
     {
         if (sockets == null)

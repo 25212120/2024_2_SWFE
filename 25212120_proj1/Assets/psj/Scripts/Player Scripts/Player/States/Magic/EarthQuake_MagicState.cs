@@ -10,8 +10,9 @@ public class EarthQuake_MagicState : BaseState<PlayerStateType>
     private Animator animator;
     private Rigidbody rb;
     private MonoBehaviour monoBehaviour;
+    private PlayerStat playerStat;
 
-    public EarthQuake_MagicState(PlayerStateType key, StateManager<PlayerStateType> stateManager, PlayerInputManager inputManager, Transform playerTransform, MonoBehaviour monoBehaviour, Animator animator, Rigidbody rb)
+    public EarthQuake_MagicState(PlayerStateType key, StateManager<PlayerStateType> stateManager, PlayerInputManager inputManager, Transform playerTransform, MonoBehaviour monoBehaviour, Animator animator, Rigidbody rb, PlayerStat playerStat)
             : base(key, stateManager)
     {
         this.playerTransform = playerTransform;
@@ -19,6 +20,7 @@ public class EarthQuake_MagicState : BaseState<PlayerStateType>
         this.rb = rb;
         this.monoBehaviour = monoBehaviour;
         this.animator = animator;
+        this.playerStat = playerStat;
     }
 
     private GameObject earthCircle0;
@@ -203,11 +205,13 @@ public class EarthQuake_MagicState : BaseState<PlayerStateType>
         foreach (GameObject enemy in enemies)
         {
             Transform enemyTransform = enemy.GetComponent<Transform>();
+            BaseMonster enemyStat = enemy.GetComponent<BaseMonster>();
             Rigidbody rb = enemy.GetComponent <Rigidbody>();
 
             float distance = Vector3.Distance(playerTransform.position, enemyTransform.position);
             if (distance <= novaRadius)
             {
+                playerStat.MagicAttack(enemyStat, 3);
                 Vector3 knockbackDirection = (enemyTransform.position - playerTransform.position).normalized;
                 rb.AddForce(knockbackDirection * 40f, ForceMode.Impulse);
             }

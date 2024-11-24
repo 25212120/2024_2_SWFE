@@ -122,6 +122,70 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &63628502
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 7045546901953189010, guid: fa619ae27adb93f49bc2b032a9f0884f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 12.689385
+      objectReference: {fileID: 0}
+    - target: {fileID: 7045546901953189010, guid: fa619ae27adb93f49bc2b032a9f0884f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7045546901953189010, guid: fa619ae27adb93f49bc2b032a9f0884f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -4.754189
+      objectReference: {fileID: 0}
+    - target: {fileID: 7045546901953189010, guid: fa619ae27adb93f49bc2b032a9f0884f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7045546901953189010, guid: fa619ae27adb93f49bc2b032a9f0884f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7045546901953189010, guid: fa619ae27adb93f49bc2b032a9f0884f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7045546901953189010, guid: fa619ae27adb93f49bc2b032a9f0884f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7045546901953189010, guid: fa619ae27adb93f49bc2b032a9f0884f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7045546901953189010, guid: fa619ae27adb93f49bc2b032a9f0884f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7045546901953189010, guid: fa619ae27adb93f49bc2b032a9f0884f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7677827267429813800, guid: fa619ae27adb93f49bc2b032a9f0884f, type: 3}
+      propertyPath: m_Name
+      value: Wall_1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7677827267429813800, guid: fa619ae27adb93f49bc2b032a9f0884f, type: 3}
+      propertyPath: m_TagString
+      value: tower
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7677827267429813800, guid: fa619ae27adb93f49bc2b032a9f0884f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1796673157}
+  m_SourcePrefab: {fileID: 100100000, guid: fa619ae27adb93f49bc2b032a9f0884f, type: 3}
 --- !u!1 &216890425
 GameObject:
   m_ObjectHideFlags: 0
@@ -137,6 +201,7 @@ GameObject:
   - component: {fileID: 216890426}
   - component: {fileID: 216890433}
   - component: {fileID: 216890432}
+  - component: {fileID: 216890434}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -184,7 +249,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -332,10 +397,34 @@ MonoBehaviour:
     level: 1
     experience: 0
     maxExperience: 100
-    MagicSkillTree_Wood: 0
-    MagicSkillTree_Fire: 0
-    MagicSkillTree_Ice: 0
-    MagicSkillTree_Sand: 0
+
+--- !u!54 &216890434
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 216890425}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1 &432253822
 GameObject:
   m_ObjectHideFlags: 0
@@ -909,7 +998,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -1024,7 +1113,7 @@ MonoBehaviour:
     <level>k__BackingField: 1
     <hpMax>k__BackingField: 100
     mHpCurrent: 0
-    <baseAttack>k__BackingField: 1
+    <baseAttack>k__BackingField: 50
     <baseMovementSpeed>k__BackingField: 1
     <baseDefense>k__BackingField: 0
     <baseMagicAttack_Wood>k__BackingField: 0
@@ -1033,18 +1122,44 @@ MonoBehaviour:
     <baseMagicAttack_Sand>k__BackingField: 0
   expAmount: 100
   resourceDrops:
-  - resourceType: 5
-    amount: 100
-    dropChance: 1
-  - resourceType: 6
-    amount: 100
-    dropChance: 1
-  - resourceType: 7
-    amount: 100
-    dropChance: 1
-  - resourceType: 8
-    amount: 100
-    dropChance: 1
+
+  - resourceType: 0
+    amount: 2
+    dropChance: 0
+--- !u!1 &1796673151 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7677827267429813800, guid: fa619ae27adb93f49bc2b032a9f0884f, type: 3}
+  m_PrefabInstance: {fileID: 63628502}
+  m_PrefabAsset: {fileID: 0}
+--- !u!54 &1796673157
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1796673151}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
+
+ 
 --- !u!1 &1878650691
 GameObject:
   m_ObjectHideFlags: 0
@@ -1058,6 +1173,7 @@ GameObject:
   - component: {fileID: 1878650693}
   - component: {fileID: 1878650692}
   - component: {fileID: 1878650696}
+  - component: {fileID: 1878650697}
   m_Layer: 0
   m_Name: Unit_Test
   m_TagString: Untagged
@@ -1080,7 +1196,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -1176,6 +1292,33 @@ MonoBehaviour:
     <baseMagicAttack_Ice>k__BackingField: 0
     <baseMagicAttack_Sand>k__BackingField: 0
   upgradeRequirements: []
+--- !u!54 &1878650697
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1878650691}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1 &2039570452
 GameObject:
   m_ObjectHideFlags: 0
@@ -1394,6 +1537,44 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7e25d30468467734b8051ee9447fc655, type: 3}
+
+--- !u!1 &4239067643967246456
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8713747741995569871}
+  - component: {fileID: 5210436812426867713}
+  - component: {fileID: 7582257771235504075}
+  - component: {fileID: 3718482664903194442}
+  - component: {fileID: 6242400847146774534}
+  - component: {fileID: 8713747741995569872}
+  m_Layer: 0
+  m_Name: MagicTower_1
+  m_TagString: tower
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4690239636179545609
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8026504168016694776}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 7.56, z: -0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8713747741995569871}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+
 --- !u!1001 &4738021475213367763
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1628,3 +1809,4 @@ SceneRoots:
   - {fileID: 1246091523}
   - {fileID: 934511648}
   - {fileID: 1878650695}
+  - {fileID: 63628502}

@@ -60,7 +60,7 @@ public abstract class Enemy : MonoBehaviour
             DetectBasedOnPriority();
         }
 
-        if (target != null)
+        if (target != null && agent.isActiveAndEnabled == true)
         {
             agent.SetDestination(target.transform.position);
             float distance = Vector3.Distance(transform.position, target.transform.position);

@@ -53,7 +53,10 @@ public class InteractionState : BaseState<PlayerStateType>
     {
         // Interaction Logics
         animator.SetTrigger("finishedInteracting");
-        material.SetWaitSuccess_False();
+        if (targetResource != null)
+        {
+            material.SetWaitSuccess_False();
+        }
         playerInputManager.isPerformingAction = false;
         animator.ResetTrigger("F_Key_Pressed");
     }

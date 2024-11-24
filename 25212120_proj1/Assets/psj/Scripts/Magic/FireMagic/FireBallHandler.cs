@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class FireBallHandler : MonoBehaviour
@@ -6,7 +8,9 @@ public class FireBallHandler : MonoBehaviour
 
     private GameObject explosionEffect;
     private GameObject flameThrower;
+    public PlayerStat playerStat;
     Rigidbody rb;
+
 
     private void Awake()
     {
@@ -29,7 +33,8 @@ public class FireBallHandler : MonoBehaviour
         Vector3 collisionPoint = collision.contacts[0].point;
         Vector3 explosionPoint = collisionPoint + new Vector3(0, 0.3f, 0);
 
-        Instantiate(explosionEffect, explosionPoint, Quaternion.identity);
+        GameObject instantiatedFexplosion = Instantiate(explosionEffect, explosionPoint, Quaternion.identity);
+        instantiatedFexplosion.GetComponent<ExplosionFireballFire>().playerStat = playerStat;
 
         Destroy(gameObject);
     }
@@ -38,4 +43,5 @@ public class FireBallHandler : MonoBehaviour
     {
         explosionEffect = Resources.Load<GameObject>(prefabAddress);
     }
+
 }

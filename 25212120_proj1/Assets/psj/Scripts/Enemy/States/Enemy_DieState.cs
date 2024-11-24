@@ -41,6 +41,7 @@ public class Enemy_DieState : BaseState<EnemyStateType>
 
     private IEnumerator Die()
     {
+        GameManager.instance.RemoveEnemy(enemyStat.gameObject);
         enemyStat.gameObject.GetComponent<Collider>().enabled = false;
 
         yield return new WaitForSeconds(2.5f);

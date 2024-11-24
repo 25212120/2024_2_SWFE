@@ -39,6 +39,8 @@ public abstract class Enemy : MonoBehaviour
 
     protected virtual void Start()
     {
+        GameManager.instance.AddEnemy(gameObject);
+
         agent.updatePosition = false;
         agent.updateRotation = false;
         stateMachine.PushState(EnemyStateType.Chase);
@@ -145,4 +147,5 @@ public abstract class Enemy : MonoBehaviour
 
     //임시로 core의 위치가 (0,0,0)이라고 가정하겠음
     public GameObject core;
+
 }

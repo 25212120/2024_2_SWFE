@@ -34,6 +34,9 @@ public class HighlightArea : MonoBehaviour
         {
             occupiedCell_Manager = FindObjectOfType<OccupiedCell_Manager>();  // 자동으로 찾기
         }
+
+        //SetTurretPrefab("Wall_1");
+        
     }
 
     void Update()
@@ -342,6 +345,35 @@ public class HighlightArea : MonoBehaviour
         if (currentRotation >= 360f)
         {
             currentRotation = 0f;
+        }
+    }
+
+    public void SetTurretPrefab(string turretPrefabName)
+    {
+        // Resources 폴더에서 프리팹을 로드
+        GameObject newTurretPrefab = Resources.Load<GameObject>("Prefabs/Towers/" + turretPrefabName);
+
+        if (newTurretPrefab != null)
+        {
+            // 타워 프리팹 설정
+            turretPrefab = newTurretPrefab;
+
+            // 프리팹의 크기 추출
+       
+            if (turretPrefabName == "Wall_1")
+            {
+                cellSize_Horizontal = 1.25f;
+                cellSize_Virtical = 0.4f;
+            }
+      
+            Debug.Log("타워 프리팹의 크기에 따라 cellSize 설정됨: " +
+                      "Horizontal = " + cellSize_Horizontal + ", Vertical = " + cellSize_Virtical);
+            
+   
+        }
+        else
+        {
+            Debug.LogError("프리팹을 로드할 수 없습니다: Turrets/" + turretPrefabName);
         }
     }
 }

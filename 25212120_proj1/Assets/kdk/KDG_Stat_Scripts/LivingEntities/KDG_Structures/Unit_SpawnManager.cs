@@ -12,11 +12,30 @@ public class Unit_SpawnManager : BaseStructure
     private Transform spawnPoint; // 유닛이 소환될 위치 
     private Camera mainCamera;
 
+    [Header("소환 가능 여부")]
+    [SerializeField] private bool canSpawn = true;
+    private float cellSize = 1;
     void Start()
     {
         mainCamera = Camera.main;
+
+        // spawnPoint 초기화 (예시: 유닛 스폰을 위한 빈 게임 오브젝트를 찾아 할당)
+        if (spawnPoint == null)
+        {
+            GameObject spawnPointObject = new GameObject("SpawnPoint");
+            spawnPoint = spawnPointObject.transform;
+            spawnPoint.position = transform.position; // 타워의 기본 위치를 스폰 위치로 설정
+        }
     }
 
+    public bool CanSpawn()
+    {
+        return canSpawn;
+    }
+    public void SetCanSpawn(bool canSpawn)
+    {
+        this.canSpawn = canSpawn;
+    }
     protected override void Update()
     {
         // 자원 소비 후 유닛 소환
@@ -28,6 +47,11 @@ public class Unit_SpawnManager : BaseStructure
 
     public bool Spawn()
     {
+        if (!canSpawn)
+        {
+            Debug.Log("스폰 불가");
+            return false;
+        }
         // 스폰에 필요한 자원들을 모두 소모할 수 있는지 확인
         foreach (var requirement in spawnRequirements)
         {
@@ -59,10 +83,15 @@ public class Unit_SpawnManager : BaseStructure
         }
     }
 
-    // 각 타워의 스폰 포인트를 설정하는 메서드
-    public void SetSpawnPoint(Vector3 newSpawnPosition)
+    public void SetSpawnPoint(Vector2Int cellPosition)
     {
+        // 셀 단위의 위치를 월드 좌표로 변환
+        Vector3 newSpawnPosition = new Vector3(cellPosition.x * cellSize, 0, cellPosition.y * cellSize);
+
+        // 실제로 스폰할 수 있는 포인트로 설정
         spawnPoint.position = newSpawnPosition;
-        Debug.Log($"스폰 포인트가 ({newSpawnPosition.x}, {newSpawnPosition.z})로 설정되었습니다.");
+
+        Debug.Log($"스폰 포인트가 셀({cellPosition.x}, {cellPosition.y})에서 설정되었습니다.");
     }
+
 }

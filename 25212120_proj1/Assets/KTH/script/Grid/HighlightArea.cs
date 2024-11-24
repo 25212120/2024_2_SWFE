@@ -23,6 +23,12 @@ public class HighlightArea : MonoBehaviour
     private float currentRotation = 0f; // 현재 타워의 회전 각도
     private GameObject previewTurret; // 미리 보기용 포탑 인스턴스
 
+    public Vector3 gridStartPosition = new Vector3(0, 0, 0); // 그리드의 시작 위치 (고정)
+
+    public Vector2Int minGrid = new Vector2Int(-50, -50); // 그리드 최소 좌표 (X, Z)
+    public Vector2Int maxGrid = new Vector2Int(50, 50);  // 그리드 최대 좌표 (X, Z)
+
+
     void Start()
     {
         CreateHighlightObject();
@@ -78,12 +84,18 @@ public class HighlightArea : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, Mathf.Infinity))
         {
-            // 그리드 상의 위치 계산
+            // 마우스가 그리드의 시작 위치에서 얼마나 떨어져 있는지 계산
+            Vector3 offset = hit.point - gridStartPosition; // 시작 위치 기준으로 마우스 오프셋 계산
+
+            // 그리드 셀 좌표 계산
+            cellX = Mathf.FloorToInt(offset.x / cellSize);
+            cellZ = Mathf.FloorToInt(offset.z / cellSize);
+
+            // 그리드 범위 내로 제한
+            cellX = Mathf.Clamp(cellX, minGrid.x, maxGrid.x);
+            cellZ = Mathf.Clamp(cellZ, minGrid.y, maxGrid.y);
+
             hitPoint = hit.point;
-
-            cellX = Mathf.FloorToInt(hitPoint.x / cellSize);
-            cellZ = Mathf.FloorToInt(hitPoint.z / cellSize);
-
             isValidHit = true;
         }
         else

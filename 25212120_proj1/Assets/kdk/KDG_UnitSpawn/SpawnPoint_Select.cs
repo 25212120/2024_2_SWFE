@@ -167,47 +167,61 @@ public class SpawnPoint_Select : MonoBehaviour
 
     bool CheckPlacementValidity()
     {
-        // 1x1 스폰 포인트에 대한 유효성 체크
-        if (occupiedCell_Manager.occupiedCells.Contains(new Vector2Int(cellX, cellZ)))
+        // 이미 배치된 셀에 배치 불가
+        if (occupiedCell_Manager.GetOccupiedCells().Contains(new Vector2Int(cellX, cellZ)))
         {
-            // 이미 건물이 배치된 셀에서는 배치 불가
             return false;
         }
 
-        // SpawnStructure 범위 내에서만 배치 가능
+        // 설치된 SpawnStructure들의 범위 내에 있는지만 확인 (towerRange는 제거)
         foreach (var spawnStructure in spawnStructures)
         {
-            float distance = Vector3.Distance(spawnStructure.transform.position, new Vector3(cellX * cellSize, 0, cellZ * cellSize));
-            if (distance <= 1f) // 범위 1내에서만 배치 가능
+            // SpawnStructure가 설치된 셀의 위치 계산
+            Vector2Int structureCell = new Vector2Int(Mathf.FloorToInt(spawnStructure.transform.position.x / cellSize),
+                                                      Mathf.FloorToInt(spawnStructure.transform.position.z / cellSize));
+
+            // 설치된 구조물 주변 셀에만 스폰 포인트를 설정 가능하도록 수정
+            if (IsAdjacentCell(structureCell, new Vector2Int(cellX, cellZ)))
             {
-                return true;
+                Unit_SpawnManager spawnManager = spawnStructure.unitSpawnManager;
+
+                // `CanSpawn()`이 가능하다면 스폰 가능
+                if (spawnManager != null && spawnManager.CanSpawn())
+                {
+                    return true;
+                }
             }
         }
 
-        // 범위 내에서 배치할 수 없는 경우
+        // 범위 내에서 배치할 수 없으면 false
         return false;
     }
 
-    // 각 타워의 유닛 스폰 포인트를 설정하는 메서드
     void SetSpawnPointForTower()
     {
-        // 마우스 클릭 위치에서 설정할 스폰 포인트를 검사
-        Vector3 newSpawnPosition = new Vector3(cellX * cellSize, 0, cellZ * cellSize);
+        Vector2Int cellPosition = new Vector2Int(cellX, cellZ); // 셀 단위 좌표로 변환
 
-        // 설치된 SpawnStructure 범위 내에서 스폰 포인트를 설정하도록 수정
+        bool isSpawnPointSet = false; // 스폰 포인트 설정 여부를 추적
+
         foreach (var spawnStructure in spawnStructures)
         {
-            float distance = Vector3.Distance(spawnStructure.transform.position, newSpawnPosition);
+            Vector2Int structureCell = new Vector2Int(Mathf.FloorToInt(spawnStructure.transform.position.x / cellSize),
+                                                      Mathf.FloorToInt(spawnStructure.transform.position.z / cellSize));
 
-            if (distance <= 1f) // 범위 내에서만 설정
+            // 해당 SpawnStructure의 인접 셀에서만 스폰 포인트 설정 가능
+            if (IsAdjacentCell(structureCell, cellPosition))
             {
                 Unit_SpawnManager spawnManager = spawnStructure.unitSpawnManager;
-                if (spawnManager != null)
+
+                if (spawnManager != null && spawnManager.CanSpawn()) // 스폰이 가능한 타워인지 확인
                 {
-                    // 타워의 스폰 포인트를 설정
-                    spawnManager.SetSpawnPoint(newSpawnPosition);
+                    spawnStructure.unitSpawnManager.SetSpawnPoint(cellPosition);
+
+                    occupiedCell_Manager.AddOccupiedCell(cellPosition);
+
                     Debug.Log($"스폰 포인트가 {spawnStructure.name}에 설정되었습니다.");
-                    return; // 한 타워에만 스폰 포인트 설정
+                    isSpawnPointSet = true;
+                    break;
                 }
                 else
                 {
@@ -216,8 +230,16 @@ public class SpawnPoint_Select : MonoBehaviour
             }
         }
 
-        // 범위 내에 설정할 수 없으면 경고 메시지 출력
-        Debug.LogWarning("스폰 포인트를 설정할 수 있는 범위 내에 설치된 SpawnStructure가 없습니다.");
+        if (!isSpawnPointSet)
+        {
+            Debug.LogWarning("스폰 포인트를 설정할 수 있는 범위 내에 설치된 SpawnStructure가 없습니다.");
+        }
     }
 
+    bool IsAdjacentCell(Vector2Int cell1, Vector2Int cell2)
+    {
+        // 두 셀이 인접한 셀인지를 확인하는 함수 (1칸 범위 내)
+        return Mathf.Abs(cell1.x - cell2.x) <= 1 && Mathf.Abs(cell1.y - cell2.y) <= 1;
+    }
 }
+

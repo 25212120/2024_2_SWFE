@@ -1,4 +1,5 @@
 using UnityEngine;
+
 public class SpawnStructure : BaseStructure
 {
     public Unit_SpawnManager unitSpawnManager;
@@ -11,6 +12,16 @@ public class SpawnStructure : BaseStructure
         if (unitSpawnManager == null)
         {
             Debug.LogError("Unit_SpawnManager가 이 타워에 할당되지 않았습니다.");
+        }
+    }
+
+    public void SetSpawnPointForThisStructure(Vector2Int cellPosition)
+    {
+        // 각 SpawnStructure에서 자신만의 유닛 스폰 포인트를 설정
+        if (unitSpawnManager != null)
+        {
+            unitSpawnManager.SetSpawnPoint(cellPosition);
+            Debug.Log($"{name}에서 스폰 포인트가 {cellPosition}로 설정되었습니다.");
         }
     }
 

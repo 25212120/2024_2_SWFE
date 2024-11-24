@@ -115,7 +115,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8067086084706685996}
-  - component: {fileID: 8095663080552383596}
   m_Layer: 0
   m_Name: Tile1_8 (1)
   m_TagString: Untagged
@@ -143,33 +142,6 @@ Transform:
   - {fileID: 5826607311495389457}
   m_Father: {fileID: 348747413819174370}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!205 &8095663080552383596
-LODGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1980762380001255923}
-  serializedVersion: 2
-  m_LocalReferencePoint: {x: 24.999771, y: -2.175644, z: 25.000443}
-  m_Size: 50.001595
-  m_FadeMode: 0
-  m_AnimateCrossFading: 0
-  m_LastLODIsBillboard: 0
-  m_LODs:
-  - screenRelativeHeight: 0.20203717
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 473895855328344631}
-  - screenRelativeHeight: 0.063215636
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 1727392936904490593}
-  - screenRelativeHeight: 0.01
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 3029753519918480808}
-  m_Enabled: 1
 --- !u!1 &2849977255894223389
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,12 +1,65 @@
 {
     "tiles": [
         {
+            "tileName": "base0",
+            "canRotate": true,
+            "sockets": [
+                { "direction": "north", "values": ["P"] },
+                { "direction": "east", "values": ["P"] },
+                { "direction": "south", "values": ["P"] },
+                { "direction": "west", "values": ["P"] }
+            ],
+            "biomes": ["Forest"],
+            "weight": 1,
+            "isEdgeTile": false
+        },
+        {
+            "tileName": "base1",
+            "canRotate": true,
+            "sockets": [
+                { "direction": "north", "values": ["P"] },
+                { "direction": "east", "values": ["P"] },
+                { "direction": "south", "values": ["P"] },
+                { "direction": "west", "values": ["P"] }
+            ],
+            "biomes": ["Sand"],
+            "weight": 1,
+            "isEdgeTile": false
+        },
+        {
+            "tileName": "base2",
+            "canRotate": true,
+            "sockets": [
+                { "direction": "north", "values": ["P"] },
+                { "direction": "east", "values": ["P"] },
+                { "direction": "south", "values": ["P"] },
+                { "direction": "west", "values": ["P"] }
+            ],
+            "biomes": ["Snow"],
+            "weight": 1,
+            "isEdgeTile": false
+        },
+        {
+            "tileName": "base3",
+            "canRotate": true,
+            "sockets": [
+                { "direction": "north", "values": ["P"] },
+                { "direction": "east", "values": ["P"] },
+                { "direction": "south", "values": ["P"] },
+                { "direction": "west", "values": ["P"] }
+            ],
+            "biomes": ["Volcano"],
+            "weight": 1,
+            "isEdgeTile": false
+        },
+        
+        {
             "tileName": "F_1",
             "canRotate": true,
             "sockets": [
                 { "direction": "north", "values": ["A"] },
-                { "direction": "east", "values": ["C"] },
-                { "direction": "south", "values": ["A"] },
+                { "direction": "east", "values": ["A"] },
+                { "direction": "south", "values": ["C"] },
                 { "direction": "west", "values": ["A"] }
             ],
             "biomes": ["Forest"],

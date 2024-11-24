@@ -3599,6 +3599,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccc6c704ae2ee2b46aa3c2390bb9dfcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDashOnCoolTime: 0
+  isSwordShieldWeaponSkillOnCoolTime: 0
+  isSingleTwoHandSwordWeaponSkillOnCoolTime: 0
+  isDoubleSwordsWeaponSkillOnCoolTime: 0
+  isBowWeaponSkillOnCoolTime: 0
+  isFireBallOnCoolTime: 0
+  isMeteorOnCoolTime: 0
+  isPoisonFogOnCoolTime: 0
+  isDrainFieldOnCoolTime: 0
+  isIceSpearOnCoolTime: 0
+  isStormOnCoolTime: 0
+  isRockFallOnCoolTime: 0
+  isEarthQuakeOnCoolTime: 0
+  dashCoolTime_SwordShield: 1
+  dashCoolTime_SingleTwoHandSword: 1.3
+  dashCoolTime_DoubleSwords: 0.7
+  dashCoolTime_Bow: 1.8
+  weaponSkillCoolTime_SwordShield: 6
+  weaponSkillCoolTime_SingleTwoHandSword: 6
+  weaponSkillCoolTime_DoubleSwords: 3
+  weaponSkillCoolTime_Bow: 12
+  magicCoolTime_FireBall: 5
+  magicCoolTime_Meteor: 10
+  magicCoolTime_PoisonFog: 5
+  magicCoolTime_DrainField: 10
+  magicCoolTime_IceSpear: 5
+  magicCoolTime_Storm: 10
+  magicCoolTime_RockFall: 5
+  magicCoolTime_EarthQuake: 10
 --- !u!114 &2211791184055261960
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3626,6 +3655,7 @@ MonoBehaviour:
   arrowPrefab: {fileID: 1741976954598634, guid: 0b4d6e6588c1a6b428caa399b1ceb9a9, type: 3}
   chargedArrowPrefab: {fileID: 1741976954598634, guid: d836ba08a5f21ac428addb446161e889, type: 3}
   arrowSpawnPoint: {fileID: 3926981590317449743}
+  playerTransform: {fileID: 0}
 --- !u!114 &151298697214504548
 MonoBehaviour:
   m_ObjectHideFlags: 0

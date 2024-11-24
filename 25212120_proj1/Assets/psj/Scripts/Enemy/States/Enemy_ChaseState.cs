@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -5,7 +6,7 @@ using UnityEngine.AI;
 public class Enemy_ChaseState : BaseState<EnemyStateType>
 {
     private Transform enemyTransform;
-    private MonoBehaviour monoBeahviour;
+    private MonoBehaviour monoBehaviour;
     private Animator animator;
     private Enemy enemy;
     private Monster_1 enemyStat;
@@ -16,15 +17,18 @@ public class Enemy_ChaseState : BaseState<EnemyStateType>
         this.enemyTransform = enemyTransform;
         this.enemyStat = enemyStat;
         this.enemy = enemy;
-        this.monoBeahviour = monoBehaviour;
+        this.monoBehaviour = monoBehaviour;
         this.animator = animator;
         this.rb = rb;
     }
 
+    private Coroutine pathUpdateCoroutine;
 
     public override void EnterState()
     {
-        enemy.DetectedBaseOnDistance();
+        enemy.DetectBasedOnPriority();
+
+        pathUpdateCoroutine = monoBehaviour.StartCoroutine(UpdatePathRoutine());
 
         animator.SetBool("move", true);
         enemy.canDetect = true;
@@ -35,17 +39,19 @@ public class Enemy_ChaseState : BaseState<EnemyStateType>
     {
         if (enemy.target != null)
         {
-            enemy.agent.SetDestination(enemy.target.position);
-        }
+            Vector3 direction = (enemy.agent.steeringTarget - enemy.transform.position).normalized;
+            direction.y = 0;
 
-        Vector3 velocity = enemy.agent.desiredVelocity;
-        velocity.y = 0;
+            float speed = enemy.agent.speed;
 
-        if (velocity.sqrMagnitude > 0.01f)
-        {
-            float rotationSpeed = 1000f;
-            enemy.transform.rotation = Quaternion.RotateTowards(enemy.transform.rotation, Quaternion.LookRotation(velocity), rotationSpeed * Time.deltaTime);
-            enemy.transform.position += velocity * Time.deltaTime;
+            enemy.transform.position += direction * speed * Time.deltaTime;
+
+            if (direction != Vector3.zero)
+            {
+                float rotationSpeed = enemy.agent.angularSpeed;
+                Quaternion targetRotation = Quaternion.LookRotation(direction);
+                enemy.transform.rotation = Quaternion.RotateTowards(enemy.transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+            }
 
             enemy.agent.nextPosition = enemy.transform.position;
         }
@@ -65,6 +71,18 @@ public class Enemy_ChaseState : BaseState<EnemyStateType>
         if (enemy.canAttack == true)
         {
             stateManager.ChangeState(EnemyStateType.Attack);
+        }
+    }
+
+    private IEnumerator UpdatePathRoutine()
+    {
+        while (true)
+        {
+            if (enemy.agent.isActiveAndEnabled && enemy.target != null)
+            {
+                enemy.agent.SetDestination(enemy.target.position);
+            }
+            yield return new WaitForSeconds(1f); // 경로 재계산 주기 설정 (예: 0.5초마다)
         }
     }
 }

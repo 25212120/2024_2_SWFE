@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
@@ -48,10 +49,13 @@ public abstract class Enemy : MonoBehaviour
 
         agent.updatePosition = false;
         agent.updateRotation = false;
+        agent.autoRepath = true;
+        agent.stoppingDistance = 0f;
         stateMachine.PushState(EnemyStateType.Chase);
 
 
         InitializeEnemyParameters();
+
     }
 
     protected virtual void Update()
@@ -61,12 +65,11 @@ public abstract class Enemy : MonoBehaviour
 
         if (canDetect)
         {
-            DetectedBaseOnDistance();
+            DetectBasedOnPriority();
         }
 
         if (target != null && agent.isActiveAndEnabled == true)
         {
-            agent.SetDestination(target.transform.position);
             float distance = Vector3.Distance(transform.position, target.transform.position);
             if (distance < attackRange) canAttack = true;
             else canAttack = false;
@@ -99,49 +102,52 @@ public abstract class Enemy : MonoBehaviour
     }
 
     // layer == Dead인 것들 제외하고, 우선순위 detect, target 설정까지 무조건 완료
-    public void DetectedBaseOnDistance()
+    public void DetectBasedOnPriority()
     {
-        // 기본값: Core를 기본 타겟으로 설정
-        target = core.transform;
+        string[] priorityTags = new string[] { "unit", "tower" , "Player"};
 
-        // 감지 범위 내의 Collider 가져오기
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, detectionRange);
 
-        // 가장 가까운 대상 초기화
-        GameObject closestTarget = null;
+        GameObject detectedTarget = null;
+        int highestPriority = priorityTags.Length;
         float closestDistance = Mathf.Infinity;
 
         foreach (Collider collider in hitColliders)
         {
-            // Layer가 "Dead"가 아닌 경우만 검사
             if (collider.gameObject.layer != LayerMask.NameToLayer("Dead"))
             {
-                if (collider.gameObject != gameObject && (collider.gameObject.CompareTag("Player") || collider.gameObject.CompareTag("unit") || collider.gameObject.CompareTag("tower") || collider.gameObject.CompareTag("Core")))
+                string tag = collider.tag;
+
+                // 감지한 오브젝트의 tag가 priorityTags에 있는지 확인하고, 있다면 index를 반환하고, 없다면 -1을 반환함
+                int priorityIndex = System.Array.IndexOf(priorityTags, tag);
+
+                // 감지한 오브젝트의 tag가 priorityTags에 존재하고, 
+                if (priorityIndex != -1 && priorityIndex < highestPriority)
                 {
+
+                    // 태그가 같은 오브젝트들에 대하여, 가장 가까운 오브젝트를 반환함.
                     float distance = Vector3.Distance(transform.position, collider.transform.position);
 
-                    // 가장 가까운 대상 업데이트
-                    if (distance < closestDistance)
+                    if (priorityIndex < highestPriority || (priorityIndex == highestPriority && distance < closestDistance))
                     {
+                        highestPriority = priorityIndex;
                         closestDistance = distance;
-                        closestTarget = collider.gameObject;
+                        detectedTarget = collider.gameObject;
                     }
+
                 }
+                // {} 감지한 오브젝트의 tag가 priorityTags에 존재하지 않는다.
             }
         }
-
-        // 가장 가까운 대상을 타겟으로 설정
-        if (closestTarget != null)
-        {
-            target = closestTarget.transform;
-        }
-        else
+        //모든 오브젝트들에 대한 검사 완료
+        if (detectedTarget == null)
         {
             target = core.transform;
         }
+        else
+        {
+            target = detectedTarget.transform;
+        }
     }
-
-
-    //임시로 core의 위치가 (0,0,0)이라고 가정하겠음
 
 }

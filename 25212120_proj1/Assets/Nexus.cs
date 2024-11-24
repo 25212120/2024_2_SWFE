@@ -27,7 +27,7 @@ public class Nexus : MonoBehaviour
 
     public GameObject spawnPrefab; // 생성할 프리팹
     public float radius = 30f;     // 원의 반지름
-    public int angleStep = 20;     // 각도 간격
+    public int angleStep = 40;     // 각도 간격
 
 
     void GenerateSpawnPoints()

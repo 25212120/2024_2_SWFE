@@ -12,8 +12,6 @@ GameObject:
   - component: {fileID: 4996093210629107491}
   - component: {fileID: 5460081378397727665}
   - component: {fileID: 6061901894679527159}
-  - component: {fileID: 2037403453017402687}
-  - component: {fileID: 912278798958134175}
   m_Layer: 0
   m_Name: crystal_outline
   m_TagString: Untagged
@@ -64,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 19033e0c86c1b574282d5fc1a7245425, type: 2}
+  - {fileID: 2100000, guid: d4a87f966d947954eab585359e616b54, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -107,48 +105,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.1052442, y: 1.6985021, z: 0.95716953}
   m_Center: {x: 0, y: 0.84925103, z: 0}
---- !u!114 &2037403453017402687
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3294282900529496630}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ce6909b2ce75b04f8c1adfbff90f934, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  statData:
-    <level>k__BackingField: 1
-    <hpMax>k__BackingField: 0
-    mHpCurrent: 0
-    <baseAttack>k__BackingField: 0
-    <baseMovementSpeed>k__BackingField: 0
-    <baseDefense>k__BackingField: 0
-    equipmentInventory: {fileID: 0}
---- !u!114 &912278798958134175
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3294282900529496630}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c898260404bcb0409eb77ddec897106, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  range: 15
-  fireRate: 0.3
-  enemyTag: Enemy
-  partToRotate: {fileID: 1019840932907081563}
-  turnSpeed: 10
-  bulletPrefab: {fileID: 1353573549196592, guid: dcf519f7140e78e4a972280ba47361a6, type: 3}
-  firePoint: {fileID: 5333619078659647855}
-  rotationTolerance: 5
-  maxTargetsToAttack: 1
 --- !u!1 &6489759482873915381
 GameObject:
   m_ObjectHideFlags: 0
@@ -193,6 +149,7 @@ GameObject:
   - component: {fileID: 1770749223079502536}
   - component: {fileID: 1434907540466017934}
   - component: {fileID: 3757185545722492342}
+  - component: {fileID: 8233268742951232160}
   m_Layer: 0
   m_Name: HealTower_1
   m_TagString: Untagged
@@ -245,7 +202,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 19033e0c86c1b574282d5fc1a7245425, type: 2}
+  - {fileID: 2100000, guid: d4a87f966d947954eab585359e616b54, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -307,4 +264,40 @@ MonoBehaviour:
     <baseAttack>k__BackingField: 0
     <baseMovementSpeed>k__BackingField: 0
     <baseDefense>k__BackingField: 0
-    equipmentInventory: {fileID: 0}
+    <baseMagicAttack_Wood>k__BackingField: 0
+    <baseMagicAttack_Fire>k__BackingField: 0
+    <baseMagicAttack_Ice>k__BackingField: 0
+    <baseMagicAttack_Sand>k__BackingField: 0
+  upgradeRequirements: []
+  upgradedMaterial: {fileID: 2100000, guid: d4a87f966d947954eab585359e616b54, type: 2}
+  upgradedMesh: {fileID: 0}
+  iceEssenceMaterial: {fileID: 2100000, guid: 19033e0c86c1b574282d5fc1a7245425, type: 2}
+  fireEssenceMaterial: {fileID: 2100000, guid: 6c5efc6333002024084e8960fb24a354, type: 2}
+  sandEssenceMaterial: {fileID: 2100000, guid: a642a98ec95f45e4fab9e3af34300406, type: 2}
+  woodEssenceMaterial: {fileID: 2100000, guid: ad51808147893aa4daa19dfad93c9990, type: 2}
+  statUpgrade:
+    attackIncrease: 0
+    defenseIncrease: 0
+    healthIncrease: 0
+--- !u!114 &8233268742951232160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7598453852620880401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c898260404bcb0409eb77ddec897106, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  range: 15
+  fireRate: 0.3
+  enemyTag: Enemy
+  partToRotate: {fileID: 1019840932907081563}
+  turnSpeed: 10
+  bulletPrefab: {fileID: 1353573549196592, guid: dcf519f7140e78e4a972280ba47361a6, type: 3}
+  firePoint: {fileID: 5333619078659647855}
+  rotationTolerance: 5
+  maxTargetsToAttack: 1

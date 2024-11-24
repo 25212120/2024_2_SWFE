@@ -4,17 +4,14 @@ public class PlayerStat : BaseEntity
 {
     [Header("플레이어 장비 인벤토리")]
     public EquipmentInventory equipmentInventory; // EquipmentInventory 컴포넌트 참조
+    private PlayerInputManager  playerInputManager;
+    public PlayerInventory playerInventory;
 
-
-    private void Start()
-    {
-        equipmentInventory = GetComponent<EquipmentInventory>(); // EquipmentInventory를 Player 오브젝트에 연결
-
-        
-    }
     protected override void Awake()
     {
         base.Awake();
+        equipmentInventory = GetComponent<EquipmentInventory>(); // EquipmentInventory를 Player 오브젝트에 연결
+        playerInventory = GetComponent<PlayerInventory>();
     }
     public int GetLevel()
     {
@@ -35,6 +32,42 @@ public class PlayerStat : BaseEntity
             Debug.Log($"{equipmentInventory.currentEquipment.itemName} 경험치: {equipmentInventory.currentEquipment.experience}");
         }
     }
+    // 첫 번째 마법을 사용한 공격
+    public void MagicAttack(BaseMonster target, int index)
+    {
+        Debug.Log("MagicAttack with Magic1");
+
+        PlayerMagic magic = playerInventory.playerMagics[index];
+
+        if (magic != null)
+        {
+            float damage1 = 0;
+
+            switch (magic.magicType)
+            {
+                case PlayerMagicType.Wood:
+                    damage1 = statData.MagicAttackCurrent_Wood;
+                    break;
+                case PlayerMagicType.Fire:
+                    damage1 = statData.MagicAttackCurrent_Fire;
+                    break;
+                case PlayerMagicType.Ice:
+                    damage1 = statData.MagicAttackCurrent_Ice;
+                    break;
+                case PlayerMagicType.Sand:
+                    damage1 = statData.MagicAttackCurrent_Sand;
+                    break;
+                default:
+                    Debug.LogError("알 수 없는 마법 타입");
+                    return; // 알 수 없는 마법 타입 처리
+            }
+
+            target.TakeDamage(damage1); 
+
+            magic.AddExperience(damage1);
+            Debug.Log($"{magic.magicType} 마법의 경험치: {magic.experience}");
+        }
+    }
 
     public void LevelUp()
     {
@@ -51,5 +84,10 @@ public class PlayerStat : BaseEntity
     public float GetCurrentHP()
     {
         return statData.HpCurrent;
+    }
+    
+    public float GetMaxHp()
+    {
+        return statData.hpMax;
     }
 }

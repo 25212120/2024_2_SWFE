@@ -15,13 +15,16 @@ public enum PlayerStateType
 
     //Magic
     Scope_MagicState,
-
-    FireBall_MagicState,
-    Meteor_MagicState,
-    DrainField_MagicState,
-    PoisonFog_MagicState,
-    Storm_MagicState,
-    EarthQuake_MagicState,
+    
+    None,
     RockFall_MagicState,
     IceSpear_MagicState,
+    PoisonFog_MagicState,
+    DrainField_MagicState,
+    FireBall_MagicState,
+    
+    Storm_MagicState,
+    Meteor_MagicState,
+    
+    EarthQuake_MagicState,
 }

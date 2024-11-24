@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerAnimationEventManager : MonoBehaviour
@@ -5,14 +6,20 @@ public class PlayerAnimationEventManager : MonoBehaviour
     private Rigidbody rb;
     private PlayerInputManager playerInputManager;
     private Transform playerTransform;
+    private PlayerStat playerStat;
     private Animator animator;
+
+    private StateManager<PlayerStateType> stateManager;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         playerInputManager = GetComponent<PlayerInputManager>();
         playerTransform = GetComponent<Transform>();
+        playerStat = GetComponent<PlayerStat>();
         animator = GetComponent<Animator>();
+        stateManager = GetComponent<StateManager<PlayerStateType>>();
+
     }
     public void MovingWhileAttacking()
     {
@@ -86,7 +93,7 @@ public class PlayerAnimationEventManager : MonoBehaviour
     }
     public void EnableWeaponCollider1()
     {
-        Collider collider = playerInputManager.rightHand_Weapons[playerInputManager.currentLeftHandIndex].GetComponent<Collider>();
+        Collider collider = playerInputManager.leftHand_Weapons[playerInputManager.currentLeftHandIndex].GetComponent<Collider>();
         collider.enabled = true;
     }
 

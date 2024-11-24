@@ -5,9 +5,10 @@ using UnityEngine.InputSystem.LowLevel;
 
 public abstract class StateManager<EState> : MonoBehaviour where EState : Enum
 {
-    protected Stack<BaseState<EState>> stateStack = new Stack<BaseState<EState>>();
+
     protected Dictionary<EState, BaseState<EState>> States = new Dictionary<EState, BaseState<EState>>();
 
+    protected Stack<BaseState<EState>> stateStack = new Stack<BaseState<EState>>();
     protected BaseState<EState> CurrentState
     {
         get
@@ -27,6 +28,7 @@ public abstract class StateManager<EState> : MonoBehaviour where EState : Enum
             CurrentState.UpdateState(); 
             CurrentState.CheckTransitions();
         }
+
     }
 
     protected virtual void FixedUpdate()

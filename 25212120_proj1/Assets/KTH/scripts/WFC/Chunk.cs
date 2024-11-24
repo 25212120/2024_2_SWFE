@@ -1,21 +1,55 @@
 using UnityEngine;
+/*
+public class Chunk
+{
+    public Vector2Int chunkCoord;
+    public int width;
+    public int height;
+    public Cell[,] cells;
+    public GameObject chunkObject;
+
+    public Chunk(Vector2Int coord, int size)
+    {
+        chunkCoord = coord;
+        width = size;
+        height = size;
+        cells = new Cell[width, height]; // cells 배열 초기화
+        chunkObject = new GameObject($"Chunk_{chunkCoord.x}_{chunkCoord.y}");
+        chunkObject.SetActive(true);
+    }
+}
+*/
 
 public class Chunk
 {
-    public GameObject chunkObject; // 청크를 나타내는 GameObject
-    public Cell[,] cells;         // 청크 내부의 셀 배열
-    public int width;             // 청크의 너비 (셀 단위)
-    public int height;            // 청크의 높이 (셀 단위)
-    public Vector2Int chunkCoord; // 청크의 위치 (청크 단위 좌표)
+    public Vector2Int chunkCoord;
+    public int width;
+    public int height;
+    public Cell[,] cells;
+    public GameObject chunkObject;
 
-    // 생성자
-    public Chunk(Vector2Int chunkCoord, int chunkSize)
+    public Chunk(Vector2Int coord, int size)
     {
-        this.chunkCoord = chunkCoord; // 청크 좌표 설정
-        this.width = chunkSize;       // 청크의 너비
-        this.height = chunkSize;      // 청크의 높이
-
-        // 청크 GameObject 생성
+        chunkCoord = coord;
+        width = size;
+        height = size;
+        cells = new Cell[width, height];
         chunkObject = new GameObject($"Chunk_{chunkCoord.x}_{chunkCoord.y}");
+
+        // 청크의 월드 위치 설정
+        float chunkWorldSize = width * ChunkManager.cellSize;
+        Vector2 chunkWorldPosition = new Vector2(
+            chunkCoord.x * chunkWorldSize,
+            chunkCoord.y * chunkWorldSize
+        );
+
+        // 청크의 중앙 위치 사용 (옵션)
+        chunkWorldPosition += new Vector2(chunkWorldSize / 2, chunkWorldSize / 2);
+
+        chunkObject.transform.position = new Vector3(chunkWorldPosition.x, 0, chunkWorldPosition.y);
+        Debug.Log($"Chunk 생성: {chunkCoord} 위치: {chunkObject.transform.position}");
+
+        chunkObject.SetActive(true);
+        chunkObject.layer = LayerMask.NameToLayer("Default"); // 적절한 레이어 설정
     }
 }

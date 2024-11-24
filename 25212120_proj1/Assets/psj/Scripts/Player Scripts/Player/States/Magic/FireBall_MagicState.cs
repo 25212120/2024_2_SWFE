@@ -8,14 +8,16 @@ public class FireBall_MagicState : BaseState<PlayerStateType>
     private PlayerInputManager playerInputManager;
     private Animator animator;
     private MonoBehaviour monoBehaviour;
+    private PlayerStat playerStat;
 
-    public FireBall_MagicState(PlayerStateType key, StateManager<PlayerStateType> stateManager, PlayerInputManager inputManager, Transform playerTransform, MonoBehaviour monoBehaviour, Animator animator)
+    public FireBall_MagicState(PlayerStateType key, StateManager<PlayerStateType> stateManager, PlayerInputManager inputManager, Transform playerTransform, MonoBehaviour monoBehaviour, Animator animator, PlayerStat playerStat)
             : base(key, stateManager)
     {
         this.playerTransform = playerTransform;
         this.playerInputManager = inputManager;
         this.monoBehaviour = monoBehaviour;
         this.animator = animator;
+        this.playerStat = playerStat;
     }
 
     private GameObject fireBall;
@@ -82,6 +84,7 @@ public class FireBall_MagicState : BaseState<PlayerStateType>
     IEnumerator MaigcCasting()
     {
         GameObject instantiatedFireBall = Object.Instantiate(fireBall, spawnPosition, Quaternion.identity);
+        instantiatedFireBall.GetComponent<FireBallHandler>().playerStat = playerStat;
         Rigidbody fireBallRigidbody = instantiatedFireBall.GetComponent<Rigidbody>();
         yield return new WaitForSeconds(1f);
 

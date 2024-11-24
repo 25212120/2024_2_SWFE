@@ -78,8 +78,8 @@ public class PlayerInputManager : MonoBehaviour
         currentLeftHandIndex = 0;
 
         // magic init (for test)
-        Magic1Swap(PlayerStateType.PoisonFog_MagicState);
-        Magic2Swap(PlayerStateType.RockFall_MagicState);
+        Magic1Swap(PlayerStateType.FireBall_MagicState);
+        Magic2Swap(PlayerStateType.EarthQuake_MagicState);
     }
 
     private void Update()
@@ -87,7 +87,7 @@ public class PlayerInputManager : MonoBehaviour
         //Debug.Log(dim.activeSelf);
         //Debug.Log("LeftButton_Pressed : " + leftButton_Pressed);
         //Debug.Log(isPeformingAction);
-        GetHitCheck();
+        //GetHitCheck();
         hpCheck();
 
         leftButton_Pressed = false;
@@ -345,8 +345,10 @@ public class PlayerInputManager : MonoBehaviour
 
     private void OnMagic1Performed(InputAction.CallbackContext ctx)
     {
+        //if (isGrounded && !isPerformingAction && !isAttacking && playerCoolDown.CanUseMagic(magic1))
         if (isGrounded && !isPerformingAction && !isAttacking)
         {
+            Debug.Log("in");
             currentMagicIndex = 1;
             PushByMagicCase(magic1);
         }
@@ -354,7 +356,7 @@ public class PlayerInputManager : MonoBehaviour
 
     private void OnMagic2Performed(InputAction.CallbackContext ctx)
     {
-        if (isGrounded && !isPerformingAction && !isAttacking)
+        if (isGrounded && !isPerformingAction && !isAttacking && playerCoolDown.CanUseMagic(magic2))
         {
             currentMagicIndex = 2;
             PushByMagicCase(magic2);
@@ -379,6 +381,7 @@ public class PlayerInputManager : MonoBehaviour
         {
             // Fire
             case PlayerStateType.FireBall_MagicState:
+                Debug.Log("Fireball In");
                 stateManager.PushState(PlayerStateType.Scope_MagicState);
                 break;
             case PlayerStateType.Meteor_MagicState:
@@ -474,3 +477,4 @@ public class PlayerInputManager : MonoBehaviour
     }
 
 }
+

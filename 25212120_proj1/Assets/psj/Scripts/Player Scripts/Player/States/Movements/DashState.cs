@@ -24,16 +24,16 @@ public class DashState : BaseState<PlayerStateType>
         switch (playerInputManager.currentRightHandIndex)
         {
             case 0:
-                dashForce = 30f;
+                dashForce = 15f;
                 break;
             case 1:
-                dashForce = 20f;
+                dashForce = 10f;
                 break;
             case 2:
-                dashForce = 20f;
+                dashForce = 10f;
                 break;
             case 3:
-                dashForce = 40f;
+                dashForce = 20f;
                 break;
         }
 

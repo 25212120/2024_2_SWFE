@@ -13,9 +13,4 @@ public class Unit_Test : BaseUnit
     {
         return statData.HpCurrent;   
     }
-
-    public float GetCurrentAtk()
-    {
-        return statData.AttackCurrent;
-    }
 }

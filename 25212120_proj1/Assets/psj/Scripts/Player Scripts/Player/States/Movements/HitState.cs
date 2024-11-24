@@ -24,7 +24,7 @@ public class HitState : BaseState<PlayerStateType>
         }
         else
         {
-            animator.SetTrigger("getHit");
+           // animator.SetTrigger("getHit");
         }
     }
 

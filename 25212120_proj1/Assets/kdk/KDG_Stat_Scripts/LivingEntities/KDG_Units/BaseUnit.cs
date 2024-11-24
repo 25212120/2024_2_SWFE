@@ -41,7 +41,17 @@ public abstract class BaseUnit : BaseEntity
 
         Debug.Log("업그레이드 완료: 공격력 +5, 체력 +50");
     }
-
+    public void UpdateAllUnitsStats(List<BaseUnit> units)
+    {
+        // 전달받은 리스트에 있는 각 유닛에 대해 스탯을 업데이트
+        foreach (BaseUnit unit in units)
+        {
+            if (unit is Unit_Test)
+            {
+                unit.PerformUpgrade();  // PerformUpgrade를 호출하여 해당 유닛의 스탯을 업데이트
+            }
+        }
+    }
     public void Heal(float amount)
     {
         statData.ModifyCurrentHp(amount);
@@ -49,6 +59,7 @@ public abstract class BaseUnit : BaseEntity
 
     public virtual void Attack(BaseMonster target)
     {
+
         float damage = statData.AttackCurrent; // 현재 공격력 사용
         target.TakeDamage(damage);
     }

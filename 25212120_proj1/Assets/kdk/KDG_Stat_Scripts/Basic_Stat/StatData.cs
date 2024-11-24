@@ -1,3 +1,4 @@
+using Unity.Collections;
 using UnityEngine;
 
 [System.Serializable]
@@ -20,7 +21,45 @@ public class StatData
     [field: Header("기본 방어력")]
     [field: SerializeField] public float baseDefense { get; set; }
 
+    [field: Header("나무 마법 공격력")]
+    [field: SerializeField] public float baseMagicAttack_Wood { get; set; }
+    [field: Header("불 마법 공격력")]
+    [field: SerializeField] public float baseMagicAttack_Fire { get; set; }
+    [field: Header("얼음 마법 공격력")]
+    [field: SerializeField] public float baseMagicAttack_Ice { get; set; }
+    [field: Header("사막 마법 공격력")]
+    [field: SerializeField] public float baseMagicAttack_Sand { get; set; }
+
     //현재 스텟 계산
+    public float MagicAttackCurrent_Wood
+    {
+        get
+        {
+            return baseMagicAttack_Wood;
+        }
+    }
+    public float MagicAttackCurrent_Fire
+    {
+        get
+        {
+            return baseMagicAttack_Fire;
+        }
+    }
+    public float MagicAttackCurrent_Ice
+    {
+        get
+        {
+            return baseMagicAttack_Ice;
+        }
+    }
+    public float MagicAttackCurrent_Sand
+    {
+        get
+        {
+            return baseMagicAttack_Sand;
+        }
+    }
+
     public float AttackCurrent
     {
         get
@@ -72,8 +111,10 @@ public class StatData
         mHpCurrent = mHpCurrent == 0 ? hpMax : mHpCurrent;
         
     }
+  
 
-    public enum StatType
+
+public enum StatType
     {
         LEVEL,
         HP,

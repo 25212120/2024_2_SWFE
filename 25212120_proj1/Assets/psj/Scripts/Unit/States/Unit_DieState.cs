@@ -41,6 +41,7 @@ public class Unit_DieState : BaseState<UnitStateType>
 
     private IEnumerator Die()
     {
+        GameManager.instance.RemoveUnit(unit.gameObject);
         unit.gameObject.GetComponent<Collider>().enabled = false;
 
         yield return new WaitForSeconds(2.5f);

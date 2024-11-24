@@ -115,7 +115,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 477892}
-  - component: {fileID: 20502592}
   m_Layer: 0
   m_Name: CPT_River_S_a_02_LOD
   m_TagString: Untagged
@@ -141,33 +140,6 @@ Transform:
   - {fileID: 419430}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!205 &20502592
-LODGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 138810}
-  serializedVersion: 2
-  m_LocalReferencePoint: {x: 12.499371, y: -1.0979824, z: 12.503955}
-  m_Size: 25.02048
-  m_FadeMode: 0
-  m_AnimateCrossFading: 0
-  m_LastLODIsBillboard: 0
-  m_LODs:
-  - screenRelativeHeight: 0.100818016
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 2320436}
-  - screenRelativeHeight: 0.03483983
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 2307212}
-  - screenRelativeHeight: 0.01
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 2354630}
-  m_Enabled: 1
 --- !u!1 &138894
 GameObject:
   m_ObjectHideFlags: 0

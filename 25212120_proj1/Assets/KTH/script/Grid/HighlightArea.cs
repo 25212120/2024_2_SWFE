@@ -3,7 +3,8 @@ using System.Collections.Generic;
 
 public class HighlightArea : MonoBehaviour
 {
-    public float cellSize = 1f; // 그리드 셀 크기
+    public float cellSize_Virtical = 1f; // 그리드 세로 크기
+    public float cellSize_Horizontal = 1f; // 그리드 가로 크기
     public int highlightSize = 3; // 강조 영역의 크기 (nxn)
     public int detailGridResolution = 2; // 강조 영역 내의 세부 그리드 분할 수
     public Material highlightMaterial; // 강조 영역에 적용할 머티리얼
@@ -25,9 +26,6 @@ public class HighlightArea : MonoBehaviour
 
     public Vector3 gridStartPosition = new Vector3(0, 0, 0); // 그리드의 시작 위치 (고정)
 
-    public Vector2Int minGrid = new Vector2Int(-50, -50); // 그리드 최소 좌표 (X, Z)
-    public Vector2Int maxGrid = new Vector2Int(50, 50);  // 그리드 최대 좌표 (X, Z)
-
 
     void Start()
     {
@@ -43,6 +41,7 @@ public class HighlightArea : MonoBehaviour
         // Q 키를 눌러 타워 회전
         if (Input.GetKeyDown(KeyCode.Q))
         {
+            SetRotatestate();
             RotateTurret();
         }
         // 마우스 위치 업데이트
@@ -88,12 +87,8 @@ public class HighlightArea : MonoBehaviour
             Vector3 offset = hit.point - gridStartPosition; // 시작 위치 기준으로 마우스 오프셋 계산
 
             // 그리드 셀 좌표 계산
-            cellX = Mathf.FloorToInt(offset.x / cellSize);
-            cellZ = Mathf.FloorToInt(offset.z / cellSize);
-
-            // 그리드 범위 내로 제한
-            cellX = Mathf.Clamp(cellX, minGrid.x, maxGrid.x);
-            cellZ = Mathf.Clamp(cellZ, minGrid.y, maxGrid.y);
+            cellX = Mathf.FloorToInt(offset.x / cellSize_Horizontal);
+            cellZ = Mathf.FloorToInt(offset.z / cellSize_Virtical);
 
             hitPoint = hit.point;
             isValidHit = true;
@@ -112,10 +107,10 @@ public class HighlightArea : MonoBehaviour
             // 강조 영역의 범위 계산
             int halfSize = highlightSize / 2;
 
-            float startX = (cellX - halfSize) * cellSize;
-            float startZ = (cellZ - halfSize) * cellSize;
-            float endX = (cellX + halfSize + 1) * cellSize;
-            float endZ = (cellZ + halfSize + 1) * cellSize;
+            float startX = (cellX - halfSize) * cellSize_Horizontal;
+            float startZ = (cellZ - halfSize) * cellSize_Virtical;
+            float endX = (cellX + halfSize + 1) * cellSize_Horizontal;
+            float endZ = (cellZ + halfSize + 1) * cellSize_Virtical;
 
             // 강조 영역 메쉬 생성
             Mesh mesh = BuildHighlightMesh(startX, startZ, endX, endZ);
@@ -208,8 +203,8 @@ public class HighlightArea : MonoBehaviour
                 }
 
                 // 셀 중심 좌표 계산
-                Vector3 cellCenter = new Vector3(x * cellSize + cellSize / 2, hitPoint.y + 0.5f, z * cellSize + cellSize / 2);
-                Vector3 halfExtents = new Vector3(cellSize / 2, 0.5f, cellSize / 2);
+                Vector3 cellCenter = new Vector3(x * cellSize_Horizontal + cellSize_Horizontal / 2, hitPoint.y + 0.5f, z * cellSize_Virtical + cellSize_Virtical / 2);
+                Vector3 halfExtents = new Vector3(cellSize_Horizontal / 2, 0.5f, cellSize_Virtical / 2);
 
                 // 박스 콜라이더로 검사
                 Collider[] colliders = Physics.OverlapBox(cellCenter, halfExtents, Quaternion.identity);
@@ -243,8 +238,8 @@ public class HighlightArea : MonoBehaviour
             previewTurret.SetActive(true);
 
             // 포탑의 위치는 하이라이트 영역의 중앙으로 설정
-            float posX = (cellX + 0.5f) * cellSize;
-            float posZ = (cellZ + 0.5f) * cellSize;
+            float posX = (cellX + 0.5f) * cellSize_Horizontal;
+            float posZ = (cellZ + 0.5f) * cellSize_Virtical;
             float posY = hitPoint.y; // 지형의 높이를 사용
             Vector3 position = new Vector3(posX, posY, posZ);
 
@@ -292,8 +287,8 @@ public class HighlightArea : MonoBehaviour
         }
 
         // 포탑을 배치할 위치 계산 (강조 영역의 중앙)
-        float posX = (cellX + 0.5f) * cellSize;
-        float posZ = (cellZ + 0.5f) * cellSize;
+        float posX = (cellX + 0.5f) * cellSize_Horizontal;
+        float posZ = (cellZ + 0.5f) * cellSize_Virtical;
         float posY = hitPoint.y; // 지형의 높이를 사용
         Vector3 position = new Vector3(posX, posY, posZ);
 
@@ -321,7 +316,25 @@ public class HighlightArea : MonoBehaviour
         }
     }
 
-
+    private float temp;
+    private bool isRotate = false;
+    private void SetRotatestate()
+    {
+        if (isRotate)
+        {
+            temp = cellSize_Horizontal;
+            cellSize_Horizontal = cellSize_Virtical;
+            cellSize_Virtical = temp;
+            isRotate = false;
+        }
+        else
+        {
+            temp = cellSize_Horizontal;
+            cellSize_Horizontal = cellSize_Virtical;
+            cellSize_Virtical = temp;
+            isRotate = true;
+        }
+    }
     void RotateTurret()
     {
         currentRotation += 90f;

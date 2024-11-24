@@ -24,7 +24,7 @@ public class Enemy_ChaseState : BaseState<EnemyStateType>
 
     public override void EnterState()
     {
-        enemy.DetectBasedOnPriority();
+        enemy.DetectedBaseOnDistance();
 
         animator.SetBool("move", true);
         enemy.canDetect = true;
@@ -33,6 +33,11 @@ public class Enemy_ChaseState : BaseState<EnemyStateType>
 
     public override void UpdateState()
     {
+        if (enemy.target != null)
+        {
+            enemy.agent.SetDestination(enemy.target.position);
+        }
+
         Vector3 velocity = enemy.agent.desiredVelocity;
         velocity.y = 0;
 

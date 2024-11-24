@@ -15,6 +15,7 @@ public class Enemy_IdleState : BaseState<EnemyStateType>
     public override void EnterState()
     {
         enemy.agent.isStopped = true;
+        animator.SetBool("move", false);
     }
 
     public override void UpdateState()

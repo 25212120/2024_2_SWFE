@@ -178,14 +178,23 @@ public class WeaponSkillState : BaseState<PlayerStateType>
                 Transform enemyTransform = collider.GetComponent<Transform>();
                 Rigidbody rb = collider.GetComponent<Rigidbody>();
                 NavMeshAgent agent = collider.GetComponent<NavMeshAgent>();
-                agent.enabled = false;
+                if (agent != null)
+                {
+                    agent.enabled = false;
+                }
                 float distance = Vector3.Distance(playerTransform.position, enemyTransform.position);
                 if (distance <= 4f)
                 {
                     Vector3 knockbackDirection = (enemyTransform.position - playerTransform.position).normalized;
-                    rb.AddForce(knockbackDirection * 40f, ForceMode.Impulse);
+                    if (rb != null)
+                    {
+                        rb.AddForce(knockbackDirection * 40f, ForceMode.Impulse);
+                    }
                 }
-                agent.enabled = true;
+                if (agent != null)
+                {
+                    agent.enabled = true;
+                }
             }
         }
     }

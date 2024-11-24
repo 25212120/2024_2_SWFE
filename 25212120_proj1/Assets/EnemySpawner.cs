@@ -2,17 +2,44 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    public bool canSpawn = false;
+    public bool canSpawn = true;
+    public GameObject enemyPrefab;
 
-    public void ActivateSpawner()
+    private void OnEnable()
     {
-        canSpawn = true;
+        GameManager.OnEnemySpawnRequested += HandleEnemySpawnRequest;
     }
 
-    public void DeactivateSpawner()
+    private void OnDisable()
     {
-        canSpawn = false;
+        GameManager.OnEnemySpawnRequested -= HandleEnemySpawnRequest;
     }
 
+    private void HandleEnemySpawnRequest(GameObject spawnerObject)
+    {
+        if (spawnerObject == gameObject && canSpawn)
+        {
+            SpawnEnemy();
+        }
+    }
+
+    private void SpawnEnemy()
+    {
+        if (enemyPrefab != null)
+        {
+            Instantiate(enemyPrefab, transform.position, Quaternion.identity);
+        }
+    }
+
+    public void SetSpawner(bool enabled)
+    {
+        canSpawn = enabled;
+    }
+
+
+    public bool CanSpawn()
+    {
+        return canSpawn;
+    }
 
 }

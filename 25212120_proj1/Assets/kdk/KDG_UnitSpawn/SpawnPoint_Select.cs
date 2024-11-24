@@ -5,7 +5,6 @@ public class SpawnPoint_Select : MonoBehaviour
     public float cellSize = 1f; // 그리드 셀 크기
     public Material highlightMaterial; // 강조 영역에 적용할 머티리얼
     public Material ImpossibleMaterial; // 설치 불가 영역에 적용할 머티리얼
-    public float towerRange = 1f; // 각 타워의 스폰 반경
 
     private MeshFilter highlightMeshFilter;
     private MeshRenderer highlightMeshRenderer;
@@ -34,6 +33,8 @@ public class SpawnPoint_Select : MonoBehaviour
 
     void Update()
     {
+        spawnStructures = FindObjectsOfType<SpawnStructure>();
+
         // 마우스 위치 업데이트
         UpdateMousePosition();
 
@@ -173,14 +174,14 @@ public class SpawnPoint_Select : MonoBehaviour
             return false;
         }
 
-        // 설치된 SpawnStructure들의 범위 내에 있는지만 확인 (towerRange는 제거)
+        // 설치된 SpawnStructure들의 범위 내에서만 스폰 포인트를 설정할 수 있음
         foreach (var spawnStructure in spawnStructures)
         {
             // SpawnStructure가 설치된 셀의 위치 계산
             Vector2Int structureCell = new Vector2Int(Mathf.FloorToInt(spawnStructure.transform.position.x / cellSize),
                                                       Mathf.FloorToInt(spawnStructure.transform.position.z / cellSize));
 
-            // 설치된 구조물 주변 셀에만 스폰 포인트를 설정 가능하도록 수정
+            // 해당 SpawnStructure의 3x3 범위 내에 있는지만 확인
             if (IsAdjacentCell(structureCell, new Vector2Int(cellX, cellZ)))
             {
                 Unit_SpawnManager spawnManager = spawnStructure.unitSpawnManager;
@@ -188,12 +189,39 @@ public class SpawnPoint_Select : MonoBehaviour
                 // `CanSpawn()`이 가능하다면 스폰 가능
                 if (spawnManager != null && spawnManager.CanSpawn())
                 {
-                    return true;
+                    return true; // 스폰 포인트 설정 가능
                 }
             }
         }
 
         // 범위 내에서 배치할 수 없으면 false
+        return false;
+    }
+
+    bool IsAdjacentCell(Vector2Int structureCell, Vector2Int cellPosition)
+    {
+        // 3x3 셀 크기의 타워가 설치된 셀의 인접 셀을 확인
+        int range = 2; // 타워의 크기(3x3) 주위로 1칸 범위 내에서만 스폰 포인트 설정 가능
+        for (int x = -range; x <= range; x++)
+        {
+            for (int z = -range; z <= range; z++)
+            {
+                Vector2Int adjacentCell = new Vector2Int(structureCell.x + x, structureCell.y + z);
+
+                // 차지된 셀은 제외하고 인접 셀만 확인
+                if (occupiedCell_Manager.GetOccupiedCells().Contains(adjacentCell))
+                {
+                    return false;
+                }
+
+                // 인접 셀의 범위 내에 있는지 확인 (범위 내에서만 설정 가능)
+                if (adjacentCell == cellPosition)
+                {
+                    return true;
+                }
+            }
+        }
+
         return false;
     }
 
@@ -203,6 +231,7 @@ public class SpawnPoint_Select : MonoBehaviour
 
         bool isSpawnPointSet = false; // 스폰 포인트 설정 여부를 추적
 
+        // 현재 배치된 SpawnStructure들을 찾아서 인접 셀 내에서 스폰 포인트를 설정
         foreach (var spawnStructure in spawnStructures)
         {
             Vector2Int structureCell = new Vector2Int(Mathf.FloorToInt(spawnStructure.transform.position.x / cellSize),
@@ -215,13 +244,11 @@ public class SpawnPoint_Select : MonoBehaviour
 
                 if (spawnManager != null && spawnManager.CanSpawn()) // 스폰이 가능한 타워인지 확인
                 {
-                    spawnStructure.unitSpawnManager.SetSpawnPoint(cellPosition);
-
-                    occupiedCell_Manager.AddOccupiedCell(cellPosition);
+                    spawnStructure.unitSpawnManager.SetSpawnPoint(cellPosition); // 스폰 포인트 설정
 
                     Debug.Log($"스폰 포인트가 {spawnStructure.name}에 설정되었습니다.");
-                    isSpawnPointSet = true;
-                    break;
+                    isSpawnPointSet = true; // 스폰 포인트 설정 완료
+                    break; // 첫 번째 가능한 스폰 구조에 대해서만 설정
                 }
                 else
                 {
@@ -236,10 +263,5 @@ public class SpawnPoint_Select : MonoBehaviour
         }
     }
 
-    bool IsAdjacentCell(Vector2Int cell1, Vector2Int cell2)
-    {
-        // 두 셀이 인접한 셀인지를 확인하는 함수 (1칸 범위 내)
-        return Mathf.Abs(cell1.x - cell2.x) <= 1 && Mathf.Abs(cell1.y - cell2.y) <= 1;
-    }
 }
 

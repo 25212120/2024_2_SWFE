@@ -251,6 +251,21 @@ public class HighlightArea : MonoBehaviour
             // 회전 값 적용
             Quaternion rotation = Quaternion.Euler(0f, currentRotation, 0f);
             previewTurret.transform.SetPositionAndRotation(position, rotation);
+
+            // 콜라이더를 비활성화하여 물리 충돌 검사에서 제외
+            Collider turretCollider = previewTurret.GetComponent<Collider>();
+            if (turretCollider != null)
+            {
+                turretCollider.enabled = false; // 미리보기용 콜라이더 비활성화
+            }
+        }
+        else
+        {
+            // 마우스가 바닥에 닿지 않을 경우 미리보기 포탑 비활성화
+            if (previewTurret != null)
+            {
+                previewTurret.SetActive(false);
+            }
         }
     }
 
@@ -281,29 +296,20 @@ public class HighlightArea : MonoBehaviour
         float posZ = (cellZ + 0.5f) * cellSize;
         float posY = hitPoint.y; // 지형의 높이를 사용
         Vector3 position = new Vector3(posX, posY, posZ);
-        /*
-        // 포탑 프리팹이 할당되었는지 확인
-        if (turretPrefab != null)
-        {
-            // 포탑 프리팹 인스턴스화
-            Instantiate(turretPrefab, position, Quaternion.identity);
 
-            // 해당 셀들을 점유된 셀 목록에 추가
-            foreach (Vector2Int cellPos in cellsToOccupy)
-            {
-                occupiedCells.Add(cellPos);
-            }
-        }
-        else
-        {
-            Debug.LogError("포탑 프리팹이 할당되지 않았습니다.");
-        }
-        */
         if (turretPrefab != null)
         {
             Quaternion rotation = Quaternion.Euler(0f, currentRotation, 0f);
-            Instantiate(turretPrefab, position, rotation);
+            GameObject newTurret = Instantiate(turretPrefab, position, rotation);
 
+            // 타워 배치 후 콜라이더를 활성화
+            Collider turretCollider = newTurret.GetComponent<Collider>();
+            if (turretCollider != null)
+            {
+                turretCollider.enabled = true; // 배치 후 콜라이더 활성화
+            }
+
+            // 배치된 타워의 셀 점유 상태 업데이트
             foreach (Vector2Int cellPos in cellsToOccupy)
             {
                 occupiedCell_Manager.occupiedCells.Add(cellPos);
@@ -314,6 +320,7 @@ public class HighlightArea : MonoBehaviour
             Debug.LogError("포탑 프리팹이 할당되지 않았습니다.");
         }
     }
+
 
     void RotateTurret()
     {

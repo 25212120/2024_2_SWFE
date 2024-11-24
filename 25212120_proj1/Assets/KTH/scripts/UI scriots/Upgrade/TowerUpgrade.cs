@@ -5,18 +5,11 @@ using UnityEngine.UI;
 
 public class TowerUpgrade : MonoBehaviour
 {
-    private Button upgrade;
+    public Button upgrade;
     private BaseStructure baseStructure;
   
-
-    void Start()
-    {
-        baseStructure.UpgradeWithoutEssence();
-    }
-
-    // Update is called once per frame
     void Update()
     {
-        
+        upgrade.onClick.AddListener(() => baseStructure.UpgradeWithoutEssence());
     }
 }

@@ -3,40 +3,40 @@ using UnityEngine;
 
 public class PlayerCoolDownManager : MonoBehaviour
 {
-    private bool isDashOnCoolTime = false;
-    private bool isSwordShieldWeaponSkillOnCoolTime = false;
-    private bool isSingleTwoHandSwordWeaponSkillOnCoolTime = false;
-    private bool isDoubleSwordsWeaponSkillOnCoolTime = false;
-    private bool isBowWeaponSkillOnCoolTime = false;
+    public bool isDashOnCoolTime = false;
+    public bool isSwordShieldWeaponSkillOnCoolTime = false;
+    public bool isSingleTwoHandSwordWeaponSkillOnCoolTime = false;
+    public bool isDoubleSwordsWeaponSkillOnCoolTime = false;
+    public bool isBowWeaponSkillOnCoolTime = false;
 
-    private bool isFireBallOnCoolTime = false;
-    private bool isMeteorOnCoolTime = false;
-    private bool isPoisonFogOnCoolTime = false;
-    private bool isDrainFieldOnCoolTime = false;
-    private bool isIceSpearOnCoolTime = false;
-    private bool isStormOnCoolTime = false;
-    private bool isRockFallOnCoolTime = false;
-    private bool isEarthQuakeOnCoolTime = false;
+    public bool isFireBallOnCoolTime = false;
+    public bool isMeteorOnCoolTime = false;
+    public bool isPoisonFogOnCoolTime = false;
+    public bool isDrainFieldOnCoolTime = false;
+    public bool isIceSpearOnCoolTime = false;
+    public bool isStormOnCoolTime = false;
+    public bool isRockFallOnCoolTime = false;
+    public bool isEarthQuakeOnCoolTime = false;
 
-    private float dashCoolTime_SwordShield = 1f;
-    private float dashCoolTime_SingleTwoHandSword = 1.3f;
-    private float dashCoolTime_DoubleSwords = 0.7f;
-    private float dashCoolTime_Bow = 1.8f;
+    public float dashCoolTime_SwordShield = 1f;
+    public float dashCoolTime_SingleTwoHandSword = 1.3f;
+    public float dashCoolTime_DoubleSwords = 0.7f;
+    public float dashCoolTime_Bow = 1.8f;
 
     // 스킬 시전되는 동안의 시간 + 맞추고 싶은 쿨타임
-    private float weaponSkillCoolTime_SwordShield = 6f;
-    private float weaponSkillCoolTime_SingleTwoHandSword = 6f;
-    private float weaponSkillCoolTime_DoubleSwords = 3f;
-    private float weaponSkillCoolTime_Bow = 12f;
+    public float weaponSkillCoolTime_SwordShield = 6f;
+    public float weaponSkillCoolTime_SingleTwoHandSword = 6f;
+    public float weaponSkillCoolTime_DoubleSwords = 3f;
+    public float weaponSkillCoolTime_Bow = 12f;
 
-    private float magicCoolTime_FireBall = 5f;
-    private float magicCoolTime_Meteor = 10f;
-    private float magicCoolTime_PoisonFog = 5f;
-    private float magicCoolTime_DrainField = 10f;
-    private float magicCoolTime_IceSpear = 5f;
-    private float magicCoolTime_Storm = 10f;
-    private float magicCoolTime_RockFall = 5f;
-    private float magicCoolTime_EarthQuake = 10f;
+    public float magicCoolTime_FireBall = 5f;
+    public float magicCoolTime_Meteor = 10f;
+    public float magicCoolTime_PoisonFog = 5f;
+    public float magicCoolTime_DrainField = 10f;
+    public float magicCoolTime_IceSpear = 5f;
+    public float magicCoolTime_Storm = 10f;
+    public float magicCoolTime_RockFall = 5f;
+    public float magicCoolTime_EarthQuake = 10f;
 
     public bool CanDash(int weaponIndex)
     {

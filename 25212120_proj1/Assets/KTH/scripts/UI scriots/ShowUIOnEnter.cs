@@ -5,13 +5,13 @@ using UnityEngine.EventSystems;
 public class ShowUIOnEnter : MonoBehaviour
 {
     public GameObject uiPanel; // UI 창을 나타낼 GameObject
-    public string targetTag = "Target"; // 대상 태그
+    public string targetTag = "core"; // 대상 태그
     public float detectionRadius = 5.0f; // 감지 반경
     public GameObject radiusEffect; // 감지 반경을 나타낼 이펙트 오브젝트 (파티클 등)
     public GameObject[] weaponButtons; // 무기 선택 버튼들
     public GameObject[] weaponUIPanels; // 무기별 UI 패널들 (클릭 시 활성화될 UI들)
     
-    private GameObject player; // 플레이어 오브젝트
+    public GameObject player; // 플레이어 오브젝트
 
     private PlayerInputManager playerInputManager;
     private GameObject selectedButton; // 현재 선택된 버튼을 나타냄

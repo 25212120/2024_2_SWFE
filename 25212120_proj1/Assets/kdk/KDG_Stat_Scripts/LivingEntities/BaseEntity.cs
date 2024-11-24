@@ -4,7 +4,8 @@ public abstract class BaseEntity : MonoBehaviour
 {
     [Header("객체의 스탯 정보")]
     [SerializeField] public StatData statData;
-
+    public delegate void DamageEventHandler(float damage);
+    public event DamageEventHandler TakeDamageEvent;
     protected virtual void Awake()
     {
         statData.InitStatData();
@@ -25,6 +26,11 @@ public abstract class BaseEntity : MonoBehaviour
         if (statData.ModifyCurrentHp(-effectiveDamage))
         {
             Die();
+        }
+        // 데미지 이벤트 호출
+        if (TakeDamageEvent != null)
+        {
+            TakeDamageEvent.Invoke(damage);
         }
     }
 

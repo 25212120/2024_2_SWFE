@@ -248,4 +248,9 @@ public class BaseStructure : BaseEntity
         public MaterialManager.ResourceType resourceType; // 자원 타입
         public int amount;                                // 자원 수량
     }
+
+    public bool Upgradecheck()
+    {
+        return EssenceUpgraded;
+    }
 }

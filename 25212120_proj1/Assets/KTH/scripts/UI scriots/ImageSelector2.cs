@@ -46,5 +46,8 @@ public class ImageSelector2 : MonoBehaviour
         Debug.Log("Skill button clicked, index: " + index);
     }
 
-
+    public int SelectedIndex()
+    {
+        return highlightedSkillIndex;
+    }
 }

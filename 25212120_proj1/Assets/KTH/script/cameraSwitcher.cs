@@ -12,7 +12,6 @@ public class CameraSwitcher : MonoBehaviour
     public float scrollSpeed = 2f; // 마우스 스크롤 속도
     public bool isTopView = true; // 현재 탑뷰 상태인지 여부
     public HighlightArea highlightArea; // 하이라이트 영역을 참조하는 변수
-    public GameObject turretPreviewPrefab; // 포탑 미리보기 프리팹
 
     void Start()
     {
@@ -35,10 +34,6 @@ public class CameraSwitcher : MonoBehaviour
         if (highlightArea != null)
         {
             highlightArea.gameObject.SetActive(false); // 초기 상태에서 하이라이트 비활성화
-        }
-        if (turretPreviewPrefab != null)
-        {
-            turretPreviewPrefab.SetActive(false); // 초기 상태에서 프리팹 비활성화
         }
     }
 
@@ -67,15 +62,18 @@ public class CameraSwitcher : MonoBehaviour
         if (highlightArea != null)
         {
             bool isActive = highlightArea.gameObject.activeSelf;
-
-            // 하이라이트 영역의 활성화/비활성화를 전환
-            highlightArea.gameObject.SetActive(!isActive);
-
-            // 하이라이트 영역이 비활성화될 때 포탑 미리보기 프리팹을 없애기
-            if (!highlightArea.gameObject.activeSelf && turretPreviewPrefab != null)
+            if (isActive)
             {
-                turretPreviewPrefab.SetActive(false); // 포탑 미리보기 프리팹 비활성화
+                highlightArea.DeactivateHighlightArea();
+                highlightArea.gameObject.SetActive(false);
             }
+
+            else
+            {
+                highlightArea.ActivateHighlightArea();
+                highlightArea.gameObject.SetActive(true);
+            }
+            
         }
     }
 

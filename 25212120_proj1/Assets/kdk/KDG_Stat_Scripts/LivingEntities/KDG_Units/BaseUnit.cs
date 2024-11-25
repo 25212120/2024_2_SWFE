@@ -62,7 +62,7 @@ public abstract class BaseUnit : BaseEntity
         // 전달받은 리스트에 있는 각 유닛에 대해 스탯을 업데이트
         foreach (BaseUnit unit in units)
         {
-            if (unit is Unit_Test)
+            if (unit is BaseUnit)
             {
                 unit.PerformUpgrade();  // PerformUpgrade를 호출하여 해당 유닛의 스탯을 업데이트
             }
@@ -79,7 +79,10 @@ public abstract class BaseUnit : BaseEntity
         float damage = statData.AttackCurrent; // 현재 공격력 사용
         target.TakeDamage(damage);
     }
-
+    public float GetCurrntHP()
+    {
+        return statData.HpCurrent;
+    }
 
     protected override void Die()
     {

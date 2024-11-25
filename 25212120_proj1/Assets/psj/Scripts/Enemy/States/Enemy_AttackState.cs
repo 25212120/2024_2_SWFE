@@ -53,7 +53,7 @@ public class Enemy_AttackState : BaseState<EnemyStateType>
         animator.ResetTrigger("attack");
         enemy.attackCooldown = 1f / enemy.attackSpeed;
         enemy.canDetect = true;
-        enemy.agent.isStopped = true;
+        enemy.agent.isStopped = false;
     }
 
     public override void CheckTransitions()

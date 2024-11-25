@@ -7,6 +7,39 @@ using UnityEngine.UIElements;
 
 public class GameManager : MonoBehaviour
 {
+    public GameObject[] nexuses;
+    public GameObject core;
+
+    public delegate void ProximityCheck(GameObject nexus);
+    public static event ProximityCheck OnPlayerProximityToCore;
+
+    public delegate void EnemySpawnRequest(GameObject spawner);
+    public static event EnemySpawnRequest OnEnemySpawnRequested;
+
+    private float spawnTimer = 0f;
+    public float globalSpawnInterval = 10f;
+
+    private void Update()
+    {
+        spawnTimer += Time.deltaTime;
+
+        if (spawnTimer > globalSpawnInterval)
+        {
+            spawnTimer = 0f;
+            BroadcastEnemySpawnRequest();
+        }
+
+    }
+
+    private void BroadcastEnemySpawnRequest()
+    {
+        foreach (var spawner in FindObjectsOfType<EnemySpawner>())
+        {
+            OnEnemySpawnRequested?.Invoke(spawner.gameObject);
+        }
+    }
+
+
     public static GameManager instance;
     private void Awake()
     {

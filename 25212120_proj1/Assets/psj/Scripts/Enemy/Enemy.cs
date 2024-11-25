@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
@@ -28,6 +29,9 @@ public abstract class Enemy : MonoBehaviour
 
     public bool canAttack = false;
 
+
+    public GameObject core;
+
     protected virtual void Awake()
     {
         // Get required components
@@ -41,15 +45,17 @@ public abstract class Enemy : MonoBehaviour
     {
         GameManager.instance.AddEnemy(gameObject);
 
+        core = GameManager.instance.core;
+
         agent.updatePosition = false;
         agent.updateRotation = false;
+        agent.autoRepath = true;
+        agent.stoppingDistance = 0f;
         stateMachine.PushState(EnemyStateType.Chase);
 
-        //test
-        core = GameObject.FindGameObjectWithTag("Core");
-        //test
 
         InitializeEnemyParameters();
+
     }
 
     protected virtual void Update()
@@ -64,7 +70,6 @@ public abstract class Enemy : MonoBehaviour
 
         if (target != null && agent.isActiveAndEnabled == true)
         {
-            agent.SetDestination(target.transform.position);
             float distance = Vector3.Distance(transform.position, target.transform.position);
             if (distance < attackRange) canAttack = true;
             else canAttack = false;
@@ -99,7 +104,7 @@ public abstract class Enemy : MonoBehaviour
     // layer == Dead인 것들 제외하고, 우선순위 detect, target 설정까지 무조건 완료
     public void DetectBasedOnPriority()
     {
-        string[] priorityTags = new string[] { "unit", "tower", "Player" };
+        string[] priorityTags = new string[] { "unit", "tower" , "Player"};
 
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, detectionRange);
 
@@ -129,7 +134,7 @@ public abstract class Enemy : MonoBehaviour
                         closestDistance = distance;
                         detectedTarget = collider.gameObject;
                     }
-                    
+
                 }
                 // {} 감지한 오브젝트의 tag가 priorityTags에 존재하지 않는다.
             }
@@ -144,8 +149,5 @@ public abstract class Enemy : MonoBehaviour
             target = detectedTarget.transform;
         }
     }
-
-    //임시로 core의 위치가 (0,0,0)이라고 가정하겠음
-    public GameObject core;
 
 }

@@ -27,7 +27,7 @@ public class SkillCoolTime : MonoBehaviour
     void Start()
     {
         // PlayerInputManager 컴포넌트를 찾아서 참조합니다.
-        playerInputManager = GetComponent<PlayerInputManager>();
+        playerInputManager = FindAnyObjectByType<PlayerInputManager>();
 
         // 초기 선택된 무기 및 마법 스킬 설정
         selectedWeaponIndex = playerInputManager.currentRightHandIndex;

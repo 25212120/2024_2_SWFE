@@ -6,6 +6,13 @@ public class ExpManager : Singleton<ExpManager>
     [SerializeField] private PlayerStat playerStat; // PlayerStat 인스턴스 참조
     [SerializeField] private EquipmentInventory equipmentInventory; // EquipmentInventory 참조
 
+
+    protected override void Awake()
+    {
+        base.Awake();
+        playerStat = GetComponent<PlayerStat>();
+        equipmentInventory = GetComponent<EquipmentInventory>();
+    }
     /// 플레이어의 현재 경험치
     public float ExpCurrent { private set; get; }
 

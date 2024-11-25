@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.Rendering;
 using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -62,10 +63,10 @@ public class GameManager : MonoBehaviour
         StartCoroutine(CountDays());
     }
 
-    private float dayDuration = 240f;
-    private int dayCount = 0;
-    //public Light directionalLight;
-    //public TextMeshProUGUI dayText;
+    private float dayDuration = 10f;
+    private int dayCount = 1;
+    public Light directionalLight;
+    public TextMeshProUGUI dayText;
 
     IEnumerator CountDays()
     {
@@ -79,7 +80,7 @@ public class GameManager : MonoBehaviour
 
                 float timeNormalized = (time % dayDuration) / dayDuration;
 
-                //directionalLight.transform.localRotation = Quaternion.Euler(new Vector3((timeNormalized * 360f) - 90f, 170f, 0));
+                directionalLight.transform.localRotation = Quaternion.Euler(new Vector3((timeNormalized * 360f) - 90f, 170f, 0));
 
                 yield return null; 
             }
@@ -87,8 +88,7 @@ public class GameManager : MonoBehaviour
             time = 0f;
             dayCount++;
             UpgradeAllEnemyStat();
-            Debug.Log("Day: " + dayCount);
-            //dayText.text = "Day: " + dayCount.ToString();
+            dayText.text = "Day: " + dayCount.ToString();
 
             yield return null; 
         }

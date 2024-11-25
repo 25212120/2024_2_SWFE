@@ -6,7 +6,7 @@ using static BaseStructure;
 public class Unit_SpawnManager : MonoBehaviour
 {
     [Header("유닛 스폰에 필요한 자원")]
-    [SerializeField] private List<ResourceRequirement> UnitSpawnRequirements = new List<ResourceRequirement>(); // 업그레이드에 필요한 자원 리스트
+    [SerializeField] private List<ResourceRequirement> UnitSpawnRequirements = new List<ResourceRequirement>();
 
     [Header("유닛 스폰 설정")]
     [SerializeField] private GameObject unitPrefab; // 소환할 유닛의 프리팹

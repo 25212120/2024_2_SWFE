@@ -101,7 +101,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 1.1184394, y: 1.1184394, z: 1.1184394}
   m_Center: {x: 0, y: 0.5592197, z: 0}
@@ -117,6 +117,7 @@ GameObject:
   - component: {fileID: 5901507266662565532}
   - component: {fileID: 6567578849214629632}
   - component: {fileID: 6244098821975472485}
+  - component: {fileID: 2805985537075165801}
   m_Layer: 0
   m_Name: Core
   m_TagString: Untagged
@@ -211,3 +212,40 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 3.3416042, y: 6.2249026, z: 3.2625422}
   m_Center: {x: 0, y: 3.1124513, z: 0}
+--- !u!114 &2805985537075165801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5511760791558149490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed09197a30778d64d8df9cdbd84d75ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  statData:
+    <level>k__BackingField: 1
+    <hpMax>k__BackingField: 500
+    mHpCurrent: 0
+    <baseAttack>k__BackingField: 0
+    <baseMovementSpeed>k__BackingField: 0
+    <baseDefense>k__BackingField: 10
+    <baseMagicAttack_Wood>k__BackingField: 0
+    <baseMagicAttack_Fire>k__BackingField: 0
+    <baseMagicAttack_Ice>k__BackingField: 0
+    <baseMagicAttack_Sand>k__BackingField: 0
+  spawnRequirements: []
+  upgradeRequirements: []
+  upgradedMaterial: {fileID: 0}
+  upgradedMesh: {fileID: 0}
+  iceEssenceMaterial: {fileID: 0}
+  fireEssenceMaterial: {fileID: 0}
+  sandEssenceMaterial: {fileID: 0}
+  woodEssenceMaterial: {fileID: 0}
+  statUpgrade:
+    attackIncrease: 0
+    defenseIncrease: 0
+    healthIncrease: 0
+  bulletPrefab: {fileID: 0}
+  gridRenderer: {fileID: 0}

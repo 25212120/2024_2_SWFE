@@ -27,7 +27,7 @@ public class HighlightArea : MonoBehaviour
 
     public Vector3 gridStartPosition = new Vector3(0, 0, 0); // 그리드의 시작 위치 (고정)
 
-    public GameObject coreObject; // Core 오브젝트
+    public List<GameObject> coreObjects; // 여러 개의 코어 오브젝트를 처리할 리스트
     public float corePlacementRange = 10f; // Core 오브젝트 근처에서 설치할 수 있는 범위
 
     void Start()
@@ -41,8 +41,11 @@ public class HighlightArea : MonoBehaviour
         {
             towerSpawn_Manager = FindAnyObjectByType<TowerSpawn_Manager>();
         }
-        
-        
+        if (coreObjects.Count == 0)
+        {
+            coreObjects = new List<GameObject>(GameObject.FindGameObjectsWithTag("Core"));
+        }
+
     }
 
     void Update()
@@ -75,10 +78,6 @@ public class HighlightArea : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             PlaceTurret();
-        }
-        if (coreObject == null)
-        {
-            coreObject = GameObject.FindWithTag("Core"); // 'Core' 태그가 붙은 오브젝트 찾기
         }
     }
 
@@ -213,7 +212,17 @@ public class HighlightArea : MonoBehaviour
 
     bool CheckPlacementValidity()
     {
-        if (coreObject != null && Vector3.Distance(hitPoint, coreObject.transform.position) > corePlacementRange)
+        bool isWithinCoreRange = false;
+        foreach (GameObject core in coreObjects)
+        {
+            if (core != null && Vector3.Distance(hitPoint, core.transform.position) <= corePlacementRange)
+            {
+                isWithinCoreRange = true;
+                break;
+            }
+        }
+
+        if (!isWithinCoreRange)
         {
             return false; // Core 오브젝트와 너무 멀리 떨어져 있으면 배치 불가
         }
@@ -325,9 +334,11 @@ public class HighlightArea : MonoBehaviour
             towerSpawn_Manager.SpawnAndConsumeMaterial(CurrentPrefab);
             Quaternion rotation = Quaternion.Euler(0f, currentRotation, 0f);
             GameObject newTurret = Instantiate(turretPrefab, position, rotation);
-
-            // 타워 배치 후 콜라이더를 활성화
-            Collider turretCollider = newTurret.GetComponent<Collider>();
+            if (CurrentPrefab == "Core")
+            {
+                coreObjects.Add(newTurret); // 새로 배치된 타워(코어)를 리스트에 추가
+            }
+                Collider turretCollider = newTurret.GetComponent<Collider>();
             if (turretCollider != null)
             {
                 turretCollider.enabled = true; // 배치 후 콜라이더 활성화

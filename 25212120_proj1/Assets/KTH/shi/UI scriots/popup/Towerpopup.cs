@@ -3,7 +3,12 @@ using UnityEngine.EventSystems;
 
 public class Towerpopup : MonoBehaviour
 {
+    [Header("UI Settings")]
     public GameObject popupPanel;  // 팝업 창 UI (Inspector에서 할당)
+
+    [Header("Raycast Settings")]
+    [Tooltip("탐지할 태그를 설정합니다.")]
+    public string towerTag = "tower";  // 탐지할 타워 태그 (Inspector에서 설정 가능)
 
     void Start()
     {
@@ -18,7 +23,7 @@ public class Towerpopup : MonoBehaviour
         // 마우스 왼쪽 버튼 클릭 감지
         if (Input.GetMouseButtonDown(0))
         {
-            // 만약 UI 요소 위를 클릭한 경우라면 (UI가 클릭되었는지 확인)
+            // UI 요소 위를 클릭한 경우라면 (UI가 클릭되었는지 확인)
             if (EventSystem.current.IsPointerOverGameObject())
             {
                 return;  // UI를 클릭한 경우는 아무 작업도 하지 않음
@@ -30,8 +35,8 @@ public class Towerpopup : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit))
             {
-                // 만약 타워 오브젝트를 클릭했다면
-                if (hit.collider.CompareTag("tower"))
+                // Inspector에서 설정한 타워 태그를 가진 오브젝트를 클릭했는지 확인
+                if (hit.collider.CompareTag(towerTag))
                 {
                     // 팝업 패널 활성화
                     if (popupPanel != null)

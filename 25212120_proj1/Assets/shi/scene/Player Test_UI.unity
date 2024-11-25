@@ -18868,6 +18868,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ed58ced2f9ab9243a572300851ecd84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nexuses: []
+  core: {fileID: 0}
+  globalSpawnInterval: 10
+  enemies: []
+  units: []
+  initialHP_Unit_Warrior: 100
+  initialHP_Unit_Mage: 50
+  initialAtk_Unit_Warrior: 10
+  initialAtk_Unit_Mage: 20
+  initialDef_Unit_Warrior: 5
+  initialDef_Unit_Mage: 2
+  initialHP_Enemy_Warrior: 100
+  initialHP_Enemy_Mage: 50
+  initialAtk_Enemy_Warrior: 10
+  initialAtk_Enemy_Mage: 20
+  initialDef_Enemy_Warrior: 5
+  initialDef_Enemy_Mage: 2
 --- !u!4 &1414245388
 Transform:
   m_ObjectHideFlags: 0
@@ -22249,6 +22266,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   popupPanel: {fileID: 1384630154}
+  towerTag: tower
 --- !u!114 &1658584445
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24267,6 +24285,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dayDuration: 10
+  directionalLight: {fileID: 0}
   dayText: {fileID: 0}
 --- !u!114 &1811901520
 MonoBehaviour:

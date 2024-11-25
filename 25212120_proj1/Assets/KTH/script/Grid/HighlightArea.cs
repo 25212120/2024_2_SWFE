@@ -368,6 +368,7 @@ public class HighlightArea : MonoBehaviour
     {
         // Resources 폴더에서 프리팹을 로드
         GameObject newTurretPrefab = Resources.Load<GameObject>("Prefabs/Towers/" + turretPrefabName);
+        GameObject newTurretPreviewPrefab = Resources.Load<GameObject>("Prefabs/Towers/" + turretPrefabName + "_preview");
 
         if (newTurretPrefab != null)
         {
@@ -381,7 +382,7 @@ public class HighlightArea : MonoBehaviour
             turretPrefab = newTurretPrefab;
 
             // 새로 미리보기 포탑 생성
-            previewTurret = Instantiate(turretPrefab);
+            previewTurret = Instantiate(newTurretPreviewPrefab);
             previewTurret.SetActive(false); // 초기에는 비활성화
 
             // 프리팹의 크기 추출
@@ -399,44 +400,44 @@ public class HighlightArea : MonoBehaviour
             }
             else if (turretPrefabName == "ArrowTower_1")
             {
-                cellSize_Horizontal = 2f;
-                cellSize_Virtical = 2f;
+                cellSize_Horizontal = 1.2f;
+                cellSize_Virtical = 1.2f;
                 CurrentPrefab = "ArrowTower_1";
             }
             else if (turretPrefabName == "MagicTower_1")
             {
-                cellSize_Horizontal = 2f;
-                cellSize_Virtical = 2f;
+                cellSize_Horizontal = 1.2f;
+                cellSize_Virtical = 1.2f;
                 CurrentPrefab = "MagicTower_1";
             }
             else if (turretPrefabName == "RocketTower_1")
             {
-                cellSize_Horizontal = 2f;
-                cellSize_Virtical = 2f;
+                cellSize_Horizontal = 1.2f;
+                cellSize_Virtical = 1.2f;
                 CurrentPrefab = "RocketTower_1";
             }
             else if (turretPrefabName == "HealTower_1")
             {
-                cellSize_Horizontal = 2f;
-                cellSize_Virtical = 2f;
+                cellSize_Horizontal = 1.2f;
+                cellSize_Virtical = 1.2f;
                 CurrentPrefab = "HealTower_1";
             }
             else if (turretPrefabName == "LightTower_1")
             {
-                cellSize_Horizontal = 2f;
-                cellSize_Virtical = 2f;
+                cellSize_Horizontal = 1.2f;
+                cellSize_Virtical = 1.2f;
                 CurrentPrefab = "LightTower_1";
             }
             else if (turretPrefabName == "SpawnTower_1")
             {
-                cellSize_Horizontal = 2f;
-                cellSize_Virtical = 2f;
+                cellSize_Horizontal = 1.2f;
+                cellSize_Virtical = 1.2f;
                 CurrentPrefab = "SpawnTower_1";
             }
             else if (turretPrefabName == "SpawnTower_2")
             {
-                cellSize_Horizontal = 2f;
-                cellSize_Virtical = 2f;
+                cellSize_Horizontal = 1.2f;
+                cellSize_Virtical = 1.2f;
                 CurrentPrefab = "SpawnTower_2";
             }
 

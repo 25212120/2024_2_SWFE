@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 6511096235754040052}
   - component: {fileID: 7746902511515364268}
   - component: {fileID: 3381779539444807345}
+  - component: {fileID: 7548820195159061515}
   m_Layer: 0
   m_Name: stone small blue 7 (2)
-  m_TagString: Untagged
+  m_TagString: Resource
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -83,6 +84,22 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &7548820195159061515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1166896105917682047}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8f849bf79cddf64085ede11fb83c4cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resourceDrops: []
+  finished: 0
+  WaitSuccess: 0
+  _WaitSuccess: 0
 --- !u!1 &1884541683583114021
 GameObject:
   m_ObjectHideFlags: 0
@@ -95,9 +112,10 @@ GameObject:
   - component: {fileID: 6756329816490613957}
   - component: {fileID: 3794609719312372251}
   - component: {fileID: 1994669936185733561}
+  - component: {fileID: 4783514759883660296}
   m_Layer: 0
   m_Name: dry tree (6)
-  m_TagString: Untagged
+  m_TagString: Resource
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -188,6 +206,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.766654, y: 4.279707, z: 0.8124409}
   m_Center: {x: 0, y: 2.1398535, z: 0}
+--- !u!114 &4783514759883660296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1884541683583114021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d22615d7d8df54488667e39f37b0c01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resourceDrops: []
+  finished: 0
+  WaitSuccess: 0
+  _WaitSuccess: 0
 --- !u!1 &2463348734985672925
 GameObject:
   m_ObjectHideFlags: 0
@@ -199,9 +233,10 @@ GameObject:
   - component: {fileID: 647493343007927856}
   - component: {fileID: 1013069983584168100}
   - component: {fileID: 3633633182616727859}
+  - component: {fileID: 196625429851420078}
   m_Layer: 0
   m_Name: stone small blue 7
-  m_TagString: Untagged
+  m_TagString: Resource
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -271,6 +306,22 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &196625429851420078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2463348734985672925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8f849bf79cddf64085ede11fb83c4cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resourceDrops: []
+  finished: 0
+  WaitSuccess: 0
+  _WaitSuccess: 0
 --- !u!1 &2486496085726460403
 GameObject:
   m_ObjectHideFlags: 0
@@ -283,9 +334,10 @@ GameObject:
   - component: {fileID: 7852810202872046923}
   - component: {fileID: 1038550099737030578}
   - component: {fileID: 779087572891612714}
+  - component: {fileID: 2313170876115756939}
   m_Layer: 0
   m_Name: stone small purple 2
-  m_TagString: Untagged
+  m_TagString: Resource
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -376,6 +428,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.3852234, y: 0.361796, z: 0.43597698}
   m_Center: {x: 0, y: 0.180898, z: 0.00000009685755}
+--- !u!114 &2313170876115756939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2486496085726460403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8f849bf79cddf64085ede11fb83c4cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resourceDrops: []
+  finished: 0
+  WaitSuccess: 0
+  _WaitSuccess: 0
 --- !u!1 &2700701237498943564
 GameObject:
   m_ObjectHideFlags: 0
@@ -738,9 +806,10 @@ GameObject:
   - component: {fileID: 7751323659638601508}
   - component: {fileID: 3355516649002946116}
   - component: {fileID: 6308659501025422950}
+  - component: {fileID: 3965336979507305788}
   m_Layer: 0
   m_Name: stone small blue 7 (1)
-  m_TagString: Untagged
+  m_TagString: Resource
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -810,6 +879,22 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &3965336979507305788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4802916519719080920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8f849bf79cddf64085ede11fb83c4cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resourceDrops: []
+  finished: 0
+  WaitSuccess: 0
+  _WaitSuccess: 0
 --- !u!1 &5491946440015073620
 GameObject:
   m_ObjectHideFlags: 0
@@ -927,9 +1012,10 @@ GameObject:
   - component: {fileID: 5166843699106456969}
   - component: {fileID: 7116966276123390137}
   - component: {fileID: 833814682403908127}
+  - component: {fileID: 9088715171954578904}
   m_Layer: 0
   m_Name: stone small purple
-  m_TagString: Untagged
+  m_TagString: Resource
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1020,6 +1106,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.3852234, y: 0.361796, z: 0.43597698}
   m_Center: {x: 0, y: 0.180898, z: 0.00000009685755}
+--- !u!114 &9088715171954578904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5500068552925848882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8f849bf79cddf64085ede11fb83c4cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resourceDrops: []
+  finished: 0
+  WaitSuccess: 0
+  _WaitSuccess: 0
 --- !u!1 &5621199101321216595
 GameObject:
   m_ObjectHideFlags: 0
@@ -1179,9 +1281,10 @@ GameObject:
   - component: {fileID: 713149546184023814}
   - component: {fileID: 4586975934550570897}
   - component: {fileID: 7028908365855391347}
+  - component: {fileID: 1917921459778404895}
   m_Layer: 0
   m_Name: dry tree 4 (4)
-  m_TagString: Untagged
+  m_TagString: Resource
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1272,6 +1375,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 7.145599, y: 7.8101816, z: 5.7135773}
   m_Center: {x: -0.00000023841858, y: 3.9050908, z: 0}
+--- !u!114 &1917921459778404895
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7142640117228145701}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d22615d7d8df54488667e39f37b0c01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resourceDrops: []
+  finished: 0
+  WaitSuccess: 0
+  _WaitSuccess: 0
 --- !u!1 &7571739444344279173
 GameObject:
   m_ObjectHideFlags: 0
@@ -1495,9 +1614,10 @@ GameObject:
   - component: {fileID: 7791415325315919073}
   - component: {fileID: 6307090391844396363}
   - component: {fileID: 7905075435051911946}
+  - component: {fileID: 2641855104774692345}
   m_Layer: 0
   m_Name: dry tree 4 (3)
-  m_TagString: Untagged
+  m_TagString: Resource
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1588,3 +1708,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 7.145599, y: 7.8101816, z: 5.7135773}
   m_Center: {x: -0.00000023841858, y: 3.9050908, z: 0}
+--- !u!114 &2641855104774692345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9219055629285015632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d22615d7d8df54488667e39f37b0c01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resourceDrops: []
+  finished: 0
+  WaitSuccess: 0
+  _WaitSuccess: 0

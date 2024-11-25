@@ -26,7 +26,7 @@ public class EXPBar : MonoBehaviour
     private void Update()
     {
         UpdateEXPBar();
-
+        player.AddExp(10);
     }
 
     private void UpdateEXPBar()

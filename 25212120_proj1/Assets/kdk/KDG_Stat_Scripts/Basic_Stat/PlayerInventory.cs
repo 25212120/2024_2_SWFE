@@ -21,6 +21,7 @@ public class PlayerMagic
     public bool MagicSkillTree_Ice = false;
     public bool MagicSkillTree_Sand = false;
 
+    public SkillTree skilltree;
     // 마법 레벨업 시 효과 증가
     public void LevelUp()
     {
@@ -32,6 +33,7 @@ public class PlayerMagic
         if (level >= 5)
         {
             UnlockSkillTree();
+            
         }
     }
     private void UnlockSkillTree()
@@ -41,18 +43,27 @@ public class PlayerMagic
             case PlayerMagicType.Wood:
                 MagicSkillTree_Wood = true;
                 Debug.Log("Wood 마법 스킬 트리 활성화!");
+                skilltree.UnlockSkillTree(magicType);
+                OnSkillTreeUnlocked?.Invoke(PlayerMagicType.Wood);
                 break;
             case PlayerMagicType.Fire:
                 MagicSkillTree_Fire = true;
                 Debug.Log("Fire 마법 스킬 트리 활성화!");
+                skilltree.UnlockSkillTree(magicType);
+                OnSkillTreeUnlocked?.Invoke(PlayerMagicType.Fire);
+
                 break;
             case PlayerMagicType.Ice:
                 MagicSkillTree_Ice = true;
                 Debug.Log("Ice 마법 스킬 트리 활성화!");
+                skilltree.UnlockSkillTree(magicType);
+                OnSkillTreeUnlocked?.Invoke(PlayerMagicType.Ice);
                 break;
             case PlayerMagicType.Sand:
                 MagicSkillTree_Sand = true;
                 Debug.Log("Sand 마법 스킬 트리 활성화!");
+                skilltree.UnlockSkillTree(magicType);
+                OnSkillTreeUnlocked?.Invoke(PlayerMagicType.Sand);
                 break;
             default:
                 break;

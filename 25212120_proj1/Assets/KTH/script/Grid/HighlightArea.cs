@@ -250,11 +250,11 @@ public class HighlightArea : MonoBehaviour
             Quaternion rotation = Quaternion.Euler(0f, currentRotation, 0f);
             previewTurret.transform.SetPositionAndRotation(position, rotation);
 
-            // 콜라이더를 비활성화하여 물리 충돌 검사에서 제외
-            Collider turretCollider = previewTurret.GetComponent<Collider>();
-            if (turretCollider != null)
+            // 자식 오브젝트의 콜라이더를 비활성화
+            Collider[] turretColliders = previewTurret.GetComponentsInChildren<Collider>();
+            foreach (Collider col in turretColliders)
             {
-                turretCollider.enabled = false; // 미리보기용 콜라이더 비활성화
+                col.enabled = false; // 모든 자식 오브젝트의 콜라이더 비활성화
             }
         }
         else
@@ -266,7 +266,6 @@ public class HighlightArea : MonoBehaviour
             }
         }
     }
-
     void PlaceTurret()
     {
         if (!isValidHit || !isValidPlacement)
@@ -365,7 +364,42 @@ public class HighlightArea : MonoBehaviour
                 cellSize_Horizontal = 1.25f;
                 cellSize_Virtical = 0.4f;
             }
-      
+            if (turretPrefabName == "Core")
+            {
+                cellSize_Horizontal = 2f;
+                cellSize_Virtical = 2f;
+            }
+            if (turretPrefabName == "ArrowTower_1")
+            {
+                cellSize_Horizontal = 2f;
+                cellSize_Virtical = 2f;
+            }
+            if (turretPrefabName == "MagicTower_1")
+            {
+                cellSize_Horizontal = 2f;
+                cellSize_Virtical = 2f;
+            }
+            if (turretPrefabName == "RocketTower_1")
+            {
+                cellSize_Horizontal = 2f;
+                cellSize_Virtical = 2f;
+            }
+            if (turretPrefabName == "HealTower_1")
+            {
+                cellSize_Horizontal = 2f;
+                cellSize_Virtical = 2f;
+            }
+            if (turretPrefabName == "LightTower_1")
+            {
+                cellSize_Horizontal = 2f;
+                cellSize_Virtical = 2f;
+            }
+            if (turretPrefabName == "SpawnTower_1")
+            {
+                cellSize_Horizontal = 2f;
+                cellSize_Virtical = 2f;
+            }
+
             Debug.Log("타워 프리팹의 크기에 따라 cellSize 설정됨: " +
                       "Horizontal = " + cellSize_Horizontal + ", Vertical = " + cellSize_Virtical);
             

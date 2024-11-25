@@ -7,7 +7,8 @@ public abstract class BaseUnit : BaseEntity
     [Header("업그레이드에 필요한 자원")]
     [SerializeField] public List<ResourceRequirement> upgradeRequirements = new List<ResourceRequirement>(); // 업그레이드에 필요한 자원 리스트
 
-    public int UnitLevel = 1;
+    [Header("유닛 레벨")]
+    [SerializeField] public int UnitLevel = 1;
 
     public class ResourceRequirement
     {

@@ -20,6 +20,9 @@ public class BaseStructure : BaseEntity
     [Header("타워의 총알 프리팹")]
     [SerializeField] private GameObject bulletPrefab;  // 총알 프리팹
 
+    [Header("타워 레벨")]
+    [SerializeField] public int TowerLevel = 1;
+
     private Renderer structureRenderer;
     private MeshFilter meshFilter;
     private bool EssenceUpgraded = false;
@@ -223,7 +226,7 @@ public class BaseStructure : BaseEntity
         statData.UpgradeBaseStat(StatData.StatType.ATTACK, statUpgrade.attackIncrease); // 공격력 증가
         statData.UpgradeBaseStat(StatData.StatType.DEFENSE, statUpgrade.defenseIncrease); // 방어력 증가
         statData.UpgradeBaseStat(StatData.StatType.HP, statUpgrade.healthIncrease); // 체력 증가
-
+        TowerLevel++;
         Debug.Log("업그레이드 완료: 공격력 + " + statUpgrade.attackIncrease + ", 방어력 + " + statUpgrade.defenseIncrease + ", 체력 + " + statUpgrade.healthIncrease);
     }
 

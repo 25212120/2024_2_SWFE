@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-public class Unit_Test : BaseUnit
+public class Unit_WithSword : BaseUnit
 {
     protected override void Awake()
     {
@@ -8,9 +8,7 @@ public class Unit_Test : BaseUnit
 
         List<ResourceRequirement> requirements = new List<ResourceRequirement>
         {
-            new ResourceRequirement(MaterialManager.ResourceType.Money, 100),  // 생성자에 맞게 수정
-            new ResourceRequirement(MaterialManager.ResourceType.Wood, 50),
-            new ResourceRequirement(MaterialManager.ResourceType.Stone, 30)
+            new ResourceRequirement(MaterialManager.ResourceType.Money, 100)
         };
 
         // 유닛의 업그레이드 자원 설정

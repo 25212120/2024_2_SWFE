@@ -20,8 +20,13 @@ public class Towerpopup : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            popupPanel.SetActive(false);
+        }
+
         // 마우스 왼쪽 버튼 클릭 감지
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetKeyDown(KeyCode.F))
         {
             // UI 요소 위를 클릭한 경우라면 (UI가 클릭되었는지 확인)
             if (EventSystem.current.IsPointerOverGameObject())

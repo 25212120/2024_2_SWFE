@@ -3,10 +3,6 @@ using UnityEngine;
 
 public class BaseStructure : BaseEntity
 {
-
-    [Header("타웟 소환에 필요한 자원")]
-    [SerializeField] private List<ResourceRequirement> spawnRequirements = new List<ResourceRequirement>(); // 업그레이드에 필요한 자원 리스트
-
     [Header("업그레이드에 필요한 자원")]
     [SerializeField] private List<ResourceRequirement> upgradeRequirements = new List<ResourceRequirement>(); // 업그레이드에 필요한 자원 리스트
     [SerializeField] private Material upgradedMaterial;  // 업그레이드 후 외형을 변경할 기본 머티리얼
@@ -33,6 +29,8 @@ public class BaseStructure : BaseEntity
         structureRenderer = GetComponent<Renderer>();  
         meshFilter = GetComponent<MeshFilter>();       
     }
+
+
 
     // 일반 자원 업그레이드 (에센스 제외)
     public bool UpgradeWithoutEssence()

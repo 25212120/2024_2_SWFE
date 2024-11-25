@@ -4,7 +4,7 @@ using UnityEngine;
 public class BaseStructure : BaseEntity
 {
     [Header("업그레이드에 필요한 자원")]
-    [SerializeField] private List<ResourceRequirement> upgradeRequirements = new List<ResourceRequirement>(); // 업그레이드에 필요한 자원 리스트
+    [SerializeField] public List<ResourceRequirement> upgradeRequirements = new List<ResourceRequirement>(); // 업그레이드에 필요한 자원 리스트
     [SerializeField] private Material upgradedMaterial;  // 업그레이드 후 외형을 변경할 기본 머티리얼
     [SerializeField] private Mesh upgradedMesh;         // 업그레이드 후 사용할 메쉬 (선택사항)
 
@@ -249,6 +249,11 @@ public class BaseStructure : BaseEntity
     {
         public MaterialManager.ResourceType resourceType; // 자원 타입
         public int amount;                                // 자원 수량
+        public ResourceRequirement(MaterialManager.ResourceType resourceType, int amount)
+        {
+            this.resourceType = resourceType;
+            this.amount = amount;
+        }
     }
 
     public bool Upgradecheck()

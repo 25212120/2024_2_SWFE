@@ -5,8 +5,22 @@ using static BaseStructure;
 public abstract class BaseUnit : BaseEntity
 {
     [Header("업그레이드에 필요한 자원")]
-    [SerializeField] private List<ResourceRequirement> upgradeRequirements = new List<ResourceRequirement>(); // 업그레이드에 필요한 자원 리스트
+    [SerializeField] public List<ResourceRequirement> upgradeRequirements = new List<ResourceRequirement>(); // 업그레이드에 필요한 자원 리스트
 
+    public int UnitLevel = 1;
+
+    public class ResourceRequirement
+    {
+        public MaterialManager.ResourceType resourceType;  // 자원 타입
+        public int amount;                                 // 자원량
+
+        // 두 개의 인자를 받는 생성자 추가
+        public ResourceRequirement(MaterialManager.ResourceType resourceType, int amount)
+        {
+            this.resourceType = resourceType;
+            this.amount = amount;
+        }
+    }
     protected override void Awake()
     {
         base.Awake();
@@ -39,7 +53,7 @@ public abstract class BaseUnit : BaseEntity
         statData.UpgradeBaseStat(StatData.StatType.ATTACK, 5); // 예시: 공격력 +5
         statData.UpgradeBaseStat(StatData.StatType.HP, 50);   // 예시: 체력 +50
         statData.UpgradeBaseStat(StatData.StatType.DEFENSE, 1);
-
+        UnitLevel++;
         Debug.Log("업그레이드 완료: 공격력 +5, 체력 +50");
     }
     public void UpdateAllUnitsStats(List<BaseUnit> units)

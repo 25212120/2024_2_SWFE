@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class SpawnStructure : BaseStructure
@@ -28,5 +29,15 @@ public class SpawnStructure : BaseStructure
     protected override void Awake()
     {
         base.Awake();
+
+        List<ResourceRequirement> requirements = new List<ResourceRequirement>
+        {
+            new ResourceRequirement(MaterialManager.ResourceType.Money, 100),  // 생성자에 맞게 수정
+            new ResourceRequirement(MaterialManager.ResourceType.Wood, 50),
+            new ResourceRequirement(MaterialManager.ResourceType.Stone, 30)
+        };
+
+        // 유닛의 업그레이드 자원 설정
+        upgradeRequirements = requirements;
     }
 }

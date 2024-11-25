@@ -4128,6 +4128,10 @@ PrefabInstance:
       propertyPath: core
       value: 
       objectReference: {fileID: 1676050594}
+    - target: {fileID: 1942496809722494711, guid: 7e75909db118d3d4b88b908e7de21466, type: 3}
+      propertyPath: statData.<hpMax>k__BackingField
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 6675521180618716142, guid: 7e75909db118d3d4b88b908e7de21466, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.377886
@@ -4639,6 +4643,22 @@ PrefabInstance:
     - target: {fileID: 2751155131953258265, guid: f9c137e7891118a4684446bdef465b3a, type: 3}
       propertyPath: statData.<baseAttack>k__BackingField
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2751155131953258265, guid: f9c137e7891118a4684446bdef465b3a, type: 3}
+      propertyPath: statData.<baseMagicAttack_Ice>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2751155131953258265, guid: f9c137e7891118a4684446bdef465b3a, type: 3}
+      propertyPath: statData.<baseMagicAttack_Fire>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2751155131953258265, guid: f9c137e7891118a4684446bdef465b3a, type: 3}
+      propertyPath: statData.<baseMagicAttack_Sand>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2751155131953258265, guid: f9c137e7891118a4684446bdef465b3a, type: 3}
+      propertyPath: statData.<baseMagicAttack_Wood>k__BackingField
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3136646380719806053, guid: f9c137e7891118a4684446bdef465b3a, type: 3}
       propertyPath: m_Constraints
@@ -5196,7 +5216,7 @@ MonoBehaviour:
     MagicSkillTree_Fire: 0
     MagicSkillTree_Ice: 0
     MagicSkillTree_Sand: 0
-  - magicType: 0
+  - magicType: 1
     effect:
       MagicAttack: 0
     level: 1
@@ -5206,7 +5226,7 @@ MonoBehaviour:
     MagicSkillTree_Fire: 0
     MagicSkillTree_Ice: 0
     MagicSkillTree_Sand: 0
-  - magicType: 0
+  - magicType: 2
     effect:
       MagicAttack: 0
     level: 1
@@ -5216,7 +5236,7 @@ MonoBehaviour:
     MagicSkillTree_Fire: 0
     MagicSkillTree_Ice: 0
     MagicSkillTree_Sand: 0
-  - magicType: 0
+  - magicType: 3
     effect:
       MagicAttack: 0
     level: 1
@@ -7852,6 +7872,10 @@ PrefabInstance:
       propertyPath: core
       value: 
       objectReference: {fileID: 1676050594}
+    - target: {fileID: 1942496809722494711, guid: 7e75909db118d3d4b88b908e7de21466, type: 3}
+      propertyPath: statData.<hpMax>k__BackingField
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 6675521180618716142, guid: 7e75909db118d3d4b88b908e7de21466, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.6024446

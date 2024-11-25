@@ -1,5 +1,6 @@
 
 using System.Collections.Generic;
+using System.Diagnostics;
 
 public class Monster_1 : BaseMonster
 {

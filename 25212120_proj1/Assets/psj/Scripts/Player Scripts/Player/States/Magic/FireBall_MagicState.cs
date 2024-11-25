@@ -22,9 +22,10 @@ public class FireBall_MagicState : BaseState<PlayerStateType>
 
     private GameObject fireBall;
     private GameObject fireCircle;
-    private GameObject flameThrower;
+    private GameObject instantiatedFireCircle;
 
     private Vector3 spawnPosition;
+    private Vector3 magicCirclePos;
 
     private bool finishedCasting = false;
 
@@ -32,16 +33,16 @@ public class FireBall_MagicState : BaseState<PlayerStateType>
     {
         playerInputManager.isPerformingAction = true;
         LoadFireCircle("Prefabs/Magic/Fire/MagicCircleSimpleYellow");
-        LoadFireBall("Prefabs/Magic/Fire/FireBall/FireBallObject");
-        LoadFlameThrower("Prefabs/Magic/Fire/FireBall/FlamethrowerSharpFire");
+        LoadFireBall("Prefabs/Magic/Fire/FireBall/FireballMissileFire");
 
 
-        Vector3 magicCirclePos = playerTransform.position + new Vector3(0, 0.2f, 0);
-        Object.Instantiate(fireCircle, magicCirclePos, Quaternion.Euler(-90, 0, 0));
+        magicCirclePos = playerTransform.position + new Vector3(0, 0.2f, 0);
 
         spawnPosition = playerTransform.TransformPoint(playerInputManager.magicSpawnPoints[0]);
+        monoBehaviour.StartCoroutine(InstantiateMagicCircle());
 
         monoBehaviour.StartCoroutine(MaigcCasting());
+        playerInputManager.isPerformingAction = false;
     }
 
     public override void UpdateState()
@@ -56,7 +57,6 @@ public class FireBall_MagicState : BaseState<PlayerStateType>
     public override void ExitState()
     {
         finishedCasting = false;
-        playerInputManager.isPerformingAction = false;
     }
 
     public override void CheckTransitions()
@@ -76,9 +76,14 @@ public class FireBall_MagicState : BaseState<PlayerStateType>
     {
         fireBall = Resources.Load<GameObject>(prefabAddress);
     }
-    private void LoadFlameThrower(string prefabAddress)
+
+    IEnumerator InstantiateMagicCircle()
     {
-        flameThrower = Resources.Load<GameObject>(prefabAddress);
+        instantiatedFireCircle = Object.Instantiate(fireCircle, magicCirclePos, Quaternion.Euler(-90, 0, 0));
+
+        yield return new WaitForSeconds(1f);
+
+        Object.Destroy(instantiatedFireCircle);
     }
 
     IEnumerator MaigcCasting()
@@ -86,15 +91,13 @@ public class FireBall_MagicState : BaseState<PlayerStateType>
         GameObject instantiatedFireBall = Object.Instantiate(fireBall, spawnPosition, Quaternion.identity);
         instantiatedFireBall.GetComponent<FireBallHandler>().playerStat = playerStat;
         Rigidbody fireBallRigidbody = instantiatedFireBall.GetComponent<Rigidbody>();
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
 
         Vector3 direction = (playerInputManager.magicPoint - spawnPosition).normalized;
         Quaternion rotation = Quaternion.LookRotation(direction);
         instantiatedFireBall.transform.rotation = rotation;
 
-        Transform childTransform = instantiatedFireBall.transform.GetChild(0);
-        childTransform.gameObject.SetActive(true);
-        fireBallRigidbody.AddForce(direction * 50f, ForceMode.VelocityChange);
+        fireBallRigidbody.AddForce(direction * 40f, ForceMode.VelocityChange);
 
         finishedCasting = true;
     }

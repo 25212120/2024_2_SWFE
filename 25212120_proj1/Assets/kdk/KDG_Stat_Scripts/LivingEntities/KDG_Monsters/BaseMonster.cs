@@ -31,6 +31,11 @@ public class BaseMonster : BaseEntity
         InitializeMonsterStats();
     }
 
+    protected override void Update()
+    {
+        base.Update();
+    }
+
     protected virtual void InitializeMonsterStats()
     {
         statData.SetHpMax(100);  // 몬스터의 최대 체력 초기화

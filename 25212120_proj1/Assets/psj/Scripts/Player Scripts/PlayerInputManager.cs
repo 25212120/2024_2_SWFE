@@ -78,8 +78,8 @@ public class PlayerInputManager : MonoBehaviour
         currentLeftHandIndex = 0;
 
         // magic init (for test)
-        Magic1Swap(PlayerStateType.FireBall_MagicState);
-        Magic2Swap(PlayerStateType.EarthQuake_MagicState);
+        Magic1Swap(PlayerStateType.IceSpear_MagicState);
+        Magic2Swap(PlayerStateType.Storm_MagicState);
     }
 
     private void Update()

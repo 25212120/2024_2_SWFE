@@ -1,7 +1,8 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class ExplosionFireballFire : MonoBehaviour
+public class MeteorNova : MonoBehaviour
 {
     public PlayerStat playerStat;
 
@@ -14,6 +15,7 @@ public class ExplosionFireballFire : MonoBehaviour
         {
             playerStat.MagicAttack(enemy, 1);
         }
+
 
     }
 

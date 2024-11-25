@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IceSpearNova : MonoBehaviour
+public class StormNova : MonoBehaviour
 {
     public PlayerStat playerStat;
 
@@ -20,10 +20,9 @@ public class IceSpearNova : MonoBehaviour
 
     private IEnumerator DestroyGameObj()
     {
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.5f);
         GetComponent<Collider>().enabled = false;
         yield return new WaitForSeconds(0.7f);
         Destroy(gameObject);
     }
-
 }

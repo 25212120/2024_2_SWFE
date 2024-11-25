@@ -209,7 +209,6 @@ public class PlayerInputManager : MonoBehaviour
     {
         if (isPerformingAction == false)
         {
-            Debug.Log("COME IN");
             moveInput = ctx.ReadValue<Vector2>();
             animator.SetBool("moveInput", true);
         }

@@ -93,8 +93,9 @@ public class PlayerInputManager : MonoBehaviour
         //Debug.Log("LeftButton_Pressed : " + leftButton_Pressed);
         //Debug.Log(isPeformingAction);
         //GetHitCheck();
+        /*
         hpCheck();
-
+        */
         leftButton_Pressed = false;
     }
     private void FixedUpdate()
@@ -107,9 +108,8 @@ public class PlayerInputManager : MonoBehaviour
 
     private void OnEnable()
     {
-        // **************************************************
+
         //if (photonView.IsMine == false) return;
-        // **************************************************
 
         playerInput.Enable();
 

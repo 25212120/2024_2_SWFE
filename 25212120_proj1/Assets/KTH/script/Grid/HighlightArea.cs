@@ -3,7 +3,8 @@ using System.Collections.Generic;
 
 public class HighlightArea : MonoBehaviour
 {
-    public float cellSize = 1f; // 그리드 셀 크기
+    public float cellSize_Virtical = 1f; // 그리드 세로 크기
+    public float cellSize_Horizontal = 1f; // 그리드 가로 크기
     public int highlightSize = 3; // 강조 영역의 크기 (nxn)
     public int detailGridResolution = 2; // 강조 영역 내의 세부 그리드 분할 수
     public Material highlightMaterial; // 강조 영역에 적용할 머티리얼
@@ -18,14 +19,24 @@ public class HighlightArea : MonoBehaviour
     private int cellZ;
     private bool isValidHit = false; // 레이캐스트 성공 여부
     private bool isValidPlacement = false; // 배치 가능 여부
+    public OccupiedCell_Manager occupiedCell_Manager;
 
-    private HashSet<Vector2Int> occupiedCells = new HashSet<Vector2Int>(); // 이미 포탑이 배치된 셀들을 추적
     private float currentRotation = 0f; // 현재 타워의 회전 각도
     private GameObject previewTurret; // 미리 보기용 포탑 인스턴스
+
+    public Vector3 gridStartPosition = new Vector3(0, 0, 0); // 그리드의 시작 위치 (고정)
+
 
     void Start()
     {
         CreateHighlightObject();
+        if (occupiedCell_Manager == null)
+        {
+            occupiedCell_Manager = FindObjectOfType<OccupiedCell_Manager>();  // 자동으로 찾기
+        }
+
+        //SetTurretPrefab("Wall_1");
+        
     }
 
     void Update()
@@ -33,6 +44,7 @@ public class HighlightArea : MonoBehaviour
         // Q 키를 눌러 타워 회전
         if (Input.GetKeyDown(KeyCode.Q))
         {
+            SetRotatestate();
             RotateTurret();
         }
         // 마우스 위치 업데이트
@@ -74,12 +86,14 @@ public class HighlightArea : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, Mathf.Infinity))
         {
-            // 그리드 상의 위치 계산
+            // 마우스가 그리드의 시작 위치에서 얼마나 떨어져 있는지 계산
+            Vector3 offset = hit.point - gridStartPosition; // 시작 위치 기준으로 마우스 오프셋 계산
+
+            // 그리드 셀 좌표 계산
+            cellX = Mathf.FloorToInt(offset.x / cellSize_Horizontal);
+            cellZ = Mathf.FloorToInt(offset.z / cellSize_Virtical);
+
             hitPoint = hit.point;
-
-            cellX = Mathf.FloorToInt(hitPoint.x / cellSize);
-            cellZ = Mathf.FloorToInt(hitPoint.z / cellSize);
-
             isValidHit = true;
         }
         else
@@ -96,10 +110,10 @@ public class HighlightArea : MonoBehaviour
             // 강조 영역의 범위 계산
             int halfSize = highlightSize / 2;
 
-            float startX = (cellX - halfSize) * cellSize;
-            float startZ = (cellZ - halfSize) * cellSize;
-            float endX = (cellX + halfSize + 1) * cellSize;
-            float endZ = (cellZ + halfSize + 1) * cellSize;
+            float startX = (cellX - halfSize) * cellSize_Horizontal;
+            float startZ = (cellZ - halfSize) * cellSize_Virtical;
+            float endX = (cellX + halfSize + 1) * cellSize_Horizontal;
+            float endZ = (cellZ + halfSize + 1) * cellSize_Virtical;
 
             // 강조 영역 메쉬 생성
             Mesh mesh = BuildHighlightMesh(startX, startZ, endX, endZ);
@@ -186,14 +200,14 @@ public class HighlightArea : MonoBehaviour
                 Vector2Int cellPos = new Vector2Int(x, z);
 
                 // 셀 점유 상태 확인
-                if (occupiedCells.Contains(cellPos))
+                if (occupiedCell_Manager.occupiedCells.Contains(cellPos))
                 {
                     return false; // 이미 점유된 셀이 있음
                 }
 
                 // 셀 중심 좌표 계산
-                Vector3 cellCenter = new Vector3(x * cellSize + cellSize / 2, hitPoint.y + 0.5f, z * cellSize + cellSize / 2);
-                Vector3 halfExtents = new Vector3(cellSize / 2, 0.5f, cellSize / 2);
+                Vector3 cellCenter = new Vector3(x * cellSize_Horizontal + cellSize_Horizontal / 2, hitPoint.y + 0.5f, z * cellSize_Virtical + cellSize_Virtical / 2);
+                Vector3 halfExtents = new Vector3(cellSize_Horizontal / 2, 0.5f, cellSize_Virtical / 2);
 
                 // 박스 콜라이더로 검사
                 Collider[] colliders = Physics.OverlapBox(cellCenter, halfExtents, Quaternion.identity);
@@ -227,17 +241,31 @@ public class HighlightArea : MonoBehaviour
             previewTurret.SetActive(true);
 
             // 포탑의 위치는 하이라이트 영역의 중앙으로 설정
-            float posX = (cellX + 0.5f) * cellSize;
-            float posZ = (cellZ + 0.5f) * cellSize;
+            float posX = (cellX + 0.5f) * cellSize_Horizontal;
+            float posZ = (cellZ + 0.5f) * cellSize_Virtical;
             float posY = hitPoint.y; // 지형의 높이를 사용
             Vector3 position = new Vector3(posX, posY, posZ);
 
             // 회전 값 적용
             Quaternion rotation = Quaternion.Euler(0f, currentRotation, 0f);
             previewTurret.transform.SetPositionAndRotation(position, rotation);
+
+            // 자식 오브젝트의 콜라이더를 비활성화
+            Collider[] turretColliders = previewTurret.GetComponentsInChildren<Collider>();
+            foreach (Collider col in turretColliders)
+            {
+                col.enabled = false; // 모든 자식 오브젝트의 콜라이더 비활성화
+            }
+        }
+        else
+        {
+            // 마우스가 바닥에 닿지 않을 경우 미리보기 포탑 비활성화
+            if (previewTurret != null)
+            {
+                previewTurret.SetActive(false);
+            }
         }
     }
-
     void PlaceTurret()
     {
         if (!isValidHit || !isValidPlacement)
@@ -261,38 +289,27 @@ public class HighlightArea : MonoBehaviour
         }
 
         // 포탑을 배치할 위치 계산 (강조 영역의 중앙)
-        float posX = (cellX + 0.5f) * cellSize;
-        float posZ = (cellZ + 0.5f) * cellSize;
+        float posX = (cellX + 0.5f) * cellSize_Horizontal;
+        float posZ = (cellZ + 0.5f) * cellSize_Virtical;
         float posY = hitPoint.y; // 지형의 높이를 사용
         Vector3 position = new Vector3(posX, posY, posZ);
-        /*
-        // 포탑 프리팹이 할당되었는지 확인
-        if (turretPrefab != null)
-        {
-            // 포탑 프리팹 인스턴스화
-            Instantiate(turretPrefab, position, Quaternion.identity);
 
-            // 해당 셀들을 점유된 셀 목록에 추가
-            foreach (Vector2Int cellPos in cellsToOccupy)
-            {
-                occupiedCells.Add(cellPos);
-            }
-        }
-        else
-        {
-            Debug.LogError("포탑 프리팹이 할당되지 않았습니다.");
-        }
-        */
         if (turretPrefab != null)
         {
-            // 포탑 프리팹 인스턴스화 및 회전 적용
             Quaternion rotation = Quaternion.Euler(0f, currentRotation, 0f);
-            Instantiate(turretPrefab, position, rotation);
+            GameObject newTurret = Instantiate(turretPrefab, position, rotation);
 
-            // 해당 셀들을 점유된 셀 목록에 추가
+            // 타워 배치 후 콜라이더를 활성화
+            Collider turretCollider = newTurret.GetComponent<Collider>();
+            if (turretCollider != null)
+            {
+                turretCollider.enabled = true; // 배치 후 콜라이더 활성화
+            }
+
+            // 배치된 타워의 셀 점유 상태 업데이트
             foreach (Vector2Int cellPos in cellsToOccupy)
             {
-                occupiedCells.Add(cellPos);
+                occupiedCell_Manager.occupiedCells.Add(cellPos);
             }
         }
         else
@@ -301,15 +318,96 @@ public class HighlightArea : MonoBehaviour
         }
     }
 
+    private float temp;
+    private bool isRotate = false;
+    private void SetRotatestate()
+    {
+        if (isRotate)
+        {
+            temp = cellSize_Horizontal;
+            cellSize_Horizontal = cellSize_Virtical;
+            cellSize_Virtical = temp;
+            isRotate = false;
+        }
+        else
+        {
+            temp = cellSize_Horizontal;
+            cellSize_Horizontal = cellSize_Virtical;
+            cellSize_Virtical = temp;
+            isRotate = true;
+        }
+    }
     void RotateTurret()
     {
-        // 타워 회전 각도 90도 증가
         currentRotation += 90f;
 
-        // 회전 범위 제한 (0-360도)
         if (currentRotation >= 360f)
         {
             currentRotation = 0f;
+        }
+    }
+
+    public void SetTurretPrefab(string turretPrefabName)
+    {
+        // Resources 폴더에서 프리팹을 로드
+        GameObject newTurretPrefab = Resources.Load<GameObject>("Prefabs/Towers/" + turretPrefabName);
+
+        if (newTurretPrefab != null)
+        {
+            // 타워 프리팹 설정
+            turretPrefab = newTurretPrefab;
+
+            // 프리팹의 크기 추출
+       
+            if (turretPrefabName == "Wall_1")
+            {
+                cellSize_Horizontal = 1.25f;
+                cellSize_Virtical = 0.4f;
+            }
+            if (turretPrefabName == "Core")
+            {
+                cellSize_Horizontal = 2f;
+                cellSize_Virtical = 2f;
+            }
+            if (turretPrefabName == "ArrowTower_1")
+            {
+                cellSize_Horizontal = 2f;
+                cellSize_Virtical = 2f;
+            }
+            if (turretPrefabName == "MagicTower_1")
+            {
+                cellSize_Horizontal = 2f;
+                cellSize_Virtical = 2f;
+            }
+            if (turretPrefabName == "RocketTower_1")
+            {
+                cellSize_Horizontal = 2f;
+                cellSize_Virtical = 2f;
+            }
+            if (turretPrefabName == "HealTower_1")
+            {
+                cellSize_Horizontal = 2f;
+                cellSize_Virtical = 2f;
+            }
+            if (turretPrefabName == "LightTower_1")
+            {
+                cellSize_Horizontal = 2f;
+                cellSize_Virtical = 2f;
+            }
+            if (turretPrefabName == "SpawnTower_1")
+            {
+                cellSize_Horizontal = 2f;
+                cellSize_Virtical = 2f;
+            }
+
+            Debug.Log("타워 프리팹의 크기에 따라 cellSize 설정됨: " +
+                      "Horizontal = " + cellSize_Horizontal + ", Vertical = " + cellSize_Virtical);
+            
+   
+        }
+        else
+        {
+            Debug.LogError("프리팹을 로드할 수 없습니다: Turrets/" + turretPrefabName);
         }
     }
 }

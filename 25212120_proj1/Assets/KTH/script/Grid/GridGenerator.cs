@@ -24,7 +24,7 @@ public class GridRenderer : MonoBehaviour
         lastCameraPosition = Camera.main.transform.position;
     }
 
-    void Update()
+    /*void Update()
     {
         Vector3 cameraPosition = Camera.main.transform.position;
 
@@ -34,7 +34,7 @@ public class GridRenderer : MonoBehaviour
             UpdateGrid();
             lastCameraPosition = cameraPosition;
         }
-    }
+    }*/
 
     void CreateGrid()
     {

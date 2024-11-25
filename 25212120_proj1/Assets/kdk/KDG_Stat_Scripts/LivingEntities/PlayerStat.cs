@@ -21,7 +21,10 @@ public class PlayerStat : BaseEntity
     {
         Debug.Log("ATTACK");
         float damage = statData.AttackCurrent; // 현재 공격력 사용
-        target.TakeDamage(damage);
+        if (target != null)
+        {
+            target.TakeDamage(damage);
+        }
 
         // 장비 경험치를 증가시킴 (현재 장비의 경험치에 데미지를 더해줌)
         if (equipmentInventory != null && equipmentInventory.currentEquipment != null)

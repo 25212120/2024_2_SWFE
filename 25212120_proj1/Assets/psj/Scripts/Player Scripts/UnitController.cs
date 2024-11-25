@@ -37,7 +37,7 @@ public class UnitController : MonoBehaviour
     private void OnEnable()
     {
 
-        if(pv.IsMine == false) return;
+        //if(pv.IsMine == false) return;
 
         playerInput.Enable();
 

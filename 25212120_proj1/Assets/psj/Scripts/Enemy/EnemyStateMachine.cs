@@ -29,7 +29,6 @@ public class EnemyStateMachine : StateManager<EnemyStateType>
     protected override void Update()
     {
         base.Update();
-        Debug.Log(gameObject + " : " + CurrentState.ToString());
     }
 
 

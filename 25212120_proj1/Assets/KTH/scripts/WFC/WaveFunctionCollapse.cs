@@ -90,7 +90,7 @@ public class WaveFunctionCollapse
                     // 타일 생성 로그 추가
                     Debug.Log($"WaveFunctionCollapse: Created tile '{obj.name}' at {position}");
 
-                    ResourceManager.Instance?.RegisterResources(obj);
+                    ResourceManager.Instance?.RegisterResources(obj, chunk.chunkCoord);
                 }
 
  

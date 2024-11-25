@@ -1,35 +1,24 @@
 using UnityEngine;
-using Photon.Pun;
 
-public class ResourceTracker : MonoBehaviourPunCallbacks
+public class ResourceTracker : MonoBehaviour
 {
     private string resourceName;
+    private string chunkName;
+    private string tileName;
 
-    // ResourceManager에 알릴 초기화 함수
-    public void Initialize(string resourceName)
+    public void Initialize(string resourceName, string chunkName, string tileName)
     {
         this.resourceName = resourceName;
+        this.chunkName = chunkName;
+        this.tileName = tileName;
     }
 
     private void OnDestroy()
     {
-        if (!string.IsNullOrEmpty(resourceName))
+        if (!string.IsNullOrEmpty(resourceName) && ResourceManager.Instance != null)
         {
             Debug.Log($"Resource {resourceName} is being destroyed. Notifying ResourceManager...");
-
-            // 마스터 클라이언트에 파괴 이벤트 전송
-            PhotonView photonView = PhotonView.Get(this);
-            photonView.RPC("NotifyResourceDestroyed", RpcTarget.MasterClient, resourceName);
-        }
-    }
-
-    [PunRPC]
-    public void NotifyResourceDestroyed(string resourceName)
-    {
-        // 마스터 클라이언트에서 처리
-        if (PhotonNetwork.IsMasterClient)
-        {
-            ResourceManager.Instance.HandleResourceCollection(resourceName);
+            ResourceManager.Instance.OnResourceDestroyed(resourceName, chunkName, tileName);
         }
     }
 }

@@ -31,8 +31,15 @@ public class ChunkManager : MonoBehaviourPunCallbacks
 
         // 플레이어 찾기
         FindLocalPlayer();
-
-        if (PhotonNetwork.IsMasterClient) { InitializeChunksAtZero(); }
+        if (GameSettings.IsMultiplayer == false)
+        {
+            InitializeChunksAtZero();
+        }
+        else 
+        {
+            if (PhotonNetwork.IsMasterClient) { InitializeChunksAtZero(); }
+        }
+        
             
   
     }
@@ -58,17 +65,25 @@ public class ChunkManager : MonoBehaviourPunCallbacks
 
     private void FindLocalPlayer()
     {
+
         // "Player" 태그를 가진 로컬 플레이어 찾기
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
         foreach (var p in players)
         {
             PhotonView pv = p.GetComponent<PhotonView>();
-            if (pv != null && pv.IsMine)
+            if (GameSettings.IsMultiplayer == true)
+            {
+                if (pv != null && pv.IsMine)
+                {
+                    player = p;
+                    currentPlayerChunk = GetChunkCoordFromPosition(player.transform.position);
+                    Debug.Log($"로컬 플레이어를 찾았습니다: {player.name}");
+                    break;
+                }
+            }
+            else
             {
                 player = p;
-                currentPlayerChunk = GetChunkCoordFromPosition(player.transform.position);
-                Debug.Log($"로컬 플레이어를 찾았습니다: {player.name}");
-                break;
             }
         }
     }
@@ -121,6 +136,15 @@ public class ChunkManager : MonoBehaviourPunCallbacks
 
     private void GenerateAndSendChunk(Vector2Int chunkCoord, bool isInitial)
     {
+        if(GameSettings.IsMultiplayer == false)
+        {
+            Chunk newChunk = new Chunk(chunkCoord, chunkSize);
+            WaveFunctionCollapse wfc = new WaveFunctionCollapse(biomeManager, cellSize);
+            wfc.GenerateChunk(newChunk, chunkCoord, tileLoader.LoadedTiles, isPlayerSpawnChunk: isInitial);
+            InstantiateChunk(newChunk);
+            existingChunks[chunkCoord] = newChunk;
+            return;
+        }
         if (PhotonNetwork.IsMasterClient)
         {
             Debug.Log($"마스터 클라이언트가 청크 {chunkCoord}를 생성합니다.");
@@ -334,6 +358,7 @@ public class ChunkManager : MonoBehaviourPunCallbacks
 
     public override void OnMasterClientSwitched(Photon.Realtime.Player newMasterClient)
     {
+
         if (PhotonNetwork.IsMasterClient)
         {
             Debug.Log("새로운 마스터 클라이언트가 되었습니다. 모든 클라이언트에게 기존 청크 데이터를 전송해야 합니다.");

@@ -768,6 +768,7 @@ GameObject:
   - component: {fileID: 2989346952740844207}
   - component: {fileID: 4366850263629403721}
   - component: {fileID: 6133149884905850261}
+  - component: {fileID: 4560996549137578514}
   m_Layer: 7
   m_Name: Sword7_L
   m_TagString: Untagged
@@ -861,6 +862,18 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.6580156, y: 1.6335975, z: 0.32499313}
   m_Center: {x: 0.006798146, y: -1.0491871, z: 0.015039607}
+--- !u!114 &4560996549137578514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1087553041957011073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5f803496a7cb8f418e1520aba6a3da2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1114694990828136687
 GameObject:
   m_ObjectHideFlags: 0
@@ -2122,6 +2135,7 @@ GameObject:
   - component: {fileID: 8537164017184822204}
   - component: {fileID: 2015488516026425752}
   - component: {fileID: 5779613297680574373}
+  - component: {fileID: 5825993041319020754}
   m_Layer: 7
   m_Name: Sword3_L
   m_TagString: Untagged
@@ -2215,6 +2229,18 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.6523912, y: 1.4853876, z: 0.31860083}
   m_Center: {x: -0.022900177, y: -0.9517663, z: 0.014814653}
+--- !u!114 &5825993041319020754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3970350319685285199}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5f803496a7cb8f418e1520aba6a3da2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4022913168336981132
 GameObject:
   m_ObjectHideFlags: 0
@@ -2473,6 +2499,7 @@ GameObject:
   - component: {fileID: 6339968626618585208}
   - component: {fileID: 453817320699423398}
   - component: {fileID: 6251315654480626631}
+  - component: {fileID: 4455383872328174134}
   m_Layer: 7
   m_Name: Sword4_R
   m_TagString: Untagged
@@ -2566,6 +2593,18 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.68517053, y: 1.6444427, z: 0.3057746}
   m_Center: {x: -0.009559915, y: -0.26369777, z: 0.015548651}
+--- !u!114 &4455383872328174134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4601075769170633389}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5f803496a7cb8f418e1520aba6a3da2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4662709943733453525
 GameObject:
   m_ObjectHideFlags: 0
@@ -3868,8 +3907,10 @@ GameObject:
   - component: {fileID: 7114948607715094834}
   - component: {fileID: 1567979975485436385}
   - component: {fileID: 7208162116531272147}
+  - component: {fileID: 7889602234999961941}
   - component: {fileID: 2751155131953258265}
   - component: {fileID: 789213622087573943}
+  - component: {fileID: 1464256310883817063}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -4045,6 +4086,7 @@ MonoBehaviour:
   isPerformingAction: 0
   magicPoint: {x: 0, y: 0, z: 0}
   dim: {fileID: 0}
+  spawnPrefab: {fileID: 9125505966264196339, guid: 30ed253f50c4bf045a0d1246bd609f7b, type: 3}
   interactionFinished: 0
 --- !u!114 &4453452306664337011
 MonoBehaviour:
@@ -4058,6 +4100,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccc6c704ae2ee2b46aa3c2390bb9dfcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDashOnCoolTime: 0
+  isSwordShieldWeaponSkillOnCoolTime: 0
+  isSingleTwoHandSwordWeaponSkillOnCoolTime: 0
+  isDoubleSwordsWeaponSkillOnCoolTime: 0
+  isBowWeaponSkillOnCoolTime: 0
+  isFireBallOnCoolTime: 0
+  isMeteorOnCoolTime: 0
+  isPoisonFogOnCoolTime: 0
+  isDrainFieldOnCoolTime: 0
+  isIceSpearOnCoolTime: 0
+  isStormOnCoolTime: 0
+  isRockFallOnCoolTime: 0
+  isEarthQuakeOnCoolTime: 0
+  dashCoolTime_SwordShield: 1
+  dashCoolTime_SingleTwoHandSword: 1.3
+  dashCoolTime_DoubleSwords: 0.7
+  dashCoolTime_Bow: 1.8
+  weaponSkillCoolTime_SwordShield: 6
+  weaponSkillCoolTime_SingleTwoHandSword: 6
+  weaponSkillCoolTime_DoubleSwords: 3
+  weaponSkillCoolTime_Bow: 12
+  magicCoolTime_FireBall: 5
+  magicCoolTime_Meteor: 10
+  magicCoolTime_PoisonFog: 5
+  magicCoolTime_DrainField: 10
+  magicCoolTime_IceSpear: 5
+  magicCoolTime_Storm: 10
+  magicCoolTime_RockFall: 5
+  magicCoolTime_EarthQuake: 10
 --- !u!114 &4764027434301235226
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4085,6 +4156,7 @@ MonoBehaviour:
   arrowPrefab: {fileID: 1741976954598634, guid: 0b4d6e6588c1a6b428caa399b1ceb9a9, type: 3}
   chargedArrowPrefab: {fileID: 1741976954598634, guid: d836ba08a5f21ac428addb446161e889, type: 3}
   arrowSpawnPoint: {fileID: 2792516864359012751}
+  playerTransform: {fileID: 0}
 --- !u!114 &7114948607715094834
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4099,6 +4171,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Move_Command_given: 0
   selectionBox: {fileID: 0}
+  SpecifyWarrior: 0
+  SpecifyMage: 0
 --- !u!114 &1567979975485436385
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4133,6 +4207,77 @@ MonoBehaviour:
   DoubleSwords_1: {fileID: 8795154121598557743}
   DoubleSwords_2: {fileID: 3245410145282707262}
   WhirlWind: {fileID: 9174444267861783298}
+--- !u!114 &7889602234999961941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7733253676307657119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5097c81fc7f09ce49ac0448b0981880d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  availableEquipments:
+  - itemName: 
+    effect:
+      Attack: 0
+      MovementSpeed: 0
+      Defense: 0
+    level: 0
+    experience: 0
+    attackIncreasePerLevel: 0
+    movementSpeedIncreasePerLevel: 0
+    defenseIncreasePerLevel: 0
+    maxExperience: 0
+  - itemName: 
+    effect:
+      Attack: 0
+      MovementSpeed: 0
+      Defense: 0
+    level: 0
+    experience: 0
+    attackIncreasePerLevel: 0
+    movementSpeedIncreasePerLevel: 0
+    defenseIncreasePerLevel: 0
+    maxExperience: 0
+  - itemName: 
+    effect:
+      Attack: 0
+      MovementSpeed: 0
+      Defense: 0
+    level: 0
+    experience: 0
+    attackIncreasePerLevel: 0
+    movementSpeedIncreasePerLevel: 0
+    defenseIncreasePerLevel: 0
+    maxExperience: 0
+  - itemName: 
+    effect:
+      Attack: 0
+      MovementSpeed: 0
+      Defense: 0
+    level: 0
+    experience: 0
+    attackIncreasePerLevel: 0
+    movementSpeedIncreasePerLevel: 0
+    defenseIncreasePerLevel: 0
+    maxExperience: 0
+  currentEquipment:
+    itemName: 
+    effect:
+      Attack: 0
+      MovementSpeed: 0
+      Defense: 0
+    level: 0
+    experience: 0
+    attackIncreasePerLevel: 0
+    movementSpeedIncreasePerLevel: 0
+    defenseIncreasePerLevel: 0
+    maxExperience: 0
+  rightHandWeapons: []
+  currentRightHandIndex: 0
 --- !u!114 &2751155131953258265
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4147,12 +4292,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   statData:
     <level>k__BackingField: 1
-    <hpMax>k__BackingField: 0
+    <hpMax>k__BackingField: 100
     mHpCurrent: 0
-    <baseAttack>k__BackingField: 10
+    <baseAttack>k__BackingField: 100
     <baseMovementSpeed>k__BackingField: 1
     <baseDefense>k__BackingField: 0
+    <baseMagicAttack_Wood>k__BackingField: 0
+    <baseMagicAttack_Fire>k__BackingField: 0
+    <baseMagicAttack_Ice>k__BackingField: 0
+    <baseMagicAttack_Sand>k__BackingField: 0
   equipmentInventory: {fileID: 0}
+  playerInventory: {fileID: 0}
 --- !u!208 &789213622087573943
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -4162,13 +4312,66 @@ NavMeshObstacle:
   m_GameObject: {fileID: 7733253676307657119}
   m_Enabled: 1
   serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 0.5, y: 0.75, z: 0.5}
+  m_Shape: 0
+  m_Extents: {x: 0.5, y: 1, z: 0.5}
   m_MoveThreshold: 0.1
   m_Carve: 1
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 1, z: 0}
+  m_CarveOnlyStationary: 0
+  m_Center: {x: 0, y: 0.7, z: 0}
   m_TimeToStationary: 0.5
+--- !u!114 &1464256310883817063
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7733253676307657119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81fb56dc44beb2946802f6ed8bf203db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerMagics:
+  - magicType: 0
+    effect:
+      MagicAttack: 0
+    level: 1
+    experience: 0
+    maxExperience: 100
+    MagicSkillTree_Wood: 0
+    MagicSkillTree_Fire: 0
+    MagicSkillTree_Ice: 0
+    MagicSkillTree_Sand: 0
+  - magicType: 0
+    effect:
+      MagicAttack: 0
+    level: 1
+    experience: 0
+    maxExperience: 100
+    MagicSkillTree_Wood: 0
+    MagicSkillTree_Fire: 0
+    MagicSkillTree_Ice: 0
+    MagicSkillTree_Sand: 0
+  - magicType: 0
+    effect:
+      MagicAttack: 0
+    level: 1
+    experience: 0
+    maxExperience: 100
+    MagicSkillTree_Wood: 0
+    MagicSkillTree_Fire: 0
+    MagicSkillTree_Ice: 0
+    MagicSkillTree_Sand: 0
+  - magicType: 0
+    effect:
+      MagicAttack: 0
+    level: 1
+    experience: 0
+    maxExperience: 100
+    MagicSkillTree_Wood: 0
+    MagicSkillTree_Fire: 0
+    MagicSkillTree_Ice: 0
+    MagicSkillTree_Sand: 0
 --- !u!1 &7761168332542681050
 GameObject:
   m_ObjectHideFlags: 0

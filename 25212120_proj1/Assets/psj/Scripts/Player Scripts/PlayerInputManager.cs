@@ -27,6 +27,7 @@ public class PlayerInputManager : MonoBehaviour
     public bool isDefending = false;
     // 데미지 주는 쪽에서 isHit = true해주면 hit animation재생가능
     public bool isHit = false;
+    public bool canSwap = false;
 
     [Header("Magic Spawn Points")]
     [SerializeField] public Vector3[] magicSpawnPoints;
@@ -338,6 +339,8 @@ public class PlayerInputManager : MonoBehaviour
     }
     private void OnSwapToSwordAndShieldPerformed(InputAction.CallbackContext ctx)
     {
+        if (canSwap == false) return;
+
         if (isGrounded && !isPerformingAction && !isAttacking)
         {
             IndexSwapTo = 0;
@@ -347,6 +350,8 @@ public class PlayerInputManager : MonoBehaviour
     }
     private void OnSwapToSingleTwoHandSwordPerformed(InputAction.CallbackContext ctx)
     {
+        if (canSwap == false) return;
+
         if (isGrounded && !isPerformingAction && !isAttacking)
         {
             IndexSwapTo = 1;
@@ -356,6 +361,8 @@ public class PlayerInputManager : MonoBehaviour
     }
     private void OnSwapToDoubleSwordsPerformed(InputAction.CallbackContext ctx)
     {
+        if (canSwap == false) return;
+
         if (isGrounded && !isPerformingAction && !isAttacking)
         {
             IndexSwapTo = 2;
@@ -365,6 +372,8 @@ public class PlayerInputManager : MonoBehaviour
     }
     private void OnSwapToBowAndArrowPerformed(InputAction.CallbackContext ctx)
     {
+        if (canSwap == false) return;
+
         if (isGrounded && !isPerformingAction && !isAttacking)
         {
             IndexSwapTo = 3;

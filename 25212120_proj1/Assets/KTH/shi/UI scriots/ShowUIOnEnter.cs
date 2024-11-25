@@ -58,6 +58,7 @@ public class ShowUIOnEnter : MonoBehaviour
 
             if (distance <= detectionRadius)
             {
+                playerInputManager.canSwap = true;
                 if (uiPanel != null)
                 {
                     uiPanel.SetActive(true); // 플레이어가 대상 오브젝트에 가까워지면 UI 창 활성화
@@ -86,7 +87,7 @@ public class ShowUIOnEnter : MonoBehaviour
                 radiusEffect.SetActive(false); // 감지 반경 이펙트 비활성화
             }
 
-            
+            playerInputManager.canSwap = false;
 
             // 모든 무기 UI 패널 비활성화
             foreach (GameObject panel in weaponUIPanels)

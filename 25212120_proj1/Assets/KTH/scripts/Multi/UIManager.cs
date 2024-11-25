@@ -29,11 +29,13 @@ public class UIManager : MonoBehaviour
 
     public void LoadLobby()
     {
+        GameSettings.IsMultiplayer = true;
         SceneManager.LoadScene("LobbyScene");
     }
 
     public void LoadSoloPlayer()
     {
+        GameSettings.IsMultiplayer = false;
         SceneManager.LoadScene("GameScene");
     }
 

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System.Resources;
 
 public class WaveFunctionCollapse
 {
@@ -13,101 +14,7 @@ public class WaveFunctionCollapse
         this.biomeManager = biomeManager;
         this.cellSize = cellSize;
     }
-    /*
-    public void GenerateChunk(Chunk chunk, Vector2Int chunkCoord, List<Tile> allTiles, bool isPlayerSpawnChunk)
-    {
-        // 청크의 월드 위치 계산
-        float chunkWorldSize = chunk.width * cellSize;
-        Vector2 chunkWorldPosition = new Vector2(
-            chunkCoord.x * chunkWorldSize,
-            chunkCoord.y * chunkWorldSize
-        );
 
-        // 청크의 중앙 위치 사용 (옵션)
-        chunkWorldPosition += new Vector2(chunkWorldSize / 2, chunkWorldSize / 2);
-
-        // 청크 객체의 위치 설정
-        chunk.chunkObject.transform.position = new Vector3(chunkWorldPosition.x, 0, chunkWorldPosition.y);
-
-        // 디버그 로그 추가
-        Debug.Log($"청크 {chunkCoord}의 chunkWorldSize: {chunkWorldSize}, chunkWorldPosition: {chunkWorldPosition}");
-
-        // 바이옴 결정
-        string biome = biomeManager.GetBiomeForPosition(chunkWorldPosition);
-        biome = biome.Trim().ToLowerInvariant();
-
-        // 노이즈 값 로그 출력
-        float noiseValue = biomeManager.GetNoiseValue(chunkWorldPosition);
-        Debug.Log($"청크 {chunkCoord}의 노이즈 값: {noiseValue:F4}, 바이옴: {biome}");
-
-        // 바이옴에 맞는 타일 필터링
-        List<Tile> filteredTiles = FilterTilesByBiome(biome, allTiles);
-        Debug.Log($"필터링된 타일 수: {filteredTiles.Count}");
-
-        if (filteredTiles.Count == 0)
-        {
-            Debug.LogWarning($"바이옴 '{biome}'에 맞는 타일이 없습니다. 모든 타일을 사용합니다.");
-            filteredTiles = allTiles;
-        }
-
-        if (isPlayerSpawnChunk)
-        {
-            // 스폰 청크에 기본 타일 설정
-            InitializeChunkWithDefaultTiles(chunk, filteredTiles);
-        }
-        else
-        {
-            // 일반 청크 생성
-            InitializeChunk(chunk, filteredTiles);
-
-            bool success = RunWFC(chunk);
-            if (!success)
-            {
-                Debug.LogError("WFC를 사용하여 청크를 생성하는 데 실패했습니다.");
-            }
-        }
-    }
-
-    // 타일을 인스턴스화하는 메서드
-    public void InstantiateChunk(Chunk chunk)
-    {
-        for (int x = 0; x < chunk.width; x++)
-        {
-            for (int y = 0; y < chunk.height; y++)
-            {
-                Cell cell = chunk.cells[x, y];
-                if (cell.collapsedTileState != null)
-                {
-                    TileState state = cell.collapsedTileState;
-                    if (state.tile.prefab == null)
-                    {
-                        Debug.LogError($"타일 프리팹이 null입니다: {state.tile.tileName} 위치 ({x}, {y})");
-                        continue;
-                    }
-
-                    // 타일 위치 계산 (청크 위치 + 셀 위치)
-                    Vector3 position = chunk.chunkObject.transform.position + new Vector3(x * cellSize, 0, y * cellSize);
-
-                    GameObject obj = GameObject.Instantiate(
-                        state.tile.prefab,
-                        position,
-                        Quaternion.Euler(0, state.tile.rotationAngles[state.rotationIndex], 0)
-                    );
-
-                    obj.name = $"{state.tile.tileName}_{x}_{y}";
-                    obj.transform.parent = chunk.chunkObject.transform;
-
-                    // 타일 생성 로그 추가
-                    Debug.Log($"타일 생성됨: {obj.name} 위치 {position}");
-                }
-                else
-                {
-                    Debug.LogWarning($"셀 ({x}, {y})에 할당된 타일이 없습니다.");
-                }
-            }
-        }
-    }
-    */
     public void GenerateChunk(Chunk chunk, Vector2Int chunkCoord, List<Tile> allTiles, bool isPlayerSpawnChunk)
     {
         // 청크의 월드 위치는 이미 Chunk 생성자에서 설정됨
@@ -182,7 +89,11 @@ public class WaveFunctionCollapse
 
                     // 타일 생성 로그 추가
                     Debug.Log($"WaveFunctionCollapse: Created tile '{obj.name}' at {position}");
+
+                    ResourceManager.Instance?.RegisterResources(obj);
                 }
+
+ 
                 else
                 {
                     Debug.LogWarning($"WaveFunctionCollapse: No tile assigned to cell ({x}, {y}) in chunk {chunk.chunkCoord}");
@@ -192,6 +103,7 @@ public class WaveFunctionCollapse
 
         Debug.Log($"WaveFunctionCollapse: Completed instantiating chunk at {chunk.chunkCoord}");
     }
+
 
     // 스폰 청크에 기본 타일 설정 메서드 추가
     private void InitializeChunkWithDefaultTiles(Chunk chunk, List<Tile> tiles)

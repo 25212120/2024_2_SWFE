@@ -425,7 +425,10 @@ MonoBehaviour:
     <baseMagicAttack_Ice>k__BackingField: 0
     <baseMagicAttack_Sand>k__BackingField: 0
   expAmount: 0
-  resourceDrops: []
+  resourceDrops:
+  - resourceType: 0
+    amount: 100
+    dropChance: 1
 --- !u!136 &7513228536627924679
 CapsuleCollider:
   m_ObjectHideFlags: 0

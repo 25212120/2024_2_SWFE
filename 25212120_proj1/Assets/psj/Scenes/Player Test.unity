@@ -8952,8 +8952,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 718485761}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.6532815, y: -0.27059805, z: 0.27059805, w: 0.6532815}
-  m_LocalPosition: {x: -2.39, y: 20, z: 0}
+  m_LocalRotation: {x: 0.39044836, y: -0.346829, z: 0.16172901, w: 0.83731925}
+  m_LocalPosition: {x: 6.6099997, y: 15, z: -9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9026,7 +9026,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 5000
-  field of view: 60.000004
+  field of view: 60
   orthographic: 0
   orthographic size: 10
   m_Depth: 0
@@ -14310,9 +14310,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7733253676307657119, guid: f9c137e7891118a4684446bdef465b3a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1330162153}
-    - targetCorrespondingSourceObject: {fileID: 7733253676307657119, guid: f9c137e7891118a4684446bdef465b3a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1330162167}
     - targetCorrespondingSourceObject: {fileID: 3970350319685285199, guid: f9c137e7891118a4684446bdef465b3a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1300813599}
@@ -16034,19 +16031,6 @@ MonoBehaviour:
     MagicSkillTree_Fire: 0
     MagicSkillTree_Ice: 0
     MagicSkillTree_Sand: 0
---- !u!114 &1330162167
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1330162125}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f30ebc57d801c8445944b05fd09e8dc1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  coreDistanceThreshold: 10
 --- !u!1 &1339073859
 GameObject:
   m_ObjectHideFlags: 0
@@ -17068,8 +17052,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ed58ced2f9ab9243a572300851ecd84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player1: {fileID: 1330162125}
-  player2: {fileID: 1330162125}
   nexuses:
   - {fileID: 1676050594}
   core: {fileID: 1676050594}

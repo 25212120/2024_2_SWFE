@@ -7,8 +7,6 @@ using UnityEngine.UIElements;
 
 public class GameManager : MonoBehaviour
 {
-    public GameObject player1;
-    public GameObject player2;
     public GameObject[] nexuses;
     public GameObject core;
 
@@ -25,20 +23,12 @@ public class GameManager : MonoBehaviour
     {
         spawnTimer += Time.deltaTime;
 
-        if (spawnTimer > globalSpawnInterval )
+        if (spawnTimer > globalSpawnInterval)
         {
             spawnTimer = 0f;
             BroadcastEnemySpawnRequest();
         }
 
-        foreach (var nexus in nexuses)
-        {
-            if (nexus != null)
-            {
-                OnPlayerProximityToCore?.Invoke(player1);
-                OnPlayerProximityToCore?.Invoke(player2);
-            }
-        }
     }
 
     private void BroadcastEnemySpawnRequest()

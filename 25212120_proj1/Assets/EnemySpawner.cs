@@ -19,12 +19,15 @@ public class EnemySpawner : MonoBehaviour
     {
         if (spawnerObject == gameObject && canSpawn)
         {
+            Debug.Log("HandleEnemySpawnRequest");
+
             SpawnEnemy();
         }
     }
 
     private void SpawnEnemy()
     {
+        Debug.Log("SpawnEnemy");
         if (enemyPrefab != null)
         {
             Instantiate(enemyPrefab, transform.position, Quaternion.identity);

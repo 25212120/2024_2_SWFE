@@ -119,6 +119,7 @@ public class HighlightArea : MonoBehaviour
         else
         {
             // 레이캐스트가 실패한 경우
+            Debug.Log("레이캐스트문제");
             isValidHit = false;
         }
     }
@@ -219,12 +220,13 @@ public class HighlightArea : MonoBehaviour
                 if (Vector3.Distance(hitPoint, core.transform.position) <= corePlacementRange)
                 {
                     isNearCore = true;
-                    //break;
+                    break;
                 }
             }
 
             if (!isNearCore)
             {
+                Debug.Log("코어근처아님");
                 return false; // 코어 근처가 아니면 배치 불가
             }
         }

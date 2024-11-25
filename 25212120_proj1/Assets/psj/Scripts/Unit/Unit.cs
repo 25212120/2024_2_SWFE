@@ -36,6 +36,8 @@ public abstract class Unit : MonoBehaviour
 
     protected virtual void Start()
     {
+        GameManager.instance.AddUnit(gameObject);
+
         agent.updatePosition = false;
         agent.updateRotation = false;
         savedPosition = transform.position;
@@ -70,11 +72,9 @@ public abstract class Unit : MonoBehaviour
         }
     }
 
-    // Abstract method that each unit type must implement
     protected abstract void InitializeUnitParameters();
     protected abstract void PerformAttack();
 
-    // Public method called by UnitController
     public void MoveToPosition(Vector3 position)
     {
         isMove = true;

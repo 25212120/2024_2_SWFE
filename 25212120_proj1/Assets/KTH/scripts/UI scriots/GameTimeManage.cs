@@ -5,13 +5,14 @@ using TMPro;
 
 public class GameTimeManage : MonoBehaviour
 {
-    public float dayDuration = 10f; // 하루에 해당하는 시간 (초 단위)
+    public float dayDuration;
     private int dayCount = 0;
-    public TextMeshProUGUI dayText; // UI 텍스트 컴포넌트 연결
+    public Light directionalLight;
+    public TextMeshProUGUI dayText;
 
     void Start()
     {
-        // 일정 시간이 지나면 하루가 카운트되도록 반복 호출
+        //dayDuration = GameManager.instance.dayDuration;
         StartCoroutine(CountDays());
     }
 
@@ -22,7 +23,17 @@ public class GameTimeManage : MonoBehaviour
             yield return new WaitForSeconds(dayDuration);
             dayCount++;
             Debug.Log("Day: " + dayCount);
-            dayText.text = "Day: " + dayCount.ToString(); // 텍스트 UI에 표시
+            dayText.text = "Day: " + dayCount.ToString();
         }
+    }
+
+
+    private float time;
+    void Update()
+    {
+        time += Time.deltaTime;
+        float timeNormalized = (time % dayDuration) / dayDuration;
+
+        directionalLight.transform.localRotation = Quaternion.Euler(new Vector3((timeNormalized * 360f) - 90f, 170f, 0));
     }
 }

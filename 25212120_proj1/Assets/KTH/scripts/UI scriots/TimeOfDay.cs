@@ -5,9 +5,14 @@ using UnityEngine;
 public class TimeOfDay : MonoBehaviour
 {
     public Light directionalLight;
-    public float dayDuration = 120f; // 하루가 120초라고 가정
+    public float dayDuration; 
 
     private float time;
+
+    private void Start()
+    {
+        //dayDuration = GameManager.instance.dayDuration;
+    }
 
     void Update()
     {

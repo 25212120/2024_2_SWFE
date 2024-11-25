@@ -27,6 +27,8 @@ public class HighlightArea : MonoBehaviour
 
     public Vector3 gridStartPosition = new Vector3(0, 0, 0); // 그리드의 시작 위치 (고정)
 
+    public GameObject coreObject; // Core 오브젝트
+    public float corePlacementRange = 10f; // Core 오브젝트 근처에서 설치할 수 있는 범위
 
     void Start()
     {
@@ -73,6 +75,10 @@ public class HighlightArea : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             PlaceTurret();
+        }
+        if (coreObject == null)
+        {
+            coreObject = GameObject.FindWithTag("Core"); // 'Core' 태그가 붙은 오브젝트 찾기
         }
     }
 
@@ -146,7 +152,7 @@ public class HighlightArea : MonoBehaviour
             // 강조 영역의 색상 업데이트
             if (highlightMeshRenderer != null)
             {
-                if (isValidPlacement || towerSpawn_Manager.CheckIfResourcesAreSufficient(CurrentPrefab))
+                if (isValidPlacement && towerSpawn_Manager.CheckIfResourcesAreSufficient(CurrentPrefab))
                 {
                     // 배치 가능: 녹색
                     highlightMeshRenderer.material = highlightMaterial;
@@ -207,6 +213,10 @@ public class HighlightArea : MonoBehaviour
 
     bool CheckPlacementValidity()
     {
+        if (coreObject != null && Vector3.Distance(hitPoint, coreObject.transform.position) > corePlacementRange)
+        {
+            return false; // Core 오브젝트와 너무 멀리 떨어져 있으면 배치 불가
+        }
         int halfSize = highlightSize / 2;
 
         for (int x = cellX - halfSize; x <= cellX + halfSize; x++)

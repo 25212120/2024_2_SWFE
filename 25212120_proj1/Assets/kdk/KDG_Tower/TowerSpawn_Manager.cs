@@ -21,6 +21,8 @@ public class TowerSpawn_Manager : MonoBehaviour
     [SerializeField] public List<ResourceRequirement> SWSpawnTowerSpawnRequirements = new List<ResourceRequirement>(); // 업그레이드에 필요한 자원 리스트
     [Header("원거리 유닛 소환 타워 소환에 필요한 자원")]
     [SerializeField] public List<ResourceRequirement> MGSpawnTowerSpawnRequirements = new List<ResourceRequirement>(); // 업그레이드에 필요한 자원 리스트
+    [Header("벽 소환 타워 소환에 필요한 자원")]
+    [SerializeField] public List<ResourceRequirement> WallSpawnRequirements = new List<ResourceRequirement>(); // 업그레이드에 필요한 자원 리스트
 
     // 자원 확인 함수 (보유 자원량 >= 요구 자원량)
     public bool CheckIfResourcesAreSufficient(string currentPrefab)
@@ -106,6 +108,8 @@ public class TowerSpawn_Manager : MonoBehaviour
 
             case "SpawnTower_2":
                 return MGSpawnTowerSpawnRequirements;
+            case "Wall_1":
+                return WallSpawnRequirements;
 
             default:
                 Debug.LogWarning("알 수 없는 타워 프리팹: " + currentPrefab);

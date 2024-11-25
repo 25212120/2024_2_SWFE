@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static BaseStructure;
 
-public class Unit_SpawnManager : BaseStructure
+public class Unit_SpawnManager : MonoBehaviour
 {
-    [Header("업그레이드에 필요한 자원")]
-    [SerializeField] private List<ResourceRequirement> spawnRequirements = new List<ResourceRequirement>(); 
+    [Header("유닛 스폰에 필요한 자원")]
+    [SerializeField] private List<ResourceRequirement> UnitSpawnRequirements = new List<ResourceRequirement>();
 
     [Header("유닛 스폰 설정")]
     [SerializeField] private GameObject unitPrefab; // 소환할 유닛의 프리팹
@@ -36,7 +37,7 @@ public class Unit_SpawnManager : BaseStructure
     {
         this.canSpawn = canSpawn;
     }
-    protected override void Update()
+    void Update()
     {
         // 자원 소비 후 유닛 소환
         if (Input.GetKeyDown(KeyCode.X)) // X 키로 소환
@@ -53,7 +54,7 @@ public class Unit_SpawnManager : BaseStructure
             return false;
         }
         // 스폰에 필요한 자원들을 모두 소모할 수 있는지 확인
-        foreach (var requirement in spawnRequirements)
+        foreach (var requirement in UnitSpawnRequirements)
         {
             if (!MaterialManager.Instance.ConsumeResource(requirement.resourceType, requirement.amount))
             {

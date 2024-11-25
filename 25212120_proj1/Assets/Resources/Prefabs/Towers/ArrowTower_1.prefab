@@ -162,6 +162,7 @@ MonoBehaviour:
     <baseMagicAttack_Fire>k__BackingField: 0
     <baseMagicAttack_Ice>k__BackingField: 0
     <baseMagicAttack_Sand>k__BackingField: 0
+  spawnRequirements: []
   upgradeRequirements:
   - resourceType: 5
     amount: 1
@@ -305,7 +306,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 0.29762048, y: 0.29762048, z: 1.4401193}
   m_Center: {x: 0, y: 0.14881024, z: 0}
@@ -412,7 +413,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 4.185313, y: 1.9217055, z: 2.1245868}
   m_Center: {x: 0, y: 0.96085274, z: 0}

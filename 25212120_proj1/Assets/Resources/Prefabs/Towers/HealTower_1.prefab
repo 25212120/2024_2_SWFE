@@ -101,7 +101,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 1.1052442, y: 1.6985021, z: 0.95716953}
   m_Center: {x: 0, y: 0.84925103, z: 0}
@@ -244,7 +244,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 2.7607403, y: 4.1794753, z: 2.7607403}
-  m_Center: {x: 0, y: 2.5, z: 0}
+  m_Center: {x: 0, y: 2.0897377, z: 0}
 --- !u!114 &3757185545722492342
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -268,6 +268,7 @@ MonoBehaviour:
     <baseMagicAttack_Fire>k__BackingField: 0
     <baseMagicAttack_Ice>k__BackingField: 0
     <baseMagicAttack_Sand>k__BackingField: 0
+  spawnRequirements: []
   upgradeRequirements: []
   upgradedMaterial: {fileID: 2100000, guid: d4a87f966d947954eab585359e616b54, type: 2}
   upgradedMesh: {fileID: 0}

@@ -44,6 +44,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: fir tree winter large 2 (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 1303227307141885276, guid: 63cca212b71fd534a93646d0ec41126d, type: 3}
+      propertyPath: m_TagString
+      value: Resource
+      objectReference: {fileID: 0}
     - target: {fileID: 1827950142074370022, guid: 63cca212b71fd534a93646d0ec41126d, type: 3}
       propertyPath: m_RootOrder
       value: 23
@@ -95,8 +99,32 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1303227307141885276, guid: 63cca212b71fd534a93646d0ec41126d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 140960376233936446}
   m_SourcePrefab: {fileID: 100100000, guid: 63cca212b71fd534a93646d0ec41126d, type: 3}
+--- !u!1 &1153661765343484262 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1303227307141885276, guid: 63cca212b71fd534a93646d0ec41126d, type: 3}
+  m_PrefabInstance: {fileID: 150693668653134906}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &140960376233936446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1153661765343484262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d22615d7d8df54488667e39f37b0c01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resourceDrops: []
+  finished: 0
+  WaitSuccess: 0
+  _WaitSuccess: 0
 --- !u!4 &1966227987805225948 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1827950142074370022, guid: 63cca212b71fd534a93646d0ec41126d, type: 3}
@@ -113,6 +141,10 @@ PrefabInstance:
     - target: {fileID: 5123140765176402246, guid: 494625d56fb4f5d48852279a48bfa730, type: 3}
       propertyPath: m_Name
       value: stone winter small 2 (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5123140765176402246, guid: 494625d56fb4f5d48852279a48bfa730, type: 3}
+      propertyPath: m_TagString
+      value: Resource
       objectReference: {fileID: 0}
     - target: {fileID: 5499701969525787644, guid: 494625d56fb4f5d48852279a48bfa730, type: 3}
       propertyPath: m_RootOrder
@@ -198,7 +230,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1937023163478888750, guid: c76925f4297345145a8fed2dbe330ae8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 14.039993
+      value: 11.8
       objectReference: {fileID: 0}
     - target: {fileID: 1937023163478888750, guid: c76925f4297345145a8fed2dbe330ae8, type: 3}
       propertyPath: m_LocalPosition.y
@@ -206,7 +238,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1937023163478888750, guid: c76925f4297345145a8fed2dbe330ae8, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 9.549988
+      value: 6.5
       objectReference: {fileID: 0}
     - target: {fileID: 1937023163478888750, guid: c76925f4297345145a8fed2dbe330ae8, type: 3}
       propertyPath: m_LocalRotation.w
@@ -314,16 +346,44 @@ PrefabInstance:
       propertyPath: m_Name
       value: stone winter small 14 (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 7495931733538117578, guid: ddcdd867dfe3f694c8de4698266d9c48, type: 3}
+      propertyPath: m_TagString
+      value: Resource
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7495931733538117578, guid: ddcdd867dfe3f694c8de4698266d9c48, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3456131797221106874}
   m_SourcePrefab: {fileID: 100100000, guid: ddcdd867dfe3f694c8de4698266d9c48, type: 3}
 --- !u!4 &7358531822305384025 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7155435438762511728, guid: ddcdd867dfe3f694c8de4698266d9c48, type: 3}
   m_PrefabInstance: {fileID: 383922154565393193}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &7878221918239444195 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7495931733538117578, guid: ddcdd867dfe3f694c8de4698266d9c48, type: 3}
+  m_PrefabInstance: {fileID: 383922154565393193}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3456131797221106874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7878221918239444195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4552b42fbf5442848a168a1788c2aad7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resourceDrops: []
+  finished: 0
+  WaitSuccess: 0
+  _WaitSuccess: 0
 --- !u!1001 &638065554220723393
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -335,6 +395,10 @@ PrefabInstance:
     - target: {fileID: 8143869511813825710, guid: 5e5935c6ff4c2a0478c6abab1881a1d8, type: 3}
       propertyPath: m_Name
       value: fir tree winter medium 2 (9)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8143869511813825710, guid: 5e5935c6ff4c2a0478c6abab1881a1d8, type: 3}
+      propertyPath: m_TagString
+      value: Resource
       objectReference: {fileID: 0}
     - target: {fileID: 8813270146345623060, guid: 5e5935c6ff4c2a0478c6abab1881a1d8, type: 3}
       propertyPath: m_RootOrder
@@ -387,13 +451,37 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8143869511813825710, guid: 5e5935c6ff4c2a0478c6abab1881a1d8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7786858460218349168}
   m_SourcePrefab: {fileID: 100100000, guid: 5e5935c6ff4c2a0478c6abab1881a1d8, type: 3}
 --- !u!4 &8256747098540700373 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8813270146345623060, guid: 5e5935c6ff4c2a0478c6abab1881a1d8, type: 3}
   m_PrefabInstance: {fileID: 638065554220723393}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &8781468494994679919 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8143869511813825710, guid: 5e5935c6ff4c2a0478c6abab1881a1d8, type: 3}
+  m_PrefabInstance: {fileID: 638065554220723393}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7786858460218349168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8781468494994679919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d22615d7d8df54488667e39f37b0c01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resourceDrops: []
+  finished: 0
+  WaitSuccess: 0
+  _WaitSuccess: 0
 --- !u!1001 &1286898948749523134
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -405,6 +493,10 @@ PrefabInstance:
     - target: {fileID: 2418012483985009913, guid: d604425c3329d464fa32bd246810b2f8, type: 3}
       propertyPath: m_Name
       value: fir tree winter small 2 (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2418012483985009913, guid: d604425c3329d464fa32bd246810b2f8, type: 3}
+      propertyPath: m_TagString
+      value: Resource
       objectReference: {fileID: 0}
     - target: {fileID: 3081958750514492995, guid: d604425c3329d464fa32bd246810b2f8, type: 3}
       propertyPath: m_RootOrder
@@ -457,8 +549,32 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2418012483985009913, guid: d604425c3329d464fa32bd246810b2f8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1343395499855197219}
   m_SourcePrefab: {fileID: 100100000, guid: d604425c3329d464fa32bd246810b2f8, type: 3}
+--- !u!1 &3482824360327844935 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2418012483985009913, guid: d604425c3329d464fa32bd246810b2f8, type: 3}
+  m_PrefabInstance: {fileID: 1286898948749523134}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1343395499855197219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3482824360327844935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d22615d7d8df54488667e39f37b0c01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resourceDrops: []
+  finished: 0
+  WaitSuccess: 0
+  _WaitSuccess: 0
 --- !u!4 &4260030181266902781 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3081958750514492995, guid: d604425c3329d464fa32bd246810b2f8, type: 3}
@@ -475,6 +591,10 @@ PrefabInstance:
     - target: {fileID: 3787472441237514565, guid: db8ce9ec7b4d11448a7b1842ead4d4a6, type: 3}
       propertyPath: m_Name
       value: stone winter small 12 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3787472441237514565, guid: db8ce9ec7b4d11448a7b1842ead4d4a6, type: 3}
+      propertyPath: m_TagString
+      value: Resource
       objectReference: {fileID: 0}
     - target: {fileID: 4594831273070654463, guid: db8ce9ec7b4d11448a7b1842ead4d4a6, type: 3}
       propertyPath: m_RootOrder
@@ -535,8 +655,32 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3787472441237514565, guid: db8ce9ec7b4d11448a7b1842ead4d4a6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2056181696918188138}
   m_SourcePrefab: {fileID: 100100000, guid: db8ce9ec7b4d11448a7b1842ead4d4a6, type: 3}
+--- !u!1 &2689558658061834895 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3787472441237514565, guid: db8ce9ec7b4d11448a7b1842ead4d4a6, type: 3}
+  m_PrefabInstance: {fileID: 1287173282315973578}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2056181696918188138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2689558658061834895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4552b42fbf5442848a168a1788c2aad7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resourceDrops: []
+  finished: 0
+  WaitSuccess: 0
+  _WaitSuccess: 0
 --- !u!4 &3321664163136815157 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4594831273070654463, guid: db8ce9ec7b4d11448a7b1842ead4d4a6, type: 3}
@@ -553,6 +697,10 @@ PrefabInstance:
     - target: {fileID: 8143869511813825710, guid: 5e5935c6ff4c2a0478c6abab1881a1d8, type: 3}
       propertyPath: m_Name
       value: fir tree winter medium 2 (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8143869511813825710, guid: 5e5935c6ff4c2a0478c6abab1881a1d8, type: 3}
+      propertyPath: m_TagString
+      value: Resource
       objectReference: {fileID: 0}
     - target: {fileID: 8813270146345623060, guid: 5e5935c6ff4c2a0478c6abab1881a1d8, type: 3}
       propertyPath: m_RootOrder
@@ -605,8 +753,32 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8143869511813825710, guid: 5e5935c6ff4c2a0478c6abab1881a1d8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5121346177605918578}
   m_SourcePrefab: {fileID: 100100000, guid: 5e5935c6ff4c2a0478c6abab1881a1d8, type: 3}
+--- !u!1 &7144929097225067531 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8143869511813825710, guid: 5e5935c6ff4c2a0478c6abab1881a1d8, type: 3}
+  m_PrefabInstance: {fileID: 1306946611749836965}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5121346177605918578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7144929097225067531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d22615d7d8df54488667e39f37b0c01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resourceDrops: []
+  finished: 0
+  WaitSuccess: 0
+  _WaitSuccess: 0
 --- !u!4 &7524445719655319217 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8813270146345623060, guid: 5e5935c6ff4c2a0478c6abab1881a1d8, type: 3}
@@ -680,16 +852,44 @@ PrefabInstance:
       propertyPath: m_Name
       value: stone winter small 13 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 1988526734038922156, guid: 29dabe4e19149a4409673294960382c9, type: 3}
+      propertyPath: m_TagString
+      value: Resource
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1988526734038922156, guid: 29dabe4e19149a4409673294960382c9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2508124411016109928}
   m_SourcePrefab: {fileID: 100100000, guid: 29dabe4e19149a4409673294960382c9, type: 3}
 --- !u!4 &393018837943122892 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1212447053862512918, guid: 29dabe4e19149a4409673294960382c9, type: 3}
   m_PrefabInstance: {fileID: 1560271488543838938}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1026706510166794614 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1988526734038922156, guid: 29dabe4e19149a4409673294960382c9, type: 3}
+  m_PrefabInstance: {fileID: 1560271488543838938}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2508124411016109928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1026706510166794614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4552b42fbf5442848a168a1788c2aad7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resourceDrops: []
+  finished: 0
+  WaitSuccess: 0
+  _WaitSuccess: 0
 --- !u!1001 &1620257584161917324
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -701,6 +901,10 @@ PrefabInstance:
     - target: {fileID: 5123140765176402246, guid: 494625d56fb4f5d48852279a48bfa730, type: 3}
       propertyPath: m_Name
       value: stone winter small 2 (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5123140765176402246, guid: 494625d56fb4f5d48852279a48bfa730, type: 3}
+      propertyPath: m_TagString
+      value: Resource
       objectReference: {fileID: 0}
     - target: {fileID: 5499701969525787644, guid: 494625d56fb4f5d48852279a48bfa730, type: 3}
       propertyPath: m_RootOrder
@@ -761,8 +965,32 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5123140765176402246, guid: 494625d56fb4f5d48852279a48bfa730, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2686074051981079009}
   m_SourcePrefab: {fileID: 100100000, guid: 494625d56fb4f5d48852279a48bfa730, type: 3}
+--- !u!1 &5865167558729210058 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5123140765176402246, guid: 494625d56fb4f5d48852279a48bfa730, type: 3}
+  m_PrefabInstance: {fileID: 1620257584161917324}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2686074051981079009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5865167558729210058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4552b42fbf5442848a168a1788c2aad7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resourceDrops: []
+  finished: 0
+  WaitSuccess: 0
+  _WaitSuccess: 0
 --- !u!4 &6498292379194442352 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5499701969525787644, guid: 494625d56fb4f5d48852279a48bfa730, type: 3}
@@ -779,6 +1007,10 @@ PrefabInstance:
     - target: {fileID: 5123140765176402246, guid: 494625d56fb4f5d48852279a48bfa730, type: 3}
       propertyPath: m_Name
       value: stone winter small 2 (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5123140765176402246, guid: 494625d56fb4f5d48852279a48bfa730, type: 3}
+      propertyPath: m_TagString
+      value: Resource
       objectReference: {fileID: 0}
     - target: {fileID: 5499701969525787644, guid: 494625d56fb4f5d48852279a48bfa730, type: 3}
       propertyPath: m_RootOrder
@@ -839,8 +1071,32 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5123140765176402246, guid: 494625d56fb4f5d48852279a48bfa730, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6759473118269905683}
   m_SourcePrefab: {fileID: 100100000, guid: 494625d56fb4f5d48852279a48bfa730, type: 3}
+--- !u!1 &5781476597091199683 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5123140765176402246, guid: 494625d56fb4f5d48852279a48bfa730, type: 3}
+  m_PrefabInstance: {fileID: 1667144627719994245}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6759473118269905683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5781476597091199683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4552b42fbf5442848a168a1788c2aad7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resourceDrops: []
+  finished: 0
+  WaitSuccess: 0
+  _WaitSuccess: 0
 --- !u!4 &6588835497306140793 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5499701969525787644, guid: 494625d56fb4f5d48852279a48bfa730, type: 3}
@@ -857,6 +1113,10 @@ PrefabInstance:
     - target: {fileID: 8143869511813825710, guid: 5e5935c6ff4c2a0478c6abab1881a1d8, type: 3}
       propertyPath: m_Name
       value: fir tree winter medium 2 (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8143869511813825710, guid: 5e5935c6ff4c2a0478c6abab1881a1d8, type: 3}
+      propertyPath: m_TagString
+      value: Resource
       objectReference: {fileID: 0}
     - target: {fileID: 8813270146345623060, guid: 5e5935c6ff4c2a0478c6abab1881a1d8, type: 3}
       propertyPath: m_RootOrder
@@ -909,8 +1169,32 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8143869511813825710, guid: 5e5935c6ff4c2a0478c6abab1881a1d8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 52741491345600978}
   m_SourcePrefab: {fileID: 100100000, guid: 5e5935c6ff4c2a0478c6abab1881a1d8, type: 3}
+--- !u!1 &5801098365536991759 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8143869511813825710, guid: 5e5935c6ff4c2a0478c6abab1881a1d8, type: 3}
+  m_PrefabInstance: {fileID: 2415462214441008801}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &52741491345600978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5801098365536991759}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d22615d7d8df54488667e39f37b0c01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resourceDrops: []
+  finished: 0
+  WaitSuccess: 0
+  _WaitSuccess: 0
 --- !u!4 &6614227193601859765 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8813270146345623060, guid: 5e5935c6ff4c2a0478c6abab1881a1d8, type: 3}
@@ -927,6 +1211,10 @@ PrefabInstance:
     - target: {fileID: 1303227307141885276, guid: 63cca212b71fd534a93646d0ec41126d, type: 3}
       propertyPath: m_Name
       value: fir tree winter large 2 (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1303227307141885276, guid: 63cca212b71fd534a93646d0ec41126d, type: 3}
+      propertyPath: m_TagString
+      value: Resource
       objectReference: {fileID: 0}
     - target: {fileID: 1827950142074370022, guid: 63cca212b71fd534a93646d0ec41126d, type: 3}
       propertyPath: m_RootOrder
@@ -979,8 +1267,32 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1303227307141885276, guid: 63cca212b71fd534a93646d0ec41126d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6145763349089822566}
   m_SourcePrefab: {fileID: 100100000, guid: 63cca212b71fd534a93646d0ec41126d, type: 3}
+--- !u!1 &3759076249042376580 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1303227307141885276, guid: 63cca212b71fd534a93646d0ec41126d, type: 3}
+  m_PrefabInstance: {fileID: 2755945386186160856}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6145763349089822566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3759076249042376580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d22615d7d8df54488667e39f37b0c01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resourceDrops: []
+  finished: 0
+  WaitSuccess: 0
+  _WaitSuccess: 0
 --- !u!4 &4566996651808853310 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1827950142074370022, guid: 63cca212b71fd534a93646d0ec41126d, type: 3}
@@ -997,6 +1309,10 @@ PrefabInstance:
     - target: {fileID: 311227356247597890, guid: dbf0aeb2bc878be4fb7233f696fe993d, type: 3}
       propertyPath: m_Name
       value: stone winter small (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 311227356247597890, guid: dbf0aeb2bc878be4fb7233f696fe993d, type: 3}
+      propertyPath: m_TagString
+      value: Resource
       objectReference: {fileID: 0}
     - target: {fileID: 1088291168375405048, guid: dbf0aeb2bc878be4fb7233f696fe993d, type: 3}
       propertyPath: m_RootOrder
@@ -1057,8 +1373,32 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 311227356247597890, guid: dbf0aeb2bc878be4fb7233f696fe993d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7013479555599759710}
   m_SourcePrefab: {fileID: 100100000, guid: dbf0aeb2bc878be4fb7233f696fe993d, type: 3}
+--- !u!1 &2503082465916469760 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 311227356247597890, guid: dbf0aeb2bc878be4fb7233f696fe993d, type: 3}
+  m_PrefabInstance: {fileID: 2804915305710641474}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7013479555599759710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2503082465916469760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4552b42fbf5442848a168a1788c2aad7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resourceDrops: []
+  finished: 0
+  WaitSuccess: 0
+  _WaitSuccess: 0
 --- !u!4 &3024005045680445626 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1088291168375405048, guid: dbf0aeb2bc878be4fb7233f696fe993d, type: 3}
@@ -1075,6 +1415,10 @@ PrefabInstance:
     - target: {fileID: 8143869511813825710, guid: 5e5935c6ff4c2a0478c6abab1881a1d8, type: 3}
       propertyPath: m_Name
       value: fir tree winter medium 2 (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8143869511813825710, guid: 5e5935c6ff4c2a0478c6abab1881a1d8, type: 3}
+      propertyPath: m_TagString
+      value: Resource
       objectReference: {fileID: 0}
     - target: {fileID: 8813270146345623060, guid: 5e5935c6ff4c2a0478c6abab1881a1d8, type: 3}
       propertyPath: m_RootOrder
@@ -1127,8 +1471,32 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8143869511813825710, guid: 5e5935c6ff4c2a0478c6abab1881a1d8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4971297831517665084}
   m_SourcePrefab: {fileID: 100100000, guid: 5e5935c6ff4c2a0478c6abab1881a1d8, type: 3}
+--- !u!1 &5012566035751270755 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8143869511813825710, guid: 5e5935c6ff4c2a0478c6abab1881a1d8, type: 3}
+  m_PrefabInstance: {fileID: 3788899941840616909}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4971297831517665084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5012566035751270755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d22615d7d8df54488667e39f37b0c01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resourceDrops: []
+  finished: 0
+  WaitSuccess: 0
+  _WaitSuccess: 0
 --- !u!4 &5682389260113814489 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8813270146345623060, guid: 5e5935c6ff4c2a0478c6abab1881a1d8, type: 3}
@@ -1145,6 +1513,10 @@ PrefabInstance:
     - target: {fileID: 2418012483985009913, guid: d604425c3329d464fa32bd246810b2f8, type: 3}
       propertyPath: m_Name
       value: fir tree winter small 2 (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2418012483985009913, guid: d604425c3329d464fa32bd246810b2f8, type: 3}
+      propertyPath: m_TagString
+      value: Resource
       objectReference: {fileID: 0}
     - target: {fileID: 3081958750514492995, guid: d604425c3329d464fa32bd246810b2f8, type: 3}
       propertyPath: m_RootOrder
@@ -1197,82 +1569,36 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2418012483985009913, guid: d604425c3329d464fa32bd246810b2f8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3656179540870653953}
   m_SourcePrefab: {fileID: 100100000, guid: d604425c3329d464fa32bd246810b2f8, type: 3}
+--- !u!1 &1684973344037204012 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2418012483985009913, guid: d604425c3329d464fa32bd246810b2f8, type: 3}
+  m_PrefabInstance: {fileID: 3957744739963641045}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3656179540870653953
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1684973344037204012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d22615d7d8df54488667e39f37b0c01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resourceDrops: []
+  finished: 0
+  WaitSuccess: 0
+  _WaitSuccess: 0
 --- !u!4 &2029411460696156822 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3081958750514492995, guid: d604425c3329d464fa32bd246810b2f8, type: 3}
   m_PrefabInstance: {fileID: 3957744739963641045}
-  m_PrefabAsset: {fileID: 0}
---- !u!1001 &4147643203069642851
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 4700420370012849580}
-    m_Modifications:
-    - target: {fileID: 2418012483985009913, guid: d604425c3329d464fa32bd246810b2f8, type: 3}
-      propertyPath: m_Name
-      value: fir tree winter small 2 (9)
-      objectReference: {fileID: 0}
-    - target: {fileID: 3081958750514492995, guid: d604425c3329d464fa32bd246810b2f8, type: 3}
-      propertyPath: m_RootOrder
-      value: 29
-      objectReference: {fileID: 0}
-    - target: {fileID: 3081958750514492995, guid: d604425c3329d464fa32bd246810b2f8, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3081958750514492995, guid: d604425c3329d464fa32bd246810b2f8, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 18
-      objectReference: {fileID: 0}
-    - target: {fileID: 3081958750514492995, guid: d604425c3329d464fa32bd246810b2f8, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.40199995
-      objectReference: {fileID: 0}
-    - target: {fileID: 3081958750514492995, guid: d604425c3329d464fa32bd246810b2f8, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 33.299988
-      objectReference: {fileID: 0}
-    - target: {fileID: 3081958750514492995, guid: d604425c3329d464fa32bd246810b2f8, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3081958750514492995, guid: d604425c3329d464fa32bd246810b2f8, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3081958750514492995, guid: d604425c3329d464fa32bd246810b2f8, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3081958750514492995, guid: d604425c3329d464fa32bd246810b2f8, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3081958750514492995, guid: d604425c3329d464fa32bd246810b2f8, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3081958750514492995, guid: d604425c3329d464fa32bd246810b2f8, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3081958750514492995, guid: d604425c3329d464fa32bd246810b2f8, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: d604425c3329d464fa32bd246810b2f8, type: 3}
---- !u!4 &1389979110772915744 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3081958750514492995, guid: d604425c3329d464fa32bd246810b2f8, type: 3}
-  m_PrefabInstance: {fileID: 4147643203069642851}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4411608964690487941
 PrefabInstance:
@@ -1285,6 +1611,10 @@ PrefabInstance:
     - target: {fileID: 8143869511813825710, guid: 5e5935c6ff4c2a0478c6abab1881a1d8, type: 3}
       propertyPath: m_Name
       value: fir tree winter medium 2 (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8143869511813825710, guid: 5e5935c6ff4c2a0478c6abab1881a1d8, type: 3}
+      propertyPath: m_TagString
+      value: Resource
       objectReference: {fileID: 0}
     - target: {fileID: 8813270146345623060, guid: 5e5935c6ff4c2a0478c6abab1881a1d8, type: 3}
       propertyPath: m_RootOrder
@@ -1337,13 +1667,37 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8143869511813825710, guid: 5e5935c6ff4c2a0478c6abab1881a1d8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 9048497021685145280}
   m_SourcePrefab: {fileID: 100100000, guid: 5e5935c6ff4c2a0478c6abab1881a1d8, type: 3}
 --- !u!4 &5149347728701158545 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8813270146345623060, guid: 5e5935c6ff4c2a0478c6abab1881a1d8, type: 3}
   m_PrefabInstance: {fileID: 4411608964690487941}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &5493820720758795819 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8143869511813825710, guid: 5e5935c6ff4c2a0478c6abab1881a1d8, type: 3}
+  m_PrefabInstance: {fileID: 4411608964690487941}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &9048497021685145280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5493820720758795819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d22615d7d8df54488667e39f37b0c01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resourceDrops: []
+  finished: 0
+  WaitSuccess: 0
+  _WaitSuccess: 0
 --- !u!1001 &4700420370013280552
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1418,9 +1772,6 @@ PrefabInstance:
       addedObject: {fileID: 3024005045680445626}
     - targetCorrespondingSourceObject: {fileID: 433284, guid: 47866dd8c0b45b545879baba0e4fb7ff, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2410323017779892050}
-    - targetCorrespondingSourceObject: {fileID: 433284, guid: 47866dd8c0b45b545879baba0e4fb7ff, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 5682389260113814489}
     - targetCorrespondingSourceObject: {fileID: 433284, guid: 47866dd8c0b45b545879baba0e4fb7ff, type: 3}
       insertIndex: -1
@@ -1440,9 +1791,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 433284, guid: 47866dd8c0b45b545879baba0e4fb7ff, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2029411460696156822}
-    - targetCorrespondingSourceObject: {fileID: 433284, guid: 47866dd8c0b45b545879baba0e4fb7ff, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1389979110772915744}
     - targetCorrespondingSourceObject: {fileID: 433284, guid: 47866dd8c0b45b545879baba0e4fb7ff, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7468018322303296433}
@@ -1507,6 +1855,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: fir tree winter large 2 (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 1303227307141885276, guid: 63cca212b71fd534a93646d0ec41126d, type: 3}
+      propertyPath: m_TagString
+      value: Resource
+      objectReference: {fileID: 0}
     - target: {fileID: 1827950142074370022, guid: 63cca212b71fd534a93646d0ec41126d, type: 3}
       propertyPath: m_RootOrder
       value: 23
@@ -1566,8 +1918,32 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1303227307141885276, guid: 63cca212b71fd534a93646d0ec41126d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6882100627295921319}
   m_SourcePrefab: {fileID: 100100000, guid: 63cca212b71fd534a93646d0ec41126d, type: 3}
+--- !u!1 &6283945220997379071 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1303227307141885276, guid: 63cca212b71fd534a93646d0ec41126d, type: 3}
+  m_PrefabInstance: {fileID: 4981245855605989027}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6882100627295921319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6283945220997379071}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d22615d7d8df54488667e39f37b0c01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resourceDrops: []
+  finished: 0
+  WaitSuccess: 0
+  _WaitSuccess: 0
 --- !u!4 &6665008929023437125 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1827950142074370022, guid: 63cca212b71fd534a93646d0ec41126d, type: 3}
@@ -1629,16 +2005,44 @@ PrefabInstance:
       propertyPath: m_Name
       value: dry tree winter 2 (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 840792513270296366, guid: a7b333c151ee16742a68b654837dc908, type: 3}
+      propertyPath: m_TagString
+      value: Resource
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 840792513270296366, guid: a7b333c151ee16742a68b654837dc908, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4802799178105607996}
   m_SourcePrefab: {fileID: 100100000, guid: a7b333c151ee16742a68b654837dc908, type: 3}
 --- !u!4 &5107357215818938194 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 63271373299578260, guid: a7b333c151ee16742a68b654837dc908, type: 3}
   m_PrefabInstance: {fileID: 5044087286167405254}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &5596614238645399016 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 840792513270296366, guid: a7b333c151ee16742a68b654837dc908, type: 3}
+  m_PrefabInstance: {fileID: 5044087286167405254}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4802799178105607996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5596614238645399016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d22615d7d8df54488667e39f37b0c01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resourceDrops: []
+  finished: 0
+  WaitSuccess: 0
+  _WaitSuccess: 0
 --- !u!1001 &5301918833944734261
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1695,11 +2099,39 @@ PrefabInstance:
       propertyPath: m_Name
       value: dry tree winter 2 (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 840792513270296366, guid: a7b333c151ee16742a68b654837dc908, type: 3}
+      propertyPath: m_TagString
+      value: Resource
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 840792513270296366, guid: a7b333c151ee16742a68b654837dc908, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2740618181645186896}
   m_SourcePrefab: {fileID: 100100000, guid: a7b333c151ee16742a68b654837dc908, type: 3}
+--- !u!1 &4773581687109059867 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 840792513270296366, guid: a7b333c151ee16742a68b654837dc908, type: 3}
+  m_PrefabInstance: {fileID: 5301918833944734261}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2740618181645186896
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4773581687109059867}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d22615d7d8df54488667e39f37b0c01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resourceDrops: []
+  finished: 0
+  WaitSuccess: 0
+  _WaitSuccess: 0
 --- !u!4 &5293132453714747297 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 63271373299578260, guid: a7b333c151ee16742a68b654837dc908, type: 3}
@@ -1731,7 +2163,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5983564951761974839, guid: 0c4aa4b88c2464743946434740d6a09b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 36.40001
+      value: 42.1
       objectReference: {fileID: 0}
     - target: {fileID: 5983564951761974839, guid: 0c4aa4b88c2464743946434740d6a09b, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1739,7 +2171,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5983564951761974839, guid: 0c4aa4b88c2464743946434740d6a09b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 38
+      value: 30.5
       objectReference: {fileID: 0}
     - target: {fileID: 5983564951761974839, guid: 0c4aa4b88c2464743946434740d6a09b, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1773,11 +2205,39 @@ PrefabInstance:
       propertyPath: m_Name
       value: stone winter small 3 (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 6359703019773209741, guid: 0c4aa4b88c2464743946434740d6a09b, type: 3}
+      propertyPath: m_TagString
+      value: Resource
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6359703019773209741, guid: 0c4aa4b88c2464743946434740d6a09b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1034516051662899213}
   m_SourcePrefab: {fileID: 100100000, guid: 0c4aa4b88c2464743946434740d6a09b, type: 3}
+--- !u!1 &1419738261883489317 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6359703019773209741, guid: 0c4aa4b88c2464743946434740d6a09b, type: 3}
+  m_PrefabInstance: {fileID: 5472392924213223592}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1034516051662899213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1419738261883489317}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4552b42fbf5442848a168a1788c2aad7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resourceDrops: []
+  finished: 0
+  WaitSuccess: 0
+  _WaitSuccess: 0
 --- !u!4 &1799254854236427935 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5983564951761974839, guid: 0c4aa4b88c2464743946434740d6a09b, type: 3}
@@ -1794,6 +2254,10 @@ PrefabInstance:
     - target: {fileID: 2418012483985009913, guid: d604425c3329d464fa32bd246810b2f8, type: 3}
       propertyPath: m_Name
       value: fir tree winter small 2 (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2418012483985009913, guid: d604425c3329d464fa32bd246810b2f8, type: 3}
+      propertyPath: m_TagString
+      value: Resource
       objectReference: {fileID: 0}
     - target: {fileID: 3081958750514492995, guid: d604425c3329d464fa32bd246810b2f8, type: 3}
       propertyPath: m_RootOrder
@@ -1846,13 +2310,37 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2418012483985009913, guid: d604425c3329d464fa32bd246810b2f8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 848209134718208957}
   m_SourcePrefab: {fileID: 100100000, guid: d604425c3329d464fa32bd246810b2f8, type: 3}
 --- !u!4 &7468018322303296433 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3081958750514492995, guid: d604425c3329d464fa32bd246810b2f8, type: 3}
   m_PrefabInstance: {fileID: 5577402746261050866}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &7847640772979423499 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2418012483985009913, guid: d604425c3329d464fa32bd246810b2f8, type: 3}
+  m_PrefabInstance: {fileID: 5577402746261050866}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &848209134718208957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7847640772979423499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d22615d7d8df54488667e39f37b0c01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resourceDrops: []
+  finished: 0
+  WaitSuccess: 0
+  _WaitSuccess: 0
 --- !u!1001 &5645167793800033295
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1864,6 +2352,10 @@ PrefabInstance:
     - target: {fileID: 5123140765176402246, guid: 494625d56fb4f5d48852279a48bfa730, type: 3}
       propertyPath: m_Name
       value: stone winter small 2 (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5123140765176402246, guid: 494625d56fb4f5d48852279a48bfa730, type: 3}
+      propertyPath: m_TagString
+      value: Resource
       objectReference: {fileID: 0}
     - target: {fileID: 5499701969525787644, guid: 494625d56fb4f5d48852279a48bfa730, type: 3}
       propertyPath: m_RootOrder
@@ -1924,83 +2416,37 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5123140765176402246, guid: 494625d56fb4f5d48852279a48bfa730, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4764365380374161729}
   m_SourcePrefab: {fileID: 100100000, guid: 494625d56fb4f5d48852279a48bfa730, type: 3}
 --- !u!4 &145654502458195955 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5499701969525787644, guid: 494625d56fb4f5d48852279a48bfa730, type: 3}
   m_PrefabInstance: {fileID: 5645167793800033295}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &6574189494382858566
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 4700420370012849580}
-    m_Modifications:
-    - target: {fileID: 8143869511813825710, guid: 5e5935c6ff4c2a0478c6abab1881a1d8, type: 3}
-      propertyPath: m_Name
-      value: fir tree winter medium 2 (4)
-      objectReference: {fileID: 0}
-    - target: {fileID: 8813270146345623060, guid: 5e5935c6ff4c2a0478c6abab1881a1d8, type: 3}
-      propertyPath: m_RootOrder
-      value: 27
-      objectReference: {fileID: 0}
-    - target: {fileID: 8813270146345623060, guid: 5e5935c6ff4c2a0478c6abab1881a1d8, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8813270146345623060, guid: 5e5935c6ff4c2a0478c6abab1881a1d8, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 36.100006
-      objectReference: {fileID: 0}
-    - target: {fileID: 8813270146345623060, guid: 5e5935c6ff4c2a0478c6abab1881a1d8, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.17799997
-      objectReference: {fileID: 0}
-    - target: {fileID: 8813270146345623060, guid: 5e5935c6ff4c2a0478c6abab1881a1d8, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 44.399963
-      objectReference: {fileID: 0}
-    - target: {fileID: 8813270146345623060, guid: 5e5935c6ff4c2a0478c6abab1881a1d8, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.91475195
-      objectReference: {fileID: 0}
-    - target: {fileID: 8813270146345623060, guid: 5e5935c6ff4c2a0478c6abab1881a1d8, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8813270146345623060, guid: 5e5935c6ff4c2a0478c6abab1881a1d8, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0.40401593
-      objectReference: {fileID: 0}
-    - target: {fileID: 8813270146345623060, guid: 5e5935c6ff4c2a0478c6abab1881a1d8, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8813270146345623060, guid: 5e5935c6ff4c2a0478c6abab1881a1d8, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8813270146345623060, guid: 5e5935c6ff4c2a0478c6abab1881a1d8, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: -47.659
-      objectReference: {fileID: 0}
-    - target: {fileID: 8813270146345623060, guid: 5e5935c6ff4c2a0478c6abab1881a1d8, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 5e5935c6ff4c2a0478c6abab1881a1d8, type: 3}
---- !u!4 &2410323017779892050 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8813270146345623060, guid: 5e5935c6ff4c2a0478c6abab1881a1d8, type: 3}
-  m_PrefabInstance: {fileID: 6574189494382858566}
+--- !u!1 &670657369788949833 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5123140765176402246, guid: 494625d56fb4f5d48852279a48bfa730, type: 3}
+  m_PrefabInstance: {fileID: 5645167793800033295}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4764365380374161729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 670657369788949833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4552b42fbf5442848a168a1788c2aad7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resourceDrops: []
+  finished: 0
+  WaitSuccess: 0
+  _WaitSuccess: 0
 --- !u!1001 &6817735013669292611
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2057,11 +2503,39 @@ PrefabInstance:
       propertyPath: m_Name
       value: dry tree winter 2 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 840792513270296366, guid: a7b333c151ee16742a68b654837dc908, type: 3}
+      propertyPath: m_TagString
+      value: Resource
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 840792513270296366, guid: a7b333c151ee16742a68b654837dc908, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5319490461061994951}
   m_SourcePrefab: {fileID: 100100000, guid: a7b333c151ee16742a68b654837dc908, type: 3}
+--- !u!1 &6140215579120297325 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 840792513270296366, guid: a7b333c151ee16742a68b654837dc908, type: 3}
+  m_PrefabInstance: {fileID: 6817735013669292611}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5319490461061994951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6140215579120297325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d22615d7d8df54488667e39f37b0c01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resourceDrops: []
+  finished: 0
+  WaitSuccess: 0
+  _WaitSuccess: 0
 --- !u!4 &6808806182283165655 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 63271373299578260, guid: a7b333c151ee16742a68b654837dc908, type: 3}
@@ -2135,16 +2609,44 @@ PrefabInstance:
       propertyPath: m_Name
       value: stone winter small 15 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 611073256752078759, guid: 07423672071d40344989b866e8559832, type: 3}
+      propertyPath: m_TagString
+      value: Resource
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 611073256752078759, guid: 07423672071d40344989b866e8559832, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3565828264652645938}
   m_SourcePrefab: {fileID: 100100000, guid: 07423672071d40344989b866e8559832, type: 3}
 --- !u!4 &8352707582560156763 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 230008276945896733, guid: 07423672071d40344989b866e8559832, type: 3}
   m_PrefabInstance: {fileID: 8132339866810136902}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &8692255033108326113 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 611073256752078759, guid: 07423672071d40344989b866e8559832, type: 3}
+  m_PrefabInstance: {fileID: 8132339866810136902}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3565828264652645938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8692255033108326113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4552b42fbf5442848a168a1788c2aad7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resourceDrops: []
+  finished: 0
+  WaitSuccess: 0
+  _WaitSuccess: 0
 --- !u!1001 &8279959453995170664
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2231,6 +2733,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: fir tree winter large 2 (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 1303227307141885276, guid: 63cca212b71fd534a93646d0ec41126d, type: 3}
+      propertyPath: m_TagString
+      value: Resource
+      objectReference: {fileID: 0}
     - target: {fileID: 1827950142074370022, guid: 63cca212b71fd534a93646d0ec41126d, type: 3}
       propertyPath: m_RootOrder
       value: 23
@@ -2282,10 +2788,34 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1303227307141885276, guid: 63cca212b71fd534a93646d0ec41126d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1833423186513293322}
   m_SourcePrefab: {fileID: 100100000, guid: 63cca212b71fd534a93646d0ec41126d, type: 3}
 --- !u!4 &7152033839369374497 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1827950142074370022, guid: 63cca212b71fd534a93646d0ec41126d, type: 3}
   m_PrefabInstance: {fileID: 8799767703420730567}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &7497068751194362267 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1303227307141885276, guid: 63cca212b71fd534a93646d0ec41126d, type: 3}
+  m_PrefabInstance: {fileID: 8799767703420730567}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1833423186513293322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7497068751194362267}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d22615d7d8df54488667e39f37b0c01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resourceDrops: []
+  finished: 0
+  WaitSuccess: 0
+  _WaitSuccess: 0

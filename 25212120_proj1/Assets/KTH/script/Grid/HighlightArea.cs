@@ -6,7 +6,7 @@ public class HighlightArea : MonoBehaviour
     public float cellSize_Virtical = 1f; // 그리드 세로 크기
     public float cellSize_Horizontal = 1f; // 그리드 가로 크기
     public int highlightSize = 3; // 강조 영역의 크기 (nxn)
-    public int detailGridResolution = 2; // 강조 영역 내의 세부 그리드 분할 수
+    public int detailGridResolution = 3; // 강조 영역 내의 세부 그리드 분할 수
     public Material highlightMaterial; // 강조 영역에 적용할 머티리얼
     public Material ImpossibleMaterial; // 설치 불가 영역에 적용할 머티리얼
     public GameObject turretPrefab; // 포탑 프리팹
@@ -20,12 +20,15 @@ public class HighlightArea : MonoBehaviour
     private bool isValidHit = false; // 레이캐스트 성공 여부
     private bool isValidPlacement = false; // 배치 가능 여부
     public OccupiedCell_Manager occupiedCell_Manager;
+    public TowerSpawn_Manager towerSpawn_Manager;
 
     private float currentRotation = 0f; // 현재 타워의 회전 각도
     private GameObject previewTurret; // 미리 보기용 포탑 인스턴스
 
     public Vector3 gridStartPosition = new Vector3(0, 0, 0); // 그리드의 시작 위치 (고정)
 
+    public GameObject coreObject; // Core 오브젝트
+    public float corePlacementRange = 10f; // Core 오브젝트 근처에서 설치할 수 있는 범위
 
     void Start()
     {
@@ -34,8 +37,11 @@ public class HighlightArea : MonoBehaviour
         {
             occupiedCell_Manager = FindObjectOfType<OccupiedCell_Manager>();  // 자동으로 찾기
         }
-
-        //SetTurretPrefab("Wall_1");
+        if (towerSpawn_Manager == null)
+        {
+            towerSpawn_Manager = FindAnyObjectByType<TowerSpawn_Manager>();
+        }
+        
         
     }
 
@@ -47,6 +53,18 @@ public class HighlightArea : MonoBehaviour
             SetRotatestate();
             RotateTurret();
         }
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            SetTurretPrefab("Wall_1");
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            SetTurretPrefab("MagicTower_1");
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            SetTurretPrefab("ArrowTower_1");
+        }
         // 마우스 위치 업데이트
         UpdateMousePosition();
 
@@ -57,6 +75,10 @@ public class HighlightArea : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             PlaceTurret();
+        }
+        if (coreObject == null)
+        {
+            coreObject = GameObject.FindWithTag("Core"); // 'Core' 태그가 붙은 오브젝트 찾기
         }
     }
 
@@ -130,7 +152,7 @@ public class HighlightArea : MonoBehaviour
             // 강조 영역의 색상 업데이트
             if (highlightMeshRenderer != null)
             {
-                if (isValidPlacement)
+                if (isValidPlacement && towerSpawn_Manager.CheckIfResourcesAreSufficient(CurrentPrefab))
                 {
                     // 배치 가능: 녹색
                     highlightMeshRenderer.material = highlightMaterial;
@@ -191,6 +213,10 @@ public class HighlightArea : MonoBehaviour
 
     bool CheckPlacementValidity()
     {
+        if (coreObject != null && Vector3.Distance(hitPoint, coreObject.transform.position) > corePlacementRange)
+        {
+            return false; // Core 오브젝트와 너무 멀리 떨어져 있으면 배치 불가
+        }
         int halfSize = highlightSize / 2;
 
         for (int x = cellX - halfSize; x <= cellX + halfSize; x++)
@@ -296,6 +322,7 @@ public class HighlightArea : MonoBehaviour
 
         if (turretPrefab != null)
         {
+            towerSpawn_Manager.SpawnAndConsumeMaterial(CurrentPrefab);
             Quaternion rotation = Quaternion.Euler(0f, currentRotation, 0f);
             GameObject newTurret = Instantiate(turretPrefab, position, rotation);
 
@@ -346,64 +373,89 @@ public class HighlightArea : MonoBehaviour
             currentRotation = 0f;
         }
     }
-
+    public string CurrentPrefab;
     public void SetTurretPrefab(string turretPrefabName)
     {
         // Resources 폴더에서 프리팹을 로드
         GameObject newTurretPrefab = Resources.Load<GameObject>("Prefabs/Towers/" + turretPrefabName);
+        GameObject newTurretPreviewPrefab = Resources.Load<GameObject>("Prefabs/Towers/" + turretPrefabName + "_preview");
 
         if (newTurretPrefab != null)
         {
+            // 기존 미리보기 포탑을 비활성화
+            if (previewTurret != null)
+            {
+                Destroy(previewTurret); // 기존 미리보기 포탑을 씬에서 제거
+            }
+
             // 타워 프리팹 설정
             turretPrefab = newTurretPrefab;
 
+            // 새로 미리보기 포탑 생성
+            previewTurret = Instantiate(newTurretPreviewPrefab);
+            previewTurret.SetActive(false); // 초기에는 비활성화
+
             // 프리팹의 크기 추출
-       
             if (turretPrefabName == "Wall_1")
             {
                 cellSize_Horizontal = 1.25f;
                 cellSize_Virtical = 0.4f;
+                CurrentPrefab = "Wall_1";
             }
-            if (turretPrefabName == "Core")
+            else if (turretPrefabName == "Core")
             {
                 cellSize_Horizontal = 2f;
                 cellSize_Virtical = 2f;
+                CurrentPrefab = "Core";
             }
-            if (turretPrefabName == "ArrowTower_1")
+            else if (turretPrefabName == "ArrowTower_1")
             {
-                cellSize_Horizontal = 2f;
-                cellSize_Virtical = 2f;
+                cellSize_Horizontal = 1.2f;
+                cellSize_Virtical = 1.2f;
+                CurrentPrefab = "ArrowTower_1";
             }
-            if (turretPrefabName == "MagicTower_1")
+            else if (turretPrefabName == "MagicTower_1")
             {
-                cellSize_Horizontal = 2f;
-                cellSize_Virtical = 2f;
+                cellSize_Horizontal = 1.2f;
+                cellSize_Virtical = 1.2f;
+                CurrentPrefab = "MagicTower_1";
             }
-            if (turretPrefabName == "RocketTower_1")
+            else if (turretPrefabName == "RocketTower_1")
             {
-                cellSize_Horizontal = 2f;
-                cellSize_Virtical = 2f;
+                cellSize_Horizontal = 1.2f;
+                cellSize_Virtical = 1.2f;
+                CurrentPrefab = "RocketTower_1";
             }
-            if (turretPrefabName == "HealTower_1")
+            else if (turretPrefabName == "HealTower_1")
             {
-                cellSize_Horizontal = 2f;
-                cellSize_Virtical = 2f;
+                cellSize_Horizontal = 1.2f;
+                cellSize_Virtical = 1.2f;
+                CurrentPrefab = "HealTower_1";
             }
-            if (turretPrefabName == "LightTower_1")
+            else if (turretPrefabName == "LightTower_1")
             {
-                cellSize_Horizontal = 2f;
-                cellSize_Virtical = 2f;
+                cellSize_Horizontal = 1.2f;
+                cellSize_Virtical = 1.2f;
+                CurrentPrefab = "LightTower_1";
             }
-            if (turretPrefabName == "SpawnTower_1")
+            else if (turretPrefabName == "SpawnTower_1")
             {
-                cellSize_Horizontal = 2f;
-                cellSize_Virtical = 2f;
+                cellSize_Horizontal = 1.2f;
+                cellSize_Virtical = 1.2f;
+                CurrentPrefab = "SpawnTower_1";
             }
+            else if (turretPrefabName == "SpawnTower_2")
+            {
+                cellSize_Horizontal = 1.2f;
+                cellSize_Virtical = 1.2f;
+                CurrentPrefab = "SpawnTower_2";
+            }
+
+            // 타워 회전 초기화
+            currentRotation = 0f; // 회전 값을 0으로 초기화
 
             Debug.Log("타워 프리팹의 크기에 따라 cellSize 설정됨: " +
                       "Horizontal = " + cellSize_Horizontal + ", Vertical = " + cellSize_Virtical);
-            
-   
         }
         else
         {

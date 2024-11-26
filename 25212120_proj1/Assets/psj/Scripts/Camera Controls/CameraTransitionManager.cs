@@ -20,7 +20,7 @@ public class CameraTransitionManager : MonoBehaviour
     public SpawnPoint_Select spawnPoint_Select;
 
     public bool isActive_ha = false;
-    public bool SP_S = false;
+    public bool isActive_sp = false;
 
     private void Awake()
     {
@@ -37,12 +37,14 @@ public class CameraTransitionManager : MonoBehaviour
         playerInput.Enable();
         playerInput.CameraControl.Transition.performed += OnScrollPerformed;
         playerInput.CameraControl.ToggleBuild.performed += OnToggleHighlightArea;
+        playerInput.CameraControl.SpawnPoint_Select.performed += OnToggleSpawnPoint;
     }
 
     private void OnDisable()
     {
         playerInput.CameraControl.Transition.performed -= OnScrollPerformed;
         playerInput.CameraControl.ToggleBuild.performed -= OnToggleHighlightArea;
+        playerInput.CameraControl.SpawnPoint_Select.performed -= OnToggleSpawnPoint;
         playerInput.Disable();
     }
 
@@ -82,22 +84,25 @@ public class CameraTransitionManager : MonoBehaviour
 
         }
     }
-    void ToggleSpawnPoint()
+    void OnToggleSpawnPoint(InputAction.CallbackContext ctx)
     {
-        if (SP_S)
+        if (spawnPoint_Select != null)
         {
-            GetComponent<PlayerInputManager>().isPerformingAction = true;
+            if (isActive_sp)
+            {
+                GetComponent<PlayerInputManager>().isPerformingAction = true;
+                spawnPoint_Select.isActive = false;
 
-            SP_S = false;
-            spawnPoint_Select.isActive = false;
-        }
-        else
-        {
-            GetComponent<PlayerInputManager>().isPerformingAction = true;
+                isActive_sp = false;
+            }
+            else
+            {
+                GetComponent<PlayerInputManager>().isPerformingAction = true;
 
-            spawnPoint_Select.ActivateHighlightObject();
-            SP_S = true;
-            spawnPoint_Select.isActive = true;
+                spawnPoint_Select.ActivateHighlightObject();
+                spawnPoint_Select.isActive = true;
+                isActive_sp = true;
+            }
         }
     }
 

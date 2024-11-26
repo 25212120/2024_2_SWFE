@@ -57,16 +57,26 @@ public class SpawnPoint_Select : MonoBehaviour
     }
     void DeactivateHighlightObject()
     {
+        if (highlightMeshFilter != null)
+        {
+            highlightMeshFilter.mesh = null; // 하이라이트 메쉬를 비우기
+        }
+
         if (highlightMeshRenderer != null)
         {
-            highlightMeshRenderer.gameObject.SetActive(false);  // GameObject를 비활성화
+            highlightMeshRenderer.enabled = false; // 하이라이트 렌더러 비활성화
         }
     }
     public void ActivateHighlightObject()
     {
+        if (highlightMeshFilter != null)
+        {
+            highlightMeshFilter.mesh = BuildHighlightMesh(0, 0, 0, 0); // 메쉬를 다시 설정
+        }
+
         if (highlightMeshRenderer != null)
         {
-            highlightMeshRenderer.gameObject.SetActive(true);  // GameObject를 활성화
+            highlightMeshRenderer.enabled = true; // 렌더러 활성화
         }
     }
     void CreateHighlightObject()

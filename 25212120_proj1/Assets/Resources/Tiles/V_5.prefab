@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 467068853856830199}
   - component: {fileID: 5060540120087114237}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -62,9 +62,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 922144543510386962}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: V_5
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -108,6 +108,10 @@ PrefabInstance:
     - target: {fileID: 2705302424694689015, guid: fba7e5e66e80bc542b07e4ef911304e4, type: 3}
       propertyPath: m_Name
       value: stones group winter 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2705302424694689015, guid: fba7e5e66e80bc542b07e4ef911304e4, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3368968036099708493, guid: fba7e5e66e80bc542b07e4ef911304e4, type: 3}
       propertyPath: m_LocalScale.x
@@ -227,6 +231,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: dry birch tree 4 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 7548133000326335582, guid: 10f722d8b80709e4aa7e8c3c00cdf40e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -289,6 +297,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: stone small 36 (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 4358719522174073688, guid: 4a17d27db6426d94fab758c32693a4b0, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -310,6 +322,10 @@ PrefabInstance:
     - target: {fileID: 4875386710937434407, guid: f9a2ee31765618247bd2ba4300e53ee0, type: 3}
       propertyPath: m_Name
       value: dry tree (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4875386710937434407, guid: f9a2ee31765618247bd2ba4300e53ee0, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5252053467683726237, guid: f9a2ee31765618247bd2ba4300e53ee0, type: 3}
       propertyPath: m_LocalScale.x
@@ -425,6 +441,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: dry tree 3 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 8841818430629889960, guid: 7bf86231e84d0904a86e9b042efda625, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -487,6 +507,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: dry tree 3 (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 8841818430629889960, guid: 7bf86231e84d0904a86e9b042efda625, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -508,6 +532,14 @@ PrefabInstance:
     - target: {fileID: 138810, guid: a12aff758adf6ef43840cb30ef17327f, type: 3}
       propertyPath: m_Name
       value: CPT_River_S_a_02_LOD
+      objectReference: {fileID: 0}
+    - target: {fileID: 138810, guid: a12aff758adf6ef43840cb30ef17327f, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 184932, guid: a12aff758adf6ef43840cb30ef17327f, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 477892, guid: a12aff758adf6ef43840cb30ef17327f, type: 3}
       propertyPath: m_LocalScale.x
@@ -626,6 +658,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: stone small 36 (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 4358719522174073688, guid: 4a17d27db6426d94fab758c32693a4b0, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -700,6 +736,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: water location crescent island (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 5200008217463645763, guid: 7d623af1c70215841965d79fc7017ed3, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 5992848117184579478, guid: 7d623af1c70215841965d79fc7017ed3, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -725,6 +765,10 @@ PrefabInstance:
     - target: {fileID: 6959610538280167845, guid: bee40a6a7650efc45b240e30100371a8, type: 3}
       propertyPath: m_Name
       value: stone small gray blue 14 (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6959610538280167845, guid: bee40a6a7650efc45b240e30100371a8, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7772738267122856735, guid: bee40a6a7650efc45b240e30100371a8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -788,6 +832,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: stone small gray blue 13 (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 7372096449209619978, guid: e76f10e6b18d3494b9f7cd7584fff53a, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 7855722533171924144, guid: e76f10e6b18d3494b9f7cd7584fff53a, type: 3}
       propertyPath: m_LocalPosition.x
       value: -14.27829
@@ -849,6 +897,10 @@ PrefabInstance:
     - target: {fileID: 7372096449209619978, guid: e76f10e6b18d3494b9f7cd7584fff53a, type: 3}
       propertyPath: m_Name
       value: stone small gray blue 13 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7372096449209619978, guid: e76f10e6b18d3494b9f7cd7584fff53a, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7855722533171924144, guid: e76f10e6b18d3494b9f7cd7584fff53a, type: 3}
       propertyPath: m_LocalPosition.x

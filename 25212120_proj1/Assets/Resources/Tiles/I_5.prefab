@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2505090353850377063}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: I_5
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -65,6 +65,10 @@ PrefabInstance:
     - target: {fileID: 1182687605204110812, guid: 49a59f852b21a284190ad44b2925f0a6, type: 3}
       propertyPath: m_Name
       value: fir tree winter tilted 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1182687605204110812, guid: 49a59f852b21a284190ad44b2925f0a6, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1182687605204110812, guid: 49a59f852b21a284190ad44b2925f0a6, type: 3}
       propertyPath: m_TagString
@@ -206,6 +210,10 @@ PrefabInstance:
       value: fir tree winter medium 4 (2)
       objectReference: {fileID: 0}
     - target: {fileID: 8767435188098729168, guid: 95e7c8d47d4f35d40a852d211f208355, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8767435188098729168, guid: 95e7c8d47d4f35d40a852d211f208355, type: 3}
       propertyPath: m_TagString
       value: Resource
       objectReference: {fileID: 0}
@@ -255,6 +263,10 @@ PrefabInstance:
     - target: {fileID: 5123140765176402246, guid: 494625d56fb4f5d48852279a48bfa730, type: 3}
       propertyPath: m_Name
       value: stone winter small 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5123140765176402246, guid: 494625d56fb4f5d48852279a48bfa730, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5123140765176402246, guid: 494625d56fb4f5d48852279a48bfa730, type: 3}
       propertyPath: m_TagString
@@ -408,6 +420,10 @@ PrefabInstance:
       value: fir tree winter small 4 (1)
       objectReference: {fileID: 0}
     - target: {fileID: 2227700005608698756, guid: 7906560d9d795c346b6c91779e7e4351, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2227700005608698756, guid: 7906560d9d795c346b6c91779e7e4351, type: 3}
       propertyPath: m_TagString
       value: Resource
       objectReference: {fileID: 0}
@@ -454,9 +470,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2505090353850377063}
     m_Modifications:
+    - target: {fileID: 174472, guid: 47866dd8c0b45b545879baba0e4fb7ff, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 182022, guid: 47866dd8c0b45b545879baba0e4fb7ff, type: 3}
       propertyPath: m_Name
       value: CPT_Terrain_M_a_04_LOD (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 182022, guid: 47866dd8c0b45b545879baba0e4fb7ff, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 433284, guid: 47866dd8c0b45b545879baba0e4fb7ff, type: 3}
       propertyPath: m_LocalPosition.x
@@ -579,6 +603,10 @@ PrefabInstance:
       value: stone winter small 3
       objectReference: {fileID: 0}
     - target: {fileID: 6359703019773209741, guid: 0c4aa4b88c2464743946434740d6a09b, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6359703019773209741, guid: 0c4aa4b88c2464743946434740d6a09b, type: 3}
       propertyPath: m_TagString
       value: Resource
       objectReference: {fileID: 0}
@@ -674,6 +702,10 @@ PrefabInstance:
       value: pine tree winter medium (1)
       objectReference: {fileID: 0}
     - target: {fileID: 6811561475729719541, guid: 200b8dea730529140af54ff45b772870, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6811561475729719541, guid: 200b8dea730529140af54ff45b772870, type: 3}
       propertyPath: m_TagString
       value: Resource
       objectReference: {fileID: 0}
@@ -767,6 +799,10 @@ PrefabInstance:
     - target: {fileID: 6811561475729719541, guid: 200b8dea730529140af54ff45b772870, type: 3}
       propertyPath: m_Name
       value: pine tree winter medium
+      objectReference: {fileID: 0}
+    - target: {fileID: 6811561475729719541, guid: 200b8dea730529140af54ff45b772870, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6811561475729719541, guid: 200b8dea730529140af54ff45b772870, type: 3}
       propertyPath: m_TagString
@@ -875,6 +911,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: stones group winter
       objectReference: {fileID: 0}
+    - target: {fileID: 619832729718013446, guid: fa2294062ac75484096ce3d8476048b7, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -940,6 +980,10 @@ PrefabInstance:
     - target: {fileID: 8767435188098729168, guid: 95e7c8d47d4f35d40a852d211f208355, type: 3}
       propertyPath: m_Name
       value: fir tree winter medium 4 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8767435188098729168, guid: 95e7c8d47d4f35d40a852d211f208355, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8767435188098729168, guid: 95e7c8d47d4f35d40a852d211f208355, type: 3}
       propertyPath: m_TagString
@@ -1049,6 +1093,10 @@ PrefabInstance:
       value: stone winter small 6 (1)
       objectReference: {fileID: 0}
     - target: {fileID: 3257769107190460617, guid: a614b3605ce0d264099bfc64e8963f5f, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3257769107190460617, guid: a614b3605ce0d264099bfc64e8963f5f, type: 3}
       propertyPath: m_TagString
       value: Resource
       objectReference: {fileID: 0}
@@ -1144,6 +1192,10 @@ PrefabInstance:
       value: fir tree winter medium 4
       objectReference: {fileID: 0}
     - target: {fileID: 8767435188098729168, guid: 95e7c8d47d4f35d40a852d211f208355, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8767435188098729168, guid: 95e7c8d47d4f35d40a852d211f208355, type: 3}
       propertyPath: m_TagString
       value: Resource
       objectReference: {fileID: 0}
@@ -1193,6 +1245,10 @@ PrefabInstance:
     - target: {fileID: 311227356247597890, guid: dbf0aeb2bc878be4fb7233f696fe993d, type: 3}
       propertyPath: m_Name
       value: stone winter small
+      objectReference: {fileID: 0}
+    - target: {fileID: 311227356247597890, guid: dbf0aeb2bc878be4fb7233f696fe993d, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 311227356247597890, guid: dbf0aeb2bc878be4fb7233f696fe993d, type: 3}
       propertyPath: m_TagString
@@ -1342,6 +1398,10 @@ PrefabInstance:
       value: stone winter large (1)
       objectReference: {fileID: 0}
     - target: {fileID: 3186001958097743486, guid: ad08d6b720a7fae4e9ef3b6b5126b8aa, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3186001958097743486, guid: ad08d6b720a7fae4e9ef3b6b5126b8aa, type: 3}
       propertyPath: m_TagString
       value: Resource
       objectReference: {fileID: 0}
@@ -1437,6 +1497,10 @@ PrefabInstance:
       value: fir tree winter large 4
       objectReference: {fileID: 0}
     - target: {fileID: 3221949232634273350, guid: bda8d1eb6bb50f44f9d0f81c98a600d6, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3221949232634273350, guid: bda8d1eb6bb50f44f9d0f81c98a600d6, type: 3}
       propertyPath: m_TagString
       value: Resource
       objectReference: {fileID: 0}
@@ -1486,6 +1550,10 @@ PrefabInstance:
     - target: {fileID: 2619085017436803227, guid: 40ef808ffcfda53459a28ee593ab3936, type: 3}
       propertyPath: m_Name
       value: stone large 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2619085017436803227, guid: 40ef808ffcfda53459a28ee593ab3936, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3392067446963571233, guid: 40ef808ffcfda53459a28ee593ab3936, type: 3}
       propertyPath: m_LocalScale.x
@@ -1618,6 +1686,10 @@ PrefabInstance:
       value: stone winter small 4
       objectReference: {fileID: 0}
     - target: {fileID: 8796345781631280272, guid: 7df728c3d4ea26f4a8b402461a92a700, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8796345781631280272, guid: 7df728c3d4ea26f4a8b402461a92a700, type: 3}
       propertyPath: m_TagString
       value: Resource
       objectReference: {fileID: 0}
@@ -1723,6 +1795,10 @@ PrefabInstance:
     - target: {fileID: 6359703019773209741, guid: 0c4aa4b88c2464743946434740d6a09b, type: 3}
       propertyPath: m_Name
       value: stone winter small 3 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6359703019773209741, guid: 0c4aa4b88c2464743946434740d6a09b, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6359703019773209741, guid: 0c4aa4b88c2464743946434740d6a09b, type: 3}
       propertyPath: m_TagString
@@ -1832,6 +1908,10 @@ PrefabInstance:
       value: stone winter small 6
       objectReference: {fileID: 0}
     - target: {fileID: 3257769107190460617, guid: a614b3605ce0d264099bfc64e8963f5f, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3257769107190460617, guid: a614b3605ce0d264099bfc64e8963f5f, type: 3}
       propertyPath: m_TagString
       value: Resource
       objectReference: {fileID: 0}
@@ -1881,6 +1961,10 @@ PrefabInstance:
     - target: {fileID: 7268641205290883446, guid: 9f264f4f60458564b876867da5286d6d, type: 3}
       propertyPath: m_Name
       value: stones group winter 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7268641205290883446, guid: 9f264f4f60458564b876867da5286d6d, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7268641205290883446, guid: 9f264f4f60458564b876867da5286d6d, type: 3}
       propertyPath: m_TagString
@@ -2046,6 +2130,10 @@ PrefabInstance:
       value: stone winter small 4 (1)
       objectReference: {fileID: 0}
     - target: {fileID: 8796345781631280272, guid: 7df728c3d4ea26f4a8b402461a92a700, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8796345781631280272, guid: 7df728c3d4ea26f4a8b402461a92a700, type: 3}
       propertyPath: m_TagString
       value: Resource
       objectReference: {fileID: 0}
@@ -2139,6 +2227,10 @@ PrefabInstance:
     - target: {fileID: 3221949232634273350, guid: bda8d1eb6bb50f44f9d0f81c98a600d6, type: 3}
       propertyPath: m_Name
       value: fir tree winter large 4 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3221949232634273350, guid: bda8d1eb6bb50f44f9d0f81c98a600d6, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3221949232634273350, guid: bda8d1eb6bb50f44f9d0f81c98a600d6, type: 3}
       propertyPath: m_TagString
@@ -2242,6 +2334,10 @@ PrefabInstance:
     - target: {fileID: 1109991705103245488, guid: acd1635f218b8ed4bada7ff0f943717c, type: 3}
       propertyPath: m_Name
       value: stone large
+      objectReference: {fileID: 0}
+    - target: {fileID: 1109991705103245488, guid: acd1635f218b8ed4bada7ff0f943717c, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

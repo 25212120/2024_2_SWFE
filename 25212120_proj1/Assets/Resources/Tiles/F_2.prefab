@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4771242925911998817}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: mysterious place with env
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,9 +43,9 @@ GameObject:
   - component: {fileID: 2025643147358410329}
   - component: {fileID: 3996841709131146484}
   - component: {fileID: 4675648361813367154}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: wooden bridge (1)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -148,9 +148,9 @@ GameObject:
   - component: {fileID: 6647082063870027180}
   - component: {fileID: 1018790029267213874}
   - component: {fileID: 7375686492771303467}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: wooden bridge (2)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -250,9 +250,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2908895767661426984}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: F_2
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -316,7 +316,7 @@ GameObject:
   - component: {fileID: 5343771511552379885}
   - component: {fileID: 1523943862926802399}
   - component: {fileID: 8464782159884805632}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: tree 2 (1)
   m_TagString: Resource
   m_Icon: {fileID: 0}
@@ -416,7 +416,7 @@ GameObject:
   - component: {fileID: 7808839369107887222}
   - component: {fileID: 4625453212384759264}
   - component: {fileID: 2245368455925162389}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: stone small 26 (11)
   m_TagString: Resource
   m_Icon: {fileID: 0}
@@ -514,7 +514,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4708078573998354168}
   - component: {fileID: 7081812545597229278}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GameObject (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -569,7 +569,7 @@ GameObject:
   - component: {fileID: 9179709611235088972}
   - component: {fileID: 1503276064945669955}
   - component: {fileID: 5656940399108717634}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: green stone 3 (1)
   m_TagString: Resource
   m_Icon: {fileID: 0}
@@ -669,7 +669,7 @@ GameObject:
   - component: {fileID: 7046502676733895197}
   - component: {fileID: 7971538133763081595}
   - component: {fileID: 2896173360130759042}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: stone large (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -772,7 +772,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7004731507640148494}
   - component: {fileID: 586969191689516297}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -883,6 +883,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: shrub 3 (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 4095780841290988654, guid: b19d8307784ad4d46bc8a19aa1de62e3, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -904,6 +908,10 @@ PrefabInstance:
     - target: {fileID: 502952850742512272, guid: a945c91bdfdc6a54fa342683a5d48cde, type: 3}
       propertyPath: m_Name
       value: stone small 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 502952850742512272, guid: a945c91bdfdc6a54fa342683a5d48cde, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 502952850742512272, guid: a945c91bdfdc6a54fa342683a5d48cde, type: 3}
       propertyPath: m_TagString
@@ -1069,6 +1077,10 @@ PrefabInstance:
       value: shrub 3 (3)
       objectReference: {fileID: 0}
     - target: {fileID: 4095780841290988654, guid: b19d8307784ad4d46bc8a19aa1de62e3, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4095780841290988654, guid: b19d8307784ad4d46bc8a19aa1de62e3, type: 3}
       propertyPath: m_TagString
       value: Untagged
       objectReference: {fileID: 0}
@@ -1139,6 +1151,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: shrub 5 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 8046288186778768769, guid: 522dad5ae3bad0e4eaf5b1abec754b1e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1160,6 +1176,10 @@ PrefabInstance:
     - target: {fileID: 8636073544616343295, guid: 74e6e5197dfe4ab4b8ed7135685d29e5, type: 3}
       propertyPath: m_Name
       value: tree 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8636073544616343295, guid: 74e6e5197dfe4ab4b8ed7135685d29e5, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8636073544616343295, guid: 74e6e5197dfe4ab4b8ed7135685d29e5, type: 3}
       propertyPath: m_TagString
@@ -1325,6 +1345,10 @@ PrefabInstance:
       value: shrub 3 (5)
       objectReference: {fileID: 0}
     - target: {fileID: 4095780841290988654, guid: b19d8307784ad4d46bc8a19aa1de62e3, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4095780841290988654, guid: b19d8307784ad4d46bc8a19aa1de62e3, type: 3}
       propertyPath: m_TagString
       value: Untagged
       objectReference: {fileID: 0}
@@ -1403,6 +1427,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: water location crescent island (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 5200008217463645763, guid: 7d623af1c70215841965d79fc7017ed3, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 5992848117184579478, guid: 7d623af1c70215841965d79fc7017ed3, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -1428,6 +1456,10 @@ PrefabInstance:
     - target: {fileID: 6947462300620379264, guid: 1ee4f5bf475378d4c826889e2d788164, type: 3}
       propertyPath: m_Name
       value: stone small 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 6947462300620379264, guid: 1ee4f5bf475378d4c826889e2d788164, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6947462300620379264, guid: 1ee4f5bf475378d4c826889e2d788164, type: 3}
       propertyPath: m_TagString
@@ -1593,6 +1625,10 @@ PrefabInstance:
       value: fir tree small
       objectReference: {fileID: 0}
     - target: {fileID: 1964098910775377021, guid: dd097c1ee71259849a7e76232e28d12d, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1964098910775377021, guid: dd097c1ee71259849a7e76232e28d12d, type: 3}
       propertyPath: m_TagString
       value: Resource
       objectReference: {fileID: 0}
@@ -1642,6 +1678,10 @@ PrefabInstance:
     - target: {fileID: 7225763747097090835, guid: 091fcedeb0dfc9e419fa0c5186a8899e, type: 3}
       propertyPath: m_Name
       value: shrub 2 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7225763747097090835, guid: 091fcedeb0dfc9e419fa0c5186a8899e, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7225763747097090835, guid: 091fcedeb0dfc9e419fa0c5186a8899e, type: 3}
       propertyPath: m_TagString
@@ -1782,6 +1822,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: shrub 4 (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 5335186906404588818, guid: 142c1522bdb83ad4597e5723228c3798, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1861,6 +1905,10 @@ PrefabInstance:
       value: fir tree large (1)
       objectReference: {fileID: 0}
     - target: {fileID: 4461304637884366567, guid: 9ecab3ab27f857248887db7ba6e8ad6a, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4461304637884366567, guid: 9ecab3ab27f857248887db7ba6e8ad6a, type: 3}
       propertyPath: m_TagString
       value: Resource
       objectReference: {fileID: 0}
@@ -1910,6 +1958,10 @@ PrefabInstance:
     - target: {fileID: 7225763747097090835, guid: 091fcedeb0dfc9e419fa0c5186a8899e, type: 3}
       propertyPath: m_Name
       value: shrub 2 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7225763747097090835, guid: 091fcedeb0dfc9e419fa0c5186a8899e, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7225763747097090835, guid: 091fcedeb0dfc9e419fa0c5186a8899e, type: 3}
       propertyPath: m_TagString
@@ -2051,6 +2103,10 @@ PrefabInstance:
       value: green stone 3
       objectReference: {fileID: 0}
     - target: {fileID: 7993644171371460494, guid: 4d2a15cad84959449a1a1db060e5baad, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7993644171371460494, guid: 4d2a15cad84959449a1a1db060e5baad, type: 3}
       propertyPath: m_TagString
       value: Resource
       objectReference: {fileID: 0}
@@ -2076,6 +2132,10 @@ PrefabInstance:
     - target: {fileID: 4850704583328119816, guid: a5b9586872bb4324e92e4e1c22769013, type: 3}
       propertyPath: m_Name
       value: fir tree medium
+      objectReference: {fileID: 0}
+    - target: {fileID: 4850704583328119816, guid: a5b9586872bb4324e92e4e1c22769013, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4850704583328119816, guid: a5b9586872bb4324e92e4e1c22769013, type: 3}
       propertyPath: m_TagString
@@ -2183,6 +2243,10 @@ PrefabInstance:
     - target: {fileID: 5804618257018693270, guid: 8a5d553073bceec4cb1614874bb13b5d, type: 3}
       propertyPath: m_Name
       value: stone small 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5804618257018693270, guid: 8a5d553073bceec4cb1614874bb13b5d, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5804618257018693270, guid: 8a5d553073bceec4cb1614874bb13b5d, type: 3}
       propertyPath: m_TagString
@@ -2347,6 +2411,10 @@ PrefabInstance:
       value: shrub 3 (2)
       objectReference: {fileID: 0}
     - target: {fileID: 4095780841290988654, guid: b19d8307784ad4d46bc8a19aa1de62e3, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4095780841290988654, guid: b19d8307784ad4d46bc8a19aa1de62e3, type: 3}
       propertyPath: m_TagString
       value: Untagged
       objectReference: {fileID: 0}
@@ -2428,6 +2496,10 @@ PrefabInstance:
     - target: {fileID: 8046288186778768769, guid: 522dad5ae3bad0e4eaf5b1abec754b1e, type: 3}
       propertyPath: m_Name
       value: shrub 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8046288186778768769, guid: 522dad5ae3bad0e4eaf5b1abec754b1e, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8046288186778768769, guid: 522dad5ae3bad0e4eaf5b1abec754b1e, type: 3}
       propertyPath: m_TagString
@@ -2513,6 +2585,10 @@ PrefabInstance:
       value: stone small 12
       objectReference: {fileID: 0}
     - target: {fileID: 6471226346238707871, guid: c65e60e5e59afc8418d2def13725b30c, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6471226346238707871, guid: c65e60e5e59afc8418d2def13725b30c, type: 3}
       propertyPath: m_TagString
       value: Resource
       objectReference: {fileID: 0}
@@ -2594,6 +2670,10 @@ PrefabInstance:
     - target: {fileID: 5335186906404588818, guid: 142c1522bdb83ad4597e5723228c3798, type: 3}
       propertyPath: m_Name
       value: shrub 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5335186906404588818, guid: 142c1522bdb83ad4597e5723228c3798, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5335186906404588818, guid: 142c1522bdb83ad4597e5723228c3798, type: 3}
       propertyPath: m_TagString
@@ -2679,6 +2759,10 @@ PrefabInstance:
       value: fir tree large (2)
       objectReference: {fileID: 0}
     - target: {fileID: 4461304637884366567, guid: 9ecab3ab27f857248887db7ba6e8ad6a, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4461304637884366567, guid: 9ecab3ab27f857248887db7ba6e8ad6a, type: 3}
       propertyPath: m_TagString
       value: Resource
       objectReference: {fileID: 0}
@@ -2728,6 +2812,18 @@ PrefabInstance:
     - target: {fileID: 138810, guid: a12aff758adf6ef43840cb30ef17327f, type: 3}
       propertyPath: m_Name
       value: CPT_River_S_a_02_LOD
+      objectReference: {fileID: 0}
+    - target: {fileID: 138810, guid: a12aff758adf6ef43840cb30ef17327f, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 138810, guid: a12aff758adf6ef43840cb30ef17327f, type: 3}
+      propertyPath: m_TagString
+      value: Ground
+      objectReference: {fileID: 0}
+    - target: {fileID: 184932, guid: a12aff758adf6ef43840cb30ef17327f, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 471992, guid: a12aff758adf6ef43840cb30ef17327f, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2808,6 +2904,10 @@ PrefabInstance:
     - target: {fileID: 29033145425314014, guid: b7c92f9eff4cba54ea34e946a247f84c, type: 3}
       propertyPath: m_Name
       value: green stone 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 29033145425314014, guid: b7c92f9eff4cba54ea34e946a247f84c, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 29033145425314014, guid: b7c92f9eff4cba54ea34e946a247f84c, type: 3}
       propertyPath: m_TagString

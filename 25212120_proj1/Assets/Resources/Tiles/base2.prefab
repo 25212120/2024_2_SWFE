@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8076024171934534103}
   m_Layer: 0
   m_Name: base2
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -40,9 +40,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8076024171934534103}
     m_Modifications:
+    - target: {fileID: 158438, guid: ad743e46b8b104a4da26d9d04e540e59, type: 3}
+      propertyPath: m_TagString
+      value: Ground
+      objectReference: {fileID: 0}
     - target: {fileID: 181524, guid: ad743e46b8b104a4da26d9d04e540e59, type: 3}
       propertyPath: m_Name
       value: CPT_Terrain_M_a_01_LOD (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 181524, guid: ad743e46b8b104a4da26d9d04e540e59, type: 3}
+      propertyPath: m_TagString
+      value: Ground
       objectReference: {fileID: 0}
     - target: {fileID: 431640, guid: ad743e46b8b104a4da26d9d04e540e59, type: 3}
       propertyPath: m_LocalPosition.x

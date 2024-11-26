@@ -95,26 +95,6 @@ public class PlayerMagic
             LevelUp();  // ·¹º§¾÷
         }
     }
-
-    public bool IsWoodSkillTreeActive()
-    {
-        return MagicSkillTree_Wood;
-    }
-
-    public bool IsFireSkillTreeActive()
-    {
-        return MagicSkillTree_Fire;
-    }
-
-    public bool IsIceSkillTreeActive()
-    {
-        return MagicSkillTree_Ice;
-    }
-
-    public bool IsSandSkillTreeActive()
-    {
-        return MagicSkillTree_Sand;
-    }
 }
 
 public class PlayerInventory : MonoBehaviour

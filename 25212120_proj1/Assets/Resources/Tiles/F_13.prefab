@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1977890178084763067}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: F_13
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -101,6 +101,10 @@ PrefabInstance:
       value: grass (14)
       objectReference: {fileID: 0}
     - target: {fileID: 8328359773300533409, guid: 24f86fdffc82b6042b03428f9556556e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8328359773300533409, guid: 24f86fdffc82b6042b03428f9556556e, type: 3}
       propertyPath: m_TagString
       value: Resource
       objectReference: {fileID: 0}
@@ -169,6 +173,10 @@ PrefabInstance:
     - target: {fileID: 8328359773300533409, guid: 24f86fdffc82b6042b03428f9556556e, type: 3}
       propertyPath: m_Name
       value: grass (10)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8328359773300533409, guid: 24f86fdffc82b6042b03428f9556556e, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8328359773300533409, guid: 24f86fdffc82b6042b03428f9556556e, type: 3}
       propertyPath: m_TagString
@@ -285,6 +293,10 @@ PrefabInstance:
       value: fir tree tilted (4)
       objectReference: {fileID: 0}
     - target: {fileID: 4516101283043699217, guid: 2aebd28ecad06bc4ba2d87175c8a72e8, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4516101283043699217, guid: 2aebd28ecad06bc4ba2d87175c8a72e8, type: 3}
       propertyPath: m_TagString
       value: Resource
       objectReference: {fileID: 0}
@@ -333,6 +345,10 @@ PrefabInstance:
     - target: {fileID: 2520143905562659698, guid: 8275e2a5aa37b3d42917b1ae7e48206a, type: 3}
       propertyPath: m_Name
       value: plant (10)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2520143905562659698, guid: 8275e2a5aa37b3d42917b1ae7e48206a, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2520143905562659698, guid: 8275e2a5aa37b3d42917b1ae7e48206a, type: 3}
       propertyPath: m_TagString
@@ -408,9 +424,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1977890178084763067}
     m_Modifications:
+    - target: {fileID: 158438, guid: ad743e46b8b104a4da26d9d04e540e59, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 181524, guid: ad743e46b8b104a4da26d9d04e540e59, type: 3}
       propertyPath: m_Name
       value: CPT_Terrain_M_a_01_LOD (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 181524, guid: ad743e46b8b104a4da26d9d04e540e59, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 431640, guid: ad743e46b8b104a4da26d9d04e540e59, type: 3}
       propertyPath: m_LocalPosition.x
@@ -489,6 +513,10 @@ PrefabInstance:
       value: grass (15)
       objectReference: {fileID: 0}
     - target: {fileID: 8328359773300533409, guid: 24f86fdffc82b6042b03428f9556556e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8328359773300533409, guid: 24f86fdffc82b6042b03428f9556556e, type: 3}
       propertyPath: m_TagString
       value: Resource
       objectReference: {fileID: 0}
@@ -557,6 +585,10 @@ PrefabInstance:
     - target: {fileID: 2520143905562659698, guid: 8275e2a5aa37b3d42917b1ae7e48206a, type: 3}
       propertyPath: m_Name
       value: plant (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2520143905562659698, guid: 8275e2a5aa37b3d42917b1ae7e48206a, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2520143905562659698, guid: 8275e2a5aa37b3d42917b1ae7e48206a, type: 3}
       propertyPath: m_TagString
@@ -635,6 +667,10 @@ PrefabInstance:
     - target: {fileID: 4850704583328119816, guid: a5b9586872bb4324e92e4e1c22769013, type: 3}
       propertyPath: m_Name
       value: fir tree medium (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4850704583328119816, guid: a5b9586872bb4324e92e4e1c22769013, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4850704583328119816, guid: a5b9586872bb4324e92e4e1c22769013, type: 3}
       propertyPath: m_TagString
@@ -741,6 +777,10 @@ PrefabInstance:
     - target: {fileID: 2520143905562659698, guid: 8275e2a5aa37b3d42917b1ae7e48206a, type: 3}
       propertyPath: m_Name
       value: plant (14)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2520143905562659698, guid: 8275e2a5aa37b3d42917b1ae7e48206a, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2520143905562659698, guid: 8275e2a5aa37b3d42917b1ae7e48206a, type: 3}
       propertyPath: m_TagString
@@ -865,6 +905,10 @@ PrefabInstance:
       value: fir tree small (10)
       objectReference: {fileID: 0}
     - target: {fileID: 1964098910775377021, guid: dd097c1ee71259849a7e76232e28d12d, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1964098910775377021, guid: dd097c1ee71259849a7e76232e28d12d, type: 3}
       propertyPath: m_TagString
       value: Resource
       objectReference: {fileID: 0}
@@ -913,6 +957,10 @@ PrefabInstance:
     - target: {fileID: 2520143905562659698, guid: 8275e2a5aa37b3d42917b1ae7e48206a, type: 3}
       propertyPath: m_Name
       value: plant (22)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2520143905562659698, guid: 8275e2a5aa37b3d42917b1ae7e48206a, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2520143905562659698, guid: 8275e2a5aa37b3d42917b1ae7e48206a, type: 3}
       propertyPath: m_TagString
@@ -1037,6 +1085,10 @@ PrefabInstance:
       value: fir tree tilted (3)
       objectReference: {fileID: 0}
     - target: {fileID: 4516101283043699217, guid: 2aebd28ecad06bc4ba2d87175c8a72e8, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4516101283043699217, guid: 2aebd28ecad06bc4ba2d87175c8a72e8, type: 3}
       propertyPath: m_TagString
       value: Resource
       objectReference: {fileID: 0}
@@ -1131,6 +1183,10 @@ PrefabInstance:
       value: fir tree bent (3)
       objectReference: {fileID: 0}
     - target: {fileID: 4103650303095127081, guid: 3a8df5bc092ad5a43a0db561c888741c, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4103650303095127081, guid: 3a8df5bc092ad5a43a0db561c888741c, type: 3}
       propertyPath: m_TagString
       value: Resource
       objectReference: {fileID: 0}
@@ -1179,6 +1235,10 @@ PrefabInstance:
     - target: {fileID: 1548628195727220099, guid: a71a7608266ebdd49adbad8dc2f7a363, type: 3}
       propertyPath: m_Name
       value: stone small 27 (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1548628195727220099, guid: a71a7608266ebdd49adbad8dc2f7a363, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1548628195727220099, guid: a71a7608266ebdd49adbad8dc2f7a363, type: 3}
       propertyPath: m_TagString
@@ -1287,6 +1347,10 @@ PrefabInstance:
       value: plant (16)
       objectReference: {fileID: 0}
     - target: {fileID: 2520143905562659698, guid: 8275e2a5aa37b3d42917b1ae7e48206a, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2520143905562659698, guid: 8275e2a5aa37b3d42917b1ae7e48206a, type: 3}
       propertyPath: m_TagString
       value: Resource
       objectReference: {fileID: 0}
@@ -1365,6 +1429,10 @@ PrefabInstance:
       value: plant (08)
       objectReference: {fileID: 0}
     - target: {fileID: 2520143905562659698, guid: 8275e2a5aa37b3d42917b1ae7e48206a, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2520143905562659698, guid: 8275e2a5aa37b3d42917b1ae7e48206a, type: 3}
       propertyPath: m_TagString
       value: Resource
       objectReference: {fileID: 0}
@@ -1441,6 +1509,10 @@ PrefabInstance:
     - target: {fileID: 8328359773300533409, guid: 24f86fdffc82b6042b03428f9556556e, type: 3}
       propertyPath: m_Name
       value: grass (09)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8328359773300533409, guid: 24f86fdffc82b6042b03428f9556556e, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8328359773300533409, guid: 24f86fdffc82b6042b03428f9556556e, type: 3}
       propertyPath: m_TagString
@@ -1569,6 +1641,10 @@ PrefabInstance:
       value: stone small 26 (4)
       objectReference: {fileID: 0}
     - target: {fileID: 7836342120013806821, guid: bd05f109d8f8b04458a1dd6088a0949a, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7836342120013806821, guid: bd05f109d8f8b04458a1dd6088a0949a, type: 3}
       propertyPath: m_TagString
       value: Resource
       objectReference: {fileID: 0}
@@ -1617,6 +1693,10 @@ PrefabInstance:
     - target: {fileID: 2520143905562659698, guid: 8275e2a5aa37b3d42917b1ae7e48206a, type: 3}
       propertyPath: m_Name
       value: plant (09)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2520143905562659698, guid: 8275e2a5aa37b3d42917b1ae7e48206a, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2520143905562659698, guid: 8275e2a5aa37b3d42917b1ae7e48206a, type: 3}
       propertyPath: m_TagString
@@ -1695,6 +1775,10 @@ PrefabInstance:
     - target: {fileID: 3547958710727223453, guid: ffe9a1b3222ad8c44a6de0edf3bcd496, type: 3}
       propertyPath: m_Name
       value: tree trunk 4 (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3547958710727223453, guid: ffe9a1b3222ad8c44a6de0edf3bcd496, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3547958710727223453, guid: ffe9a1b3222ad8c44a6de0edf3bcd496, type: 3}
       propertyPath: m_TagString
@@ -1791,6 +1875,10 @@ PrefabInstance:
       value: grass (23)
       objectReference: {fileID: 0}
     - target: {fileID: 8328359773300533409, guid: 24f86fdffc82b6042b03428f9556556e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8328359773300533409, guid: 24f86fdffc82b6042b03428f9556556e, type: 3}
       propertyPath: m_TagString
       value: Resource
       objectReference: {fileID: 0}
@@ -1859,6 +1947,10 @@ PrefabInstance:
     - target: {fileID: 2520143905562659698, guid: 8275e2a5aa37b3d42917b1ae7e48206a, type: 3}
       propertyPath: m_Name
       value: plant (19)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2520143905562659698, guid: 8275e2a5aa37b3d42917b1ae7e48206a, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2520143905562659698, guid: 8275e2a5aa37b3d42917b1ae7e48206a, type: 3}
       propertyPath: m_TagString
@@ -1937,6 +2029,10 @@ PrefabInstance:
     - target: {fileID: 8328359773300533409, guid: 24f86fdffc82b6042b03428f9556556e, type: 3}
       propertyPath: m_Name
       value: grass (13)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8328359773300533409, guid: 24f86fdffc82b6042b03428f9556556e, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8328359773300533409, guid: 24f86fdffc82b6042b03428f9556556e, type: 3}
       propertyPath: m_TagString
@@ -2065,6 +2161,10 @@ PrefabInstance:
       value: stone small 23 (3)
       objectReference: {fileID: 0}
     - target: {fileID: 761639661572058818, guid: 5eb180287f3d77e4ba6f6279c67c570f, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 761639661572058818, guid: 5eb180287f3d77e4ba6f6279c67c570f, type: 3}
       propertyPath: m_TagString
       value: Resource
       objectReference: {fileID: 0}
@@ -2113,6 +2213,10 @@ PrefabInstance:
     - target: {fileID: 8328359773300533409, guid: 24f86fdffc82b6042b03428f9556556e, type: 3}
       propertyPath: m_Name
       value: grass (16)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8328359773300533409, guid: 24f86fdffc82b6042b03428f9556556e, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8328359773300533409, guid: 24f86fdffc82b6042b03428f9556556e, type: 3}
       propertyPath: m_TagString
@@ -2183,6 +2287,10 @@ PrefabInstance:
     - target: {fileID: 6171055766771603737, guid: c67d813ab7d698940aad1c63e9bf0c1e, type: 3}
       propertyPath: m_Name
       value: stone small 9 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6171055766771603737, guid: c67d813ab7d698940aad1c63e9bf0c1e, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6171055766771603737, guid: c67d813ab7d698940aad1c63e9bf0c1e, type: 3}
       propertyPath: m_TagString
@@ -2291,6 +2399,10 @@ PrefabInstance:
       value: stone small 9 (3)
       objectReference: {fileID: 0}
     - target: {fileID: 6171055766771603737, guid: c67d813ab7d698940aad1c63e9bf0c1e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6171055766771603737, guid: c67d813ab7d698940aad1c63e9bf0c1e, type: 3}
       propertyPath: m_TagString
       value: Resource
       objectReference: {fileID: 0}
@@ -2395,6 +2507,10 @@ PrefabInstance:
     - target: {fileID: 8328359773300533409, guid: 24f86fdffc82b6042b03428f9556556e, type: 3}
       propertyPath: m_Name
       value: grass (08)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8328359773300533409, guid: 24f86fdffc82b6042b03428f9556556e, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8328359773300533409, guid: 24f86fdffc82b6042b03428f9556556e, type: 3}
       propertyPath: m_TagString
@@ -2511,6 +2627,10 @@ PrefabInstance:
       value: fir tree large (6)
       objectReference: {fileID: 0}
     - target: {fileID: 4461304637884366567, guid: 9ecab3ab27f857248887db7ba6e8ad6a, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4461304637884366567, guid: 9ecab3ab27f857248887db7ba6e8ad6a, type: 3}
       propertyPath: m_TagString
       value: Resource
       objectReference: {fileID: 0}
@@ -2559,6 +2679,10 @@ PrefabInstance:
     - target: {fileID: 2520143905562659698, guid: 8275e2a5aa37b3d42917b1ae7e48206a, type: 3}
       propertyPath: m_Name
       value: plant (13)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2520143905562659698, guid: 8275e2a5aa37b3d42917b1ae7e48206a, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2520143905562659698, guid: 8275e2a5aa37b3d42917b1ae7e48206a, type: 3}
       propertyPath: m_TagString
@@ -2637,6 +2761,10 @@ PrefabInstance:
     - target: {fileID: 3547958710727223453, guid: ffe9a1b3222ad8c44a6de0edf3bcd496, type: 3}
       propertyPath: m_Name
       value: tree trunk 4 (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3547958710727223453, guid: ffe9a1b3222ad8c44a6de0edf3bcd496, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3547958710727223453, guid: ffe9a1b3222ad8c44a6de0edf3bcd496, type: 3}
       propertyPath: m_TagString
@@ -2733,6 +2861,10 @@ PrefabInstance:
       value: plant (6)
       objectReference: {fileID: 0}
     - target: {fileID: 2520143905562659698, guid: 8275e2a5aa37b3d42917b1ae7e48206a, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2520143905562659698, guid: 8275e2a5aa37b3d42917b1ae7e48206a, type: 3}
       propertyPath: m_TagString
       value: Resource
       objectReference: {fileID: 0}
@@ -2809,6 +2941,10 @@ PrefabInstance:
     - target: {fileID: 1548628195727220099, guid: a71a7608266ebdd49adbad8dc2f7a363, type: 3}
       propertyPath: m_Name
       value: stone small 27 (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1548628195727220099, guid: a71a7608266ebdd49adbad8dc2f7a363, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1548628195727220099, guid: a71a7608266ebdd49adbad8dc2f7a363, type: 3}
       propertyPath: m_TagString
@@ -2917,6 +3053,10 @@ PrefabInstance:
       value: plant (20)
       objectReference: {fileID: 0}
     - target: {fileID: 2520143905562659698, guid: 8275e2a5aa37b3d42917b1ae7e48206a, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2520143905562659698, guid: 8275e2a5aa37b3d42917b1ae7e48206a, type: 3}
       propertyPath: m_TagString
       value: Resource
       objectReference: {fileID: 0}
@@ -2995,6 +3135,10 @@ PrefabInstance:
       value: plant (11)
       objectReference: {fileID: 0}
     - target: {fileID: 2520143905562659698, guid: 8275e2a5aa37b3d42917b1ae7e48206a, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2520143905562659698, guid: 8275e2a5aa37b3d42917b1ae7e48206a, type: 3}
       propertyPath: m_TagString
       value: Resource
       objectReference: {fileID: 0}
@@ -3071,6 +3215,10 @@ PrefabInstance:
     - target: {fileID: 8328359773300533409, guid: 24f86fdffc82b6042b03428f9556556e, type: 3}
       propertyPath: m_Name
       value: grass (17)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8328359773300533409, guid: 24f86fdffc82b6042b03428f9556556e, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8328359773300533409, guid: 24f86fdffc82b6042b03428f9556556e, type: 3}
       propertyPath: m_TagString
@@ -3199,6 +3347,10 @@ PrefabInstance:
       value: stone small 26 (3)
       objectReference: {fileID: 0}
     - target: {fileID: 7836342120013806821, guid: bd05f109d8f8b04458a1dd6088a0949a, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7836342120013806821, guid: bd05f109d8f8b04458a1dd6088a0949a, type: 3}
       propertyPath: m_TagString
       value: Resource
       objectReference: {fileID: 0}
@@ -3247,6 +3399,10 @@ PrefabInstance:
     - target: {fileID: 8328359773300533409, guid: 24f86fdffc82b6042b03428f9556556e, type: 3}
       propertyPath: m_Name
       value: grass (18)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8328359773300533409, guid: 24f86fdffc82b6042b03428f9556556e, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8328359773300533409, guid: 24f86fdffc82b6042b03428f9556556e, type: 3}
       propertyPath: m_TagString
@@ -3317,6 +3473,10 @@ PrefabInstance:
     - target: {fileID: 2520143905562659698, guid: 8275e2a5aa37b3d42917b1ae7e48206a, type: 3}
       propertyPath: m_Name
       value: plant (12)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2520143905562659698, guid: 8275e2a5aa37b3d42917b1ae7e48206a, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2520143905562659698, guid: 8275e2a5aa37b3d42917b1ae7e48206a, type: 3}
       propertyPath: m_TagString
@@ -3441,6 +3601,10 @@ PrefabInstance:
       value: fir tree small (11)
       objectReference: {fileID: 0}
     - target: {fileID: 1964098910775377021, guid: dd097c1ee71259849a7e76232e28d12d, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1964098910775377021, guid: dd097c1ee71259849a7e76232e28d12d, type: 3}
       propertyPath: m_TagString
       value: Resource
       objectReference: {fileID: 0}
@@ -3489,6 +3653,10 @@ PrefabInstance:
     - target: {fileID: 2520143905562659698, guid: 8275e2a5aa37b3d42917b1ae7e48206a, type: 3}
       propertyPath: m_Name
       value: plant (15)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2520143905562659698, guid: 8275e2a5aa37b3d42917b1ae7e48206a, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2520143905562659698, guid: 8275e2a5aa37b3d42917b1ae7e48206a, type: 3}
       propertyPath: m_TagString
@@ -3569,6 +3737,10 @@ PrefabInstance:
       value: plant (18)
       objectReference: {fileID: 0}
     - target: {fileID: 2520143905562659698, guid: 8275e2a5aa37b3d42917b1ae7e48206a, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2520143905562659698, guid: 8275e2a5aa37b3d42917b1ae7e48206a, type: 3}
       propertyPath: m_TagString
       value: Resource
       objectReference: {fileID: 0}
@@ -3647,6 +3819,10 @@ PrefabInstance:
       value: plant (17)
       objectReference: {fileID: 0}
     - target: {fileID: 2520143905562659698, guid: 8275e2a5aa37b3d42917b1ae7e48206a, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2520143905562659698, guid: 8275e2a5aa37b3d42917b1ae7e48206a, type: 3}
       propertyPath: m_TagString
       value: Resource
       objectReference: {fileID: 0}
@@ -3723,6 +3899,10 @@ PrefabInstance:
     - target: {fileID: 8328359773300533409, guid: 24f86fdffc82b6042b03428f9556556e, type: 3}
       propertyPath: m_Name
       value: grass (20)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8328359773300533409, guid: 24f86fdffc82b6042b03428f9556556e, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8328359773300533409, guid: 24f86fdffc82b6042b03428f9556556e, type: 3}
       propertyPath: m_TagString
@@ -3851,6 +4031,10 @@ PrefabInstance:
       value: stone small 12 (2)
       objectReference: {fileID: 0}
     - target: {fileID: 6471226346238707871, guid: c65e60e5e59afc8418d2def13725b30c, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6471226346238707871, guid: c65e60e5e59afc8418d2def13725b30c, type: 3}
       propertyPath: m_TagString
       value: Resource
       objectReference: {fileID: 0}
@@ -3899,6 +4083,10 @@ PrefabInstance:
     - target: {fileID: 8328359773300533409, guid: 24f86fdffc82b6042b03428f9556556e, type: 3}
       propertyPath: m_Name
       value: grass (19)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8328359773300533409, guid: 24f86fdffc82b6042b03428f9556556e, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8328359773300533409, guid: 24f86fdffc82b6042b03428f9556556e, type: 3}
       propertyPath: m_TagString
@@ -3969,6 +4157,10 @@ PrefabInstance:
     - target: {fileID: 4850704583328119816, guid: a5b9586872bb4324e92e4e1c22769013, type: 3}
       propertyPath: m_Name
       value: fir tree medium (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4850704583328119816, guid: a5b9586872bb4324e92e4e1c22769013, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4850704583328119816, guid: a5b9586872bb4324e92e4e1c22769013, type: 3}
       propertyPath: m_TagString
@@ -4075,6 +4267,10 @@ PrefabInstance:
     - target: {fileID: 8328359773300533409, guid: 24f86fdffc82b6042b03428f9556556e, type: 3}
       propertyPath: m_Name
       value: grass (21)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8328359773300533409, guid: 24f86fdffc82b6042b03428f9556556e, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8328359773300533409, guid: 24f86fdffc82b6042b03428f9556556e, type: 3}
       propertyPath: m_TagString
@@ -4191,6 +4387,10 @@ PrefabInstance:
       value: fir tree large (5)
       objectReference: {fileID: 0}
     - target: {fileID: 4461304637884366567, guid: 9ecab3ab27f857248887db7ba6e8ad6a, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4461304637884366567, guid: 9ecab3ab27f857248887db7ba6e8ad6a, type: 3}
       propertyPath: m_TagString
       value: Resource
       objectReference: {fileID: 0}
@@ -4239,6 +4439,10 @@ PrefabInstance:
     - target: {fileID: 2520143905562659698, guid: 8275e2a5aa37b3d42917b1ae7e48206a, type: 3}
       propertyPath: m_Name
       value: plant (07)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2520143905562659698, guid: 8275e2a5aa37b3d42917b1ae7e48206a, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2520143905562659698, guid: 8275e2a5aa37b3d42917b1ae7e48206a, type: 3}
       propertyPath: m_TagString
@@ -4319,6 +4523,10 @@ PrefabInstance:
       value: plant (21)
       objectReference: {fileID: 0}
     - target: {fileID: 2520143905562659698, guid: 8275e2a5aa37b3d42917b1ae7e48206a, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2520143905562659698, guid: 8275e2a5aa37b3d42917b1ae7e48206a, type: 3}
       propertyPath: m_TagString
       value: Resource
       objectReference: {fileID: 0}
@@ -4395,6 +4603,10 @@ PrefabInstance:
     - target: {fileID: 8328359773300533409, guid: 24f86fdffc82b6042b03428f9556556e, type: 3}
       propertyPath: m_Name
       value: grass (11)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8328359773300533409, guid: 24f86fdffc82b6042b03428f9556556e, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8328359773300533409, guid: 24f86fdffc82b6042b03428f9556556e, type: 3}
       propertyPath: m_TagString
@@ -4523,6 +4735,10 @@ PrefabInstance:
       value: stone small 23 (4)
       objectReference: {fileID: 0}
     - target: {fileID: 761639661572058818, guid: 5eb180287f3d77e4ba6f6279c67c570f, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 761639661572058818, guid: 5eb180287f3d77e4ba6f6279c67c570f, type: 3}
       propertyPath: m_TagString
       value: Resource
       objectReference: {fileID: 0}
@@ -4547,6 +4763,10 @@ PrefabInstance:
     - target: {fileID: 2520143905562659698, guid: 8275e2a5aa37b3d42917b1ae7e48206a, type: 3}
       propertyPath: m_Name
       value: plant (23)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2520143905562659698, guid: 8275e2a5aa37b3d42917b1ae7e48206a, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2520143905562659698, guid: 8275e2a5aa37b3d42917b1ae7e48206a, type: 3}
       propertyPath: m_TagString
@@ -4627,6 +4847,10 @@ PrefabInstance:
       value: grass (12)
       objectReference: {fileID: 0}
     - target: {fileID: 8328359773300533409, guid: 24f86fdffc82b6042b03428f9556556e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8328359773300533409, guid: 24f86fdffc82b6042b03428f9556556e, type: 3}
       propertyPath: m_TagString
       value: Resource
       objectReference: {fileID: 0}
@@ -4697,6 +4921,10 @@ PrefabInstance:
       value: grass (22)
       objectReference: {fileID: 0}
     - target: {fileID: 8328359773300533409, guid: 24f86fdffc82b6042b03428f9556556e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8328359773300533409, guid: 24f86fdffc82b6042b03428f9556556e, type: 3}
       propertyPath: m_TagString
       value: Resource
       objectReference: {fileID: 0}
@@ -4765,6 +4993,10 @@ PrefabInstance:
     - target: {fileID: 8328359773300533409, guid: 24f86fdffc82b6042b03428f9556556e, type: 3}
       propertyPath: m_Name
       value: grass (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8328359773300533409, guid: 24f86fdffc82b6042b03428f9556556e, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8328359773300533409, guid: 24f86fdffc82b6042b03428f9556556e, type: 3}
       propertyPath: m_TagString

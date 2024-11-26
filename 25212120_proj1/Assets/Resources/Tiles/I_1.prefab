@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3446687343139657794}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: I_1
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -74,6 +74,10 @@ PrefabInstance:
     - target: {fileID: 6216440402007594855, guid: 912ff6c73262d0d4fb14f9644313d94f, type: 3}
       propertyPath: m_Name
       value: crystal stone 6 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6216440402007594855, guid: 912ff6c73262d0d4fb14f9644313d94f, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6216440402007594855, guid: 912ff6c73262d0d4fb14f9644313d94f, type: 3}
       propertyPath: m_TagString
@@ -227,6 +231,10 @@ PrefabInstance:
       value: stone winter small 5
       objectReference: {fileID: 0}
     - target: {fileID: 3018677141072870108, guid: 64a26c2948c712642ae2b5c18c035341, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3018677141072870108, guid: 64a26c2948c712642ae2b5c18c035341, type: 3}
       propertyPath: m_TagString
       value: Resource
       objectReference: {fileID: 0}
@@ -276,6 +284,10 @@ PrefabInstance:
     - target: {fileID: 3759881293681469484, guid: 9db23e48950d0144ab3af49c2d34ac38, type: 3}
       propertyPath: m_Name
       value: stone winter small 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3759881293681469484, guid: 9db23e48950d0144ab3af49c2d34ac38, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3759881293681469484, guid: 9db23e48950d0144ab3af49c2d34ac38, type: 3}
       propertyPath: m_TagString
@@ -441,6 +453,10 @@ PrefabInstance:
       value: crystal stone 4 (1)
       objectReference: {fileID: 0}
     - target: {fileID: 4051801708450652937, guid: 1f07bcdd847b2964b809a758bdbf8f29, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4051801708450652937, guid: 1f07bcdd847b2964b809a758bdbf8f29, type: 3}
       propertyPath: m_TagString
       value: Resource
       objectReference: {fileID: 0}
@@ -490,6 +506,10 @@ PrefabInstance:
     - target: {fileID: 6216440402007594855, guid: 912ff6c73262d0d4fb14f9644313d94f, type: 3}
       propertyPath: m_Name
       value: crystal stone 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6216440402007594855, guid: 912ff6c73262d0d4fb14f9644313d94f, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6216440402007594855, guid: 912ff6c73262d0d4fb14f9644313d94f, type: 3}
       propertyPath: m_TagString
@@ -630,6 +650,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: crystal stone lagre (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 9195034094430186960, guid: c6d551b1e5acd6a45bebe6d2756788be, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -648,9 +672,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3446687343139657794}
     m_Modifications:
+    - target: {fileID: 174472, guid: 47866dd8c0b45b545879baba0e4fb7ff, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 182022, guid: 47866dd8c0b45b545879baba0e4fb7ff, type: 3}
       propertyPath: m_Name
       value: CPT_Terrain_M_a_04_LOD (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 182022, guid: 47866dd8c0b45b545879baba0e4fb7ff, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 433284, guid: 47866dd8c0b45b545879baba0e4fb7ff, type: 3}
       propertyPath: m_LocalPosition.x
@@ -774,6 +806,10 @@ PrefabInstance:
       value: crystal stone 4 (2)
       objectReference: {fileID: 0}
     - target: {fileID: 4051801708450652937, guid: 1f07bcdd847b2964b809a758bdbf8f29, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4051801708450652937, guid: 1f07bcdd847b2964b809a758bdbf8f29, type: 3}
       propertyPath: m_TagString
       value: Resource
       objectReference: {fileID: 0}
@@ -868,6 +904,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: crystal stone lagre 2 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1890679437524834151, guid: a2de2b98ebbf338429d51d032109d22f, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -889,6 +929,10 @@ PrefabInstance:
     - target: {fileID: 3611162978482844379, guid: 80c006fec192d2e49a0a4712596465cb, type: 3}
       propertyPath: m_Name
       value: crystal stones group 5 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3611162978482844379, guid: 80c006fec192d2e49a0a4712596465cb, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3611162978482844379, guid: 80c006fec192d2e49a0a4712596465cb, type: 3}
       propertyPath: m_TagString
@@ -984,6 +1028,10 @@ PrefabInstance:
     - target: {fileID: 3540265488691270887, guid: 160ab62b47d7d554fbcd1bf523d6eea7, type: 3}
       propertyPath: m_Name
       value: crystal stone 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3540265488691270887, guid: 160ab62b47d7d554fbcd1bf523d6eea7, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3540265488691270887, guid: 160ab62b47d7d554fbcd1bf523d6eea7, type: 3}
       propertyPath: m_TagString
@@ -1137,6 +1185,10 @@ PrefabInstance:
       value: stone winter small 3 (2)
       objectReference: {fileID: 0}
     - target: {fileID: 6359703019773209741, guid: 0c4aa4b88c2464743946434740d6a09b, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6359703019773209741, guid: 0c4aa4b88c2464743946434740d6a09b, type: 3}
       propertyPath: m_TagString
       value: Resource
       objectReference: {fileID: 0}
@@ -1232,6 +1284,10 @@ PrefabInstance:
       value: crystal stones group 6 (6)
       objectReference: {fileID: 0}
     - target: {fileID: 6377357285698434672, guid: 5a817b56c74c01349a2680c2290d7dd0, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6377357285698434672, guid: 5a817b56c74c01349a2680c2290d7dd0, type: 3}
       propertyPath: m_TagString
       value: Resource
       objectReference: {fileID: 0}
@@ -1281,6 +1337,10 @@ PrefabInstance:
     - target: {fileID: 3611162978482844379, guid: 80c006fec192d2e49a0a4712596465cb, type: 3}
       propertyPath: m_Name
       value: crystal stones group 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3611162978482844379, guid: 80c006fec192d2e49a0a4712596465cb, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3611162978482844379, guid: 80c006fec192d2e49a0a4712596465cb, type: 3}
       propertyPath: m_TagString
@@ -1378,6 +1438,10 @@ PrefabInstance:
       value: crystal stone 5 (4)
       objectReference: {fileID: 0}
     - target: {fileID: 3540265488691270887, guid: 160ab62b47d7d554fbcd1bf523d6eea7, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3540265488691270887, guid: 160ab62b47d7d554fbcd1bf523d6eea7, type: 3}
       propertyPath: m_TagString
       value: Resource
       objectReference: {fileID: 0}
@@ -1471,6 +1535,10 @@ PrefabInstance:
     - target: {fileID: 3759881293681469484, guid: 9db23e48950d0144ab3af49c2d34ac38, type: 3}
       propertyPath: m_Name
       value: stone winter small 7 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3759881293681469484, guid: 9db23e48950d0144ab3af49c2d34ac38, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3759881293681469484, guid: 9db23e48950d0144ab3af49c2d34ac38, type: 3}
       propertyPath: m_TagString
@@ -1636,6 +1704,10 @@ PrefabInstance:
       value: crystal stone 4
       objectReference: {fileID: 0}
     - target: {fileID: 4051801708450652937, guid: 1f07bcdd847b2964b809a758bdbf8f29, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4051801708450652937, guid: 1f07bcdd847b2964b809a758bdbf8f29, type: 3}
       propertyPath: m_TagString
       value: Resource
       objectReference: {fileID: 0}
@@ -1730,6 +1802,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: crystal stone lagre
       objectReference: {fileID: 0}
+    - target: {fileID: 9195034094430186960, guid: c6d551b1e5acd6a45bebe6d2756788be, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1807,6 +1883,10 @@ PrefabInstance:
     - target: {fileID: 4051801708450652937, guid: 1f07bcdd847b2964b809a758bdbf8f29, type: 3}
       propertyPath: m_Name
       value: crystal stone 4 (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4051801708450652937, guid: 1f07bcdd847b2964b809a758bdbf8f29, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4051801708450652937, guid: 1f07bcdd847b2964b809a758bdbf8f29, type: 3}
       propertyPath: m_TagString
@@ -1902,6 +1982,10 @@ PrefabInstance:
     - target: {fileID: 6377357285698434672, guid: 5a817b56c74c01349a2680c2290d7dd0, type: 3}
       propertyPath: m_Name
       value: crystal stones group 6 (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6377357285698434672, guid: 5a817b56c74c01349a2680c2290d7dd0, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6377357285698434672, guid: 5a817b56c74c01349a2680c2290d7dd0, type: 3}
       propertyPath: m_TagString
@@ -2011,6 +2095,10 @@ PrefabInstance:
       value: stone winter small 6 (2)
       objectReference: {fileID: 0}
     - target: {fileID: 3257769107190460617, guid: a614b3605ce0d264099bfc64e8963f5f, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3257769107190460617, guid: a614b3605ce0d264099bfc64e8963f5f, type: 3}
       propertyPath: m_TagString
       value: Resource
       objectReference: {fileID: 0}
@@ -2060,6 +2148,10 @@ PrefabInstance:
     - target: {fileID: 5123140765176402246, guid: 494625d56fb4f5d48852279a48bfa730, type: 3}
       propertyPath: m_Name
       value: stone winter small 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5123140765176402246, guid: 494625d56fb4f5d48852279a48bfa730, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5123140765176402246, guid: 494625d56fb4f5d48852279a48bfa730, type: 3}
       propertyPath: m_TagString
@@ -2225,6 +2317,10 @@ PrefabInstance:
       value: stone winter small 3 (3)
       objectReference: {fileID: 0}
     - target: {fileID: 6359703019773209741, guid: 0c4aa4b88c2464743946434740d6a09b, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6359703019773209741, guid: 0c4aa4b88c2464743946434740d6a09b, type: 3}
       propertyPath: m_TagString
       value: Resource
       objectReference: {fileID: 0}
@@ -2330,6 +2426,10 @@ PrefabInstance:
     - target: {fileID: 3257769107190460617, guid: a614b3605ce0d264099bfc64e8963f5f, type: 3}
       propertyPath: m_Name
       value: stone winter small 6 (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3257769107190460617, guid: a614b3605ce0d264099bfc64e8963f5f, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3257769107190460617, guid: a614b3605ce0d264099bfc64e8963f5f, type: 3}
       propertyPath: m_TagString
@@ -2439,6 +2539,10 @@ PrefabInstance:
       value: stone winter small 3 (1)
       objectReference: {fileID: 0}
     - target: {fileID: 6359703019773209741, guid: 0c4aa4b88c2464743946434740d6a09b, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6359703019773209741, guid: 0c4aa4b88c2464743946434740d6a09b, type: 3}
       propertyPath: m_TagString
       value: Resource
       objectReference: {fileID: 0}
@@ -2533,6 +2637,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: crystal stone lagre 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1890679437524834151, guid: a2de2b98ebbf338429d51d032109d22f, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2554,6 +2662,10 @@ PrefabInstance:
     - target: {fileID: 311227356247597890, guid: dbf0aeb2bc878be4fb7233f696fe993d, type: 3}
       propertyPath: m_Name
       value: stone winter small (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 311227356247597890, guid: dbf0aeb2bc878be4fb7233f696fe993d, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1088291168375405048, guid: dbf0aeb2bc878be4fb7233f696fe993d, type: 3}
       propertyPath: m_RootOrder
@@ -2633,6 +2745,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: stone winter small 2 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5123140765176402246, guid: 494625d56fb4f5d48852279a48bfa730, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 5499701969525787644, guid: 494625d56fb4f5d48852279a48bfa730, type: 3}
       propertyPath: m_RootOrder
       value: 9
@@ -2710,6 +2826,10 @@ PrefabInstance:
     - target: {fileID: 6216440402007594855, guid: 912ff6c73262d0d4fb14f9644313d94f, type: 3}
       propertyPath: m_Name
       value: crystal stone 6 (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6216440402007594855, guid: 912ff6c73262d0d4fb14f9644313d94f, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6216440402007594855, guid: 912ff6c73262d0d4fb14f9644313d94f, type: 3}
       propertyPath: m_TagString
@@ -2805,6 +2925,10 @@ PrefabInstance:
     - target: {fileID: 3540265488691270887, guid: 160ab62b47d7d554fbcd1bf523d6eea7, type: 3}
       propertyPath: m_Name
       value: crystal stone 5 (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3540265488691270887, guid: 160ab62b47d7d554fbcd1bf523d6eea7, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3540265488691270887, guid: 160ab62b47d7d554fbcd1bf523d6eea7, type: 3}
       propertyPath: m_TagString
@@ -2913,6 +3037,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: crystal mountain
       objectReference: {fileID: 0}
+    - target: {fileID: 6003433882822245575, guid: bd20ae225589fd14094bca6e66a70921, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 6348857093446542973, guid: bd20ae225589fd14094bca6e66a70921, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -2978,6 +3106,10 @@ PrefabInstance:
     - target: {fileID: 3540265488691270887, guid: 160ab62b47d7d554fbcd1bf523d6eea7, type: 3}
       propertyPath: m_Name
       value: crystal stone 5 (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3540265488691270887, guid: 160ab62b47d7d554fbcd1bf523d6eea7, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3540265488691270887, guid: 160ab62b47d7d554fbcd1bf523d6eea7, type: 3}
       propertyPath: m_TagString

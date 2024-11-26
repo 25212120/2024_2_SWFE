@@ -31,7 +31,6 @@ public class Storm_MagicState : BaseState<PlayerStateType>
     private GameObject lightningNova;
     private GameObject instantiatedRainEffect;
     private GameObject rainstorm;
-    private GameObject overlayObject;
 
     private bool stormfinished = false;
 
@@ -69,7 +68,6 @@ public class Storm_MagicState : BaseState<PlayerStateType>
 
         monoBehaviour.StartCoroutine(LiftPlayer(playerTransform));
 
-        overlayObject = playerInputManager.dim;
         magicCirclePos = playerTransform.position + new Vector3(0, 0.2f, 0);
 
         playerInputManager.isPerformingAction = true;
@@ -77,7 +75,6 @@ public class Storm_MagicState : BaseState<PlayerStateType>
         InstantiateRainEffect();
 
         monoBehaviour.StartCoroutine(InstantiateWaterCircles());
-        overlayObject.SetActive(true);
 
         UseStormSkill();
 
@@ -124,7 +121,6 @@ public class Storm_MagicState : BaseState<PlayerStateType>
     {
         Object.Destroy(instantiatedRainEffect);
         yield return new WaitForSeconds(0.2f);
-        overlayObject.SetActive(false);
     }
 
     private IEnumerator InstantiateWaterCircles()

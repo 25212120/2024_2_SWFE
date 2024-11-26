@@ -3915,6 +3915,7 @@ GameObject:
   - component: {fileID: 6673753402188102532}
   - component: {fileID: 498709349148927626}
   - component: {fileID: -3430351086182848972}
+  - component: {fileID: 2468581083837421307}
   m_Layer: 7
   m_Name: Player 1
   m_TagString: Player
@@ -4090,7 +4091,6 @@ MonoBehaviour:
   isAttacking: 0
   isPerformingAction: 0
   magicPoint: {x: 0, y: 0, z: 0}
-  dim: {fileID: 0}
   spawnPrefab: {fileID: 9125505966264196339, guid: 30ed253f50c4bf045a0d1246bd609f7b, type: 3}
   interactionFinished: 0
 --- !u!114 &4453452306664337011
@@ -4510,6 +4510,18 @@ MonoBehaviour:
   m_SynchronizeLayers:
   - SynchronizeType: 1
     LayerIndex: 0
+--- !u!114 &2468581083837421307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7733253676307657119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 363c4a9f455370047abff794230beb4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7761168332542681050
 GameObject:
   m_ObjectHideFlags: 0

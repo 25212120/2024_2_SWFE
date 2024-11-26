@@ -73157,7 +73157,6 @@ GameObject:
   - component: {fileID: 3219944762871020176}
   - component: {fileID: 8564052558019536798}
   - component: {fileID: 2330212804940113696}
-  - component: {fileID: 7819481521824938931}
   m_Layer: 7
   m_Name: Player 1
   m_TagString: Player
@@ -73332,7 +73331,6 @@ MonoBehaviour:
   isAttacking: 0
   isPerformingAction: 0
   magicPoint: {x: 0, y: 0, z: 0}
-  dim: {fileID: 0}
   spawnPrefab: {fileID: 9125505966264196339, guid: 30ed253f50c4bf045a0d1246bd609f7b, type: 3}
   interactionFinished: 0
 --- !u!114 &5620407297129361255
@@ -73653,12 +73651,11 @@ MonoBehaviour:
   Group: 0
   prefixField: -1
   Synchronization: 3
-  OwnershipTransfer: 2
+  OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents:
   - {fileID: 8564052558019536798}
   - {fileID: 2330212804940113696}
-  - {fileID: 7819481521824938931}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -73753,22 +73750,6 @@ MonoBehaviour:
   m_SynchronizeLayers:
   - SynchronizeType: 1
     LayerIndex: 0
---- !u!114 &7819481521824938931
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1972696283352838283}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizeVelocity: 1
-  m_SynchronizeAngularVelocity: 1
-  m_TeleportEnabled: 0
-  m_TeleportIfDistanceGreaterThan: 3
 --- !u!1 &1983642765040295630
 GameObject:
   m_ObjectHideFlags: 0

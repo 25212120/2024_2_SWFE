@@ -5,7 +5,7 @@ using TMPro;
 
 public class EXPLEVEL : MonoBehaviour
 {
-    [SerializeField] private PlayerStat player;
+    [SerializeField] public PlayerStat player;
     [SerializeField] private TextMeshProUGUI Level;
 
     // Update is called once per frame

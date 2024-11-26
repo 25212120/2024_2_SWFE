@@ -1,27 +1,15 @@
+using Cinemachine;
 using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MiniMapCameraController : MonoBehaviour
 {
-    string playerPrefabName = PhotonNetwork.IsMasterClient ? "P1(Clone)" : "P2(Clone)";
-    GameObject player;
+    public GameObject player;
     private float smoothSpeed = 0.125f;
 
-    private void Start()
-    {
-        if (playerPrefabName == "P1(Clone)")
-        {
-            player = GameObject.Find(playerPrefabName);
-            
-        }
-        else
-        {
-            player = GameObject.Find(playerPrefabName);
-
-        }
-    }
 
     private void LateUpdate()
     {

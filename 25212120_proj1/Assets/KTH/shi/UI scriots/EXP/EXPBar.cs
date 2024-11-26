@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class EXPBar : MonoBehaviour
 {
     [SerializeField] private Slider EXPBarSlider; // HP 바 슬라이더
-    [SerializeField] private ExpManager player; // 플레이어 스크립트 참
+    [SerializeField] public ExpManager player; // 플레이어 스크립트 참
     
 
     private void Start()

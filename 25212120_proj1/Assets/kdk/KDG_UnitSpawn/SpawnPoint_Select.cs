@@ -19,7 +19,7 @@ public class SpawnPoint_Select : MonoBehaviour
     // 새로운 변수: 설치된 SpawnStructure들
     public SpawnStructure[] spawnStructures; // SpawnStructure들을 담을 배열
 
-    public bool isActive = true;
+    public bool isActive = false;
 
     void Start()
     {

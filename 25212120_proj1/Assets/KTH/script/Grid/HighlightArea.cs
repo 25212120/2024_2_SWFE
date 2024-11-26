@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine.UIElements;
 using System.Net.NetworkInformation;
+using System.Linq;
 
 public class HighlightArea : MonoBehaviour
 {
@@ -36,7 +37,7 @@ public class HighlightArea : MonoBehaviour
     public Vector3 PT_V = new Vector3(0, 0, 0);
     public Quaternion PT_R = Quaternion.Euler(0, 0, 0);
 
-    public bool isActive = true;
+    public bool isActive = false;
 
     void Start()
     {
@@ -166,7 +167,7 @@ public class HighlightArea : MonoBehaviour
             // 강조 영역의 색상 업데이트
             if (highlightMeshRenderer != null)
             {
-                if (isValidPlacement && towerSpawn_Manager.CheckIfResourcesAreSufficient(CurrentPrefab))
+                if (isValidPlacement)
                 {
                     // 배치 가능: 녹색
                     highlightMeshRenderer.material = highlightMaterial;
@@ -177,8 +178,9 @@ public class HighlightArea : MonoBehaviour
                     highlightMeshRenderer.material = ImpossibleMaterial;
                 }
             }
-            UpdatePreviewTurret();
 
+            // previewTurret을 항상 활성화하도록 변경
+            UpdatePreviewTurret();
         }
         else
         {
@@ -195,7 +197,6 @@ public class HighlightArea : MonoBehaviour
             }
         }
     }
-
     Mesh BuildHighlightMesh(float startX, float startZ, float endX, float endZ)
     {
         Mesh mesh = new Mesh();
@@ -227,57 +228,41 @@ public class HighlightArea : MonoBehaviour
 
     bool CheckPlacementValidity()
     {
-        if (coreObjects.Count > 0)
+        if (coreObjects.Any(core => Vector3.Distance(hitPoint, core.transform.position) <= corePlacementRange) == false)
         {
-            bool isNearCore = false;
-            foreach (GameObject core in coreObjects)
-            {
-                if (Vector3.Distance(hitPoint, core.transform.position) <= corePlacementRange)
-                {
-                    isNearCore = true;
-                    break;
-                }
-            }
-
-            if (!isNearCore)
-            {
-                Debug.Log("코어근처아님");
-                return false; // 코어 근처가 아니면 배치 불가
-            }
+            Debug.Log("Placement outside of core range.");
+            return false;
         }
-        int halfSize = highlightSize / 2;
 
+        int halfSize = highlightSize / 2;
         for (int x = cellX - halfSize; x <= cellX + halfSize; x++)
         {
             for (int z = cellZ - halfSize; z <= cellZ + halfSize; z++)
             {
                 Vector2Int cellPos = new Vector2Int(x, z);
 
-                // 셀 점유 상태 확인
                 if (occupiedCell_Manager.occupiedCells.Contains(cellPos))
                 {
-                    return false; // 이미 점유된 셀이 있음
+                    Debug.Log("Placement area contains occupied cells.");
+                    return false;
                 }
 
-                // 셀 중심 좌표 계산
-                Vector3 cellCenter = new Vector3(x * cellSize_Horizontal + cellSize_Horizontal / 2, hitPoint.y + 0.5f, z * cellSize_Virtical + cellSize_Virtical / 2);
-                Vector3 halfExtents = new Vector3(cellSize_Horizontal / 2, 0.5f, cellSize_Virtical / 2);
-
-                // 박스 콜라이더로 검사
-                Collider[] colliders = Physics.OverlapBox(cellCenter, halfExtents, Quaternion.identity);
-
-                foreach (Collider collider in colliders)
+                if (!IsCellOnValidGround(x, z))
                 {
-                    // Ground 태그가 아닌 경우 배치 불가
-                    if (collider.tag != "Ground")
-                    {
-                        return false;
-                    }
+                    Debug.Log("Placement area contains invalid ground.");
+                    return false;
                 }
             }
         }
 
-        return true; // 모든 지점이 배치 가능함
+        return true; // Placement valid
+    }
+
+    bool IsCellOnValidGround(int x, int z)
+    {
+        Vector3 cellCenter = new Vector3(x * cellSize_Horizontal, hitPoint.y, z * cellSize_Virtical);
+        Collider[] colliders = Physics.OverlapBox(cellCenter, new Vector3(cellSize_Horizontal / 2, 0.5f, cellSize_Virtical / 2));
+        return colliders.All(collider => collider.CompareTag("Ground"));
     }
 
     void UpdatePreviewTurret()
@@ -324,6 +309,7 @@ public class HighlightArea : MonoBehaviour
             // 마우스가 바닥에 닿지 않을 경우 미리보기 포탑 비활성화
             if (previewTurret != null)
             {
+                Debug.Log("asdf");
                 previewTurret.SetActive(false);
             }
         }

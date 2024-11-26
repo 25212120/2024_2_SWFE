@@ -32,6 +32,7 @@ public class PlayerMagic
         if (level >= 5)
         {
             UnlockSkillTree();
+            
         }
     }
     private void UnlockSkillTree()
@@ -41,18 +42,23 @@ public class PlayerMagic
             case PlayerMagicType.Wood:
                 MagicSkillTree_Wood = true;
                 Debug.Log("Wood 마법 스킬 트리 활성화!");
+                
                 break;
             case PlayerMagicType.Fire:
                 MagicSkillTree_Fire = true;
                 Debug.Log("Fire 마법 스킬 트리 활성화!");
+                
+
                 break;
             case PlayerMagicType.Ice:
                 MagicSkillTree_Ice = true;
                 Debug.Log("Ice 마법 스킬 트리 활성화!");
+                
                 break;
             case PlayerMagicType.Sand:
                 MagicSkillTree_Sand = true;
                 Debug.Log("Sand 마법 스킬 트리 활성화!");
+                
                 break;
             default:
                 break;
@@ -88,6 +94,26 @@ public class PlayerMagic
             experience = 0f;
             LevelUp();  // 레벨업
         }
+    }
+
+    public bool IsWoodSkillTreeActive()
+    {
+        return MagicSkillTree_Wood;
+    }
+
+    public bool IsFireSkillTreeActive()
+    {
+        return MagicSkillTree_Fire;
+    }
+
+    public bool IsIceSkillTreeActive()
+    {
+        return MagicSkillTree_Ice;
+    }
+
+    public bool IsSandSkillTreeActive()
+    {
+        return MagicSkillTree_Sand;
     }
 }
 

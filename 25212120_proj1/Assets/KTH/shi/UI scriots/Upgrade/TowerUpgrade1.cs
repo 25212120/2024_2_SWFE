@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro.Examples;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class TowerUpgrade1 : MonoBehaviour
 {

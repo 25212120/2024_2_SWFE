@@ -11,9 +11,11 @@ GameObject:
   - component: {fileID: 6511096235754040052}
   - component: {fileID: 7746902511515364268}
   - component: {fileID: 3381779539444807345}
+  - component: {fileID: 2373898197747497897}
+  - component: {fileID: 296200647171304462}
   m_Layer: 0
   m_Name: stone small blue 7 (2)
-  m_TagString: Untagged
+  m_TagString: Resource
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -83,6 +85,38 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &2373898197747497897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1166896105917682047}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8f849bf79cddf64085ede11fb83c4cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resourceDrops: []
+  finished: 0
+  WaitSuccess: 0
+  _WaitSuccess: 0
+--- !u!114 &296200647171304462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1166896105917682047}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8f849bf79cddf64085ede11fb83c4cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resourceDrops: []
+  finished: 0
+  WaitSuccess: 0
+  _WaitSuccess: 0
 --- !u!1 &1884541683583114021
 GameObject:
   m_ObjectHideFlags: 0
@@ -94,10 +128,10 @@ GameObject:
   - component: {fileID: 6138688946028336902}
   - component: {fileID: 6756329816490613957}
   - component: {fileID: 3794609719312372251}
-  - component: {fileID: 1994669936185733561}
+  - component: {fileID: 2917639511898233592}
   m_Layer: 0
   m_Name: dry tree (6)
-  m_TagString: Untagged
+  m_TagString: Resource
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -111,8 +145,8 @@ Transform:
   m_GameObject: {fileID: 1884541683583114021}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -20.528015, y: -0.6199576, z: 2.3138428}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_LocalPosition: {x: -20.528015, y: -0.61995757, z: 2.3138428}
+  m_LocalScale: {x: 1.5, y: 1.5000001, z: 1.5000002}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2088002593998812498}
@@ -167,27 +201,22 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &1994669936185733561
-BoxCollider:
+--- !u!114 &2917639511898233592
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1884541683583114021}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1.766654, y: 4.279707, z: 0.8124409}
-  m_Center: {x: 0, y: 2.1398535, z: 0}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d22615d7d8df54488667e39f37b0c01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resourceDrops: []
+  finished: 0
+  WaitSuccess: 0
+  _WaitSuccess: 0
 --- !u!1 &2463348734985672925
 GameObject:
   m_ObjectHideFlags: 0
@@ -199,9 +228,11 @@ GameObject:
   - component: {fileID: 647493343007927856}
   - component: {fileID: 1013069983584168100}
   - component: {fileID: 3633633182616727859}
+  - component: {fileID: 763827277582235119}
+  - component: {fileID: 5307695981704098420}
   m_Layer: 0
   m_Name: stone small blue 7
-  m_TagString: Untagged
+  m_TagString: Resource
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -215,7 +246,7 @@ Transform:
   m_GameObject: {fileID: 2463348734985672925}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -16.12233, y: -0.02974981, z: 9.077148}
+  m_LocalPosition: {x: -16.122332, y: -0.02974978, z: 9.077148}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -271,6 +302,38 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &763827277582235119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2463348734985672925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8f849bf79cddf64085ede11fb83c4cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resourceDrops: []
+  finished: 0
+  WaitSuccess: 0
+  _WaitSuccess: 0
+--- !u!114 &5307695981704098420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2463348734985672925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8f849bf79cddf64085ede11fb83c4cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resourceDrops: []
+  finished: 0
+  WaitSuccess: 0
+  _WaitSuccess: 0
 --- !u!1 &2486496085726460403
 GameObject:
   m_ObjectHideFlags: 0
@@ -283,9 +346,11 @@ GameObject:
   - component: {fileID: 7852810202872046923}
   - component: {fileID: 1038550099737030578}
   - component: {fileID: 779087572891612714}
+  - component: {fileID: 4300577026178223984}
+  - component: {fileID: 6194085373267352251}
   m_Layer: 0
   m_Name: stone small purple 2
-  m_TagString: Untagged
+  m_TagString: Resource
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -299,7 +364,7 @@ Transform:
   m_GameObject: {fileID: 2486496085726460403}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.0487823, y: -0.0044709444, z: 18.416138}
+  m_LocalPosition: {x: -5.0487823, y: -0.004470952, z: 18.416138}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -376,6 +441,38 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.3852234, y: 0.361796, z: 0.43597698}
   m_Center: {x: 0, y: 0.180898, z: 0.00000009685755}
+--- !u!114 &4300577026178223984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2486496085726460403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8f849bf79cddf64085ede11fb83c4cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resourceDrops: []
+  finished: 0
+  WaitSuccess: 0
+  _WaitSuccess: 0
+--- !u!114 &6194085373267352251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2486496085726460403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8f849bf79cddf64085ede11fb83c4cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resourceDrops: []
+  finished: 0
+  WaitSuccess: 0
+  _WaitSuccess: 0
 --- !u!1 &2700701237498943564
 GameObject:
   m_ObjectHideFlags: 0
@@ -388,9 +485,10 @@ GameObject:
   - component: {fileID: 6688244878693851110}
   - component: {fileID: 4648590647070389306}
   - component: {fileID: 2813019427196768555}
+  - component: {fileID: 2670293436056342886}
   m_Layer: 0
   m_Name: stone winter large
-  m_TagString: Untagged
+  m_TagString: Resource
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -404,11 +502,11 @@ Transform:
   m_GameObject: {fileID: 2700701237498943564}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 8.467712, y: 0, z: 19.358952}
+  m_LocalPosition: {x: -16.532288, y: 0, z: -5.6410484}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4144363887485075640}
+  m_Father: {fileID: 2088002593998812498}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6688244878693851110
 MeshFilter:
@@ -481,6 +579,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 4.1894445, y: 3.1707404, z: 5.8567524}
   m_Center: {x: 0.000002503395, y: 1.5853697, z: 0}
+--- !u!114 &2670293436056342886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2700701237498943564}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8f849bf79cddf64085ede11fb83c4cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resourceDrops: []
+  finished: 0
+  WaitSuccess: 0
+  _WaitSuccess: 0
 --- !u!1 &4065454562225284471
 GameObject:
   m_ObjectHideFlags: 0
@@ -492,7 +606,6 @@ GameObject:
   - component: {fileID: 3520126331381593392}
   - component: {fileID: 1827493225670252393}
   - component: {fileID: 7041717347306490796}
-  - component: {fileID: 1959681386346076806}
   m_Layer: 0
   m_Name: stone large 4 (2)
   m_TagString: Untagged
@@ -509,7 +622,7 @@ Transform:
   m_GameObject: {fileID: 4065454562225284471}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 11.32193, y: -3.1795728, z: 19.266602}
+  m_LocalPosition: {x: 11.32193, y: -3.1795726, z: 19.266602}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -565,27 +678,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &1959681386346076806
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4065454562225284471}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 18.477482, y: 5.191947, z: 6.3205957}
-  m_Center: {x: -0.011975288, y: 2.595973, z: 0.00000059604645}
 --- !u!1 &4386818689030129994
 GameObject:
   m_ObjectHideFlags: 0
@@ -617,7 +709,6 @@ Transform:
   m_Children:
   - {fileID: 7398935573722844720}
   - {fileID: 5400800464749557761}
-  - {fileID: 759386534822799036}
   - {fileID: 5458430590110586423}
   - {fileID: 7637764626418630504}
   m_Father: {fileID: 2088002593998812498}
@@ -633,7 +724,6 @@ GameObject:
   - component: {fileID: 6620318699700580197}
   - component: {fileID: 3487226413751869595}
   - component: {fileID: 2375456846589460054}
-  - component: {fileID: 588259809720867912}
   m_Layer: 0
   m_Name: stone large (2)
   m_TagString: Untagged
@@ -650,7 +740,7 @@ Transform:
   m_GameObject: {fileID: 4706053584219529194}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -16.817871, y: 0.09432107, z: 17.787415}
+  m_LocalPosition: {x: -16.817871, y: 0.09432113, z: 17.787415}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -706,27 +796,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &588259809720867912
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4706053584219529194}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 5.9245605, y: 5.477863, z: 4.2069764}
-  m_Center: {x: 0, y: 2.7389314, z: 0}
 --- !u!1 &4802916519719080920
 GameObject:
   m_ObjectHideFlags: 0
@@ -738,9 +807,11 @@ GameObject:
   - component: {fileID: 7751323659638601508}
   - component: {fileID: 3355516649002946116}
   - component: {fileID: 6308659501025422950}
+  - component: {fileID: 516974632363449532}
+  - component: {fileID: 7975302616503706347}
   m_Layer: 0
   m_Name: stone small blue 7 (1)
-  m_TagString: Untagged
+  m_TagString: Resource
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -754,7 +825,7 @@ Transform:
   m_GameObject: {fileID: 4802916519719080920}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 15.685364, y: -0.0028551817, z: 7.9995728}
+  m_LocalPosition: {x: 15.685364, y: -0.002855271, z: 7.9995728}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -810,6 +881,38 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &516974632363449532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4802916519719080920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8f849bf79cddf64085ede11fb83c4cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resourceDrops: []
+  finished: 0
+  WaitSuccess: 0
+  _WaitSuccess: 0
+--- !u!114 &7975302616503706347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4802916519719080920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8f849bf79cddf64085ede11fb83c4cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resourceDrops: []
+  finished: 0
+  WaitSuccess: 0
+  _WaitSuccess: 0
 --- !u!1 &5491946440015073620
 GameObject:
   m_ObjectHideFlags: 0
@@ -927,9 +1030,11 @@ GameObject:
   - component: {fileID: 5166843699106456969}
   - component: {fileID: 7116966276123390137}
   - component: {fileID: 833814682403908127}
+  - component: {fileID: 4066377845275388172}
+  - component: {fileID: 2915659207342000901}
   m_Layer: 0
   m_Name: stone small purple
-  m_TagString: Untagged
+  m_TagString: Resource
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -943,7 +1048,7 @@ Transform:
   m_GameObject: {fileID: 5500068552925848882}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7.100769, y: 0.0017139316, z: -9.337158}
+  m_LocalPosition: {x: -7.100769, y: 0.0017139539, z: -9.337158}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1020,6 +1125,38 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.3852234, y: 0.361796, z: 0.43597698}
   m_Center: {x: 0, y: 0.180898, z: 0.00000009685755}
+--- !u!114 &4066377845275388172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5500068552925848882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8f849bf79cddf64085ede11fb83c4cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resourceDrops: []
+  finished: 0
+  WaitSuccess: 0
+  _WaitSuccess: 0
+--- !u!114 &2915659207342000901
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5500068552925848882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8f849bf79cddf64085ede11fb83c4cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resourceDrops: []
+  finished: 0
+  WaitSuccess: 0
+  _WaitSuccess: 0
 --- !u!1 &5621199101321216595
 GameObject:
   m_ObjectHideFlags: 0
@@ -1155,6 +1292,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4144363887485075640}
+  - {fileID: 759386534822799036}
   - {fileID: 6138688946028336902}
   - {fileID: 683779920810079000}
   - {fileID: 3511039497460031696}
@@ -1178,10 +1316,10 @@ GameObject:
   - component: {fileID: 683779920810079000}
   - component: {fileID: 713149546184023814}
   - component: {fileID: 4586975934550570897}
-  - component: {fileID: 7028908365855391347}
+  - component: {fileID: 1886416478527723952}
   m_Layer: 0
   m_Name: dry tree 4 (4)
-  m_TagString: Untagged
+  m_TagString: Resource
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1195,7 +1333,7 @@ Transform:
   m_GameObject: {fileID: 7142640117228145701}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -12.028015, y: -0.59752506, z: -16.08612}
+  m_LocalPosition: {x: -12.028015, y: -0.597525, z: -16.08612}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1251,27 +1389,22 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &7028908365855391347
-BoxCollider:
+--- !u!114 &1886416478527723952
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7142640117228145701}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 7.145599, y: 7.8101816, z: 5.7135773}
-  m_Center: {x: -0.00000023841858, y: 3.9050908, z: 0}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d22615d7d8df54488667e39f37b0c01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resourceDrops: []
+  finished: 0
+  WaitSuccess: 0
+  _WaitSuccess: 0
 --- !u!1 &7571739444344279173
 GameObject:
   m_ObjectHideFlags: 0
@@ -1494,10 +1627,10 @@ GameObject:
   - component: {fileID: 3511039497460031696}
   - component: {fileID: 7791415325315919073}
   - component: {fileID: 6307090391844396363}
-  - component: {fileID: 7905075435051911946}
+  - component: {fileID: 2405577916170017744}
   m_Layer: 0
   m_Name: dry tree 4 (3)
-  m_TagString: Untagged
+  m_TagString: Resource
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1511,7 +1644,7 @@ Transform:
   m_GameObject: {fileID: 9219055629285015632}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.328018, y: -0.59752506, z: 21.41388}
+  m_LocalPosition: {x: -4.328018, y: -0.5975251, z: 21.41388}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1567,24 +1700,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &7905075435051911946
-BoxCollider:
+--- !u!114 &2405577916170017744
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9219055629285015632}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 7.145599, y: 7.8101816, z: 5.7135773}
-  m_Center: {x: -0.00000023841858, y: 3.9050908, z: 0}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d22615d7d8df54488667e39f37b0c01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resourceDrops: []
+  finished: 0
+  WaitSuccess: 0
+  _WaitSuccess: 0

@@ -1754,7 +1754,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 2049, y: 7}
+  m_AnchoredPosition: {x: 15, y: 7}
   m_SizeDelta: {x: 945.2736, y: 492.0109}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &124899702
@@ -1807,13 +1807,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3802c3e8dafc8a447aa6f4829a9332c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillButtons:
+  upgradeUI: {fileID: 124899700}
+  unitButtons:
   - {fileID: 1643221457}
   - {fileID: 1206136615}
   highlightImages:
   - {fileID: 1048302178}
   - {fileID: 2093122511}
-  spawnManager: {fileID: 0}
   purchaseButton: {fileID: 705693470}
 --- !u!1 &125834919
 GameObject:
@@ -22702,6 +22702,8 @@ GameObject:
   - component: {fileID: 1463446451}
   - component: {fileID: 1463446450}
   - component: {fileID: 1463446449}
+  - component: {fileID: 1463446453}
+  - component: {fileID: 1463446454}
   m_Layer: 0
   m_Name: Cube (1)
   m_TagString: Core
@@ -22795,6 +22797,57 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1463446453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1463446448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b06ee5a07bb196d4e856a896296ee58f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SWUnitSpawnRequirements:
+  - resourceType: 0
+    amount: 100
+  - resourceType: 1
+    amount: 50
+  - resourceType: 2
+    amount: 30
+  MGUnitSpawnRequirements:
+  - resourceType: 0
+    amount: 100
+  - resourceType: 1
+    amount: 50
+  - resourceType: 2
+    amount: 30
+  SWunitPrefab: {fileID: 0}
+  MGunitPrefab: {fileID: 0}
+  unitPrefab: {fileID: 0}
+  SpawnUnitSelect: 0
+  canSpawn: 1
+--- !u!114 &1463446454
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1463446448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3802c3e8dafc8a447aa6f4829a9332c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upgradeUI: {fileID: 124899700}
+  unitButtons:
+  - {fileID: 1643221457}
+  - {fileID: 1206136615}
+  highlightImages:
+  - {fileID: 1048302178}
+  - {fileID: 2093122511}
+  purchaseButton: {fileID: 705693470}
 --- !u!1 &1467322503
 GameObject:
   m_ObjectHideFlags: 0
@@ -33355,7 +33408,6 @@ SceneRoots:
   - {fileID: 1048572669}
   - {fileID: 448279821}
   - {fileID: 1053302874}
-  - {fileID: 1871436067}
   - {fileID: 2007692582}
   - {fileID: 1611717589}
   - {fileID: 238381030}
@@ -33379,3 +33431,4 @@ SceneRoots:
   - {fileID: 1894837395}
   - {fileID: 2106832200}
   - {fileID: 1463446452}
+  - {fileID: 1871436067}

@@ -128,6 +128,7 @@ GameObject:
   - component: {fileID: 862374127952880142}
   - component: {fileID: 6547995472409331857}
   - component: {fileID: 1071196944136727397}
+  - component: {fileID: 6116571024680132779}
   m_Layer: 0
   m_Name: LightTower_1
   m_TagString: Untagged
@@ -258,6 +259,7 @@ MonoBehaviour:
     defenseIncrease: 0
     healthIncrease: 0
   bulletPrefab: {fileID: 0}
+  TowerLevel: 1
 --- !u!114 &1071196944136727397
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -280,3 +282,19 @@ MonoBehaviour:
   firePoint: {fileID: 709555986971053017}
   rotationTolerance: 5
   maxTargetsToAttack: 3
+--- !u!208 &6116571024680132779
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6682663913110514752}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1.7, y: 1.756, z: 1.7}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 1.756, z: 0}
+  m_TimeToStationary: 0.5

@@ -1,9 +1,11 @@
+using System.Collections;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
     public bool canSpawn = true;
-    public GameObject enemyPrefab;
+    public GameObject enemyPrefab_Mage;
+    public GameObject enemyPrefab_Warrior;
 
     private void OnEnable()
     {
@@ -19,19 +21,23 @@ public class EnemySpawner : MonoBehaviour
     {
         if (spawnerObject == gameObject && canSpawn)
         {
-            Debug.Log("HandleEnemySpawnRequest");
-
             SpawnEnemy();
         }
     }
 
     private void SpawnEnemy()
     {
-        Debug.Log("SpawnEnemy");
-        if (enemyPrefab != null)
+        if (enemyPrefab_Mage != null && enemyPrefab_Warrior)
         {
-            Instantiate(enemyPrefab, transform.position, Quaternion.identity);
+            StartCoroutine(Spawn());
         }
+    }
+
+    IEnumerator Spawn()
+    {
+        Instantiate(enemyPrefab_Warrior, transform.position, Quaternion.identity);
+        yield return new WaitForSeconds(0.2f);
+        Instantiate(enemyPrefab_Mage, transform.position, Quaternion.identity);
     }
 
     public void SetSpawner(bool enabled)

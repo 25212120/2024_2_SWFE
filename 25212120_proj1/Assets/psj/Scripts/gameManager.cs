@@ -18,19 +18,7 @@ public class GameManager : MonoBehaviour
     public static event EnemySpawnRequest OnEnemySpawnRequested;
 
     private float spawnTimer = 0f;
-    public float globalSpawnInterval = 10f;
-
-    private void Update()
-    {
-        spawnTimer += Time.deltaTime;
-
-        if (spawnTimer > globalSpawnInterval)
-        {
-            spawnTimer = 0f;
-            BroadcastEnemySpawnRequest();
-        }
-
-    }
+    public float globalSpawnInterval = 20f;
 
     private void BroadcastEnemySpawnRequest()
     {
@@ -63,36 +51,88 @@ public class GameManager : MonoBehaviour
         StartCoroutine(CountDays());
     }
 
-    private float dayDuration = 10f;
+    private float dayDuration = 100f;
     private int dayCount = 1;
     public Light directionalLight;
-    public TextMeshProUGUI dayText;
+    //public TextMeshProUGUI dayText;
 
     IEnumerator CountDays()
     {
         float time = 0f;
+        float spawnTimer = 0f;
+        bool isDaytime = true; // 낮/밤 상태를 저장
+
+        // 코루틴 시작 확인
+        Debug.Log("CountDays coroutine started.");
 
         while (true)
         {
+            // 낮 또는 밤 상태를 유지
             while (time < dayDuration)
             {
                 time += Time.deltaTime;
+                Debug.Log($"Time: {time}, DayDuration: {dayDuration}, IsDayTime: {isDaytime}");
 
-                float timeNormalized = (time % dayDuration) / dayDuration;
+                if (isDaytime)
+                {
+                    //dayText.text = "Day: " + dayCount.ToString() + " - Daytime";
+                    directionalLight.intensity = 1f; // 낮에는 최대 밝기 유지
+                }
+                else
+                {
+                    //dayText.text = "Day: " + dayCount.ToString() + " - Nighttime";
+                    directionalLight.intensity = 0.5f; // 밤에는 최소 밝기 유지
 
-                directionalLight.transform.localRotation = Quaternion.Euler(new Vector3((timeNormalized * 360f) - 90f, 170f, 0));
+                    // 밤에만 적 생성
+                    spawnTimer += Time.deltaTime;
 
-                yield return null; 
+                    if (spawnTimer > globalSpawnInterval)
+                    {
+                        spawnTimer = 0f;
+                        BroadcastEnemySpawnRequest();
+                    }
+                }
+
+                yield return null;
             }
 
-            time = 0f;
-            dayCount++;
-            UpgradeAllEnemyStat();
-            dayText.text = "Day: " + dayCount.ToString();
+            Debug.Log("Time >= dayDuration, starting transition");
 
-            yield return null; 
+            // 전환 시간 설정 및 로그 출력
+            float transitionTime = 10f;
+            float elapsedTime = 0f;
+            float startIntensity = isDaytime ? 1f : 0.5f; // 현재 밝기
+            float endIntensity = isDaytime ? 0.5f : 1f;   // 목표 밝기
+
+            // 전환 루프
+            while (elapsedTime < transitionTime)
+            {
+                elapsedTime += Time.deltaTime;
+                Debug.Log($"Transitioning... ElapsedTime: {elapsedTime}/{transitionTime}");
+
+                directionalLight.intensity = Mathf.Lerp(startIntensity, endIntensity, elapsedTime / transitionTime);
+                Debug.Log($"Current Intensity: {directionalLight.intensity}");
+
+                yield return null; // 한 프레임 대기
+            }
+
+            Debug.Log("Transition complete.");
+
+            isDaytime = !isDaytime; // 낮 <-> 밤 전환
+            time = 0f;
+
+            if (isDaytime)
+            {
+                dayCount++;
+                UpgradeAllEnemyStat();
+            }
+
+            yield return null; // 다음 프레임으로 이동
         }
     }
+
+
+
     public void AddEnemy(GameObject enemy)
     {
         if (!enemies.Contains(enemy))

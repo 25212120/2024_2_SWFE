@@ -10,19 +10,4 @@ public class CoreStructure : BaseStructure
     {
         base.Awake();
     }
-    void Start()
-    {
-       gridRenderer = GetComponent<GridRenderer>();
-    }
-
-    protected override void Update()
-    {
-        if (gridRenderer != null)
-        {
-            if (Input.GetKeyDown(KeyCode.Alpha1))
-            {
-
-            }
-        }
-    }
 }

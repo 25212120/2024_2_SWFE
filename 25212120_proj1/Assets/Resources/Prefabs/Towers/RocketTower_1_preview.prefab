@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 5356449027506065012}
   - component: {fileID: 4725557441019624207}
   - component: {fileID: 7064561660117360668}
+  - component: {fileID: 6666361998224135747}
   m_Layer: 0
   m_Name: RocketTower_1_preview
   m_TagString: Untagged
@@ -174,6 +175,7 @@ MonoBehaviour:
     defenseIncrease: 0
     healthIncrease: 0
   bulletPrefab: {fileID: 0}
+  TowerLevel: 1
 --- !u!114 &7064561660117360668
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -196,6 +198,22 @@ MonoBehaviour:
   firePoint: {fileID: 5489876103009977267}
   rotationTolerance: 2
   maxTargetsToAttack: 1
+--- !u!208 &6666361998224135747
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5414049674174132916}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1.8270001, y: 2.193, z: 1.8270001}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 2.193, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &8195359342471538585
 GameObject:
   m_ObjectHideFlags: 0

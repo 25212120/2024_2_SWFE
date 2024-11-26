@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 9085640511190474558}
   - component: {fileID: 7022723292653158215}
   - component: {fileID: 1254336614428809}
+  - component: {fileID: 5014927217192641633}
   m_Layer: 0
   m_Name: SpawnTower_2_preview
   m_TagString: Untagged
@@ -121,6 +122,7 @@ MonoBehaviour:
     defenseIncrease: 0
     healthIncrease: 0
   bulletPrefab: {fileID: 0}
+  TowerLevel: 1
   unitSpawnManager: {fileID: 7022723292653158215}
 --- !u!114 &7022723292653158215
 MonoBehaviour:
@@ -160,3 +162,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 3.6460347, y: 5.7617617, z: 3.706819}
   m_Center: {x: 0, y: 2.8808808, z: 0}
+--- !u!208 &5014927217192641633
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4821929569054212287}
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1.8230001, y: 2.881, z: 1.853}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 2.881, z: 0}
+  m_TimeToStationary: 0.5

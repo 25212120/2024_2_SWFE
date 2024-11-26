@@ -50,19 +50,4 @@ public class Nexus : MonoBehaviour
             instantiatedSpawner.transform.SetParent(transform, false);
         }
     }
-
-    private void OnDrawGizmos()
-    {
-        // 작은 구 (반지름 30)
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, 30f);
-
-        // 큰 구 (반지름 60)
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(transform.position, 60f);
-
-
-        Gizmos.color = Color.black;
-        Gizmos.DrawWireSphere(transform.position, 80f);
-    }
 }

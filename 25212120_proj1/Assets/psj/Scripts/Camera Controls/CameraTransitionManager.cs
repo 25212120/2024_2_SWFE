@@ -2,6 +2,7 @@ using UnityEngine;
 using Cinemachine;
 using UnityEngine.InputSystem;
 using System.Collections;
+using Photon.Pun;
 
 public class CameraTransitionManager : MonoBehaviour
 {
@@ -22,18 +23,23 @@ public class CameraTransitionManager : MonoBehaviour
     public bool isActive_ha = false;
     public bool isActive_sp = false;
 
+    private PhotonView pv;
+
     private void Awake()
     {
         isoCamera.Priority = 10;
         topViewCamera.Priority = 9;
         mainCamera.orthographic = false;
         playerInput = new PlayerMovement();
+        pv = GetComponent<PhotonView>();
     }
 
     
 
     private void OnEnable()
     {
+        if (pv.IsMine == false) return;
+
         playerInput.Enable();
         playerInput.CameraControl.Transition.performed += OnScrollPerformed;
         playerInput.CameraControl.ToggleBuild.performed += OnToggleHighlightArea;
@@ -42,6 +48,8 @@ public class CameraTransitionManager : MonoBehaviour
 
     private void OnDisable()
     {
+
+        if (pv.IsMine == false) return;
         playerInput.CameraControl.Transition.performed -= OnScrollPerformed;
         playerInput.CameraControl.ToggleBuild.performed -= OnToggleHighlightArea;
         playerInput.CameraControl.SpawnPoint_Select.performed -= OnToggleSpawnPoint;
@@ -90,7 +98,7 @@ public class CameraTransitionManager : MonoBehaviour
         {
             if (isActive_sp)
             {
-                GetComponent<PlayerInputManager>().isPerformingAction = true;
+                GetComponent<PlayerInputManager>().isPerformingAction = false;
                 spawnPoint_Select.isActive = false;
 
                 isActive_sp = false;

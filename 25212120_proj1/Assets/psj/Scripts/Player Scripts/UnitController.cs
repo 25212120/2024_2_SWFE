@@ -31,7 +31,6 @@ public class UnitController : MonoBehaviour
     {
         pv = GetComponent<PhotonView>();
         playerInput = new PlayerMovement();
-        canvas = selectionBox.GetComponentInParent<Canvas>();
     }
 
     private void OnEnable()

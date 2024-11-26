@@ -4196,7 +4196,7 @@ MonoBehaviour:
   highlightArea: {fileID: 0}
   spawnPoint_Select: {fileID: 0}
   isActive_ha: 0
-  SP_S: 0
+  isActive_sp: 0
 --- !u!114 &7208162116531272147
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4410,9 +4410,9 @@ MonoBehaviour:
   ObservedComponentsFoldoutOpen: 1
   Group: 0
   prefixField: -1
-  Synchronization: 1
-  OwnershipTransfer: 0
-  observableSearch: 2
+  Synchronization: 3
+  OwnershipTransfer: 2
+  observableSearch: 0
   ObservedComponents:
   - {fileID: 498709349148927626}
   - {fileID: -3430351086182848972}

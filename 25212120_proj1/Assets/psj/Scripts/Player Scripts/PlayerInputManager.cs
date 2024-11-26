@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEditor.Profiling.Memory.Experimental;
+using Photon.Pun;
 
 public class PlayerInputManager : MonoBehaviour
 {
@@ -86,6 +87,7 @@ public class PlayerInputManager : MonoBehaviour
     private void Start()
     {
         GenerateSpawnPoints();
+        PhotonNetwork.SerializationRate = 60;
     }
 
     private void Update()

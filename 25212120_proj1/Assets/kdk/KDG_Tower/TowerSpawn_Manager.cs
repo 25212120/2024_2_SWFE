@@ -5,24 +5,85 @@ using static BaseStructure;
 
 public class TowerSpawn_Manager : MonoBehaviour
 {
+    [System.Serializable]
+    public class ResourceRequirement
+    {
+        public MaterialManager.ResourceType resourceType;  // 자원 종류 (Money, Wood 등)
+        public int amount;  // 요구 자원 양
+    }
     [Header("코어 소환에 필요한 자원")]
-    [SerializeField] public List<ResourceRequirement> CoreSpawnRequirements = new List<ResourceRequirement>(); // 업그레이드에 필요한 자원 리스트
-    [Header("마법 타워 소환에 필요한 자원")]
-    [SerializeField] public List<ResourceRequirement> MagicTowerSpawnRequirements = new List<ResourceRequirement>(); // 업그레이드에 필요한 자원 리스트
+    [SerializeField] public List<ResourceRequirement> CoreSpawnRequirements = new List<ResourceRequirement>() // 업그레이드에 필요한 자원 리스트
+        {
+        new ResourceRequirement { resourceType = MaterialManager.ResourceType.Money, amount = 100 },
+        new ResourceRequirement { resourceType = MaterialManager.ResourceType.Wood, amount = 50 },
+        new ResourceRequirement { resourceType = MaterialManager.ResourceType.Stone, amount = 30 }
+        };
+
+[Header("마법 타워 소환에 필요한 자원")]
+    [SerializeField] public List<ResourceRequirement> MagicTowerSpawnRequirements = new List<ResourceRequirement>() // 업그레이드에 필요한 자원 리스트
+        {
+        new ResourceRequirement { resourceType = MaterialManager.ResourceType.Wood, amount = 50 },
+        new ResourceRequirement { resourceType = MaterialManager.ResourceType.Crystal, amount = 10 },
+        new ResourceRequirement { resourceType = MaterialManager.ResourceType.FireEssence, amount = 5 },
+
+
+        };
     [Header("로켓 타워 소환에 필요한 자원")]
-    [SerializeField] public List<ResourceRequirement> RocketTowerSpawnRequirements = new List<ResourceRequirement>(); // 업그레이드에 필요한 자원 리스트
+    [SerializeField] public List<ResourceRequirement> RocketTowerSpawnRequirements = new List<ResourceRequirement>() // 업그레이드에 필요한 자원 리스트
+        {
+        new ResourceRequirement { resourceType = MaterialManager.ResourceType.Wood, amount = 50 },
+        new ResourceRequirement { resourceType = MaterialManager.ResourceType.Stone, amount = 30 },
+        new ResourceRequirement { resourceType = MaterialManager.ResourceType.Metal, amount = 10 },
+
+        };
     [Header("번개 타워 소환에 필요한 자원")]
-    [SerializeField] public List<ResourceRequirement> LightTowerSpawnRequirements = new List<ResourceRequirement>(); // 업그레이드에 필요한 자원 리스트
+    [SerializeField] public List<ResourceRequirement> LightTowerSpawnRequirements = new List<ResourceRequirement>() // 업그레이드에 필요한 자원 리스트
+        {
+        new ResourceRequirement { resourceType = MaterialManager.ResourceType.Wood, amount = 50 },
+        new ResourceRequirement { resourceType = MaterialManager.ResourceType.Crystal, amount = 10 },
+        new ResourceRequirement { resourceType = MaterialManager.ResourceType.IceEssence, amount = 5 },
+
+        };
     [Header("힐 타워 소환에 필요한 자원")]
-    [SerializeField] public List<ResourceRequirement> HealTowerSpawnRequirements = new List<ResourceRequirement>(); // 업그레이드에 필요한 자원 리스트
+    [SerializeField] public List<ResourceRequirement> HealTowerSpawnRequirements = new List<ResourceRequirement>() // 업그레이드에 필요한 자원 리스트
+        {
+        new ResourceRequirement { resourceType = MaterialManager.ResourceType.Wood, amount = 50 },
+        new ResourceRequirement { resourceType = MaterialManager.ResourceType.Crystal, amount = 10 },
+        new ResourceRequirement { resourceType = MaterialManager.ResourceType.WoodEssence, amount = 5},
+
+        };
     [Header("화살 타워 소환에 필요한 자원")]
-    [SerializeField] public List<ResourceRequirement> ArrowTowerSpawnRequirements = new List<ResourceRequirement>(); // 업그레이드에 필요한 자원 리스트
+    [SerializeField] public List<ResourceRequirement> ArrowTowerSpawnRequirements = new List<ResourceRequirement>() // 업그레이드에 필요한 자원 리스트
+        {
+        new ResourceRequirement { resourceType = MaterialManager.ResourceType.Wood, amount = 50 },
+        new ResourceRequirement { resourceType = MaterialManager.ResourceType.Stone, amount = 30 },
+        new ResourceRequirement { resourceType = MaterialManager.ResourceType.Metal, amount = 10 },
+
+        };
     [Header("근접 유닛 소환 타워 소환에 필요한 자원")]
-    [SerializeField] public List<ResourceRequirement> SWSpawnTowerSpawnRequirements = new List<ResourceRequirement>(); // 업그레이드에 필요한 자원 리스트
+    [SerializeField] public List<ResourceRequirement> SWSpawnTowerSpawnRequirements = new List<ResourceRequirement>() // 업그레이드에 필요한 자원 리스트
+        {
+        new ResourceRequirement { resourceType = MaterialManager.ResourceType.Wood, amount = 50 },
+        new ResourceRequirement { resourceType = MaterialManager.ResourceType.Stone, amount = 30 },
+        new ResourceRequirement { resourceType = MaterialManager.ResourceType.SandEssence, amount = 5 },
+
+        };
     [Header("원거리 유닛 소환 타워 소환에 필요한 자원")]
-    [SerializeField] public List<ResourceRequirement> MGSpawnTowerSpawnRequirements = new List<ResourceRequirement>(); // 업그레이드에 필요한 자원 리스트
+    [SerializeField] public List<ResourceRequirement> MGSpawnTowerSpawnRequirements = new List<ResourceRequirement>() // 업그레이드에 필요한 자원 리스트
+        {
+        new ResourceRequirement { resourceType = MaterialManager.ResourceType.Wood, amount = 50 },
+        new ResourceRequirement { resourceType = MaterialManager.ResourceType.Stone, amount = 30 },
+        new ResourceRequirement { resourceType = MaterialManager.ResourceType.FireEssence, amount = 5 },
+
+        };
     [Header("벽 소환 타워 소환에 필요한 자원")]
-    [SerializeField] public List<ResourceRequirement> WallSpawnRequirements = new List<ResourceRequirement>(); // 업그레이드에 필요한 자원 리스트
+    [SerializeField] public List<ResourceRequirement> WallSpawnRequirements = new List<ResourceRequirement>() // 업그레이드에 필요한 자원 리스트
+        {
+        new ResourceRequirement { resourceType = MaterialManager.ResourceType.Wood, amount = 50 },
+        new ResourceRequirement { resourceType = MaterialManager.ResourceType.Stone, amount = 30 },
+        new ResourceRequirement { resourceType = MaterialManager.ResourceType.Metal, amount = 10 },
+
+        };
 
     // 자원 확인 함수 (보유 자원량 >= 요구 자원량)
     public bool CheckIfResourcesAreSufficient(string currentPrefab)

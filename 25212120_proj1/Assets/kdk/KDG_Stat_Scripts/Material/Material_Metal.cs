@@ -9,7 +9,7 @@ public class Material_Metal : BaseMaterial
 
     private List<ResourceDrop> customResourceDrops = new List<ResourceDrop>
     {
-        new ResourceDrop(MaterialManager.ResourceType.Metal, 5, 0.7f),   // ³ª¹« 5°³, 70% È®·ü
+        new ResourceDrop(MaterialManager.ResourceType.Metal, 5, 1f),   // ³ª¹« 5°³, 70% È®·ü
     };
     protected override void Awake()
     {

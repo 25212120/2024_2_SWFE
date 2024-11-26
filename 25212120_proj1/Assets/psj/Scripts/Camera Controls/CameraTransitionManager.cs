@@ -16,6 +16,8 @@ public class CameraTransitionManager : MonoBehaviour
     private float transitionDuration = 1f; // 전환 시간 (초)
     private float transitionProgress = 0f;
 
+    public HighlightArea highlightArea;
+
     private void Awake()
     {
         isoCamera.Priority = 10;
@@ -24,15 +26,25 @@ public class CameraTransitionManager : MonoBehaviour
         playerInput = new PlayerMovement();
     }
 
+    private void Start()
+    {
+        if (highlightArea != null)
+        {
+            highlightArea.gameObject.SetActive(false);
+        }
+    }
+
     private void OnEnable()
     {
         playerInput.Enable();
         playerInput.CameraControl.Transition.performed += OnScrollPerformed;
+        playerInput.CameraControl.ToggleBuild.performed += OnToggleHighlightArea;
     }
 
     private void OnDisable()
     {
         playerInput.CameraControl.Transition.performed -= OnScrollPerformed;
+        playerInput.CameraControl.ToggleBuild.performed -= OnToggleHighlightArea;
         playerInput.Disable();
     }
 
@@ -49,6 +61,30 @@ public class CameraTransitionManager : MonoBehaviour
             StartTransition(false); // Perspective로 전환
         }
     }
+
+
+    void OnToggleHighlightArea(InputAction.CallbackContext ctx)
+    {
+        if (highlightArea != null)
+        {
+            bool isActive = highlightArea.gameObject.activeSelf;
+            if (isActive)
+            {
+                GetComponent<PlayerInputManager>().isPerformingAction = false;
+                highlightArea.DeactivateHighlightArea();
+                highlightArea.gameObject.SetActive(false);
+            }
+
+            else
+            {
+                GetComponent<PlayerInputManager>().isPerformingAction = true;
+                highlightArea.ActivateHighlightArea();
+                highlightArea.gameObject.SetActive(true);
+            }
+
+        }
+    }
+
 
     private void StartTransition(bool toOrthographic)
     {
@@ -114,4 +150,5 @@ public class CameraTransitionManager : MonoBehaviour
 
         return result;
     }
+
 }

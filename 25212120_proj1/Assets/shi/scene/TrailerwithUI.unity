@@ -4810,6 +4810,17 @@ RectTransform:
   m_AnchoredPosition: {x: -226.5, y: -0.20569}
   m_SizeDelta: {x: 453, y: 60.411}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &370976382 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8704443212075928130, guid: 4ecaef59581634555a27639126198676, type: 3}
+  m_PrefabInstance: {fileID: 565898008}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &370976386 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8704443212075928131, guid: 4ecaef59581634555a27639126198676, type: 3}
@@ -9461,8 +9472,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 718485761}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.6532815, y: -0.27059805, z: 0.27059805, w: 0.6532815}
-  m_LocalPosition: {x: 53.744995, y: 20, z: 108.304596}
+  m_LocalRotation: {x: 0.39044836, y: -0.346829, z: 0.16172901, w: 0.83731925}
+  m_LocalPosition: {x: 55.16, y: 14.84, z: 109.87}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9535,7 +9546,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 5000
-  field of view: 60.000004
+  field of view: 60
   orthographic: 0
   orthographic size: 10
   m_Depth: 0
@@ -20907,7 +20918,6 @@ MonoBehaviour:
   enemies: []
   units: []
   directionalLight: {fileID: 0}
-  dayText: {fileID: 0}
   initialHP_Unit_Warrior: 100
   initialHP_Unit_Mage: 50
   initialAtk_Unit_Warrior: 10
@@ -22901,7 +22911,7 @@ Transform:
   m_GameObject: {fileID: 1576730099}
   serializedVersion: 2
   m_LocalRotation: {x: 0.39044836, y: -0.346829, z: 0.16172901, w: 0.83731925}
-  m_LocalPosition: {x: 62.744995, y: 15, z: 99.304596}
+  m_LocalPosition: {x: 55.16, y: 14.84, z: 109.87}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -27300,10 +27310,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da7c9c766e51db24e952b5f83697e168, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upgradeButton: {fileID: 0}
-  towerpreLevel: {fileID: 0}
-  towerLevelText: {fileID: 0}
-  resourceRequirementsText: {fileID: 0}
+  upgrade: {fileID: 370976382}
 --- !u!114 &1916271864
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30346,7 +30353,7 @@ Transform:
   m_GameObject: {fileID: 2077709384}
   serializedVersion: 2
   m_LocalRotation: {x: 0.6532815, y: -0.27059805, z: 0.27059805, w: 0.6532815}
-  m_LocalPosition: {x: 53.744995, y: 20, z: 108.304596}
+  m_LocalPosition: {x: 46.16, y: 19.84, z: 118.87}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

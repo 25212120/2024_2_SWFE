@@ -898,6 +898,65 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 670048732962172838, guid: e5eb6f6e1542b404b95c909f720cae21, type: 3}
   m_PrefabInstance: {fileID: 270626375}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &272471307
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 272471309}
+  - component: {fileID: 272471308}
+  m_Layer: 0
+  m_Name: HighLightArea
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &272471308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 272471307}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af7d1c4273afe5c49bae890e67bc1c4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cellSize_Virtical: 1
+  cellSize_Horizontal: 1
+  highlightSize: 3
+  detailGridResolution: 3
+  highlightMaterial: {fileID: 2100000, guid: 640c3246015988849a3a60f83b9f5b9f, type: 2}
+  ImpossibleMaterial: {fileID: 2100000, guid: 61513cc9a73b9ca429081967073c5cf2, type: 2}
+  turretPrefab: {fileID: 0}
+  occupiedCell_Manager: {fileID: 1414245391}
+  towerSpawn_Manager: {fileID: 1414245389}
+  gridStartPosition: {x: 0, y: 0, z: 0}
+  coreObjects: []
+  corePlacementRange: 20
+  PT_V: {x: 0, y: 0, z: 0}
+  PT_R: {x: 0, y: 0, z: 0, w: 1}
+  CurrentPrefab: 
+--- !u!4 &272471309
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 272471307}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &294906482
 GameObject:
   m_ObjectHideFlags: 0
@@ -4568,6 +4627,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 718485764}
     - target: {fileID: 1567979975485436385, guid: f9c137e7891118a4684446bdef465b3a, type: 3}
+      propertyPath: highlightArea
+      value: 
+      objectReference: {fileID: 272471308}
+    - target: {fileID: 1567979975485436385, guid: f9c137e7891118a4684446bdef465b3a, type: 3}
       propertyPath: topViewCamera
       value: 
       objectReference: {fileID: 2077709386}
@@ -5385,6 +5448,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1414245388}
   - component: {fileID: 1414245387}
+  - component: {fileID: 1414245391}
+  - component: {fileID: 1414245390}
+  - component: {fileID: 1414245389}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -5437,6 +5503,110 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1414245389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1414245386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 228641ff94208894789da8503d5b53e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CoreSpawnRequirements:
+  - resourceType: 0
+    amount: 100
+  - resourceType: 1
+    amount: 50
+  - resourceType: 2
+    amount: 30
+  MagicTowerSpawnRequirements:
+  - resourceType: 1
+    amount: 50
+  - resourceType: 4
+    amount: 10
+  - resourceType: 7
+    amount: 5
+  RocketTowerSpawnRequirements:
+  - resourceType: 1
+    amount: 50
+  - resourceType: 2
+    amount: 30
+  - resourceType: 3
+    amount: 10
+  LightTowerSpawnRequirements:
+  - resourceType: 1
+    amount: 50
+  - resourceType: 4
+    amount: 10
+  - resourceType: 6
+    amount: 5
+  HealTowerSpawnRequirements:
+  - resourceType: 1
+    amount: 50
+  - resourceType: 4
+    amount: 10
+  - resourceType: 5
+    amount: 5
+  ArrowTowerSpawnRequirements:
+  - resourceType: 1
+    amount: 50
+  - resourceType: 2
+    amount: 30
+  - resourceType: 3
+    amount: 10
+  SWSpawnTowerSpawnRequirements:
+  - resourceType: 1
+    amount: 50
+  - resourceType: 2
+    amount: 30
+  - resourceType: 8
+    amount: 5
+  MGSpawnTowerSpawnRequirements:
+  - resourceType: 1
+    amount: 50
+  - resourceType: 2
+    amount: 30
+  - resourceType: 7
+    amount: 5
+  WallSpawnRequirements:
+  - resourceType: 1
+    amount: 50
+  - resourceType: 2
+    amount: 30
+  - resourceType: 3
+    amount: 10
+--- !u!114 &1414245390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1414245386}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b0d2c0330f89ac43a18f5d6a7835e8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cellSize: 1
+  highlightMaterial: {fileID: 2100000, guid: 640c3246015988849a3a60f83b9f5b9f, type: 2}
+  ImpossibleMaterial: {fileID: 2100000, guid: 61513cc9a73b9ca429081967073c5cf2, type: 2}
+  occupiedCell_Manager: {fileID: 1414245391}
+  spawnStructures: []
+--- !u!114 &1414245391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1414245386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f844f4409abae2d48a831d4b76ab83ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1420575373
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8551,3 +8721,4 @@ SceneRoots:
   - {fileID: 31975239}
   - {fileID: 1087490669}
   - {fileID: 1414245388}
+  - {fileID: 272471309}

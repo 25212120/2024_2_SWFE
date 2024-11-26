@@ -70,18 +70,6 @@ public class HighlightArea : MonoBehaviour
             SetRotatestate();
             RotateTurret();
         }
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            SetTurretPrefab("Wall_1");
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            SetTurretPrefab("MagicTower_1");
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            SetTurretPrefab("ArrowTower_1");
-        }
         // 마우스 위치 업데이트
         UpdateMousePosition();
 

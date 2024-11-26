@@ -8,6 +8,7 @@ using UnityEditor.Tilemaps;
 public class CameraTransitionManager : MonoBehaviour
 {
     private PlayerMovement playerInput;
+    private PlayerInputManager playerInputManager;
 
     public CinemachineVirtualCamera isoCamera;
     public CinemachineVirtualCamera topViewCamera;
@@ -28,6 +29,7 @@ public class CameraTransitionManager : MonoBehaviour
 
     private void Awake()
     {
+        playerInputManager = GetComponent<PlayerInputManager>();
         playerInput = new PlayerMovement();
     }
 
@@ -128,6 +130,7 @@ public class CameraTransitionManager : MonoBehaviour
     {
         if (GameSettings.IsMultiplayer == true)
         {
+            pv = GetComponent<PhotonView>();
             if (pv.IsMine == false) return;
             else
             {
@@ -135,13 +138,14 @@ public class CameraTransitionManager : MonoBehaviour
                 playerInput.CameraControl.Transition.performed += OnScrollPerformed;
                 playerInput.CameraControl.ToggleBuild.performed += OnToggleHighlightArea;
                 playerInput.CameraControl.SpawnPoint_Select.performed += OnToggleSpawnPoint;
-            }
+            } 
         }
-        else { 
-        playerInput.Enable();
-        playerInput.CameraControl.Transition.performed += OnScrollPerformed;
-        playerInput.CameraControl.ToggleBuild.performed += OnToggleHighlightArea;
-        playerInput.CameraControl.SpawnPoint_Select.performed += OnToggleSpawnPoint;
+        else 
+        { 
+            playerInput.Enable();
+            playerInput.CameraControl.Transition.performed += OnScrollPerformed;
+            playerInput.CameraControl.ToggleBuild.performed += OnToggleHighlightArea;
+            playerInput.CameraControl.SpawnPoint_Select.performed += OnToggleSpawnPoint;
         }
     }
 

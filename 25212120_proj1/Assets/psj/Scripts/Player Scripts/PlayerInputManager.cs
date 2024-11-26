@@ -1,4 +1,4 @@
-using UnityEngine;
+    using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
 using JetBrains.Annotations;
@@ -58,6 +58,7 @@ public class PlayerInputManager : MonoBehaviour
     private PlayerStat playerStat;
     private PlayerCoolDownManager playerCoolDown;
     private EquipmentInventory equipmentInventory;
+    private PhotonView pv;
 
     private StateManager<PlayerStateType> stateManager;
     private void Awake()
@@ -70,8 +71,9 @@ public class PlayerInputManager : MonoBehaviour
         playerStat = GetComponent<PlayerStat>();
         playerCoolDown = GetComponent<PlayerCoolDownManager>();
         equipmentInventory = GetComponent<EquipmentInventory>();
-
+        pv = GetComponent<PhotonView>();
         stateManager = GetComponent<StateManager<PlayerStateType>>();
+        
 
         currentRightHandIndex = 0;
         currentLeftHandIndex = 0;
@@ -93,9 +95,7 @@ public class PlayerInputManager : MonoBehaviour
         //Debug.Log("LeftButton_Pressed : " + leftButton_Pressed);
         //Debug.Log(isPeformingAction);
         //GetHitCheck();
-        /*
         hpCheck();
-        */
         leftButton_Pressed = false;
     }
     private void FixedUpdate()
@@ -109,7 +109,7 @@ public class PlayerInputManager : MonoBehaviour
     private void OnEnable()
     {
 
-        //if (photonView.IsMine == false) return;
+        if (pv.IsMine == false) return;
 
         playerInput.Enable();
 
@@ -142,9 +142,7 @@ public class PlayerInputManager : MonoBehaviour
     }
     private void OnDisable()
     {
-        // **************************************************
-        //if(photonView.IsMine == false) return;
-        // **************************************************
+        if(pv.IsMine == false) return;
 
         playerInput.Disable();
 

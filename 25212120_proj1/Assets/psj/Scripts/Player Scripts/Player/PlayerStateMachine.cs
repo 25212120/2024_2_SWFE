@@ -44,7 +44,7 @@ public class PlayerStateMachine : StateManager<PlayerStateType>
         States.Add(PlayerStateType.FireBall_MagicState, new FireBall_MagicState(PlayerStateType.FireBall_MagicState, this, playerInputManager, playerTransform, monoBehaviour, animator, playerStat));
         States.Add(PlayerStateType.Meteor_MagicState, new Meteor_MagicState(PlayerStateType.Meteor_MagicState, this, playerInputManager, playerTransform, monoBehaviour, animator, playerStat));
         States.Add(PlayerStateType.DrainField_MagicState, new DrainField_MagicState(PlayerStateType.DrainField_MagicState, this, playerInputManager, playerTransform, monoBehaviour, animator, playerStat));
-        States.Add(PlayerStateType.Storm_MagicState, new Storm_MagicState(PlayerStateType.Storm_MagicState, this, playerInputManager, playerTransform, monoBehaviour, animator, playerStat));
+        States.Add(PlayerStateType.Storm_MagicState, new Storm_MagicState(PlayerStateType.Storm_MagicState, this, playerInputManager, playerTransform, monoBehaviour, animator, playerStat, rb));
         States.Add(PlayerStateType.EarthQuake_MagicState, new EarthQuake_MagicState(PlayerStateType.EarthQuake_MagicState, this, playerInputManager, playerTransform, monoBehaviour, animator, rb, playerStat));
         States.Add(PlayerStateType.IceSpear_MagicState, new IceSpear_MagicState(PlayerStateType.IceSpear_MagicState, this, playerInputManager, playerTransform, monoBehaviour, animator, playerStat));
         States.Add(PlayerStateType.RockFall_MagicState, new RockFall_MagicState(PlayerStateType.RockFall_MagicState, this, playerInputManager, playerTransform, monoBehaviour, animator, playerStat));
@@ -54,4 +54,9 @@ public class PlayerStateMachine : StateManager<PlayerStateType>
 
     }
 
+    protected override void Update()
+    {
+        base.Update();
+        Debug.Log(CurrentState.ToString());
+    }
 }

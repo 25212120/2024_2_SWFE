@@ -6,6 +6,7 @@ using UnityEngine;
 public class RockHandler : MonoBehaviour
 {
     private bool hasCollided = false;
+    public PlayerStat playerStat;
 
     private GameObject explosionEffect;
     Rigidbody rb;
@@ -20,7 +21,7 @@ public class RockHandler : MonoBehaviour
         LoadRockExplosionEffect("Prefabs/Magic/Earth/RockFall/earthNova");
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider collision)
     {
         if (hasCollided)
         {
@@ -28,13 +29,19 @@ public class RockHandler : MonoBehaviour
         }
 
         hasCollided = true;
-        Vector3 collisionPoint = collision.contacts[0].point;
-        Vector3 explosionPoint = collisionPoint;
 
-        GameObject instantiatedNova = Instantiate(explosionEffect, explosionPoint, Quaternion.Euler(-90, 0, 0));
-        StartCoroutine(destroyNova(instantiatedNova));
+        BaseMonster enemy = collision.gameObject.GetComponent<BaseMonster>();
+        if (enemy != null)
+        {
+            playerStat.MagicAttack(enemy, 3);
+        }
 
-        StartCoroutine(destroyRock());
+
+        Vector3 collisionPoint = collision.ClosestPoint(transform.position);
+
+        Instantiate(explosionEffect, collisionPoint, Quaternion.Euler(-90, 0, 0));
+
+        Destroy(gameObject);
     }
 
     private void LoadRockExplosionEffect(string prefabAddress)
@@ -42,15 +49,4 @@ public class RockHandler : MonoBehaviour
         explosionEffect = Resources.Load<GameObject>(prefabAddress);
     }
 
-    private IEnumerator destroyRock()
-    {
-        yield return new WaitForSeconds(3f);
-        Destroy(gameObject);
-    }
-
-    private IEnumerator destroyNova(GameObject nova)
-    {
-        yield return new WaitForSeconds(2.5f);
-        Destroy(nova);
-    }
 }

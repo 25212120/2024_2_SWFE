@@ -35,6 +35,7 @@ public class Meteor_MagicState : BaseState<PlayerStateType>
         LoadFireCircle1("Prefabs/Magic/Fire/MagicCircleSimpleYellow 1");
         LoadFireCircle2("Prefabs/Magic/Fire/MagicCircleSimpleYellow 2");
         LoadMeteor("Prefabs/Magic/Fire/Meteor/Meteor");
+        meteor.GetComponent<MeteorHandler>().playerStat = playerStat;
 
         magicCirclePos = playerTransform.position + new Vector3(0, 0.2f, 0);
 

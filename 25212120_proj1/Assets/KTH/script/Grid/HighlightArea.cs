@@ -27,8 +27,8 @@ public class HighlightArea : MonoBehaviour
 
     public Vector3 gridStartPosition = new Vector3(0, 0, 0); // 그리드의 시작 위치 (고정)
 
-    public GameObject coreObject; // Core 오브젝트
-    public float corePlacementRange = 10f; // Core 오브젝트 근처에서 설치할 수 있는 범위
+    public List<GameObject> coreObjects; // 여러 개의 코어 오브젝트
+    public float corePlacementRange = 20f; // Core 오브젝트 근처에서 설치할 수 있는 범위
 
     void Start()
     {
@@ -41,8 +41,9 @@ public class HighlightArea : MonoBehaviour
         {
             towerSpawn_Manager = FindAnyObjectByType<TowerSpawn_Manager>();
         }
-        
-        
+        coreObjects = new List<GameObject>(GameObject.FindGameObjectsWithTag("Core"));
+
+
     }
 
     void Update()
@@ -76,10 +77,7 @@ public class HighlightArea : MonoBehaviour
         {
             PlaceTurret();
         }
-        if (coreObject == null)
-        {
-            coreObject = GameObject.FindWithTag("Core"); // 'Core' 태그가 붙은 오브젝트 찾기
-        }
+
     }
 
     void CreateHighlightObject()
@@ -121,6 +119,7 @@ public class HighlightArea : MonoBehaviour
         else
         {
             // 레이캐스트가 실패한 경우
+            Debug.Log("레이캐스트문제");
             isValidHit = false;
         }
     }
@@ -213,9 +212,23 @@ public class HighlightArea : MonoBehaviour
 
     bool CheckPlacementValidity()
     {
-        if (coreObject != null && Vector3.Distance(hitPoint, coreObject.transform.position) > corePlacementRange)
+        if (coreObjects.Count > 0)
         {
-            return false; // Core 오브젝트와 너무 멀리 떨어져 있으면 배치 불가
+            bool isNearCore = false;
+            foreach (GameObject core in coreObjects)
+            {
+                if (Vector3.Distance(hitPoint, core.transform.position) <= corePlacementRange)
+                {
+                    isNearCore = true;
+                    break;
+                }
+            }
+
+            if (!isNearCore)
+            {
+                Debug.Log("코어근처아님");
+                return false; // 코어 근처가 아니면 배치 불가
+            }
         }
         int halfSize = highlightSize / 2;
 
@@ -460,6 +473,44 @@ public class HighlightArea : MonoBehaviour
         else
         {
             Debug.LogError("프리팹을 로드할 수 없습니다: Turrets/" + turretPrefabName);
+        }
+    }
+
+    public void DeactivateHighlightArea()
+    {
+        if (highlightMeshFilter != null)
+        {
+            highlightMeshFilter.mesh = null; // 하이라이트 메쉬를 비우기
+        }
+
+        if (highlightMeshRenderer != null)
+        {
+            highlightMeshRenderer.enabled = false; // 하이라이트 렌더러 비활성화
+        }
+
+        if (previewTurret != null)
+        {
+            previewTurret.SetActive(false); // 미리 보기 포탑 비활성화
+        }
+    }
+
+    public void ActivateHighlightArea()
+    {
+        // 하이라이트 메쉬와 렌더러 활성화
+        if (highlightMeshFilter != null)
+        {
+            highlightMeshFilter.mesh = BuildHighlightMesh(0, 0, 0, 0); // 메쉬를 다시 설정
+        }
+
+        if (highlightMeshRenderer != null)
+        {
+            highlightMeshRenderer.enabled = true; // 렌더러 활성화
+        }
+
+        // 미리 보기 포탑 활성화
+        if (previewTurret != null)
+        {
+            previewTurret.SetActive(true); // 포탑 활성화
         }
     }
 }

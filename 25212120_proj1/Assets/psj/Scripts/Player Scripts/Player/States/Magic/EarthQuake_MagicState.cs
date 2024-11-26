@@ -213,7 +213,7 @@ public class EarthQuake_MagicState : BaseState<PlayerStateType>
             {
                 playerStat.MagicAttack(enemyStat, 3);
                 Vector3 knockbackDirection = (enemyTransform.position - playerTransform.position).normalized;
-                rb.AddForce(knockbackDirection * 40f, ForceMode.Impulse);
+                rb.AddForce(knockbackDirection * 20f, ForceMode.Impulse);
             }
         }
     }

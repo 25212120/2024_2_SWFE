@@ -7,7 +7,7 @@ public abstract class Unit : MonoBehaviour
     public NavMeshAgent agent;
     public Animator animator;
     public Transform targetEnemy;
-    public Unit_Test unitStat;
+    public BaseUnit unitStat;
 
     [Header("Position Data")]
     public Vector3 savedPosition;
@@ -30,7 +30,7 @@ public abstract class Unit : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
-        unitStat = GetComponent<Unit_Test>();
+        unitStat = GetComponent<BaseUnit>();
         stateMachine = GetComponent<UnitStateMachine>();
     }
 
@@ -129,7 +129,7 @@ public abstract class Unit : MonoBehaviour
 
     public void HPCheck()
     {
-        if (unitStat.GetCurrentHP() <= 0)
+        if (unitStat.GetCurrntHP() <= 0)
         {
             stateMachine.PushState(UnitStateType.Die);
         }

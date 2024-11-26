@@ -4,4 +4,5 @@ public enum EnemyStateType
     Die,
     Attack,
     Idle,
+    Hit,
 }

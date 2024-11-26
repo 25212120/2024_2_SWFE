@@ -102,6 +102,7 @@ public class DrainField_MagicState : BaseState<PlayerStateType>
         float elapsedTime = 0f;
 
         GameObject instantiatedDrainField = Object.Instantiate(drainField, magicCirclePos, Quaternion.Euler(-90, 0, 0));
+        instantiatedDrainField.GetComponent<DrainField>().playerStat = playerStat;
 
         magicFinished = true;
 

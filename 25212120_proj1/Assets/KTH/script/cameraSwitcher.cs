@@ -11,6 +11,7 @@ public class CameraSwitcher : MonoBehaviour
     public Vector3 _height; // 카메라의 현재 높이
     public float scrollSpeed = 2f; // 마우스 스크롤 속도
     public bool isTopView = true; // 현재 탑뷰 상태인지 여부
+    public HighlightArea highlightArea; // 하이라이트 영역을 참조하는 변수
 
     void Start()
     {
@@ -29,6 +30,11 @@ public class CameraSwitcher : MonoBehaviour
         // 숄더뷰 비활성화, 탑뷰 활성화
         shoulderCam.gameObject.SetActive(false);
         topViewCam.enabled = true;
+        // 하이라이트 영역 비활성화 (초기 상태)
+        if (highlightArea != null)
+        {
+            highlightArea.gameObject.SetActive(false); // 초기 상태에서 하이라이트 비활성화
+        }
     }
 
 
@@ -46,7 +52,31 @@ public class CameraSwitcher : MonoBehaviour
             MoveCameraWithMouseEdge(); // 마우스로 가장자리 이동
             MouseScroll(); // 마우스 스크롤에 따른 카메라 높이 변경
         }
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            ToggleHighlightArea();
+        }
     }
+    void ToggleHighlightArea()
+    {
+        if (highlightArea != null)
+        {
+            bool isActive = highlightArea.gameObject.activeSelf;
+            if (isActive)
+            {
+                highlightArea.DeactivateHighlightArea();
+                highlightArea.gameObject.SetActive(false);
+            }
+
+            else
+            {
+                highlightArea.ActivateHighlightArea();
+                highlightArea.gameObject.SetActive(true);
+            }
+            
+        }
+    }
+
 
     // 카메라 모드 전환
     void ToggleCameraMode()

@@ -4,7 +4,7 @@ using UnityEngine;
 public class BaseStructure : BaseEntity
 {
     [Header("업그레이드에 필요한 자원")]
-    [SerializeField] private List<ResourceRequirement> upgradeRequirements = new List<ResourceRequirement>(); // 업그레이드에 필요한 자원 리스트
+    [SerializeField] public List<ResourceRequirement> upgradeRequirements = new List<ResourceRequirement>(); // 업그레이드에 필요한 자원 리스트
     [SerializeField] private Material upgradedMaterial;  // 업그레이드 후 외형을 변경할 기본 머티리얼
     [SerializeField] private Mesh upgradedMesh;         // 업그레이드 후 사용할 메쉬 (선택사항)
 
@@ -19,6 +19,9 @@ public class BaseStructure : BaseEntity
 
     [Header("타워의 총알 프리팹")]
     [SerializeField] private GameObject bulletPrefab;  // 총알 프리팹
+
+    [Header("타워 레벨")]
+    [SerializeField] public int TowerLevel = 1;
 
     private Renderer structureRenderer;
     private MeshFilter meshFilter;
@@ -223,7 +226,7 @@ public class BaseStructure : BaseEntity
         statData.UpgradeBaseStat(StatData.StatType.ATTACK, statUpgrade.attackIncrease); // 공격력 증가
         statData.UpgradeBaseStat(StatData.StatType.DEFENSE, statUpgrade.defenseIncrease); // 방어력 증가
         statData.UpgradeBaseStat(StatData.StatType.HP, statUpgrade.healthIncrease); // 체력 증가
-
+        TowerLevel++;
         Debug.Log("업그레이드 완료: 공격력 + " + statUpgrade.attackIncrease + ", 방어력 + " + statUpgrade.defenseIncrease + ", 체력 + " + statUpgrade.healthIncrease);
     }
 
@@ -249,6 +252,11 @@ public class BaseStructure : BaseEntity
     {
         public MaterialManager.ResourceType resourceType; // 자원 타입
         public int amount;                                // 자원 수량
+        public ResourceRequirement(MaterialManager.ResourceType resourceType, int amount)
+        {
+            this.resourceType = resourceType;
+            this.amount = amount;
+        }
     }
 
     public bool Upgradecheck()

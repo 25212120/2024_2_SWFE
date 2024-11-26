@@ -90,7 +90,7 @@ public class CameraTransitionManager : MonoBehaviour
         {
             if (isActive_sp)
             {
-                GetComponent<PlayerInputManager>().isPerformingAction = true;
+                GetComponent<PlayerInputManager>().isPerformingAction = false;
                 spawnPoint_Select.isActive = false;
 
                 isActive_sp = false;

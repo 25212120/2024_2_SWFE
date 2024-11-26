@@ -18,6 +18,8 @@ public class CameraTransitionManager : MonoBehaviour
 
     public HighlightArea highlightArea;
 
+    public bool ha = false;
+
     private void Awake()
     {
         isoCamera.Priority = 10;
@@ -67,19 +69,17 @@ public class CameraTransitionManager : MonoBehaviour
     {
         if (highlightArea != null)
         {
-            bool isActive = highlightArea.gameObject.activeSelf;
-            if (isActive)
+            if (ha)
             {
                 GetComponent<PlayerInputManager>().isPerformingAction = false;
-                highlightArea.DeactivateHighlightArea();
-                highlightArea.gameObject.SetActive(false);
+                highlightArea.isActive = false;
             }
 
             else
             {
                 GetComponent<PlayerInputManager>().isPerformingAction = true;
                 highlightArea.ActivateHighlightArea();
-                highlightArea.gameObject.SetActive(true);
+                highlightArea.isActive = true;
             }
 
         }

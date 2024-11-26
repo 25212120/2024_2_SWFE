@@ -4070,6 +4070,7 @@ MonoBehaviour:
   isDead: 0
   isDefending: 0
   isHit: 0
+  canSwap: 0
   magicSpawnPoints:
   - {x: 0, y: 5, z: 0}
   - {x: -4, y: 2, z: 0}
@@ -4188,6 +4189,7 @@ MonoBehaviour:
   isoCamera: {fileID: 0}
   topViewCamera: {fileID: 0}
   mainCamera: {fileID: 0}
+  highlightArea: {fileID: 0}
 --- !u!114 &7208162116531272147
 MonoBehaviour:
   m_ObjectHideFlags: 0

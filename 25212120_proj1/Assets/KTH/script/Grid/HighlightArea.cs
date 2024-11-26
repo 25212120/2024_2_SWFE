@@ -34,7 +34,10 @@ public class HighlightArea : MonoBehaviour
     public float corePlacementRange = 20f; // Core 오브젝트 근처에서 설치할 수 있는 범위
 
     public Vector3 PT_V = new Vector3(0, 0, 0);
-    public Quaternion PT_R = Quaternion.Euler(0, 0, 0); 
+    public Quaternion PT_R = Quaternion.Euler(0, 0, 0);
+
+    public bool isActive = true;
+
     void Start()
     {
         CreateHighlightObject();
@@ -54,6 +57,12 @@ public class HighlightArea : MonoBehaviour
 
     void Update()
     {
+        if(!isActive)
+        {
+            DeactivateHighlightArea();
+            return;
+        }
+
         // Q 키를 눌러 타워 회전
         if (Input.GetKeyDown(KeyCode.Q))
         {

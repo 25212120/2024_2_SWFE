@@ -212,7 +212,7 @@ public class PlayerInputManager : MonoBehaviour
     private void GroundCheck()
     {
         RaycastHit hit;
-        float rayDistance = 0.4f;
+        float rayDistance = 0.5f;
         Vector3 origin = playerTransform.position + Vector3.up * 0.1f;
 
         if (Physics.Raycast(origin, Vector3.down, out hit, rayDistance))

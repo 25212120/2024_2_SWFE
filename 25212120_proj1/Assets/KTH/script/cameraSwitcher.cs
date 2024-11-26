@@ -12,7 +12,8 @@ public class CameraSwitcher : MonoBehaviour
     public float scrollSpeed = 2f; // 마우스 스크롤 속도
     public bool isTopView = true; // 현재 탑뷰 상태인지 여부
     public HighlightArea highlightArea; // 하이라이트 영역을 참조하는 변수
-
+    public SpawnPoint_Select spawnPoint_Select;
+    public bool SP_S = false;
     void Start()
     {
         // 기본 카메라를 가져옴
@@ -55,6 +56,24 @@ public class CameraSwitcher : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.H))
         {
             ToggleHighlightArea();
+        }
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            ToggleSpawnPoint();
+        }
+    }
+    void ToggleSpawnPoint()
+    {
+        if (SP_S)
+        {
+            SP_S = false;
+            spawnPoint_Select.isActive = false;
+        }
+        else
+        {
+            spawnPoint_Select.ActivateHighlightObject();
+            SP_S = true;
+            spawnPoint_Select.isActive = true;
         }
     }
     void ToggleHighlightArea()

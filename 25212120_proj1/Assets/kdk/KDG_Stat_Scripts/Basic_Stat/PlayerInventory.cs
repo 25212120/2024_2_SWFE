@@ -35,6 +35,26 @@ public class PlayerMagic
             
         }
     }
+
+    public bool IsWoodSkillTreeActive()
+    {
+        return MagicSkillTree_Wood;
+    }
+
+    public bool IsFireSkillTreeActive()
+    {
+        return MagicSkillTree_Fire;
+    }
+
+    public bool IsIceSkillTreeActive()
+    {
+        return MagicSkillTree_Ice;
+    }
+
+    public bool IsSandSkillTreeActive()
+    {
+        return MagicSkillTree_Sand;
+    }
     private void UnlockSkillTree()
     {
         switch (magicType)
@@ -76,26 +96,6 @@ public class PlayerMagic
             experience = 0f;
             LevelUp();  // ·¹º§¾÷
         }
-    }
-
-    public bool IsWoodSkillTreeActive()
-    {
-        return MagicSkillTree_Wood;
-    }
-
-    public bool IsFireSkillTreeActive()
-    {
-        return MagicSkillTree_Fire;
-    }
-
-    public bool IsIceSkillTreeActive()
-    {
-        return MagicSkillTree_Ice;
-    }
-
-    public bool IsSandSkillTreeActive()
-    {
-        return MagicSkillTree_Sand;
     }
 }
 

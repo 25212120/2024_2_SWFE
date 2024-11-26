@@ -2,21 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ExplosionFireballFire : MonoBehaviour
+public class MeteorNova : MonoBehaviour
 {
     public PlayerStat playerStat;
 
-    private void Start()
-    {
-        if (playerStat == null) Debug.Log("ÇÃ·¹ÀÌ¾î½ºÅÈ ¾¾¹ß Á¿µÊ");
-    }
-
     private void OnTriggerEnter(Collider other)
     {
+        StartCoroutine(DestroyGameObj());
+
         BaseMonster enemy = other.GetComponent<BaseMonster>();
         if (enemy != null)
         {
             playerStat.MagicAttack(enemy, 1);
         }
+
+
+    }
+
+    private IEnumerator DestroyGameObj()
+    {
+        yield return new WaitForSeconds(0.3f);
+        GetComponent<Collider>().enabled = false;
+        yield return new WaitForSeconds(0.7f);
+        Destroy(gameObject);
     }
 }

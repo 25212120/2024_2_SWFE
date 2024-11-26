@@ -101,6 +101,7 @@ public class IceSpear_MagicState : BaseState<PlayerStateType>
     private IEnumerator InstantaiteIceSpear()
     {
         GameObject instantiatedIceSpear = Object.Instantiate(iceSpear, spawnPosition, Quaternion.Euler(-90, 0, 0));
+        instantiatedIceSpear.GetComponent<IceSpearHandler>().playerStat = playerStat;
         Rigidbody iceSpearRigidbody = instantiatedIceSpear.GetComponent<Rigidbody>();
 
         Vector3 direction = (playerInputManager.magicPoint - spawnPosition).normalized;

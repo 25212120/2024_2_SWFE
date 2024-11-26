@@ -13,6 +13,8 @@ public class MeteorHandler : MonoBehaviour
 
     private bool collisionDetected = false;
 
+    public PlayerStat playerStat;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -58,10 +60,13 @@ public class MeteorHandler : MonoBehaviour
     private IEnumerator InstantiateNovaEffect()
     {
         GameObject instantiatedNovaEffect0 = Instantiate(novaEffect0, explosionPoint, Quaternion.Euler(-90, 0, 0));
+        instantiatedNovaEffect0.GetComponent<MeteorNova>().playerStat = playerStat;
         yield return new WaitForSeconds(0.2f);
         GameObject instantiatedNovaEffect1 = Instantiate(novaEffect1, explosionPoint, Quaternion.Euler(-90, 0, 0));
+        instantiatedNovaEffect1.GetComponent<MeteorNova>().playerStat = playerStat;
         yield return new WaitForSeconds(0.2f);
         GameObject instantiatedNovaEffect2 = Instantiate(novaEffect2, explosionPoint, Quaternion.Euler(-90, 0, 0));
+        instantiatedNovaEffect2.GetComponent<MeteorNova>().playerStat = playerStat;
 
         Destroy(gameObject);
 

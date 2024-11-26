@@ -79,8 +79,8 @@ public class PlayerInputManager : MonoBehaviour
         currentLeftHandIndex = 0;
 
         // magic init (for test)
-        Magic1Swap(PlayerStateType.FireBall_MagicState);
-        Magic2Swap(PlayerStateType.EarthQuake_MagicState);
+        Magic1Swap(PlayerStateType.PoisonFog_MagicState);
+        Magic2Swap(PlayerStateType.DrainField_MagicState);
     }
 
     private void Start()
@@ -212,7 +212,7 @@ public class PlayerInputManager : MonoBehaviour
     private void GroundCheck()
     {
         RaycastHit hit;
-        float rayDistance = 0.2f;
+        float rayDistance = 0.4f;
         Vector3 origin = playerTransform.position + Vector3.up * 0.1f;
 
         if (Physics.Raycast(origin, Vector3.down, out hit, rayDistance))
@@ -240,7 +240,6 @@ public class PlayerInputManager : MonoBehaviour
     {
         if (isPerformingAction == false)
         {
-            Debug.Log("COME IN");
             moveInput = ctx.ReadValue<Vector2>();
             animator.SetBool("moveInput", true);
         }

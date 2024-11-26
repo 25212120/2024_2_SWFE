@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
+using Unity.VisualScripting;
 
 public class Storm_MagicState : BaseState<PlayerStateType>
 {
@@ -8,15 +9,17 @@ public class Storm_MagicState : BaseState<PlayerStateType>
     private PlayerInputManager playerInputManager;
     private Animator animator;
     private MonoBehaviour monoBehaviour;
+    private Rigidbody rb;
     private PlayerStat playerStat;
 
-    public Storm_MagicState(PlayerStateType key, StateManager<PlayerStateType> stateManager, PlayerInputManager inputManager, Transform playerTransform, MonoBehaviour monoBehaviour, Animator animator, PlayerStat playerStat)
+    public Storm_MagicState(PlayerStateType key, StateManager<PlayerStateType> stateManager, PlayerInputManager inputManager, Transform playerTransform, MonoBehaviour monoBehaviour, Animator animator, PlayerStat playerStat, Rigidbody rb)
             : base(key, stateManager)
     {
         this.playerTransform = playerTransform;
         this.playerInputManager = inputManager;
         this.monoBehaviour = monoBehaviour;
         this.animator = animator;
+        this.rb = rb;
         this.playerStat = playerStat;
     }
 
@@ -35,6 +38,26 @@ public class Storm_MagicState : BaseState<PlayerStateType>
 
     private Vector3 magicCirclePos;
 
+    IEnumerator LiftPlayer(Transform playerTransform)
+    {
+        rb.useGravity = false;
+        rb.constraints = RigidbodyConstraints.FreezeAll;
+        Vector3 startPosition = playerTransform.position;
+        Vector3 targetPosition = startPosition + new Vector3(0, 4f, 0);
+        float duration = 1.5f; 
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            float t = Mathf.SmoothStep(0, 1, elapsed / duration);
+            playerTransform.position = Vector3.Lerp(startPosition, targetPosition, t);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        playerTransform.position = targetPosition;
+    }
+
     public override void EnterState()
     {
         LoadWaterCircle0("Prefabs/Magic/Water/MagicCircleBlue");
@@ -43,16 +66,21 @@ public class Storm_MagicState : BaseState<PlayerStateType>
         LoadLightning("Prefabs/Magic/Water/Storm/LightningStrikeSharpTallBlue");
         LoadLightningNova("Prefabs/Magic/Water/Storm/NovaLightningBlue");
         LoadRainStorm("Prefabs/Magic/Water/Storm/RainStorm");
+
+        monoBehaviour.StartCoroutine(LiftPlayer(playerTransform));
+
         overlayObject = playerInputManager.dim;
         magicCirclePos = playerTransform.position + new Vector3(0, 0.2f, 0);
 
         playerInputManager.isPerformingAction = true;
 
         InstantiateRainEffect();
+
         monoBehaviour.StartCoroutine(InstantiateWaterCircles());
         overlayObject.SetActive(true);
-        Debug.Log(overlayObject.activeSelf);
+
         UseStormSkill();
+
     }
 
     public override void UpdateState()
@@ -66,9 +94,19 @@ public class Storm_MagicState : BaseState<PlayerStateType>
 
     public override void ExitState()
     {
-        stormfinished = false;
-        monoBehaviour.StartCoroutine(DestroyRainEffect());
+
         playerInputManager.isPerformingAction = false;
+
+        monoBehaviour.StopCoroutine(LiftPlayer(playerTransform));
+
+        rb.useGravity = true;
+        rb.constraints = RigidbodyConstraints.None;
+        rb.constraints = RigidbodyConstraints.FreezeRotation;
+
+        stormfinished = false;
+
+
+        monoBehaviour.StartCoroutine(DestroyRainEffect());
     }
 
     public override void CheckTransitions()
@@ -135,7 +173,7 @@ public class Storm_MagicState : BaseState<PlayerStateType>
 
     private float skillRadius = 15f;     // ½ºÅ³ ¹üÀ§ ¹Ý°æ
     private int lightningCount = 12;      // ³«·Ú °³¼ö
-    private float lightningHeight = 7f; // ³«·Ú°¡ ¶³¾îÁö´Â ³ôÀÌ
+    private float lightningHeight = 0.2f; // ³«·Ú°¡ ¶³¾îÁö´Â ³ôÀÌ
     private float minDistance = 7f;      // ³«·Úµé »çÀÌÀÇ ÃÖ¼Ò °Å¸®
 
     private void UseStormSkill()
@@ -167,6 +205,7 @@ public class Storm_MagicState : BaseState<PlayerStateType>
         GameObject instantiatedLightning = Object.Instantiate(lightning, position, Quaternion.Euler(-90, 0, 0));
         yield return new WaitForSeconds(0.05f);
         GameObject instantiatedLightningNova = Object.Instantiate(lightningNova, position, Quaternion.Euler(-90, 0, 0));
+        instantiatedLightningNova.GetComponent<StormNova>().playerStat = playerStat;
 
         yield return new WaitForSeconds(0.3f);
         Object.Destroy(instantiatedLightning);

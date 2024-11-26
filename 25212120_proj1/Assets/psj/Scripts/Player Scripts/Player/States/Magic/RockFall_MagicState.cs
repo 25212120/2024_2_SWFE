@@ -100,7 +100,7 @@ public class RockFall_MagicState : BaseState<PlayerStateType>
     private IEnumerator InstantiateRock(Vector3 rockSpawnPos)
     {
         GameObject instantiatedRock = Object.Instantiate(rock, rockSpawnPos, Quaternion.Euler(-90f, 0, 0));
-        yield return new WaitForSeconds(0.6f);
+        instantiatedRock.GetComponent<RockHandler>().playerStat = playerStat;
         Rigidbody rockRb = instantiatedRock.GetComponent<Rigidbody>();
         rockRb.AddForce(Vector3.down * 20f, ForceMode.VelocityChange);
 
@@ -115,7 +115,7 @@ public class RockFall_MagicState : BaseState<PlayerStateType>
 
         foreach(GameObject enemy in  enemies)
         {
-            Vector3 rockSpawnPos = enemy.transform.position + new Vector3(0, 8f, 0);
+            Vector3 rockSpawnPos = enemy.transform.position + new Vector3(0, 6f, 0);
             monoBehaviour.StartCoroutine(InstantiateRock(rockSpawnPos));
         }
 

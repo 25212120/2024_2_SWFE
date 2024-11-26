@@ -31,13 +31,9 @@ public class BaseMonster : BaseEntity
         InitializeMonsterStats();
     }
 
-    public void PerformUpgrade()
+    protected override void Update()
     {
-        // 스텟을 증가시키는 로직 (예시: 공격력과 체력 증가)
-        statData.UpgradeBaseStat(StatData.StatType.ATTACK, 5); // 예시: 공격력 +5
-        statData.UpgradeBaseStat(StatData.StatType.HP, 50);   // 예시: 체력 +50
-
-        Debug.Log("업그레이드 완료: 공격력 +5, 체력 +50");
+        base.Update();
     }
 
     protected virtual void InitializeMonsterStats()

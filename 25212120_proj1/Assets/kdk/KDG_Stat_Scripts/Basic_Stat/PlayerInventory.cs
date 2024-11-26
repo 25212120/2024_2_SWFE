@@ -64,25 +64,7 @@ public class PlayerMagic
                 break;
         }
     }
-    public bool IsWoodSkillTreeActive()
-    {
-        return MagicSkillTree_Wood;
-    }
-
-    public bool IsFireSkillTreeActive()
-    {
-        return MagicSkillTree_Fire;
-    }
-
-    public bool IsIceSkillTreeActive()
-    {
-        return MagicSkillTree_Ice;
-    }
-
-    public bool IsSandSkillTreeActive()
-    {
-        return MagicSkillTree_Sand;
-    }
+    
 
     // 경험치 추가 및 레벨업 처리
     public void AddExperience(float amount)

@@ -4810,17 +4810,6 @@ RectTransform:
   m_AnchoredPosition: {x: -226.5, y: -0.20569}
   m_SizeDelta: {x: 453, y: 60.411}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &370976382 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8704443212075928130, guid: 4ecaef59581634555a27639126198676, type: 3}
-  m_PrefabInstance: {fileID: 565898008}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &370976386 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8704443212075928131, guid: 4ecaef59581634555a27639126198676, type: 3}
@@ -20917,6 +20906,8 @@ MonoBehaviour:
   globalSpawnInterval: 10
   enemies: []
   units: []
+  directionalLight: {fileID: 0}
+  dayText: {fileID: 0}
   initialHP_Unit_Warrior: 100
   initialHP_Unit_Mage: 50
   initialAtk_Unit_Warrior: 10
@@ -27309,7 +27300,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da7c9c766e51db24e952b5f83697e168, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upgrade: {fileID: 370976382}
+  upgradeButton: {fileID: 0}
+  towerpreLevel: {fileID: 0}
+  towerLevelText: {fileID: 0}
+  resourceRequirementsText: {fileID: 0}
 --- !u!114 &1916271864
 MonoBehaviour:
   m_ObjectHideFlags: 0

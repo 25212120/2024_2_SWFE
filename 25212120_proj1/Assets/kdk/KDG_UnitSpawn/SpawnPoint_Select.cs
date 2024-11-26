@@ -19,6 +19,8 @@ public class SpawnPoint_Select : MonoBehaviour
     // 새로운 변수: 설치된 SpawnStructure들
     public SpawnStructure[] spawnStructures; // SpawnStructure들을 담을 배열
 
+    public bool isActive = true;
+
     void Start()
     {
         CreateHighlightObject();
@@ -33,6 +35,12 @@ public class SpawnPoint_Select : MonoBehaviour
 
     void Update()
     {
+        if (!isActive)
+        {
+            DeactivateHighlightObject();
+
+            return;
+        }
         spawnStructures = FindObjectsOfType<SpawnStructure>();
 
         // 마우스 위치 업데이트
@@ -47,7 +55,20 @@ public class SpawnPoint_Select : MonoBehaviour
             SetSpawnPointForTower(); // 타워에 맞는 스폰 포인트 설정
         }
     }
-
+    void DeactivateHighlightObject()
+    {
+        if (highlightMeshRenderer != null)
+        {
+            highlightMeshRenderer.gameObject.SetActive(false);  // GameObject를 비활성화
+        }
+    }
+    public void ActivateHighlightObject()
+    {
+        if (highlightMeshRenderer != null)
+        {
+            highlightMeshRenderer.gameObject.SetActive(true);  // GameObject를 활성화
+        }
+    }
     void CreateHighlightObject()
     {
         GameObject highlightGO = new GameObject("HighlightArea");

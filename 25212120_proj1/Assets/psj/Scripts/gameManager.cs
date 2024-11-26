@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -16,9 +17,11 @@ public class GameManager : MonoBehaviour
 
     public delegate void EnemySpawnRequest(GameObject spawner);
     public static event EnemySpawnRequest OnEnemySpawnRequested;
+    private PhotonView pv;
 
     private float spawnTimer = 0f;
     public float globalSpawnInterval = 20f;
+
 
     private void BroadcastEnemySpawnRequest()
     {
@@ -41,13 +44,20 @@ public class GameManager : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(gameObject);
         }
+
     }
 
     public List<GameObject> enemies = new List<GameObject>();
     public List<GameObject> units = new List<GameObject>();
 
+    string playerName;
+    public GameObject player;
+
     private void Start()
     {
+        pv = GetComponent<PhotonView>();
+
+
         //StartCoroutine(CountDays());
     }
 

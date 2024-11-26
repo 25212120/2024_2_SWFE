@@ -2665,17 +2665,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 192197356}
   m_SourcePrefab: {fileID: 100100000, guid: e6d8727d71ed346668dcc539577f6bf1, type: 3}
---- !u!114 &207055433 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 23880287752558599, guid: d63e16bd778f34563a01b214a506325b, type: 3}
-  m_PrefabInstance: {fileID: 2028803433}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &207055437 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 23880287752558616, guid: d63e16bd778f34563a01b214a506325b, type: 3}
@@ -8787,8 +8776,10 @@ MonoBehaviour:
   nexuses: []
   core: {fileID: 0}
   globalSpawnInterval: 20
+  UIcanvas: {fileID: 992778809}
   enemies: []
   units: []
+  player: {fileID: 0}
   directionalLight: {fileID: 1745519702}
   initialHP_Unit_Warrior: 100
   initialHP_Unit_Mage: 50
@@ -8835,7 +8826,7 @@ MonoBehaviour:
   detailGridResolution: 3
   highlightMaterial: {fileID: 2100000, guid: 640c3246015988849a3a60f83b9f5b9f, type: 2}
   ImpossibleMaterial: {fileID: 2100000, guid: 61513cc9a73b9ca429081967073c5cf2, type: 2}
-  turretPrefab: {fileID: 0}
+  turretPrefab: {fileID: 7136315603604069242, guid: 05a5473499476ba4d94843860fbf4fea, type: 3}
   occupiedCell_Manager: {fileID: 745434247}
   towerSpawn_Manager: {fileID: 745434246}
   gridStartPosition: {x: 0, y: 0, z: 0}
@@ -16175,7 +16166,6 @@ GameObject:
   - component: {fileID: 1321246928}
   - component: {fileID: 1321246927}
   - component: {fileID: 1321246926}
-  - component: {fileID: 1321246925}
   m_Layer: 5
   m_Name: UnitBuyTab
   m_TagString: Untagged
@@ -16183,26 +16173,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1321246925
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1321246924}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3802c3e8dafc8a447aa6f4829a9332c8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  skillButtons:
-  - {fileID: 730914167}
-  - {fileID: 495934989}
-  highlightImages:
-  - {fileID: 141510472}
-  - {fileID: 1630567959}
-  spawnManager: {fileID: 0}
-  purchaseButton: {fileID: 207055433}
 --- !u!114 &1321246926
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16574,7 +16544,7 @@ GameObject:
   - component: {fileID: 1337440865}
   m_Layer: 5
   m_Name: Canvas
-  m_TagString: HPCanvas
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

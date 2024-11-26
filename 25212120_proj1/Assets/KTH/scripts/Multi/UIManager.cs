@@ -36,7 +36,7 @@ public class UIManager : MonoBehaviour
     public void LoadSoloPlayer()
     {
         GameSettings.IsMultiplayer = false;
-        SceneManager.LoadScene("GameScene");
+        SceneManager.LoadScene("main");
     }
 
 

@@ -1,3 +1,4 @@
+using Photon.Pun;
 using UnityEditor.U2D.Aseprite;
 using UnityEngine;
 
@@ -5,11 +6,12 @@ public class ExpManager : Singleton<ExpManager>
 {
     [SerializeField] private PlayerStat playerStat; // PlayerStat 인스턴스 참조
     [SerializeField] private EquipmentInventory equipmentInventory; // EquipmentInventory 참조
-
+    private PhotonView pv;
 
     protected override void Awake()
     {
         base.Awake();
+        pv = GetComponent<PhotonView>();    
         playerStat = GetComponent<PlayerStat>();
         equipmentInventory = GetComponent<EquipmentInventory>();
     }
@@ -22,6 +24,8 @@ public class ExpManager : Singleton<ExpManager>
     // 경험치를 추가하는 함수
     public void AddExp(float amount)
     {
+        if (pv.IsMine == false) return;
+
         // 이전 경험치를 저장하여, 얼마나 경험치가 올랐는지 디버그에 표시할 수 있도록 함
         float expPrev = ExpCurrent;
         ExpCurrent += amount;

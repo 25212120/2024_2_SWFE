@@ -4345,17 +4345,6 @@ RectTransform:
   m_AnchoredPosition: {x: -226.5, y: -0.20569}
   m_SizeDelta: {x: 453, y: 60.411}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &370976382 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8704443212075928130, guid: 4ecaef59581634555a27639126198676, type: 3}
-  m_PrefabInstance: {fileID: 565898008}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &370976386 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8704443212075928131, guid: 4ecaef59581634555a27639126198676, type: 3}
@@ -9173,7 +9162,7 @@ Transform:
   m_GameObject: {fileID: 718485761}
   serializedVersion: 2
   m_LocalRotation: {x: 0.6532815, y: -0.27059805, z: 0.27059805, w: 0.6532815}
-  m_LocalPosition: {x: -2.39, y: 20, z: 0}
+  m_LocalPosition: {x: 0, y: 20, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -14663,6 +14652,10 @@ PrefabInstance:
     - target: {fileID: 5262069901573939513, guid: f9c137e7891118a4684446bdef465b3a, type: 3}
       propertyPath: m_IsTrigger
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6673753402188102532, guid: f9c137e7891118a4684446bdef465b3a, type: 3}
+      propertyPath: sceneViewId
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7114948607715094834, guid: f9c137e7891118a4684446bdef465b3a, type: 3}
       propertyPath: selectionBox
@@ -25310,7 +25303,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da7c9c766e51db24e952b5f83697e168, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upgrade: {fileID: 370976382}
+  upgradeButton: {fileID: 0}
+  towerpreLevel: {fileID: 0}
+  towerLevelText: {fileID: 0}
+  resourceRequirementsText: {fileID: 0}
 --- !u!114 &1916271864
 MonoBehaviour:
   m_ObjectHideFlags: 0

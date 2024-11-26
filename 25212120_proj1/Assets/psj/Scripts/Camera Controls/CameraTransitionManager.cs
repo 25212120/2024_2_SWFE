@@ -17,8 +17,10 @@ public class CameraTransitionManager : MonoBehaviour
     private float transitionProgress = 0f;
 
     public HighlightArea highlightArea;
+    public SpawnPoint_Select spawnPoint_Select;
 
-    public bool ha = false;
+    public bool isActive_ha = false;
+    public bool isActive_sp = false;
 
     private void Awake()
     {
@@ -28,25 +30,21 @@ public class CameraTransitionManager : MonoBehaviour
         playerInput = new PlayerMovement();
     }
 
-    private void Start()
-    {
-        if (highlightArea != null)
-        {
-            highlightArea.gameObject.SetActive(false);
-        }
-    }
+    
 
     private void OnEnable()
     {
         playerInput.Enable();
         playerInput.CameraControl.Transition.performed += OnScrollPerformed;
         playerInput.CameraControl.ToggleBuild.performed += OnToggleHighlightArea;
+        playerInput.CameraControl.SpawnPoint_Select.performed += OnToggleSpawnPoint;
     }
 
     private void OnDisable()
     {
         playerInput.CameraControl.Transition.performed -= OnScrollPerformed;
         playerInput.CameraControl.ToggleBuild.performed -= OnToggleHighlightArea;
+        playerInput.CameraControl.SpawnPoint_Select.performed -= OnToggleSpawnPoint;
         playerInput.Disable();
     }
 
@@ -69,10 +67,11 @@ public class CameraTransitionManager : MonoBehaviour
     {
         if (highlightArea != null)
         {
-            if (ha)
+            if (isActive_ha)
             {
                 GetComponent<PlayerInputManager>().isPerformingAction = false;
                 highlightArea.isActive = false;
+                isActive_ha = false;
             }
 
             else
@@ -80,11 +79,32 @@ public class CameraTransitionManager : MonoBehaviour
                 GetComponent<PlayerInputManager>().isPerformingAction = true;
                 highlightArea.ActivateHighlightArea();
                 highlightArea.isActive = true;
+                isActive_ha = true;
             }
 
         }
     }
+    void OnToggleSpawnPoint(InputAction.CallbackContext ctx)
+    {
+        if (spawnPoint_Select != null)
+        {
+            if (isActive_sp)
+            {
+                GetComponent<PlayerInputManager>().isPerformingAction = false;
+                spawnPoint_Select.isActive = false;
 
+                isActive_sp = false;
+            }
+            else
+            {
+                GetComponent<PlayerInputManager>().isPerformingAction = true;
+
+                spawnPoint_Select.ActivateHighlightObject();
+                spawnPoint_Select.isActive = true;
+                isActive_sp = true;
+            }
+        }
+    }
 
     private void StartTransition(bool toOrthographic)
     {

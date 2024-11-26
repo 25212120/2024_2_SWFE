@@ -508,6 +508,15 @@ public partial class @PlayerMovement: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SpawnPoint_Select"",
+                    ""type"": ""Button"",
+                    ""id"": ""4ff3967c-f7b1-4623-a030-0bd2719a24fa"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -530,6 +539,17 @@ public partial class @PlayerMovement: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""ToggleBuild"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d19a8443-b3c2-41cd-9dcd-cc16fbea2bf8"",
+                    ""path"": ""<Keyboard>/u"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SpawnPoint_Select"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -577,6 +597,7 @@ public partial class @PlayerMovement: IInputActionCollection2, IDisposable
         m_CameraControl = asset.FindActionMap("CameraControl", throwIfNotFound: true);
         m_CameraControl_Transition = m_CameraControl.FindAction("Transition", throwIfNotFound: true);
         m_CameraControl_ToggleBuild = m_CameraControl.FindAction("ToggleBuild", throwIfNotFound: true);
+        m_CameraControl_SpawnPoint_Select = m_CameraControl.FindAction("SpawnPoint_Select", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -982,12 +1003,14 @@ public partial class @PlayerMovement: IInputActionCollection2, IDisposable
     private List<ICameraControlActions> m_CameraControlActionsCallbackInterfaces = new List<ICameraControlActions>();
     private readonly InputAction m_CameraControl_Transition;
     private readonly InputAction m_CameraControl_ToggleBuild;
+    private readonly InputAction m_CameraControl_SpawnPoint_Select;
     public struct CameraControlActions
     {
         private @PlayerMovement m_Wrapper;
         public CameraControlActions(@PlayerMovement wrapper) { m_Wrapper = wrapper; }
         public InputAction @Transition => m_Wrapper.m_CameraControl_Transition;
         public InputAction @ToggleBuild => m_Wrapper.m_CameraControl_ToggleBuild;
+        public InputAction @SpawnPoint_Select => m_Wrapper.m_CameraControl_SpawnPoint_Select;
         public InputActionMap Get() { return m_Wrapper.m_CameraControl; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1003,6 +1026,9 @@ public partial class @PlayerMovement: IInputActionCollection2, IDisposable
             @ToggleBuild.started += instance.OnToggleBuild;
             @ToggleBuild.performed += instance.OnToggleBuild;
             @ToggleBuild.canceled += instance.OnToggleBuild;
+            @SpawnPoint_Select.started += instance.OnSpawnPoint_Select;
+            @SpawnPoint_Select.performed += instance.OnSpawnPoint_Select;
+            @SpawnPoint_Select.canceled += instance.OnSpawnPoint_Select;
         }
 
         private void UnregisterCallbacks(ICameraControlActions instance)
@@ -1013,6 +1039,9 @@ public partial class @PlayerMovement: IInputActionCollection2, IDisposable
             @ToggleBuild.started -= instance.OnToggleBuild;
             @ToggleBuild.performed -= instance.OnToggleBuild;
             @ToggleBuild.canceled -= instance.OnToggleBuild;
+            @SpawnPoint_Select.started -= instance.OnSpawnPoint_Select;
+            @SpawnPoint_Select.performed -= instance.OnSpawnPoint_Select;
+            @SpawnPoint_Select.canceled -= instance.OnSpawnPoint_Select;
         }
 
         public void RemoveCallbacks(ICameraControlActions instance)
@@ -1077,5 +1106,6 @@ public partial class @PlayerMovement: IInputActionCollection2, IDisposable
     {
         void OnTransition(InputAction.CallbackContext context);
         void OnToggleBuild(InputAction.CallbackContext context);
+        void OnSpawnPoint_Select(InputAction.CallbackContext context);
     }
 }

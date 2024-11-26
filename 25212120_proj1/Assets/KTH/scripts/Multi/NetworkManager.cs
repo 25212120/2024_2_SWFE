@@ -94,7 +94,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         {
             Debug.Log("MasterClient is triggering the scene load...");
             Debug.Log($"PhotonNetwork.AutomaticallySyncScene: {PhotonNetwork.AutomaticallySyncScene}");
-            PhotonNetwork.LoadLevel("GameScene");
+            PhotonNetwork.LoadLevel("main");
         }
         else
         {

@@ -3911,6 +3911,10 @@ GameObject:
   - component: {fileID: 2751155131953258265}
   - component: {fileID: 789213622087573943}
   - component: {fileID: 1464256310883817063}
+  - component: {fileID: 4369900588049256012}
+  - component: {fileID: 6673753402188102532}
+  - component: {fileID: 498709349148927626}
+  - component: {fileID: -3430351086182848972}
   m_Layer: 7
   m_Name: Player 1
   m_TagString: Player
@@ -4190,6 +4194,9 @@ MonoBehaviour:
   topViewCamera: {fileID: 0}
   mainCamera: {fileID: 0}
   highlightArea: {fileID: 0}
+  spawnPoint_Select: {fileID: 0}
+  isActive_ha: 0
+  SP_S: 0
 --- !u!114 &7208162116531272147
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4374,6 +4381,135 @@ MonoBehaviour:
     MagicSkillTree_Fire: 0
     MagicSkillTree_Ice: 0
     MagicSkillTree_Sand: 0
+--- !u!114 &4369900588049256012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7733253676307657119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aab4265606722d143abc008a9c17ceb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerStat: {fileID: 0}
+  equipmentInventory: {fileID: 0}
+--- !u!114 &6673753402188102532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7733253676307657119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 1
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents:
+  - {fileID: 498709349148927626}
+  - {fileID: -3430351086182848972}
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!114 &498709349148927626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7733253676307657119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
+--- !u!114 &-3430351086182848972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7733253676307657119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowLayerWeightsInspector: 1
+  ShowParameterInspector: 1
+  m_SynchronizeParameters:
+  - Type: 4
+    SynchronizeType: 1
+    Name: moveInput
+  - Type: 4
+    SynchronizeType: 1
+    Name: leftShiftKey_Pressed
+  - Type: 9
+    SynchronizeType: 1
+    Name: leftButton_Pressed
+  - Type: 9
+    SynchronizeType: 1
+    Name: rightButton_Pressed
+  - Type: 9
+    SynchronizeType: 1
+    Name: spaceKey_Pressed
+  - Type: 9
+    SynchronizeType: 1
+    Name: Q_Key_Pressed
+  - Type: 9
+    SynchronizeType: 1
+    Name: F_Key_Pressed
+  - Type: 9
+    SynchronizeType: 1
+    Name: SwapKey_Pressed
+  - Type: 9
+    SynchronizeType: 1
+    Name: NextCombo
+  - Type: 4
+    SynchronizeType: 1
+    Name: isInAir
+  - Type: 9
+    SynchronizeType: 1
+    Name: finishedJumping
+  - Type: 9
+    SynchronizeType: 1
+    Name: finishedDashing
+  - Type: 9
+    SynchronizeType: 1
+    Name: finishedAttacking
+  - Type: 9
+    SynchronizeType: 1
+    Name: finishedInteracting
+  - Type: 9
+    SynchronizeType: 1
+    Name: finishedSwapping
+  - Type: 9
+    SynchronizeType: 1
+    Name: finishedWeaponSkill
+  - Type: 9
+    SynchronizeType: 1
+    Name: getHit
+  - Type: 9
+    SynchronizeType: 1
+    Name: getHitWhileDefending
+  - Type: 9
+    SynchronizeType: 1
+    Name: dead
+  m_SynchronizeLayers:
+  - SynchronizeType: 1
+    LayerIndex: 0
 --- !u!1 &7761168332542681050
 GameObject:
   m_ObjectHideFlags: 0

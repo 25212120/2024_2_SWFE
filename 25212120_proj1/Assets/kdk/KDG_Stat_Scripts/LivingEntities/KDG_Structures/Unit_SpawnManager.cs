@@ -36,7 +36,7 @@ public class Unit_SpawnManager : MonoBehaviour
     [SerializeField] private GameObject unitPrefab; // 소환할 유닛의 프리팹
 
     [Header("T면 근접, F면 마법")]
-    [SerializeField] private bool SpawnUnitSelect; // 소환할 유닛의 프리팹
+    [SerializeField] public bool SpawnUnitSelect; // 소환할 유닛의 프리팹
 
     private Transform spawnPoint; // 유닛이 소환될 위치 
     private Camera mainCamera;

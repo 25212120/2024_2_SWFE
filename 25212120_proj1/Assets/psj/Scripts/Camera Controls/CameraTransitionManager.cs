@@ -17,8 +17,10 @@ public class CameraTransitionManager : MonoBehaviour
     private float transitionProgress = 0f;
 
     public HighlightArea highlightArea;
+    public SpawnPoint_Select spawnPoint_Select;
 
-    public bool ha = false;
+    public bool isActive_ha = false;
+    public bool SP_S = false;
 
     private void Awake()
     {
@@ -28,13 +30,7 @@ public class CameraTransitionManager : MonoBehaviour
         playerInput = new PlayerMovement();
     }
 
-    private void Start()
-    {
-        if (highlightArea != null)
-        {
-            highlightArea.gameObject.SetActive(false);
-        }
-    }
+    
 
     private void OnEnable()
     {
@@ -69,10 +65,11 @@ public class CameraTransitionManager : MonoBehaviour
     {
         if (highlightArea != null)
         {
-            if (ha)
+            if (isActive_ha)
             {
                 GetComponent<PlayerInputManager>().isPerformingAction = false;
                 highlightArea.isActive = false;
+                isActive_ha = false;
             }
 
             else
@@ -80,11 +77,29 @@ public class CameraTransitionManager : MonoBehaviour
                 GetComponent<PlayerInputManager>().isPerformingAction = true;
                 highlightArea.ActivateHighlightArea();
                 highlightArea.isActive = true;
+                isActive_ha = true;
             }
 
         }
     }
+    void ToggleSpawnPoint()
+    {
+        if (SP_S)
+        {
+            GetComponent<PlayerInputManager>().isPerformingAction = true;
 
+            SP_S = false;
+            spawnPoint_Select.isActive = false;
+        }
+        else
+        {
+            GetComponent<PlayerInputManager>().isPerformingAction = true;
+
+            spawnPoint_Select.ActivateHighlightObject();
+            SP_S = true;
+            spawnPoint_Select.isActive = true;
+        }
+    }
 
     private void StartTransition(bool toOrthographic)
     {

@@ -1,5 +1,8 @@
 using UnityEngine;
 using System.Collections.Generic;
+using Photon.Pun;
+using UnityEngine.UIElements;
+using System.Net.NetworkInformation;
 
 public class HighlightArea : MonoBehaviour
 {
@@ -30,6 +33,8 @@ public class HighlightArea : MonoBehaviour
     public List<GameObject> coreObjects; // 여러 개의 코어 오브젝트
     public float corePlacementRange = 20f; // Core 오브젝트 근처에서 설치할 수 있는 범위
 
+    public Vector3 PT_V = new Vector3(0, 0, 0);
+    public Quaternion PT_R = Quaternion.Euler(0, 0, 0); 
     void Start()
     {
         CreateHighlightObject();
@@ -43,6 +48,7 @@ public class HighlightArea : MonoBehaviour
         }
         coreObjects = new List<GameObject>(GameObject.FindGameObjectsWithTag("Core"));
 
+        PhotonNetwork.ConnectUsingSettings();
 
     }
 
@@ -269,9 +275,17 @@ public class HighlightArea : MonoBehaviour
     {
         if (previewTurret == null)
         {
-            // 미리 보기용 포탑을 생성
-            previewTurret = Instantiate(turretPrefab);
-            previewTurret.SetActive(false); // 초기에는 비활성화
+            if (GameSettings.IsMultiplayer == false)
+            {            // 미리 보기용 포탑을 생성
+                previewTurret = Instantiate(turretPrefab);
+                previewTurret.SetActive(false); // 초기에는 비활성화
+            }
+            if (GameSettings.IsMultiplayer == true)
+            {
+                PhotonNetwork.Instantiate(turretPrefab.name, PT_V, PT_R);
+                previewTurret.SetActive(false); // 초기에는 비활성화
+
+            }
         }
 
         // 미리 보기용 포탑을 활성화하고 위치 및 회전 적용
@@ -337,19 +351,38 @@ public class HighlightArea : MonoBehaviour
         {
             towerSpawn_Manager.SpawnAndConsumeMaterial(CurrentPrefab);
             Quaternion rotation = Quaternion.Euler(0f, currentRotation, 0f);
-            GameObject newTurret = Instantiate(turretPrefab, position, rotation);
-
-            // 타워 배치 후 콜라이더를 활성화
-            Collider turretCollider = newTurret.GetComponent<Collider>();
-            if (turretCollider != null)
+            if (GameSettings.IsMultiplayer == false)
             {
-                turretCollider.enabled = true; // 배치 후 콜라이더 활성화
+                GameObject newTurret = Instantiate(turretPrefab, position, rotation);
+                // 타워 배치 후 콜라이더를 활성화
+                Collider turretCollider = newTurret.GetComponent<Collider>();
+                if (turretCollider != null)
+                {
+                    turretCollider.enabled = true; // 배치 후 콜라이더 활성화
+                }
+
+                // 배치된 타워의 셀 점유 상태 업데이트
+                foreach (Vector2Int cellPos in cellsToOccupy)
+                {
+                    occupiedCell_Manager.occupiedCells.Add(cellPos);
+                }
             }
-
-            // 배치된 타워의 셀 점유 상태 업데이트
-            foreach (Vector2Int cellPos in cellsToOccupy)
+            if (GameSettings.IsMultiplayer == true)
             {
-                occupiedCell_Manager.occupiedCells.Add(cellPos);
+                GameObject newTurret = PhotonNetwork.Instantiate(turretPrefab.name, position, rotation);
+                // 타워 배치 후 콜라이더를 활성화
+                Collider turretCollider = newTurret.GetComponent<Collider>();
+                if (turretCollider != null)
+                {
+                    turretCollider.enabled = true; // 배치 후 콜라이더 활성화
+                }
+
+                // 배치된 타워의 셀 점유 상태 업데이트
+                foreach (Vector2Int cellPos in cellsToOccupy)
+                {
+                    occupiedCell_Manager.occupiedCells.Add(cellPos);
+                }
+
             }
         }
         else
@@ -405,11 +438,18 @@ public class HighlightArea : MonoBehaviour
             turretPrefab = newTurretPrefab;
 
             // 새로 미리보기 포탑 생성
-            previewTurret = Instantiate(newTurretPreviewPrefab);
-            previewTurret.SetActive(false); // 초기에는 비활성화
-
-            // 프리팹의 크기 추출
-            if (turretPrefabName == "Wall_1")
+            if (GameSettings.IsMultiplayer == false)
+            {
+                previewTurret = Instantiate(newTurretPreviewPrefab);
+                previewTurret.SetActive(false); // 초기에는 비활성화
+            }
+            if (GameSettings.IsMultiplayer == true)
+            {
+                previewTurret = PhotonNetwork.Instantiate(newTurretPreviewPrefab.name,PT_V,PT_R);
+                previewTurret.SetActive(false); // 초기에는 비활성화
+            }
+                // 프리팹의 크기 추출
+                if (turretPrefabName == "Wall_1")
             {
                 cellSize_Horizontal = 1.25f;
                 cellSize_Virtical = 0.4f;

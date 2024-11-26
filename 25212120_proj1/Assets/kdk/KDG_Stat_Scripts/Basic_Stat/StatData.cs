@@ -133,7 +133,7 @@ public enum StatType
 
             case StatType.HP: // 체력
                 hpMax += value;
-                ModifyCurrentHp(value); // 현재 체력을 추가된 체력에 맞게 수정
+                ModifyCurrentHp(hpMax); // 현재 체력을 추가된 체력에 맞게 수정
                 break;
 
             case StatType.ATTACK: // 공격력

@@ -13714,6 +13714,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &702440717
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 702440718}
+  m_Layer: 0
+  m_Name: ------------Manager------------
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &702440718
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 702440717}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &710893847
 GameObject:
   m_ObjectHideFlags: 0
@@ -26340,7 +26371,6 @@ MonoBehaviour:
   enemies: []
   units: []
   directionalLight: {fileID: 1745519702}
-  dayText: {fileID: 1159735793}
   initialHP_Unit_Warrior: 100
   initialHP_Unit_Mage: 50
   initialAtk_Unit_Warrior: 10
@@ -31155,67 +31185,6 @@ MonoBehaviour:
   spawnPrefab: {fileID: 9125505966264196339, guid: 30ed253f50c4bf045a0d1246bd609f7b, type: 3}
   radius: 30
   angleStep: 40
---- !u!1001 &1623386285
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4908487636588502135, guid: c91600562e5e59c4abe6b086900ed484, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 5.815166
-      objectReference: {fileID: 0}
-    - target: {fileID: 4908487636588502135, guid: c91600562e5e59c4abe6b086900ed484, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4908487636588502135, guid: c91600562e5e59c4abe6b086900ed484, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.36824083
-      objectReference: {fileID: 0}
-    - target: {fileID: 4908487636588502135, guid: c91600562e5e59c4abe6b086900ed484, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4908487636588502135, guid: c91600562e5e59c4abe6b086900ed484, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4908487636588502135, guid: c91600562e5e59c4abe6b086900ed484, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4908487636588502135, guid: c91600562e5e59c4abe6b086900ed484, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4908487636588502135, guid: c91600562e5e59c4abe6b086900ed484, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4908487636588502135, guid: c91600562e5e59c4abe6b086900ed484, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4908487636588502135, guid: c91600562e5e59c4abe6b086900ed484, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7598453852620880401, guid: c91600562e5e59c4abe6b086900ed484, type: 3}
-      propertyPath: m_Name
-      value: HealTower_1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7598453852620880401, guid: c91600562e5e59c4abe6b086900ed484, type: 3}
-      propertyPath: m_TagString
-      value: tower
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: c91600562e5e59c4abe6b086900ed484, type: 3}
 --- !u!1 &1631222217
 GameObject:
   m_ObjectHideFlags: 0
@@ -34870,6 +34839,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   popupPanel: {fileID: 2066985133}
+  towerTag: tower
 --- !u!114 &1782059542
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -41937,4 +41907,4 @@ SceneRoots:
   - {fileID: 1123221490}
   - {fileID: 2058268162}
   - {fileID: 1768422183}
-  - {fileID: 1623386285}
+  - {fileID: 702440718}

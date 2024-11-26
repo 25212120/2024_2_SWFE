@@ -499,6 +499,15 @@ public partial class @PlayerMovement: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""ToggleBuild"",
+                    ""type"": ""Button"",
+                    ""id"": ""5fab4733-e999-40b7-9163-e2d6f1e1d491"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -510,6 +519,17 @@ public partial class @PlayerMovement: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Transition"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""71635db5-32a2-4edb-b874-370c0e2d7237"",
+                    ""path"": ""<Keyboard>/t"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleBuild"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -556,6 +576,7 @@ public partial class @PlayerMovement: IInputActionCollection2, IDisposable
         // CameraControl
         m_CameraControl = asset.FindActionMap("CameraControl", throwIfNotFound: true);
         m_CameraControl_Transition = m_CameraControl.FindAction("Transition", throwIfNotFound: true);
+        m_CameraControl_ToggleBuild = m_CameraControl.FindAction("ToggleBuild", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -960,11 +981,13 @@ public partial class @PlayerMovement: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_CameraControl;
     private List<ICameraControlActions> m_CameraControlActionsCallbackInterfaces = new List<ICameraControlActions>();
     private readonly InputAction m_CameraControl_Transition;
+    private readonly InputAction m_CameraControl_ToggleBuild;
     public struct CameraControlActions
     {
         private @PlayerMovement m_Wrapper;
         public CameraControlActions(@PlayerMovement wrapper) { m_Wrapper = wrapper; }
         public InputAction @Transition => m_Wrapper.m_CameraControl_Transition;
+        public InputAction @ToggleBuild => m_Wrapper.m_CameraControl_ToggleBuild;
         public InputActionMap Get() { return m_Wrapper.m_CameraControl; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -977,6 +1000,9 @@ public partial class @PlayerMovement: IInputActionCollection2, IDisposable
             @Transition.started += instance.OnTransition;
             @Transition.performed += instance.OnTransition;
             @Transition.canceled += instance.OnTransition;
+            @ToggleBuild.started += instance.OnToggleBuild;
+            @ToggleBuild.performed += instance.OnToggleBuild;
+            @ToggleBuild.canceled += instance.OnToggleBuild;
         }
 
         private void UnregisterCallbacks(ICameraControlActions instance)
@@ -984,6 +1010,9 @@ public partial class @PlayerMovement: IInputActionCollection2, IDisposable
             @Transition.started -= instance.OnTransition;
             @Transition.performed -= instance.OnTransition;
             @Transition.canceled -= instance.OnTransition;
+            @ToggleBuild.started -= instance.OnToggleBuild;
+            @ToggleBuild.performed -= instance.OnToggleBuild;
+            @ToggleBuild.canceled -= instance.OnToggleBuild;
         }
 
         public void RemoveCallbacks(ICameraControlActions instance)
@@ -1047,5 +1076,6 @@ public partial class @PlayerMovement: IInputActionCollection2, IDisposable
     public interface ICameraControlActions
     {
         void OnTransition(InputAction.CallbackContext context);
+        void OnToggleBuild(InputAction.CallbackContext context);
     }
 }

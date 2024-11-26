@@ -48,7 +48,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(CountDays());
+        //StartCoroutine(CountDays());
     }
 
     private float dayDuration = 100f;

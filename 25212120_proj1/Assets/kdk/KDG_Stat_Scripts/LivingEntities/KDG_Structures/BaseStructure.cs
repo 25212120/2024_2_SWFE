@@ -74,39 +74,13 @@ public class BaseStructure : BaseEntity
             return false;
         }
         List<ResourceRequirement> essenceRequirements = new List<ResourceRequirement>();
-
-        foreach (var requirement in upgradeRequirements)
+        if(!MaterialManager.Instance.ConsumeResource(essenceType, 1))
         {
-            // 에센스 자원만 추출
-            if (IsEssenceResource(requirement.resourceType))
-            {
-                essenceRequirements.Add(requirement);
-            }
-        }
-
-        // 에센스 자원들만으로 업그레이드가 가능한지 확인
-        bool essenceConsumed = false;
-        foreach (var requirement in essenceRequirements)
-        {
-            if (requirement.resourceType == essenceType) // 지정된 에센스 자원만 소모
-            {
-                if (!MaterialManager.Instance.ConsumeResource(requirement.resourceType, requirement.amount))
-                {
-                    // 자원이 부족하면 업그레이드 실패
-                    Debug.LogWarning($"{requirement.resourceType} 자원이 부족합니다. 외형 변경 실패.");
-                    return false;
-                }
-                essenceConsumed = true;
-                break; // 에센스는 한 종류만 사용하므로 한 번만 소모
-            }
-        }
-
-        if (!essenceConsumed)
-        {
-            // 지정된 에센스 자원이 없으면 실패
-            Debug.LogWarning("유효한 에센스 자원이 부족합니다. 외형 변경 실패.");
+            // 자원이 부족하면 업그레이드 실패
+            Debug.LogWarning($"{essenceType} 자원이 부족합니다.");
             return false;
         }
+
 
         // 에센스를 소모하고 외형 변경
         AddEssenceUpgradeScript(essenceType);

@@ -32,7 +32,7 @@ public class PlayerUIInterface : MonoBehaviour
             ShowUIOnEnter[] showUIOnEnters = FindObjectsOfType<ShowUIOnEnter>();
             foreach (var script in showUIOnEnters)
             {
-                script.player = gameObject;
+                script.playerInputManager = gameObject.GetComponent<PlayerInputManager>();
             }
 
             Transform profile = UICanvas.transform.Find("Profile");
@@ -50,7 +50,7 @@ public class PlayerUIInterface : MonoBehaviour
                 ShowUIOnEnter[] showUIOnEnters = FindObjectsOfType<ShowUIOnEnter>();
                 foreach (var script in showUIOnEnters)
                 {
-                    script.player = gameObject;
+                    script.playerInputManager = gameObject.GetComponent<PlayerInputManager>();
                 }
 
                 Transform profile = UICanvas.transform.Find("Profile");

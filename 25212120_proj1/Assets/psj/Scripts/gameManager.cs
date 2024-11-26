@@ -45,6 +45,30 @@ public class GameManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
 
+        StartCoroutine(InitializePlayer());
+
+    }
+
+    private IEnumerator InitializePlayer()
+    {
+        // 플레이어 이름 설정
+        if (GameSettings.IsMultiplayer)
+        {
+            playerName = PhotonNetwork.IsMasterClient ? "Player 1(Clone)" : "Player 2(Clone)";
+        }
+        else
+        {
+            playerName = "Player 1(Clone)";
+        }
+
+        while (GameObject.Find(playerName) == null)
+        {
+            yield return null; // 다음 프레임까지 대기
+        }
+
+        player = GameObject.Find(playerName);
+
+        pv = GetComponent<PhotonView>();
     }
 
     public List<GameObject> enemies = new List<GameObject>();

@@ -42,6 +42,7 @@ public class Enemy_DieState : BaseState<EnemyStateType>
     private IEnumerator Die()
     {
         enemyStat.gameObject.GetComponent<Collider>().enabled = false;
+        enemyStat.gameObject.GetComponent<Rigidbody>().isKinematic = true;
 
         yield return new WaitForSeconds(2.5f);
         UnityEngine.Object.Destroy(enemyStat.gameObject);

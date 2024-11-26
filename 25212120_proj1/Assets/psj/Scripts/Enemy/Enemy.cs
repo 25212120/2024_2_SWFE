@@ -5,6 +5,9 @@ using UnityEngine.AI;
 
 public abstract class Enemy : MonoBehaviour
 {
+
+    public bool isHit = false;
+
     [Header("Components")]
     public NavMeshAgent agent;
     public Animator animator;
@@ -52,6 +55,10 @@ public abstract class Enemy : MonoBehaviour
 
     protected virtual void Update()
     {
+        if (isHit == true)
+        {
+            stateMachine.PushState(EnemyStateType.Hit);
+        }
 
         HPCheck();
 

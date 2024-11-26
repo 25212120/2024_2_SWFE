@@ -42,13 +42,15 @@ public class Storm_MagicState : BaseState<PlayerStateType>
     {
         rb.useGravity = false;
         rb.constraints = RigidbodyConstraints.FreezeAll;
-        Vector3 targetPosition = playerTransform.position + new Vector3(0, 4f, 0);
-        float duration = 3f; // 1초 동안 이동
+        Vector3 startPosition = playerTransform.position;
+        Vector3 targetPosition = startPosition + new Vector3(0, 4f, 0);
+        float duration = 1.5f; 
         float elapsed = 0f;
 
         while (elapsed < duration)
         {
-            playerTransform.position = Vector3.Lerp(playerTransform.position, targetPosition, elapsed / duration);
+            float t = Mathf.SmoothStep(0, 1, elapsed / duration);
+            playerTransform.position = Vector3.Lerp(startPosition, targetPosition, t);
             elapsed += Time.deltaTime;
             yield return null;
         }

@@ -86,6 +86,7 @@ public class PoisonFog_MagicState : BaseState<PlayerStateType>
     private IEnumerator InstantaitePoisonFog()
     {
         GameObject instantiatedPoisonFog = Object.Instantiate(poisonFog, fogSpawnPos, Quaternion.Euler(-90, 0, 0));
+        instantiatedPoisonFog.GetComponentInChildren<PoisonFog>().playerStat = playerStat;
 
         magicfinished = true;
 

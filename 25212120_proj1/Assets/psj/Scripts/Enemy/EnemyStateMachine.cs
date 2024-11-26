@@ -24,6 +24,7 @@ public class EnemyStateMachine : StateManager<EnemyStateType>
         States.Add(EnemyStateType.Attack , new Enemy_AttackState(EnemyStateType.Attack, this, enemyTransform, animator, rb, monoBehaviour, enemyStat, enemy));
         States.Add(EnemyStateType.Die , new Enemy_DieState(EnemyStateType.Die, this, animator, monoBehaviour, enemyStat));
         States.Add(EnemyStateType.Idle , new Enemy_IdleState(EnemyStateType.Idle, this, animator,enemy));
+        States.Add(EnemyStateType.Hit, new Enemy_HitState(EnemyStateType.Hit, this, animator, enemy));
     }
 
     protected override void Update()

@@ -78,8 +78,8 @@ public class PlayerInputManager : MonoBehaviour
         currentLeftHandIndex = 0;
 
         // magic init (for test)
-        Magic1Swap(PlayerStateType.IceSpear_MagicState);
-        Magic2Swap(PlayerStateType.Storm_MagicState);
+        Magic1Swap(PlayerStateType.PoisonFog_MagicState);
+        Magic2Swap(PlayerStateType.DrainField_MagicState);
     }
 
     private void Update()
@@ -181,7 +181,7 @@ public class PlayerInputManager : MonoBehaviour
     private void GroundCheck()
     {
         RaycastHit hit;
-        float rayDistance = 0.2f;
+        float rayDistance = 0.4f;
         Vector3 origin = playerTransform.position + Vector3.up * 0.1f;
 
         if (Physics.Raycast(origin, Vector3.down, out hit, rayDistance))

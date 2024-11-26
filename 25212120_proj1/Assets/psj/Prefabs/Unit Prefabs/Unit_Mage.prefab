@@ -2670,7 +2670,7 @@ GameObject:
   - component: {fileID: 3038086976749050684}
   - component: {fileID: 8327181820287040137}
   - component: {fileID: 1743347147005738364}
-  - component: {fileID: 6056384777160650651}
+  - component: {fileID: 5763949873273898376}
   m_Layer: 0
   m_Name: Unit_Mage
   m_TagString: unit
@@ -2857,7 +2857,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68fb61dd52d977a49a70ec26750e15d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &6056384777160650651
+--- !u!114 &5763949873273898376
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2866,21 +2866,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 4153904212497115162}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01e50d30fb0661d458fc92875786f42b, type: 3}
+  m_Script: {fileID: 11500000, guid: ff640e9d07aa3954eb3a9abd82f3bb8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   statData:
     <level>k__BackingField: 1
-    <hpMax>k__BackingField: 50
+    <hpMax>k__BackingField: 0
     mHpCurrent: 0
-    <baseAttack>k__BackingField: 10
-    <baseMovementSpeed>k__BackingField: 1
+    <baseAttack>k__BackingField: 0
+    <baseMovementSpeed>k__BackingField: 0
     <baseDefense>k__BackingField: 0
     <baseMagicAttack_Wood>k__BackingField: 0
     <baseMagicAttack_Fire>k__BackingField: 0
     <baseMagicAttack_Ice>k__BackingField: 0
     <baseMagicAttack_Sand>k__BackingField: 0
-  upgradeRequirements: []
+  UnitLevel: 1
 --- !u!1 &4178992760490492546
 GameObject:
   m_ObjectHideFlags: 0

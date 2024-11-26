@@ -136,10 +136,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b06ee5a07bb196d4e856a896296ee58f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UnitSpawnRequirements:
+  SWUnitSpawnRequirements:
   - resourceType: 0
-    amount: 1
+    amount: 100
+  - resourceType: 1
+    amount: 50
+  - resourceType: 2
+    amount: 30
+  MGUnitSpawnRequirements:
+  - resourceType: 0
+    amount: 100
+  - resourceType: 1
+    amount: 50
+  - resourceType: 2
+    amount: 30
+  SWunitPrefab: {fileID: 0}
+  MGunitPrefab: {fileID: 0}
   unitPrefab: {fileID: 814815882946568033, guid: a23c21f0343cdb044bd1439fc54b19fc, type: 3}
+  SpawnUnitSelect: 0
   canSpawn: 0
 --- !u!65 &1254336614428809
 BoxCollider:
@@ -158,7 +172,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 3.6460347, y: 5.7617617, z: 3.706819}
   m_Center: {x: 0, y: 2.8808808, z: 0}

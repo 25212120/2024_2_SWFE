@@ -358,40 +358,48 @@ public class HighlightArea : MonoBehaviour
 
         if (turretPrefab != null)
         {
-            towerSpawn_Manager.SpawnAndConsumeMaterial(CurrentPrefab);
             Quaternion rotation = Quaternion.Euler(0f, currentRotation, 0f);
             if (GameSettings.IsMultiplayer == false)
             {
-                GameObject newTurret = Instantiate(turretPrefab, position, rotation);
-                // 타워 배치 후 콜라이더를 활성화
-                Collider turretCollider = newTurret.GetComponent<Collider>();
-                if (turretCollider != null)
+                if (towerSpawn_Manager.SpawnAndConsumeMaterial(CurrentPrefab))
                 {
-                    turretCollider.enabled = true; // 배치 후 콜라이더 활성화
-                }
+                    GameObject newTurret = Instantiate(turretPrefab, position, rotation);
+                    // 타워 배치 후 콜라이더를 활성화
+                    Collider turretCollider = newTurret.GetComponent<Collider>();
+                    if (turretCollider != null)
+                    {
+                        turretCollider.enabled = true; // 배치 후 콜라이더 활성화
+                    }
 
-                // 배치된 타워의 셀 점유 상태 업데이트
-                foreach (Vector2Int cellPos in cellsToOccupy)
+                    // 배치된 타워의 셀 점유 상태 업데이트
+                    foreach (Vector2Int cellPos in cellsToOccupy)
+                    {
+                        occupiedCell_Manager.occupiedCells.Add(cellPos);
+                    }
+                }
+                else
                 {
-                    occupiedCell_Manager.occupiedCells.Add(cellPos);
+                    Debug.Log("자원부족으로 설치 불가");
                 }
             }
             if (GameSettings.IsMultiplayer == true)
             {
-                GameObject newTurret = PhotonNetwork.Instantiate(turretPrefab.name, position, rotation);
-                // 타워 배치 후 콜라이더를 활성화
-                Collider turretCollider = newTurret.GetComponent<Collider>();
-                if (turretCollider != null)
+                if (towerSpawn_Manager.SpawnAndConsumeMaterial(CurrentPrefab))
                 {
-                    turretCollider.enabled = true; // 배치 후 콜라이더 활성화
-                }
+                    GameObject newTurret = PhotonNetwork.Instantiate(turretPrefab.name, position, rotation);
+                    // 타워 배치 후 콜라이더를 활성화
+                    Collider turretCollider = newTurret.GetComponent<Collider>();
+                    if (turretCollider != null)
+                    {
+                        turretCollider.enabled = true; // 배치 후 콜라이더 활성화
+                    }
 
-                // 배치된 타워의 셀 점유 상태 업데이트
-                foreach (Vector2Int cellPos in cellsToOccupy)
-                {
-                    occupiedCell_Manager.occupiedCells.Add(cellPos);
+                    // 배치된 타워의 셀 점유 상태 업데이트
+                    foreach (Vector2Int cellPos in cellsToOccupy)
+                    {
+                        occupiedCell_Manager.occupiedCells.Add(cellPos);
+                    }
                 }
-
             }
         }
         else
@@ -458,7 +466,7 @@ public class HighlightArea : MonoBehaviour
                 previewTurret.SetActive(false); // 초기에는 비활성화
             }
                 // 프리팹의 크기 추출
-                if (turretPrefabName == "Wall_1")
+            if (turretPrefabName == "Wall_1")
             {
                 cellSize_Horizontal = 1.25f;
                 cellSize_Virtical = 0.4f;

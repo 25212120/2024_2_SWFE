@@ -144,37 +144,61 @@ public class TowerSpawn_Manager : MonoBehaviour
     // 현재 프리팹에 해당하는 요구 자원 리스트 반환하는 함수
     private List<ResourceRequirement> GetSpawnRequirementsForPrefab(string currentPrefab)
     {
+        List<ResourceRequirement> requirements = null;
+
         switch (currentPrefab)
         {
             case "Core":
-                return CoreSpawnRequirements;
+                requirements = CoreSpawnRequirements;
+                break;
 
             case "MagicTower_1":
-                return MagicTowerSpawnRequirements;
+                requirements = MagicTowerSpawnRequirements;
+                break;
 
             case "RocketTower_1":
-                return RocketTowerSpawnRequirements;
+                requirements = RocketTowerSpawnRequirements;
+                break;
 
             case "LightTower_1":
-                return LightTowerSpawnRequirements;
+                requirements = LightTowerSpawnRequirements;
+                break;
 
             case "HealTower_1":
-                return HealTowerSpawnRequirements;
+                requirements = HealTowerSpawnRequirements;
+                break;
 
             case "ArrowTower_1":
-                return ArrowTowerSpawnRequirements;
+                requirements = ArrowTowerSpawnRequirements;
+                break;
 
             case "SpawnTower_1":
-                return SWSpawnTowerSpawnRequirements;
+                requirements = SWSpawnTowerSpawnRequirements;
+                break;
 
             case "SpawnTower_2":
-                return MGSpawnTowerSpawnRequirements;
+                requirements = MGSpawnTowerSpawnRequirements;
+                break;
+
             case "Wall_1":
-                return WallSpawnRequirements;
+                requirements = WallSpawnRequirements;
+                break;
 
             default:
                 Debug.LogWarning("알 수 없는 타워 프리팹: " + currentPrefab);
                 return null;
         }
+
+        // 디버그 로그로 요구 자원 리스트 출력
+        if (requirements != null)
+        {
+            Debug.Log($"{currentPrefab}에 할당된 요구 자원 리스트:");
+
+            foreach (var requirement in requirements)
+            {
+                Debug.Log($"{requirement.resourceType}: {requirement.amount}");
+            }
+        }
+        return requirements;
     }
 }

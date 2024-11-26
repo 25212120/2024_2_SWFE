@@ -34,7 +34,28 @@ public class CameraTransitionManager : MonoBehaviour
         pv = GetComponent<PhotonView>();
     }
 
-    
+    private void Start()
+    {
+        GameManager gamemanager = FindObjectOfType<GameManager>();
+        if (gamemanager != null)
+        {
+            highlightArea = gamemanager.GetComponent<HighlightArea>();
+            spawnPoint_Select = gamemanager.GetComponent<SpawnPoint_Select>();
+            if(highlightArea != null )
+            {
+                Debug.Log("highlight 할당 안 됨");
+            }
+            if(spawnPoint_Select != null)
+            {
+                Debug.Log("spawnPoint 할당 안 됨");
+            }
+        }
+        else
+        {
+            Debug.Log("게임메니져에서 받아올 수 없음");
+        }
+    }
+
 
     private void OnEnable()
     {

@@ -218,7 +218,7 @@ public class SpawnPoint_Select : MonoBehaviour
                 Unit_SpawnManager spawnManager = spawnStructure.unitSpawnManager;
 
                 // `CanSpawn()`이 가능하다면 스폰 가능
-                if (spawnManager != null && spawnManager.CanSpawn())
+                if (spawnManager != null)
                 {
                     return true; // 스폰 포인트 설정 가능
                 }
@@ -273,7 +273,7 @@ public class SpawnPoint_Select : MonoBehaviour
             {
                 Unit_SpawnManager spawnManager = spawnStructure.unitSpawnManager;
 
-                if (spawnManager != null && spawnManager.CanSpawn()) // 스폰이 가능한 타워인지 확인
+                if (spawnManager != null) 
                 {
                     spawnStructure.unitSpawnManager.SetSpawnPoint(cellPosition); // 스폰 포인트 설정
 

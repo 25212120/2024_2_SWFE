@@ -60,9 +60,6 @@ public class PlayerInputManager : MonoBehaviour
     private EquipmentInventory equipmentInventory;
 
     private StateManager<PlayerStateType> stateManager;
-
-    public GameObject dim;
-
     private void Awake()
     {
         playerInput = new PlayerMovement();

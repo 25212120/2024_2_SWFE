@@ -23,7 +23,6 @@ public class Scope_MagicState : BaseState<PlayerStateType>
     private GameObject rangeSprite;
     private GameObject instantiatedSprite;
 
-    private GameObject overlayObject;
 
     public override void EnterState()
     {
@@ -31,12 +30,10 @@ public class Scope_MagicState : BaseState<PlayerStateType>
         animator.SetBool("moveInput", false);
         playerInputManager.isPerformingAction = true;
 
-        overlayObject = playerInputManager.dim;
         rangeSprite = playerInputManager.magicRangeSprite;
 
         Cursor.visible = false;
         instantiatedSprite = Object.Instantiate(rangeSprite);
-        overlayObject.SetActive(true);
     }
 
     public override void UpdateState()
@@ -52,7 +49,6 @@ public class Scope_MagicState : BaseState<PlayerStateType>
     public override void ExitState()
     {
         Object.Destroy(instantiatedSprite);
-        overlayObject.SetActive(false);
         Cursor.visible = true;
     }
 

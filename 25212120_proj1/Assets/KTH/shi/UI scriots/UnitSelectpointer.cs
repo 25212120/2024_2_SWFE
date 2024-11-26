@@ -22,8 +22,6 @@ public class UnitSelectpointer : MonoBehaviour
             skillButtons[i].onClick.AddListener(() => OnSkillButtonClick(index));
         }
 
-
-
         // 모든 하이라이트 이미지를 초기화 (비활성화)
         foreach (Image highlightImage in highlightImages)
         {
@@ -57,10 +55,12 @@ public class UnitSelectpointer : MonoBehaviour
         
         
     }
+
     void PurchaseButtonClick()
     {
         spawnManager.Spawn();
     }
+
     public int SelectedIndex()
     {
         return highlightedSkillIndex;

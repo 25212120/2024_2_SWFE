@@ -68,11 +68,14 @@ public class ChunkManager : MonoBehaviourPunCallbacks
 
         // "Player" 태그를 가진 로컬 플레이어 찾기
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+      
         foreach (var p in players)
         {
+            Debug.Log(p.name);
             PhotonView pv = p.GetComponent<PhotonView>();
             if (GameSettings.IsMultiplayer == true)
             {
+
                 if (pv != null && pv.IsMine)
                 {
                     player = p;

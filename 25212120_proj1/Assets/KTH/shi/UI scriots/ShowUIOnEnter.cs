@@ -19,7 +19,6 @@ public class ShowUIOnEnter : MonoBehaviour
 
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player"); // 플레이어를 찾음
         playerInputManager = player.GetComponent<PlayerInputManager>();
 
         if (uiPanel != null)

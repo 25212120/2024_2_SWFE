@@ -33,6 +33,12 @@ public class UnitController : MonoBehaviour
         playerInput = new PlayerMovement();
     }
 
+    private void Start()
+    {
+        GameObject selectBox = GameObject.Find("Select");
+        selectionBox = selectBox.GetComponentInChildren<RectTransform>();
+    }
+
     private void OnEnable()
     {
 

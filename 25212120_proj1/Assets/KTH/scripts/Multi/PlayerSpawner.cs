@@ -17,6 +17,7 @@ public class PlayerSpawner : MonoBehaviourPunCallbacks
             return;
         }
 
+
         if (PhotonNetwork.IsConnected && PhotonNetwork.InRoom)
         {
             // 마스터 클라이언트와 일반 클라이언트에 따라 스폰 위치 및 프리팹 선택

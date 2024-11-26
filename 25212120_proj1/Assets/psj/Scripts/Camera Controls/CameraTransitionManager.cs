@@ -3,6 +3,7 @@ using Cinemachine;
 using UnityEngine.InputSystem;
 using System.Collections;
 using Photon.Pun;
+using UnityEditor.Tilemaps;
 
 public class CameraTransitionManager : MonoBehaviour
 {
@@ -27,33 +28,124 @@ public class CameraTransitionManager : MonoBehaviour
 
     private void Awake()
     {
+        playerInput = new PlayerMovement();
+    }
+
+    private void Start()
+    {
+        if (GameSettings.IsMultiplayer == false)
+        {
+            Camera camera = Camera.main;
+            mainCamera = camera;
+            if (mainCamera == null) Debug.Log("1");
+
+            GameObject miniMapCamera = GameObject.FindWithTag("miniMapCam");
+            miniMapCamera.GetComponentInChildren<MiniMapCameraController>().player = gameObject;
+            if (miniMapCamera.GetComponentInChildren<MiniMapCameraController>().player == null) Debug.Log("2");
+
+            CinemachineVirtualCamera[] virtualCameras = FindObjectsOfType<CinemachineVirtualCamera>();
+            foreach (var cam in virtualCameras)
+            {
+                if (cam.CompareTag("IsoCam"))
+                {
+                    isoCamera = cam;
+                    isoCamera.Follow = gameObject.transform;
+                }
+                else if (cam.CompareTag("TopCam"))
+                {
+                    topViewCamera = cam;
+                    topViewCamera.Follow = gameObject.transform;
+                }
+            }
+            if (isoCamera == null) Debug.Log("3");
+            if (topViewCamera == null) Debug.Log("4");
+        }
+        else
+        {
+            pv = GetComponent<PhotonView>();
+            Debug.Log("1556");
+            if (pv.IsMine == true)
+            {
+                Debug.Log("1557");
+                Camera camera = Camera.main;
+                mainCamera = camera;
+                if (mainCamera == null) Debug.Log("1");
+                Debug.Log("1558");
+                GameObject miniMapCamera = GameObject.FindWithTag("miniMapCam");
+                miniMapCamera.GetComponentInChildren<MiniMapCameraController>().player = gameObject;
+                if (miniMapCamera.GetComponentInChildren<MiniMapCameraController>().player == null) Debug.Log("2");
+                Debug.Log("1559");
+                CinemachineVirtualCamera[] virtualCameras = FindObjectsOfType<CinemachineVirtualCamera>();
+                Debug.Log("1560");
+                foreach (var cam in virtualCameras)
+                {
+                    if (cam.CompareTag("IsoCam"))
+                    {
+                        isoCamera = cam;
+                        isoCamera.Follow = gameObject.transform;
+                        Debug.Log("1561");
+                    }
+                    
+                    else if (cam.CompareTag("TopCam"))
+                    {
+                        topViewCamera = cam;
+                        topViewCamera.Follow = gameObject.transform;
+                        Debug.Log("1562");
+                    }
+                }
+                if (isoCamera == null) Debug.Log("3");
+                if (topViewCamera == null) Debug.Log("4");
+            }
+        }
+
         isoCamera.Priority = 10;
         topViewCamera.Priority = 9;
         mainCamera.orthographic = false;
-        playerInput = new PlayerMovement();
-        pv = GetComponent<PhotonView>();
     }
 
-    
+
 
     private void OnEnable()
     {
-        if (pv.IsMine == false) return;
-
+        if (GameSettings.IsMultiplayer == true)
+        {
+            if (pv.IsMine == false) return;
+            else
+            {
+                playerInput.Enable();
+                playerInput.CameraControl.Transition.performed += OnScrollPerformed;
+                playerInput.CameraControl.ToggleBuild.performed += OnToggleHighlightArea;
+                playerInput.CameraControl.SpawnPoint_Select.performed += OnToggleSpawnPoint;
+            }
+        }
+        else { 
         playerInput.Enable();
         playerInput.CameraControl.Transition.performed += OnScrollPerformed;
         playerInput.CameraControl.ToggleBuild.performed += OnToggleHighlightArea;
         playerInput.CameraControl.SpawnPoint_Select.performed += OnToggleSpawnPoint;
+        }
     }
 
     private void OnDisable()
     {
-
-        if (pv.IsMine == false) return;
-        playerInput.CameraControl.Transition.performed -= OnScrollPerformed;
-        playerInput.CameraControl.ToggleBuild.performed -= OnToggleHighlightArea;
-        playerInput.CameraControl.SpawnPoint_Select.performed -= OnToggleSpawnPoint;
-        playerInput.Disable();
+        if (GameSettings.IsMultiplayer == true)
+        {
+            if (pv.IsMine == false) return;
+            else 
+            {
+                playerInput.CameraControl.Transition.performed -= OnScrollPerformed;
+                playerInput.CameraControl.ToggleBuild.performed -= OnToggleHighlightArea;
+                playerInput.CameraControl.SpawnPoint_Select.performed -= OnToggleSpawnPoint;
+                playerInput.Disable();
+            }
+        }
+        else
+        {
+            playerInput.CameraControl.Transition.performed -= OnScrollPerformed;
+            playerInput.CameraControl.ToggleBuild.performed -= OnToggleHighlightArea;
+            playerInput.CameraControl.SpawnPoint_Select.performed -= OnToggleSpawnPoint;
+            playerInput.Disable();
+        }
     }
 
     private void OnScrollPerformed(InputAction.CallbackContext context)

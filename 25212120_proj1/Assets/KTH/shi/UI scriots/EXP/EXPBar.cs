@@ -18,6 +18,7 @@ public class EXPBar : MonoBehaviour
         {
             yield return null;
         }
+        Debug.Log("canvas");
         player = GameManager.instance.player.GetComponent<ExpManager>();
         float maxEXP = player.EXPMAX();
         EXPBarSlider.value = player.GetCurrentEXP();

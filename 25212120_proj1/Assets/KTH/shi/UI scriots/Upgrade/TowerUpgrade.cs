@@ -1,81 +1,89 @@
-using Photon.Chat.UtilityScripts;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
+using UnityEngine.UI;
 public class TowerUpgrade : MonoBehaviour
 {
     [Header("UI Elements")]
-    public Button upgradeButton;             // 업그레이드 버튼
-    public TextMeshProUGUI towerpreLevel; 
-    public TextMeshProUGUI towerLevelText;              // 타워 레벨 표시
-    public TextMeshProUGUI resourceRequirementsText;    // 업그레이드에 필요한 자원 표시
+    public GameObject upgradeUI;                // 업그레이드 UI
+    public TextMeshProUGUI towerTypeText;       // 타워 종류 표시 텍스트
+    public TextMeshProUGUI towerLevelText;      // 현재 타워 레벨 텍스트
+    public TextMeshProUGUI nextLevelText;       // 업그레이드 후 레벨 텍스트
+    public Button upgradeButton;               // 업그레이드 버튼
 
-    private BaseStructure baseStructure;     // 현재 선택된 타워
+    private BaseStructure selectedBaseStructure; // 현재 선택된 타워의 BaseStructure
 
-    void Start()
+    void Awake()
     {
-        // 업그레이드 버튼에 리스너 추가
-        upgradeButton.onClick.AddListener(UpgradeTower);
+        upgradeUI.SetActive(false); // 게임 시작 시 UI 비활성화
     }
 
     void Update()
     {
+        // ESC 키로 UI 닫기
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            CloseUpgradeUI();
+        }
+    }
+    
+    void OnMouseDown()
+    {
+        // 클릭된 타워의 BaseStructure를 가져옴
+        BaseStructure baseStructure = GetComponent<BaseStructure>();
+
         if (baseStructure != null)
         {
-            // 타워 정보 업데이트
-            UpdateUI();
+            Debug.Log($"Clicked on: {baseStructure.GetType().Name}");
+            selectedBaseStructure = baseStructure;
+            OpenUpgradeUI(); // UI 열기
+        }
+        else
+        {
+            Debug.LogWarning("This object is not a valid tower.");
         }
     }
 
-    // 타워 정보를 설정하는 함수
-    public void SetSelectedTower(BaseStructure tower)
+    // 업그레이드 UI 열기
+    private void OpenUpgradeUI()
     {
-        baseStructure = tower;
-        UpdateUI(); // UI를 초기화
-    }
-
-    // 타워 정보를 기반으로 UI 업데이트
-    private void UpdateUI()
-    {
-        if (baseStructure != null)
+        if (selectedBaseStructure != null)
         {
-            towerpreLevel.text = $"Tower Level: {baseStructure.TowerLevel - 1}";
-            // 타워 레벨 표시
-            towerLevelText.text = $"Tower Level: {baseStructure.TowerLevel}";
+          
 
-            // 업그레이드에 필요한 자원 표시
-            resourceRequirementsText.text = GetResourceRequirementsText(baseStructure.upgradeRequirements);
+            // 레벨 정보 업데이트
+            towerLevelText.text = $"Current Level: {selectedBaseStructure.TowerLevel}";
+            nextLevelText.text = $"Next Level: {selectedBaseStructure.TowerLevel + 1}";
+
+            // 업그레이드 버튼 활성화
+            upgradeButton.interactable = true;
+
+            // UI 활성화
+            upgradeUI.SetActive(true);
         }
     }
 
-    // 업그레이드에 필요한 자원 정보를 텍스트로 변환
-    private string GetResourceRequirementsText(List<BaseStructure.ResourceRequirement> requirements)
+    // 업그레이드 버튼 클릭 처리
+    public void OnUpgradeButtonClicked()
     {
-        string result = "Upgrade Requirements:\n";
-        foreach (var req in requirements)
+        if (selectedBaseStructure != null)
         {
-            result += $"{req.resourceType}: {req.amount}\n";
-        }
-        return result;
-    }
-
-    // 업그레이드 버튼 동작
-    private void UpgradeTower()
-    {
-        if (baseStructure != null)
-        {
-            // 업그레이드 시도
-            bool success = baseStructure.UpgradeWithoutEssence();
+            bool success = selectedBaseStructure.UpgradeWithoutEssence();
             if (success)
             {
-                Debug.Log("Upgrade successful!");
-                UpdateUI(); // 업그레이드 후 UI 갱신
+                Debug.Log($"Tower upgraded to level {selectedBaseStructure.TowerLevel}");
+                OpenUpgradeUI(); // 업그레이드 후 UI 갱신
             }
             else
             {
-                Debug.LogWarning("Upgrade failed. Not enough resources.");
+                Debug.LogWarning("Upgrade failed.");
             }
         }
+    }
+
+    // 업그레이드 UI 닫기
+    public void CloseUpgradeUI()
+    {
+        upgradeUI.SetActive(false);
+        selectedBaseStructure = null;
     }
 }

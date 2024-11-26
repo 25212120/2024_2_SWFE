@@ -941,6 +941,7 @@ MonoBehaviour:
   corePlacementRange: 20
   PT_V: {x: 0, y: 0, z: 0}
   PT_R: {x: 0, y: 0, z: 0, w: 1}
+  isActive: 1
   CurrentPrefab: 
 --- !u!4 &272471309
 Transform:
@@ -4670,6 +4671,10 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6673753402188102532, guid: f9c137e7891118a4684446bdef465b3a, type: 3}
+      propertyPath: sceneViewId
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7114948607715094834, guid: f9c137e7891118a4684446bdef465b3a, type: 3}
       propertyPath: selectionBox
       value: 
@@ -5595,6 +5600,7 @@ MonoBehaviour:
   ImpossibleMaterial: {fileID: 2100000, guid: 61513cc9a73b9ca429081967073c5cf2, type: 2}
   occupiedCell_Manager: {fileID: 1414245391}
   spawnStructures: []
+  isActive: 1
 --- !u!114 &1414245391
 MonoBehaviour:
   m_ObjectHideFlags: 0

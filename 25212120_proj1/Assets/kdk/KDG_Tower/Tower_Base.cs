@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Linq; // LINQ를 사용하여 리스트 정렬
-
+using Photon.Pun;
 public class Tower_Base : MonoBehaviour
 {
     public Transform target;
@@ -34,6 +34,8 @@ public class Tower_Base : MonoBehaviour
     void Start()
     {
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
+        PhotonNetwork.ConnectUsingSettings();
+
     }
 
     void UpdateTarget()
@@ -120,15 +122,33 @@ public class Tower_Base : MonoBehaviour
         for (int i = 0; i < Mathf.Min(maxTargetsToAttack, enemiesInRange.Count); i++)
         {
             GameObject enemy = enemiesInRange[i];
-            // 총알 발사
-            GameObject bulletGO = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-            var bulletScript = bulletGO.GetComponent<IBullet>();
-
-            if (bulletScript != null)
+            if (GameSettings.IsMultiplayer == false)
             {
-                bulletScript.SetTower(tower); // 타워를 총알에 전달
-                bulletScript.Seek(enemy.transform); // 목표 설정
-                bulletScript.SetTargetPosition(enemy.transform.position); // 목표 위치 설정
+                // 총알 발사
+                GameObject bulletGO = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+
+                var bulletScript = bulletGO.GetComponent<IBullet>();
+
+                if (bulletScript != null)
+                {
+                    bulletScript.SetTower(tower); // 타워를 총알에 전달
+                    bulletScript.Seek(enemy.transform); // 목표 설정
+                    bulletScript.SetTargetPosition(enemy.transform.position); // 목표 위치 설정
+                }
+            }
+            if(GameSettings.IsMultiplayer == true)
+            {
+                // 총알 발사
+                GameObject bulletGO = PhotonNetwork.Instantiate(bulletPrefab.name, firePoint.position, firePoint.rotation);
+
+                var bulletScript = bulletGO.GetComponent<IBullet>();
+
+                if (bulletScript != null)
+                {
+                    bulletScript.SetTower(tower); // 타워를 총알에 전달
+                    bulletScript.Seek(enemy.transform); // 목표 설정
+                    bulletScript.SetTargetPosition(enemy.transform.position); // 목표 위치 설정
+                }
             }
         }
     }

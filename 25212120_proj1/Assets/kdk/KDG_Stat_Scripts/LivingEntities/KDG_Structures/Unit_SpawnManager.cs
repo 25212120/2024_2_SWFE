@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 using static BaseStructure;
 
@@ -27,6 +28,8 @@ public class Unit_SpawnManager : MonoBehaviour
             spawnPoint = spawnPointObject.transform;
             spawnPoint.position = transform.position; // 타워의 기본 위치를 스폰 위치로 설정
         }
+        PhotonNetwork.ConnectUsingSettings();
+
     }
 
     public bool CanSpawn()
@@ -72,15 +75,31 @@ public class Unit_SpawnManager : MonoBehaviour
 
     private void PerformSpawn()
     {
-        if (unitPrefab != null && spawnPoint != null)
+        if (GameSettings.IsMultiplayer == false)
         {
-            // 스폰 포인트에서 유닛을 소환
-            Instantiate(unitPrefab, spawnPoint.position, spawnPoint.rotation);
-            Debug.Log("유닛이 소환되었습니다.");
+            if (unitPrefab != null && spawnPoint != null)
+            {
+                // 스폰 포인트에서 유닛을 소환
+                Instantiate(unitPrefab, spawnPoint.position, spawnPoint.rotation);
+                Debug.Log("유닛이 소환되었습니다.");
+            }
+            else
+            {
+                Debug.LogWarning("유닛 프리팹 또는 스폰 포인트가 설정되지 않았습니다.");
+            }
         }
-        else
+        if (GameSettings.IsMultiplayer == true)
         {
-            Debug.LogWarning("유닛 프리팹 또는 스폰 포인트가 설정되지 않았습니다.");
+            if (unitPrefab != null && spawnPoint != null)
+            {
+                // 스폰 포인트에서 유닛을 소환
+                PhotonNetwork.Instantiate(unitPrefab.name, spawnPoint.position, spawnPoint.rotation);
+                Debug.Log("유닛이 소환되었습니다.");
+            }
+            else
+            {
+                Debug.LogWarning("유닛 프리팹 또는 스폰 포인트가 설정되지 않았습니다.");
+            }
         }
     }
 

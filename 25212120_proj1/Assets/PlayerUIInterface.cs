@@ -10,55 +10,53 @@ public class PlayerUIInterface : MonoBehaviour
     private GameObject UICanvas;
     private GameObject HPCanvas;
     string playerName;
-    GameObject player;
 
-
-    private void Awake()
-    {
-        pv = GetComponent<PhotonView>();
-    }
 
     private void Start()
     {
+        pv = GetComponent<PhotonView>();
+        
         if (GameSettings.IsMultiplayer == true) {
             playerName = PhotonNetwork.IsMasterClient ? "Player 1(Clone)" : "Player 2(Clone)";
-            player = GameObject.Find(playerName);
         }
         else
         {
-            player = GameObject.Find("Player 1(Clone)");
+            playerName = "Player 1(Clone)";
         }
 
         if (GameSettings.IsMultiplayer == false)
         {
             UICanvas = GameObject.FindWithTag("UICanvas");
-            HPCanvas = GameObject.FindWithTag("HPCanvas");
+     
 
             ShowUIOnEnter[] showUIOnEnters = FindObjectsOfType<ShowUIOnEnter>();
             foreach (var script in showUIOnEnters)
             {
-                script.player = player;
+                script.player = gameObject;
             }
 
-            UICanvas.GetComponentInChildren<HealthBar>().player = player.GetComponent<PlayerStat>();
-            UICanvas.GetComponentInChildren<EXPBar>().player = player.GetComponent<ExpManager>();
-            UICanvas.GetComponentInChildren<EXPLEVEL>().player = player.GetComponent<PlayerStat>();
+            Transform profile = UICanvas.transform.Find("Profile");
+
+            profile.GetComponentInChildren<HealthBar>().player = gameObject.GetComponent<PlayerStat>();
+            profile.GetComponentInChildren<EXPBar>().player = gameObject.GetComponent<ExpManager>();
+            profile.GetComponentInChildren<EXPLEVEL>().player = gameObject.GetComponent<PlayerStat>();
         }
         else
         {
             if (pv.IsMine == true)
             {
                 UICanvas = GameObject.FindWithTag("UICanvas");
-                HPCanvas = GameObject.FindWithTag("HPCanvas");
 
                 ShowUIOnEnter[] showUIOnEnters = FindObjectsOfType<ShowUIOnEnter>();
                 foreach (var script in showUIOnEnters)
                 {
-                    script.player = player;
+                    script.player = gameObject;
                 }
-                UICanvas.GetComponentInChildren<HealthBar>().player = player.GetComponent<PlayerStat>();
-                UICanvas.GetComponentInChildren<EXPBar>().player = player.GetComponent<ExpManager>();
-                UICanvas.GetComponentInChildren<EXPLEVEL>().player = player.GetComponent<PlayerStat>();
+
+                Transform profile = UICanvas.transform.Find("Profile");
+                profile.GetComponentInChildren<HealthBar>().player = gameObject.GetComponent<PlayerStat>();
+                profile.GetComponentInChildren<EXPBar>().player = gameObject.GetComponent<ExpManager>();
+                profile.GetComponentInChildren<EXPLEVEL>().player = gameObject.GetComponent<PlayerStat>();
             }
         }   
     }

@@ -1,6 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using Photon.Pun;
+using System.Collections;
+using Unity.VisualScripting;
 
 public class ShowUIOnEnter : MonoBehaviour
 {
@@ -16,11 +19,12 @@ public class ShowUIOnEnter : MonoBehaviour
     private PlayerInputManager playerInputManager;
     private GameObject selectedButton; // 현재 선택된 버튼을 나타냄
     private int selectedWeaponIndex = -1; // 선택된 무기의 인덱스
-
+    private string playerName;
+    
+    
     void Start()
     {
         playerInputManager = player.GetComponent<PlayerInputManager>();
-
         if (uiPanel != null)
         {
             uiPanel.SetActive(false); // 시작 시 UI 창 비활성화
@@ -30,8 +34,6 @@ public class ShowUIOnEnter : MonoBehaviour
         {
             radiusEffect.SetActive(false); // 시작 시 감지 반경 이펙트 비활성화
         }
-
-        
 
         // 모든 무기 UI 패널 비활성화
         foreach (GameObject panel in weaponUIPanels)

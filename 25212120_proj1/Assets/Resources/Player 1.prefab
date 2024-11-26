@@ -73157,9 +73157,10 @@ GameObject:
   - component: {fileID: 3219944762871020176}
   - component: {fileID: 8564052558019536798}
   - component: {fileID: 2330212804940113696}
+  - component: {fileID: 5820752534652817809}
   m_Layer: 7
   m_Name: Player 1
-  m_TagString: Player
+  m_TagString: Player 1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -73750,6 +73751,19 @@ MonoBehaviour:
   m_SynchronizeLayers:
   - SynchronizeType: 1
     LayerIndex: 0
+--- !u!114 &5820752534652817809
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1972696283352838283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 363c4a9f455370047abff794230beb4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1972696283352838283}
 --- !u!1 &1983642765040295630
 GameObject:
   m_ObjectHideFlags: 0

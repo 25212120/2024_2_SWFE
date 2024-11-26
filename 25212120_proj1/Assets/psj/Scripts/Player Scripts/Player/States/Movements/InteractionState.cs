@@ -17,7 +17,7 @@ public class InteractionState : BaseState<PlayerStateType>
     }
 
     private GameObject targetResource;
-    private Material_Test material;
+    private BaseMaterial material;
 
     public override void EnterState()
     {
@@ -27,7 +27,7 @@ public class InteractionState : BaseState<PlayerStateType>
         else
         {
 
-            material = targetResource.GetComponent<Material_Test>();
+            material = targetResource.GetComponent<BaseMaterial>();
             material.MaterialDie(4f);
             playerInputManager.isPerformingAction = true;
         }

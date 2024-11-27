@@ -14,7 +14,11 @@ public class TowerUpgrade : MonoBehaviour
 
     void Awake()
     {
-        
+        if (!this.enabled) // 만약 이 스크립트가 비활성화 되어 있다면
+        {
+            this.enabled = true; // 스크립트를 다시 활성화
+        }
+
 
         if (upgradeUI == null)
         {
@@ -40,7 +44,14 @@ public class TowerUpgrade : MonoBehaviour
 
         upgradeUI.SetActive(false); // 초기 비활성화
     }
-
+    void Start()
+    {
+        // 게임 시작 시 스크립트가 비활성화된 경우 자동으로 활성화
+        if (!this.enabled)
+        {
+            this.enabled = true;
+        }
+    }
     void Update()
     {
         // ESC 키로 UI 닫기
@@ -54,7 +65,7 @@ public class TowerUpgrade : MonoBehaviour
     {
         // 클릭된 타워의 BaseStructure를 가져옴
         BaseStructure baseStructure = GetComponent<BaseStructure>();
-
+        Debug.Log("클릭은 됨.");
         if (baseStructure != null)
         {
             Debug.Log($"Clicked on: {baseStructure.GetType().Name}");

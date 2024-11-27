@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 7022723292653158215}
   - component: {fileID: 1254336614428809}
   - component: {fileID: 5014927217192641633}
+  - component: {fileID: -8774185324523145845}
   m_Layer: 0
   m_Name: SpawnTower_2
   m_TagString: Untagged
@@ -136,10 +137,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b06ee5a07bb196d4e856a896296ee58f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UnitSpawnRequirements:
+  SWUnitSpawnRequirements:
   - resourceType: 0
-    amount: 1
+    amount: 100
+  - resourceType: 1
+    amount: 50
+  - resourceType: 2
+    amount: 30
+  MGUnitSpawnRequirements:
+  - resourceType: 0
+    amount: 100
+  - resourceType: 1
+    amount: 50
+  - resourceType: 2
+    amount: 30
+  SWunitPrefab: {fileID: 0}
+  MGunitPrefab: {fileID: 0}
   unitPrefab: {fileID: 814815882946568033, guid: a23c21f0343cdb044bd1439fc54b19fc, type: 3}
+  SpawnUnitSelect: 0
   canSpawn: 0
 --- !u!65 &1254336614428809
 BoxCollider:
@@ -178,3 +193,15 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 2.881, z: 0}
   m_TimeToStationary: 0.5
+--- !u!114 &-8774185324523145845
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4821929569054212287}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a93bc86e2bd5144493a6e4e897755b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

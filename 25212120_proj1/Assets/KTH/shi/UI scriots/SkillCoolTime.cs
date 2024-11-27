@@ -1,118 +1,185 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class SkillCoolTime : MonoBehaviour
 {
-    [SerializeField] public PlayerCoolDownManager coolDownManager;
+    [SerializeField] private PlayerCoolDownManager coolDownManager;
+    [SerializeField] private PlayerInputManager playerInputManager;
     [SerializeField] private Image dashCoolTimeImage;
-
-    // 선택된 무기 및 마법 스킬 이미지
     [SerializeField] private Image weaponSkillCoolTimeImage;
     [SerializeField] private Image magicSkill1CoolTimeImage;
     [SerializeField] private Image magicSkill2CoolTimeImage;
 
-    private int selectedWeaponIndex = 0;
-    private PlayerStateType selectedMagicSkill1 = PlayerStateType.None;
-    private PlayerStateType selectedMagicSkill2 = PlayerStateType.None;
+    private Coroutine dashCoroutine = null;
+    private Coroutine weaponCoroutine = null;
+    private Coroutine magic1Coroutine = null;
+    private Coroutine magic2Coroutine = null;
 
-    private PlayerInputManager playerInputManager;
-
-    // 쿨타임 데이터를 배열로 저장
-    private Dictionary<PlayerStateType, float> magicCoolDownTimes = new Dictionary<PlayerStateType, float>();
-    private float[] weaponSkillCoolDownTimes = new float[] { 10.0f, 12.0f, 8.0f, 15.0f }; // 예시로 각 무기 쿨타임 설정
-    private float dashCoolDownTime = 5.0f;
-
-    void Start()
+    private void Start()
     {
-        // PlayerInputManager 컴포넌트를 찾아서 참조합니다.
-        playerInputManager = FindAnyObjectByType<PlayerInputManager>();
+       
+        // 처음 모든 UI 비활성화
+        dashCoolTimeImage.enabled = false;
+        weaponSkillCoolTimeImage.enabled = false;
+        magicSkill1CoolTimeImage.enabled = false;
+        magicSkill2CoolTimeImage.enabled = false;
 
-        // 초기 선택된 무기 및 마법 스킬 설정
-        selectedWeaponIndex = playerInputManager.currentRightHandIndex;
-        selectedMagicSkill1 = playerInputManager.magic1;
-        selectedMagicSkill2 = playerInputManager.magic2;
-
-        // 마법 쿨타임 초기화
-        magicCoolDownTimes[PlayerStateType.FireBall_MagicState] = 8.0f;
-        magicCoolDownTimes[PlayerStateType.Meteor_MagicState] = 10.0f;
-        magicCoolDownTimes[PlayerStateType.PoisonFog_MagicState] = 7.0f;
-        magicCoolDownTimes[PlayerStateType.DrainField_MagicState] = 9.0f;
-        magicCoolDownTimes[PlayerStateType.IceSpear_MagicState] = 6.0f;
-        magicCoolDownTimes[PlayerStateType.Storm_MagicState] = 11.0f;
-        magicCoolDownTimes[PlayerStateType.RockFall_MagicState] = 10.0f;
-        magicCoolDownTimes[PlayerStateType.EarthQuake_MagicState] = 12.0f;
+        
     }
 
-    void Update()
+    private void Update()
     {
-        UpdateDashCoolDown();
-        UpdateWeaponSkillCoolDown();
-        UpdateMagicCoolDown();
-    }
+        
 
-    private void UpdateDashCoolDown()
-    {
-        if (!coolDownManager.CanDash(selectedWeaponIndex))
+        // 대쉬 쿨타임 업데이트
+        if (coolDownManager.isDashOnCoolTime && dashCoroutine == null)
         {
-            StartCoroutine(UpdateCoolDownUI(dashCoolTimeImage, dashCoolDownTime));
+            dashCoolTimeImage.enabled = true; // 이미지 활성화
+            dashCoroutine = StartCoroutine(UpdateCoolDownUI(
+                dashCoolTimeImage,
+                coolDownManager.dashCoolTime_SwordShield,
+                () => dashCoroutine = null // Coroutine 초기화
+            ));
+        }
+
+        // 무기 스킬 쿨타임 업데이트
+        if (IsWeaponSkillOnCoolTime() && weaponCoroutine == null)
+        {
+            weaponSkillCoolTimeImage.enabled = true; // 이미지 활성화
+            weaponCoroutine = StartCoroutine(UpdateCoolDownUI(
+                weaponSkillCoolTimeImage,
+                GetWeaponSkillCoolTime(),
+                () => weaponCoroutine = null // Coroutine 초기화
+            ));
+        }
+
+        // 매직 스킬 1 쿨타임 업데이트
+        if (IsMagic1OnCoolTime(playerInputManager.magic1) && magic1Coroutine == null)
+        {
+            magicSkill1CoolTimeImage.enabled = true; // 이미지 활성화
+            magic1Coroutine = StartCoroutine(UpdateCoolDownUI(
+                magicSkill1CoolTimeImage,
+                GetMagic1CoolTime(playerInputManager.magic1),
+                () => magic1Coroutine = null // Coroutine 초기화
+            ));
+        }
+
+        // 매직 스킬 2 쿨타임 업데이트
+        if (IsMagic2OnCoolTime(playerInputManager.magic2) && magic2Coroutine == null)
+        {
+            magicSkill2CoolTimeImage.enabled = true; // 이미지 활성화
+            magic2Coroutine = StartCoroutine(UpdateCoolDownUI(
+                magicSkill2CoolTimeImage,
+                GetMagic2CoolTime(playerInputManager.magic2),
+                () => magic2Coroutine = null // Coroutine 초기화
+            ));
         }
     }
 
-    private void UpdateWeaponSkillCoolDown()
+    private IEnumerator UpdateCoolDownUI(Image coolDownImage, float coolTime, System.Action onComplete)
     {
-        if (!coolDownManager.CanUseWeaponSkill(selectedWeaponIndex))
-        {
-            float coolDownTime = weaponSkillCoolDownTimes[selectedWeaponIndex];
-            StartCoroutine(UpdateCoolDownUI(weaponSkillCoolTimeImage, coolDownTime));
-        }
-    }
-
-    private void UpdateMagicCoolDown()
-    {
-        // 첫 번째 마법 스킬 쿨타임 업데이트
-        if (!coolDownManager.CanUseMagic(selectedMagicSkill1))
-        {
-            float coolDownTime = magicCoolDownTimes[selectedMagicSkill1];
-            StartCoroutine(UpdateCoolDownUI(magicSkill1CoolTimeImage, coolDownTime));
-        }
-
-        // 두 번째 마법 스킬 쿨타임 업데이트
-        if (!coolDownManager.CanUseMagic(selectedMagicSkill2))
-        {
-            float coolDownTime = magicCoolDownTimes[selectedMagicSkill2];
-            StartCoroutine(UpdateCoolDownUI(magicSkill2CoolTimeImage, coolDownTime));
-        }
-    }
-
-    private IEnumerator UpdateCoolDownUI(Image coolDownImage, float coolDownTime)
-    {
-        float timer = 0f;
+        Debug.Log($"Starting Cooldown UI for: {coolDownImage.name}");
+        float elapsedTime = 0f;
         coolDownImage.fillAmount = 1f;
-        coolDownImage.fillClockwise = true;
-        while (timer < coolDownTime)
+
+        while (elapsedTime < coolTime)
         {
-            timer += Time.deltaTime;
-            coolDownImage.fillAmount = 1f - (timer / coolDownTime);
+            elapsedTime += Time.deltaTime;
+            coolDownImage.fillAmount = Mathf.Clamp01(1f - elapsedTime / coolTime);
             yield return null;
         }
+
         coolDownImage.fillAmount = 0f;
+        coolDownImage.enabled = false;
+        Debug.Log($"Cooldown finished for: {coolDownImage.name}");
+        onComplete?.Invoke();
     }
 
-    public void SwapWeapon(int newWeaponIndex)
+
+    private bool IsWeaponSkillOnCoolTime()
     {
-        selectedWeaponIndex = newWeaponIndex;
-        weaponSkillCoolTimeImage.sprite = playerInputManager.rightHand_Weapons[selectedWeaponIndex].GetComponent<SpriteRenderer>().sprite;
+        return coolDownManager.isSwordShieldWeaponSkillOnCoolTime ||
+               coolDownManager.isSingleTwoHandSwordWeaponSkillOnCoolTime ||
+               coolDownManager.isDoubleSwordsWeaponSkillOnCoolTime ||
+               coolDownManager.isBowWeaponSkillOnCoolTime;
     }
 
-    public void SwapMagicSkill(PlayerStateType magicSkill1, PlayerStateType magicSkill2)
+    private float GetWeaponSkillCoolTime()
     {
-        selectedMagicSkill1 = magicSkill1;
-        selectedMagicSkill2 = magicSkill2;
+        int weaponIndex = playerInputManager.currentRightHandIndex;
 
-        magicSkill1CoolTimeImage.sprite = playerInputManager.magicRangeSprites[(int)magicSkill1].GetComponent<SpriteRenderer>().sprite;
-        magicSkill2CoolTimeImage.sprite = playerInputManager.magicRangeSprites[(int)magicSkill2].GetComponent<SpriteRenderer>().sprite;
+        return weaponIndex switch
+        {
+            0 => coolDownManager.weaponSkillCoolTime_SwordShield,
+            1 => coolDownManager.weaponSkillCoolTime_SingleTwoHandSword,
+            2 => coolDownManager.weaponSkillCoolTime_DoubleSwords,
+            3 => coolDownManager.weaponSkillCoolTime_Bow,
+            _ => 0f
+        };
+    }
+
+    private bool IsMagic1OnCoolTime(PlayerStateType magic)
+    {
+        return magic switch
+        {
+            PlayerStateType.FireBall_MagicState => coolDownManager.isFireBallOnCoolTime,
+            PlayerStateType.Meteor_MagicState => coolDownManager.isMeteorOnCoolTime,
+            PlayerStateType.PoisonFog_MagicState => coolDownManager.isPoisonFogOnCoolTime,
+            PlayerStateType.DrainField_MagicState => coolDownManager.isDrainFieldOnCoolTime,
+            PlayerStateType.IceSpear_MagicState => coolDownManager.isIceSpearOnCoolTime,
+            PlayerStateType.Storm_MagicState => coolDownManager.isStormOnCoolTime,
+            PlayerStateType.RockFall_MagicState => coolDownManager.isRockFallOnCoolTime,
+            PlayerStateType.EarthQuake_MagicState => coolDownManager.isEarthQuakeOnCoolTime,
+            _ => false
+        };
+    }
+
+    private bool IsMagic2OnCoolTime(PlayerStateType magic)
+    {
+        return magic switch
+        {
+            PlayerStateType.FireBall_MagicState => coolDownManager.isFireBallOnCoolTime,
+            PlayerStateType.Meteor_MagicState => coolDownManager.isMeteorOnCoolTime,
+            PlayerStateType.PoisonFog_MagicState => coolDownManager.isPoisonFogOnCoolTime,
+            PlayerStateType.DrainField_MagicState => coolDownManager.isDrainFieldOnCoolTime,
+            PlayerStateType.IceSpear_MagicState => coolDownManager.isIceSpearOnCoolTime,
+            PlayerStateType.Storm_MagicState => coolDownManager.isStormOnCoolTime,
+            PlayerStateType.RockFall_MagicState => coolDownManager.isRockFallOnCoolTime,
+            PlayerStateType.EarthQuake_MagicState => coolDownManager.isEarthQuakeOnCoolTime,
+            _ => false
+        };
+    }
+
+    private float GetMagic1CoolTime(PlayerStateType magic)
+    {
+        return magic switch
+        {
+            PlayerStateType.FireBall_MagicState => coolDownManager.magicCoolTime_FireBall,
+            PlayerStateType.Meteor_MagicState => coolDownManager.magicCoolTime_Meteor,
+            PlayerStateType.PoisonFog_MagicState => coolDownManager.magicCoolTime_PoisonFog,
+            PlayerStateType.DrainField_MagicState => coolDownManager.magicCoolTime_DrainField,
+            PlayerStateType.IceSpear_MagicState => coolDownManager.magicCoolTime_IceSpear,
+            PlayerStateType.Storm_MagicState => coolDownManager.magicCoolTime_Storm,
+            PlayerStateType.RockFall_MagicState => coolDownManager.magicCoolTime_RockFall,
+            PlayerStateType.EarthQuake_MagicState => coolDownManager.magicCoolTime_EarthQuake,
+            _ => 0f
+        };
+    }
+
+    private float GetMagic2CoolTime(PlayerStateType magic)
+    {
+        return magic switch
+        {
+            PlayerStateType.FireBall_MagicState => coolDownManager.magicCoolTime_FireBall,
+            PlayerStateType.Meteor_MagicState => coolDownManager.magicCoolTime_Meteor,
+            PlayerStateType.PoisonFog_MagicState => coolDownManager.magicCoolTime_PoisonFog,
+            PlayerStateType.DrainField_MagicState => coolDownManager.magicCoolTime_DrainField,
+            PlayerStateType.IceSpear_MagicState => coolDownManager.magicCoolTime_IceSpear,
+            PlayerStateType.Storm_MagicState => coolDownManager.magicCoolTime_Storm,
+            PlayerStateType.RockFall_MagicState => coolDownManager.magicCoolTime_RockFall,
+            PlayerStateType.EarthQuake_MagicState => coolDownManager.magicCoolTime_EarthQuake,
+            _ => 0f
+        };
     }
 }
-

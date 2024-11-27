@@ -15,8 +15,45 @@ public class UnitSelectpointer : MonoBehaviour
 
     void Awake()
     {
-        upgradeUI.SetActive(false); // 게임 시작 시 UI 비활성화
+        // 동적으로 업그레이드 UI 찾기
+        if (upgradeUI == null)
+        {
+            upgradeUI = GameObject.Find("UnitBuyTab");
+        }
+
+        // 동적으로 유닛 버튼들 찾기
+        if (unitButtons == null || unitButtons.Count == 0)
+        {
+            unitButtons = new List<Button>();
+
+            Button unit1Button = GameObject.Find("unit1_Button").GetComponent<Button>();
+            Button unit2Button = GameObject.Find("unit2_Button").GetComponent<Button>();
+
+            if (unit1Button != null) unitButtons.Add(unit1Button);
+            if (unit2Button != null) unitButtons.Add(unit2Button);
+        }
+
+        // 동적으로 하이라이트 이미지 찾기
+        if (highlightImages == null || highlightImages.Count == 0)
+        {
+            highlightImages = new List<Image>();
+
+            Image unit1Highlight = GameObject.Find("unit1_highlight").GetComponent<Image>();
+            Image unit2Highlight = GameObject.Find("unit2_highlight").GetComponent<Image>();
+
+            if (unit1Highlight != null) highlightImages.Add(unit1Highlight);
+            if (unit2Highlight != null) highlightImages.Add(unit2Highlight);
+        }
+
+        // 동적으로 구매 버튼 찾기
+        if (purchaseButton == null)
+        {
+            purchaseButton = GameObject.Find("PurchaseButton").GetComponent<Button>();
+        }
+
+        upgradeUI?.SetActive(false); // 게임 시작 시 UI 비활성화
     }
+
     void Update()
     {
         // ESC 키로 UI 닫기

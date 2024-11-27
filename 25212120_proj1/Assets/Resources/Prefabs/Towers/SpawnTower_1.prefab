@@ -13,8 +13,10 @@ GameObject:
   - component: {fileID: 1646611435847294867}
   - component: {fileID: 9085640511190474558}
   - component: {fileID: 7022723292653158215}
+  - component: {fileID: 4258924462227665273}
   - component: {fileID: 1254336614428809}
   - component: {fileID: 3802002944029603236}
+  - component: {fileID: 7615713030255657653}
   m_Layer: 0
   m_Name: SpawnTower_1
   m_TagString: Untagged
@@ -136,11 +138,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b06ee5a07bb196d4e856a896296ee58f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UnitSpawnRequirements:
+  SWUnitSpawnRequirements:
   - resourceType: 0
-    amount: 1
+    amount: 100
+  - resourceType: 1
+    amount: 50
+  - resourceType: 2
+    amount: 30
+  MGUnitSpawnRequirements:
+  - resourceType: 0
+    amount: 100
+  - resourceType: 1
+    amount: 50
+  - resourceType: 2
+    amount: 30
+  SWunitPrefab: {fileID: 0}
+  MGunitPrefab: {fileID: 0}
   unitPrefab: {fileID: 8240625172253900827, guid: 7e75909db118d3d4b88b908e7de21466, type: 3}
+  SpawnUnitSelect: 0
   canSpawn: 0
+--- !u!114 &4258924462227665273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4821929569054212287}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3802c3e8dafc8a447aa6f4829a9332c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upgradeUI: {fileID: 0}
+  unitButtons: []
+  highlightImages: []
+  purchaseButton: {fileID: 0}
 --- !u!65 &1254336614428809
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -178,3 +210,19 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 2.881, z: 0}
   m_TimeToStationary: 0.5
+--- !u!114 &7615713030255657653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4821929569054212287}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3802c3e8dafc8a447aa6f4829a9332c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upgradeUI: {fileID: 0}
+  unitButtons: []
+  highlightImages: []
+  purchaseButton: {fileID: 0}

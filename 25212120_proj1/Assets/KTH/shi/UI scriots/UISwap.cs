@@ -1,38 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI; // UI 관련 컴포넌트를 사용하기 위한 네임스페이스 추가
+using UnityEngine.UI;
 
-public class UIPanelSwitcher : MonoBehaviour
+public class UISwap : MonoBehaviour
 {
-    public Button switchButton; // UI 버튼 연결
-    public GameObject currentPanel; // 현재 활성화된 UI 패널
-    public GameObject nextPanel; // 새로 활성화할 UI 패널
+    [SerializeField] private GameObject uiPanel1; // 첫 번째 UI 패널
+    [SerializeField] private GameObject uiPanel2; // 두 번째 UI 패널
+    [SerializeField] private Button button1; // 첫 번째 버튼
+    [SerializeField] private Button button2; // 두 번째 버튼
 
-    void Start()
+    private void Start()
     {
-        // 버튼에 리스너 추가
-        if (switchButton != null)
-        {
-            switchButton.onClick.AddListener(SwitchPanel);
-        }
-        else
-        {
-            Debug.LogError("Switch button not assigned in the inspector.");
-        }
+        // 버튼 클릭 이벤트에 메서드 연결
+        button1.onClick.AddListener(() => ActivatePanel(uiPanel1, uiPanel2));
+        button2.onClick.AddListener(() => ActivatePanel(uiPanel2, uiPanel1));
     }
 
-    void SwitchPanel()
+    private void ActivatePanel(GameObject panelToActivate, GameObject panelToDeactivate)
     {
-        // 현재 패널을 비활성화하고, 다음 패널을 활성화
-        if (currentPanel != null)
-        {
-            currentPanel.SetActive(false);
-        }
-
-        if (nextPanel != null)
-        {
-            nextPanel.SetActive(true);
-        }
+        panelToActivate.SetActive(true); // 활성화
+        panelToDeactivate.SetActive(false); // 비활성화
     }
 }

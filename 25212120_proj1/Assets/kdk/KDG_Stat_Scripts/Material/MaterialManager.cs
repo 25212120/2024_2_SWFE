@@ -41,18 +41,7 @@ public class MaterialManager : MonoBehaviour
             resources[resource] = 0;  // 초기 자원 값 0으로 설정
         }
     }
-    private void Start()
-    {
-        GainResource(ResourceType.Money, 1000000);
-        GainResource(ResourceType.Wood, 10000);
-        GainResource(ResourceType.Stone, 10000);
-        GainResource(ResourceType.Metal, 10000);
-        GainResource(ResourceType.Crystal, 10000);
-        GainResource(ResourceType.WoodEssence, 100);
-        GainResource(ResourceType.IceEssence, 100);
-        GainResource(ResourceType.FireEssence, 100);
-        GainResource(ResourceType.SandEssence, 100);
-    }
+
 
     // 자원 조회 함수
     public int GetResource(ResourceType resourceType)

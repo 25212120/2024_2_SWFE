@@ -25,14 +25,7 @@ public class EXPBar : MonoBehaviour
     }
 
 
-    private void Update()
-    {
-        if (player != null)
-        {
-            UpdateEXPBar();
-            player.AddExp(10);
-        }
-    }
+
 
     private void UpdateEXPBar()
     {

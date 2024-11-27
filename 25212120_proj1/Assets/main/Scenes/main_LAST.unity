@@ -8678,6 +8678,7 @@ GameObject:
   - component: {fileID: 745434247}
   - component: {fileID: 745434246}
   - component: {fileID: 745434251}
+  - component: {fileID: 745434252}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -8789,6 +8790,7 @@ MonoBehaviour:
   globalSpawnInterval: 20
   enemies: []
   units: []
+  player: {fileID: 0}
   directionalLight: {fileID: 1745519702}
   initialHP_Unit_Warrior: 100
   initialHP_Unit_Mage: 50
@@ -8845,6 +8847,18 @@ MonoBehaviour:
   PT_R: {x: 0, y: 0, z: 0, w: 1}
   isActive: 1
   CurrentPrefab: 
+--- !u!114 &745434252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 745434245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47dbdd4044221384f8f928c39c1e27a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &745592954
 GameObject:
   m_ObjectHideFlags: 0
@@ -12144,7 +12158,7 @@ MonoBehaviour:
   radiusEffect: {fileID: 0}
   weaponButtons: []
   weaponUIPanels: []
-  player: {fileID: 0}
+  playerInputManager: {fileID: 0}
 --- !u!114 &992778812
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12163,7 +12177,7 @@ MonoBehaviour:
   radiusEffect: {fileID: 0}
   weaponButtons: []
   weaponUIPanels: []
-  player: {fileID: 0}
+  playerInputManager: {fileID: 0}
 --- !u!114 &992778813
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16195,13 +16209,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3802c3e8dafc8a447aa6f4829a9332c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillButtons:
-  - {fileID: 730914167}
-  - {fileID: 495934989}
+  upgradeUI: {fileID: 0}
+  unitButtons: []
   highlightImages:
   - {fileID: 141510472}
   - {fileID: 1630567959}
-  spawnManager: {fileID: 0}
   purchaseButton: {fileID: 207055433}
 --- !u!114 &1321246926
 MonoBehaviour:

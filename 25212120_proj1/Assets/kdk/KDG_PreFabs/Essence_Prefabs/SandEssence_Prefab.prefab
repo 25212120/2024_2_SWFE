@@ -4801,6 +4801,7 @@ GameObject:
   - component: {fileID: 19867124}
   - component: {fileID: 19901878}
   - component: {fileID: 8293536}
+  - component: {fileID: 176181962088793833}
   m_Layer: 0
   m_Name: SandEssence_Prefab
   m_TagString: Resource
@@ -9723,6 +9724,27 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!65 &176181962088793833
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 170312}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.781, y: 0.7810002, z: 0.7810002}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &176606
 GameObject:
   m_ObjectHideFlags: 0

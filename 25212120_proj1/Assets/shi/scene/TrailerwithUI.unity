@@ -3480,7 +3480,7 @@ GameObject:
   - component: {fileID: 238381031}
   m_Layer: 5
   m_Name: Canvas
-  m_TagString: Untagged
+  m_TagString: UICanvas
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4454,6 +4454,67 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &309019288
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4908487636588502135, guid: c91600562e5e59c4abe6b086900ed484, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -15.114855
+      objectReference: {fileID: 0}
+    - target: {fileID: 4908487636588502135, guid: c91600562e5e59c4abe6b086900ed484, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.040802002
+      objectReference: {fileID: 0}
+    - target: {fileID: 4908487636588502135, guid: c91600562e5e59c4abe6b086900ed484, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -3.8958383
+      objectReference: {fileID: 0}
+    - target: {fileID: 4908487636588502135, guid: c91600562e5e59c4abe6b086900ed484, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4908487636588502135, guid: c91600562e5e59c4abe6b086900ed484, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4908487636588502135, guid: c91600562e5e59c4abe6b086900ed484, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4908487636588502135, guid: c91600562e5e59c4abe6b086900ed484, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4908487636588502135, guid: c91600562e5e59c4abe6b086900ed484, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4908487636588502135, guid: c91600562e5e59c4abe6b086900ed484, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4908487636588502135, guid: c91600562e5e59c4abe6b086900ed484, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7598453852620880401, guid: c91600562e5e59c4abe6b086900ed484, type: 3}
+      propertyPath: m_Name
+      value: HealTower_1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8697485829454046279, guid: c91600562e5e59c4abe6b086900ed484, type: 3}
+      propertyPath: sceneViewId
+      value: 3
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c91600562e5e59c4abe6b086900ed484, type: 3}
 --- !u!1001 &309606699
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -34056,3 +34117,4 @@ SceneRoots:
   - {fileID: 2106832200}
   - {fileID: 1463446452}
   - {fileID: 1871436067}
+  - {fileID: 309019288}

@@ -18,20 +18,15 @@ public class SkillCoolTime : MonoBehaviour
 
     private void Start()
     {
-       
         // 처음 모든 UI 비활성화
         dashCoolTimeImage.enabled = false;
         weaponSkillCoolTimeImage.enabled = false;
         magicSkill1CoolTimeImage.enabled = false;
         magicSkill2CoolTimeImage.enabled = false;
-
-        
     }
 
     private void Update()
     {
-        
-
         // 대쉬 쿨타임 업데이트
         if (coolDownManager.isDashOnCoolTime && dashCoroutine == null)
         {

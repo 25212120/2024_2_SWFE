@@ -249,4 +249,46 @@ public class PlayerCoolDownManager : MonoBehaviour
                 break;
         }
     }
+
+    public float GetDashCoolTime(int weaponIndex)
+    {
+        return weaponIndex switch
+        {
+            0 => dashCoolTime_SwordShield,
+            1 => dashCoolTime_SingleTwoHandSword,
+            2 => dashCoolTime_DoubleSwords,
+            3 => dashCoolTime_Bow,
+            _ => 1f
+        };
+    }
+
+    public float GetWeaponSkillCoolTime(int weaponIndex)
+    {
+        return weaponIndex switch
+        {
+            0 => weaponSkillCoolTime_SwordShield,
+            1 => weaponSkillCoolTime_SingleTwoHandSword,
+            2 => weaponSkillCoolTime_DoubleSwords,
+            3 => weaponSkillCoolTime_Bow,
+            _ => 1f
+        };
+    }
+
+    public float GetMagicCoolTime(PlayerStateType magic)
+    {
+        return magic switch
+        {
+            PlayerStateType.FireBall_MagicState => magicCoolTime_FireBall,
+            PlayerStateType.Meteor_MagicState => magicCoolTime_Meteor,
+            PlayerStateType.PoisonFog_MagicState => magicCoolTime_PoisonFog,
+            PlayerStateType.DrainField_MagicState => magicCoolTime_DrainField,
+            PlayerStateType.IceSpear_MagicState => magicCoolTime_IceSpear,
+            PlayerStateType.Storm_MagicState => magicCoolTime_Storm,
+            PlayerStateType.RockFall_MagicState => magicCoolTime_RockFall,
+            PlayerStateType.EarthQuake_MagicState => magicCoolTime_EarthQuake,
+            _ => 1f
+        };
+    }
+
+
 }

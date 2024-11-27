@@ -3,10 +3,26 @@ using UnityEngine.UI;
 
 public class TowerUpgrade1 : MonoBehaviour
 {
+    private GameObject upgradeUI;
     private BaseStructure baseStructure;  // 타워의 BaseStructure 참조
     private ImageSelector2 index;         // Essence 선택을 위한 컴포넌트
     public Button upgradeButton;          // 업그레이드 버튼 (Inspector에서 연결)
 
+    void Awake()
+    {
+
+        if (upgradeUI == null)
+        {
+            upgradeUI = GameObject.Find("TowerUpgrade");
+        }
+
+        if (upgradeButton == null)
+        {
+            upgradeButton = upgradeUI.transform.Find("UpgradeButton2").GetComponent<Button>();
+        }
+
+        
+    }
     void OnMouseDown()
     {
         // 클릭된 타워의 BaseStructure를 가져옴

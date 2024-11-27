@@ -14,7 +14,31 @@ public class TowerUpgrade : MonoBehaviour
 
     void Awake()
     {
-        upgradeUI.SetActive(false); // 게임 시작 시 UI 비활성화
+        
+
+        if (upgradeUI == null)
+        {
+            upgradeUI = GameObject.Find("TowerUpgrade1");
+        }
+
+        if (towerTypeText == null)
+        {
+            towerTypeText = upgradeUI.transform.Find("Text (TMP) (4)").GetComponent<TextMeshProUGUI>();
+        }
+        if (towerLevelText == null)
+        {
+            towerLevelText = upgradeUI.transform.Find("PreLevel").GetComponent<TextMeshProUGUI>();
+        }
+        if (nextLevelText == null)
+        {
+            nextLevelText = upgradeUI.transform.Find("NextLevel").GetComponent<TextMeshProUGUI>();
+        }
+        if (upgradeButton == null)
+        {
+            upgradeButton = upgradeUI.transform.Find("UpgradeButton1").GetComponent<Button>();
+        }
+
+        upgradeUI.SetActive(false); // 초기 비활성화
     }
 
     void Update()

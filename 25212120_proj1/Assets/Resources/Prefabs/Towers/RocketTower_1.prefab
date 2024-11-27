@@ -46,6 +46,8 @@ GameObject:
   - component: {fileID: 4725557441019624207}
   - component: {fileID: 7064561660117360668}
   - component: {fileID: 6666361998224135747}
+  - component: {fileID: -2260209254205032173}
+  - component: {fileID: -4768985029533360556}
   m_Layer: 0
   m_Name: RocketTower_1
   m_TagString: Untagged
@@ -214,6 +216,36 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 2.193, z: 0}
   m_TimeToStationary: 0.5
+--- !u!114 &-2260209254205032173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5414049674174132916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da7c9c766e51db24e952b5f83697e168, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upgradeUI: {fileID: 0}
+  towerTypeText: {fileID: 0}
+  towerLevelText: {fileID: 0}
+  nextLevelText: {fileID: 0}
+  upgradeButton: {fileID: 0}
+--- !u!114 &-4768985029533360556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5414049674174132916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a3155084879f1348948b73a8e090b7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upgradeButton: {fileID: 0}
 --- !u!1 &8195359342471538585
 GameObject:
   m_ObjectHideFlags: 0

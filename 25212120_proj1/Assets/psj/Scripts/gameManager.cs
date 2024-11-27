@@ -82,7 +82,7 @@ public class GameManager : MonoBehaviour
         pv = GetComponent<PhotonView>();
 
 
-        //StartCoroutine(CountDays());
+        StartCoroutine(CountDays());
     }
 
     private float dayDuration = 100f;

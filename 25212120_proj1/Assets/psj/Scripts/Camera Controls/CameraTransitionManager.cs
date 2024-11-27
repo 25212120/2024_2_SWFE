@@ -61,8 +61,6 @@ public class CameraTransitionManager : MonoBehaviour
             if (mainCamera == null) Debug.Log("1");
 
             GameObject miniMapCamera = GameObject.FindWithTag("miniMapCam");
-            miniMapCamera.GetComponentInChildren<MiniMapCameraController>().player = gameObject;
-            if (miniMapCamera.GetComponentInChildren<MiniMapCameraController>().player == null) Debug.Log("2");
 
             CinemachineVirtualCamera[] virtualCameras = FindObjectsOfType<CinemachineVirtualCamera>();
             foreach (var cam in virtualCameras)
@@ -123,7 +121,6 @@ public class CameraTransitionManager : MonoBehaviour
         topViewCamera.Priority = 9;
         mainCamera.orthographic = false;
     }
-
 
 
     private void OnEnable()
@@ -192,14 +189,14 @@ public class CameraTransitionManager : MonoBehaviour
         {
             if (isActive_ha)
             {
-                GetComponent<PlayerInputManager>().isPerformingAction = false;
+                GetComponent<PlayerInputManager>().isPerformingAction = true;
                 highlightArea.isActive = false;
                 isActive_ha = false;
             }
 
             else
             {
-                GetComponent<PlayerInputManager>().isPerformingAction = true;
+                GetComponent<PlayerInputManager>().isPerformingAction = false;
                 highlightArea.ActivateHighlightArea();
                 highlightArea.isActive = true;
                 isActive_ha = true;
@@ -213,14 +210,14 @@ public class CameraTransitionManager : MonoBehaviour
         {
             if (isActive_sp)
             {
-                GetComponent<PlayerInputManager>().isPerformingAction = false;
+                //GetComponent<PlayerInputManager>().isPerformingAction = false;
                 spawnPoint_Select.isActive = false;
 
                 isActive_sp = false;
             }
             else
             {
-                GetComponent<PlayerInputManager>().isPerformingAction = true;
+               // GetComponent<PlayerInputManager>().isPerformingAction = true;
 
                 spawnPoint_Select.ActivateHighlightObject();
                 spawnPoint_Select.isActive = true;
@@ -242,13 +239,11 @@ public class CameraTransitionManager : MonoBehaviour
         {
             isoCamera.Priority = 9;
             topViewCamera.Priority = 10;
-            // Projection 타입은 전환 완료 후 변경
         }
         else
         {
             isoCamera.Priority = 10;
             topViewCamera.Priority = 9;
-            // Projection 타입은 전환 완료 후 변경
         }
     }
 

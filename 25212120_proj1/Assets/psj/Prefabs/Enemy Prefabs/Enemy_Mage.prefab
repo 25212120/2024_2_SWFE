@@ -390,6 +390,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3bdc524f851e5446ae23fc4bbdc02d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isHit: 0
   agent: {fileID: 0}
   animator: {fileID: 0}
   target: {fileID: 0}
@@ -417,9 +418,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   statData:
     <level>k__BackingField: 1
-    <hpMax>k__BackingField: 5
+    <hpMax>k__BackingField: 300
     mHpCurrent: 0
-    <baseAttack>k__BackingField: 10
+    <baseAttack>k__BackingField: 20
     <baseMovementSpeed>k__BackingField: 1
     <baseDefense>k__BackingField: 0
     <baseMagicAttack_Wood>k__BackingField: 0

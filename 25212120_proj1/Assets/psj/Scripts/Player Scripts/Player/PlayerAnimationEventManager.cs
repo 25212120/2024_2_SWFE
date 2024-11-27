@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using UnityEngine;
 
@@ -8,6 +9,7 @@ public class PlayerAnimationEventManager : MonoBehaviour
     private Transform playerTransform;
     private PlayerStat playerStat;
     private Animator animator;
+    private PhotonView pv;
 
     private StateManager<PlayerStateType> stateManager;
 
@@ -19,7 +21,11 @@ public class PlayerAnimationEventManager : MonoBehaviour
         playerStat = GetComponent<PlayerStat>();
         animator = GetComponent<Animator>();
         stateManager = GetComponent<StateManager<PlayerStateType>>();
+    }
 
+    private void Start()
+    {
+        pv = GetComponent<PhotonView>();
     }
     public void MovingWhileAttacking()
     {
@@ -59,15 +65,34 @@ public class PlayerAnimationEventManager : MonoBehaviour
     }
     public void RotatePlayerTowardsMouse()
     {
-        Vector3 mouseWorldPosition = GetMouseWorldPosition();
-        Vector3 direction = mouseWorldPosition - playerTransform.position;
-        direction.y = 0f;
-
-        if (direction.sqrMagnitude > 0.01f)
+        if (GameSettings.IsMultiplayer == true)
         {
-            Quaternion targetRotation = Quaternion.LookRotation(direction);
-            float rotationSpeed = 100f;
-            playerTransform.rotation = Quaternion.Slerp(rb.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+            if (pv.IsMine == true)
+            {
+                Vector3 mouseWorldPosition = GetMouseWorldPosition();
+                Vector3 direction = mouseWorldPosition - playerTransform.position;
+                direction.y = 0f;
+
+                if (direction.sqrMagnitude > 0.01f)
+                {
+                    Quaternion targetRotation = Quaternion.LookRotation(direction);
+                    float rotationSpeed = 100f;
+                    playerTransform.rotation = Quaternion.Slerp(rb.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+                }
+            }
+        }
+        else
+        {
+            Vector3 mouseWorldPosition = GetMouseWorldPosition();
+            Vector3 direction = mouseWorldPosition - playerTransform.position;
+            direction.y = 0f;
+
+            if (direction.sqrMagnitude > 0.01f)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(direction);
+                float rotationSpeed = 100f;
+                playerTransform.rotation = Quaternion.Slerp(rb.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+            }
         }
     }
     public Vector3 GetMouseWorldPosition()

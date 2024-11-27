@@ -32,13 +32,11 @@ public class Nexus : MonoBehaviour
 
     void GenerateSpawnPoints()
     {
-        // 360도를 각도 간격으로 나눔
+
         for (int angle = 0; angle < 360; angle += angleStep)
         {
-            // 각도를 라디안으로 변환
             float radian = angle * Mathf.Deg2Rad;
 
-            // 원 위의 좌표 계산
             Vector3 spawnPosition = new Vector3(
                 Mathf.Cos(radian) * radius,
                 0f, // Y축은 0으로 고정 (2D 평면 상)

@@ -71,22 +71,22 @@ public class PlayerInputManager : MonoBehaviour
         playerStat = GetComponent<PlayerStat>();
         playerCoolDown = GetComponent<PlayerCoolDownManager>();
         equipmentInventory = GetComponent<EquipmentInventory>();
-        pv = GetComponent<PhotonView>();
         stateManager = GetComponent<StateManager<PlayerStateType>>();
         
 
         currentRightHandIndex = 0;
         currentLeftHandIndex = 0;
 
+        pv = GetComponent<PhotonView>();
+
         // magic init (for test)
-        Magic1Swap(PlayerStateType.PoisonFog_MagicState);
-        Magic2Swap(PlayerStateType.DrainField_MagicState);
+        Magic1Swap(PlayerStateType.Meteor_MagicState);
+        Magic2Swap(PlayerStateType.EarthQuake_MagicState);
     }
 
     private void Start()
     {
         GenerateSpawnPoints();
-        PhotonNetwork.SerializationRate = 60;
     }
 
     private void Update()
@@ -108,69 +108,137 @@ public class PlayerInputManager : MonoBehaviour
 
     private void OnEnable()
     {
+        if (GameSettings.IsMultiplayer == true)
+        {
+            if (pv.IsMine == true)
+            {
+                playerInput.Enable();
 
-        if (pv.IsMine == false) return;
+                playerInput.PlayerMove.Move.performed += OnMovePerformed;
+                playerInput.PlayerMove.Move.canceled += OnMoveCanceled;
 
-        playerInput.Enable();
+                playerInput.PlayerMove.Sprint.performed += OnSprintPerformed;
+                playerInput.PlayerMove.Sprint.canceled += OnSprintCanceled;
 
-        playerInput.PlayerMove.Move.performed += OnMovePerformed;
-        playerInput.PlayerMove.Move.canceled += OnMoveCanceled;
+                playerInput.PlayerAction.Dash.performed += OnDashPerformed;
 
-        playerInput.PlayerMove.Sprint.performed += OnSprintPerformed;
-        playerInput.PlayerMove.Sprint.canceled += OnSprintCanceled;
+                playerInput.PlayerAction.Jump.performed += OnJumpPerformed;
 
-        playerInput.PlayerAction.Dash.performed += OnDashPerformed;
+                playerInput.PlayerAction.Attack.performed += OnAttackPerformed;
 
-        playerInput.PlayerAction.Jump.performed += OnJumpPerformed;
+                playerInput.PlayerAction.WeaponSkill.performed += OnWeaponSkillPerformed;
+                playerInput.PlayerAction.Charge.performed += OnChargePerformed;
+                playerInput.PlayerAction.Charge.canceled += OnChargeCanceled;
 
-        playerInput.PlayerAction.Attack.performed += OnAttackPerformed;
+                playerInput.PlayerAction.Interaction.performed += OnInteractionPerformed;
+                playerInput.PlayerAction.Interaction.canceled += OnInteractionCanceled;
 
-        playerInput.PlayerAction.WeaponSkill.performed += OnWeaponSkillPerformed;
-        playerInput.PlayerAction.Charge.performed += OnChargePerformed;
-        playerInput.PlayerAction.Charge.canceled += OnChargeCanceled;
+                playerInput.WeaponSwap.SwordAndShield.performed += OnSwapToSwordAndShieldPerformed;
+                playerInput.WeaponSwap.SingleTwoHandeSword.performed += OnSwapToSingleTwoHandSwordPerformed;
+                playerInput.WeaponSwap.DoubleSwords.performed += OnSwapToDoubleSwordsPerformed;
+                playerInput.WeaponSwap.BowAndArrow.performed += OnSwapToBowAndArrowPerformed;
 
-        playerInput.PlayerAction.Interaction.performed += OnInteractionPerformed;
-        playerInput.PlayerAction.Interaction.canceled += OnInteractionCanceled;
+                playerInput.PlayerMagic.Magic1.performed += OnMagic1Performed;
+                playerInput.PlayerMagic.Magic2.performed += OnMagic2Performed;
+            }
+        }
+        else
+        {
+            playerInput.Enable();
 
-        playerInput.WeaponSwap.SwordAndShield.performed += OnSwapToSwordAndShieldPerformed;
-        playerInput.WeaponSwap.SingleTwoHandeSword.performed += OnSwapToSingleTwoHandSwordPerformed;
-        playerInput.WeaponSwap.DoubleSwords.performed += OnSwapToDoubleSwordsPerformed;
-        playerInput.WeaponSwap.BowAndArrow.performed += OnSwapToBowAndArrowPerformed;
+            playerInput.PlayerMove.Move.performed += OnMovePerformed;
+            playerInput.PlayerMove.Move.canceled += OnMoveCanceled;
 
-        playerInput.PlayerMagic.Magic1.performed += OnMagic1Performed;
-        playerInput.PlayerMagic.Magic2.performed += OnMagic2Performed;
+            playerInput.PlayerMove.Sprint.performed += OnSprintPerformed;
+            playerInput.PlayerMove.Sprint.canceled += OnSprintCanceled;
+
+            playerInput.PlayerAction.Dash.performed += OnDashPerformed;
+
+            playerInput.PlayerAction.Jump.performed += OnJumpPerformed;
+
+            playerInput.PlayerAction.Attack.performed += OnAttackPerformed;
+
+            playerInput.PlayerAction.WeaponSkill.performed += OnWeaponSkillPerformed;
+            playerInput.PlayerAction.Charge.performed += OnChargePerformed;
+            playerInput.PlayerAction.Charge.canceled += OnChargeCanceled;
+
+            playerInput.PlayerAction.Interaction.performed += OnInteractionPerformed;
+            playerInput.PlayerAction.Interaction.canceled += OnInteractionCanceled;
+
+            playerInput.WeaponSwap.SwordAndShield.performed += OnSwapToSwordAndShieldPerformed;
+            playerInput.WeaponSwap.SingleTwoHandeSword.performed += OnSwapToSingleTwoHandSwordPerformed;
+            playerInput.WeaponSwap.DoubleSwords.performed += OnSwapToDoubleSwordsPerformed;
+            playerInput.WeaponSwap.BowAndArrow.performed += OnSwapToBowAndArrowPerformed;
+
+            playerInput.PlayerMagic.Magic1.performed += OnMagic1Performed;
+            playerInput.PlayerMagic.Magic2.performed += OnMagic2Performed;
+        }
     }
     private void OnDisable()
     {
-        if(pv.IsMine == false) return;
+        if (GameSettings.IsMultiplayer == true)
+        {
+            if (pv.IsMine == true)
+            {
+                playerInput.PlayerMove.Move.performed -= OnMovePerformed;
+                playerInput.PlayerMove.Move.canceled -= OnMoveCanceled;
 
-        playerInput.Disable();
+                playerInput.PlayerMove.Sprint.performed -= OnSprintPerformed;
+                playerInput.PlayerMove.Sprint.canceled -= OnSprintCanceled;
 
-        playerInput.PlayerMove.Move.performed -= OnMovePerformed;
-        playerInput.PlayerMove.Move.canceled -= OnMoveCanceled;
+                playerInput.PlayerAction.Dash.performed -= OnDashPerformed;
 
-        playerInput.PlayerMove.Sprint.performed -= OnSprintPerformed;
-        playerInput.PlayerMove.Sprint.canceled -= OnSprintCanceled;
+                playerInput.PlayerAction.Jump.performed -= OnJumpPerformed;
 
-        playerInput.PlayerAction.Dash.performed -= OnDashPerformed;
+                playerInput.PlayerAction.Attack.performed -= OnAttackPerformed;
 
-        playerInput.PlayerAction.Jump.performed -= OnJumpPerformed;
+                playerInput.PlayerAction.WeaponSkill.performed -= OnWeaponSkillPerformed;
+                playerInput.PlayerAction.Charge.performed -= OnChargePerformed;
+                playerInput.PlayerAction.Charge.canceled -= OnChargeCanceled;
 
-        playerInput.PlayerAction.Attack.performed -= OnAttackPerformed;
+                playerInput.PlayerAction.Interaction.performed -= OnInteractionPerformed;
 
-        playerInput.PlayerAction.WeaponSkill.performed -= OnWeaponSkillPerformed;
-        playerInput.PlayerAction.Charge.performed -= OnChargePerformed;
-        playerInput.PlayerAction.Charge.canceled -= OnChargeCanceled;
+                playerInput.WeaponSwap.SwordAndShield.performed -= OnSwapToSwordAndShieldPerformed;
+                playerInput.WeaponSwap.SingleTwoHandeSword.performed -= OnSwapToSingleTwoHandSwordPerformed;
+                playerInput.WeaponSwap.DoubleSwords.performed -= OnSwapToDoubleSwordsPerformed;
+                playerInput.WeaponSwap.BowAndArrow.performed -= OnSwapToSwordAndShieldPerformed;
 
-        playerInput.PlayerAction.Interaction.performed -= OnInteractionPerformed;
+                playerInput.PlayerMagic.Magic1.performed -= OnMagic1Performed;
+                playerInput.PlayerMagic.Magic2.performed -= OnMagic2Performed;
 
-        playerInput.WeaponSwap.SwordAndShield.performed -= OnSwapToSwordAndShieldPerformed;
-        playerInput.WeaponSwap.SingleTwoHandeSword.performed -= OnSwapToSingleTwoHandSwordPerformed;
-        playerInput.WeaponSwap.DoubleSwords.performed -= OnSwapToDoubleSwordsPerformed;
-        playerInput.WeaponSwap.BowAndArrow.performed -= OnSwapToSwordAndShieldPerformed;
+                playerInput.Disable();
+            }
+        }
+        else
+        {
+            playerInput.PlayerMove.Move.performed -= OnMovePerformed;
+            playerInput.PlayerMove.Move.canceled -= OnMoveCanceled;
 
-        playerInput.PlayerMagic.Magic1.performed -= OnMagic1Performed;
-        playerInput.PlayerMagic.Magic2.performed -= OnMagic2Performed;
+            playerInput.PlayerMove.Sprint.performed -= OnSprintPerformed;
+            playerInput.PlayerMove.Sprint.canceled -= OnSprintCanceled;
+
+            playerInput.PlayerAction.Dash.performed -= OnDashPerformed;
+
+            playerInput.PlayerAction.Jump.performed -= OnJumpPerformed;
+
+            playerInput.PlayerAction.Attack.performed -= OnAttackPerformed;
+
+            playerInput.PlayerAction.WeaponSkill.performed -= OnWeaponSkillPerformed;
+            playerInput.PlayerAction.Charge.performed -= OnChargePerformed;
+            playerInput.PlayerAction.Charge.canceled -= OnChargeCanceled;
+
+            playerInput.PlayerAction.Interaction.performed -= OnInteractionPerformed;
+
+            playerInput.WeaponSwap.SwordAndShield.performed -= OnSwapToSwordAndShieldPerformed;
+            playerInput.WeaponSwap.SingleTwoHandeSword.performed -= OnSwapToSingleTwoHandSwordPerformed;
+            playerInput.WeaponSwap.DoubleSwords.performed -= OnSwapToDoubleSwordsPerformed;
+            playerInput.WeaponSwap.BowAndArrow.performed -= OnSwapToSwordAndShieldPerformed;
+
+            playerInput.PlayerMagic.Magic1.performed -= OnMagic1Performed;
+            playerInput.PlayerMagic.Magic2.performed -= OnMagic2Performed;
+
+            playerInput.Disable();
+        }
     }
 
     public GameObject spawnPrefab;

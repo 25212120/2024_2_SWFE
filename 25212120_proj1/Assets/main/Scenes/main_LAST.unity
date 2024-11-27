@@ -1188,9 +1188,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02ac06b4248736d40a83c4741d2aedca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  switchButton: {fileID: 73843594}
-  currentPanel: {fileID: 375275789}
-  nextPanel: {fileID: 1007018098}
+  uiPanel1: {fileID: 0}
+  uiPanel2: {fileID: 0}
+  button1: {fileID: 0}
+  button2: {fileID: 0}
 --- !u!222 &73843597
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1884,7 +1885,7 @@ GameObject:
   - component: {fileID: 141510473}
   - component: {fileID: 141510472}
   m_Layer: 5
-  m_Name: Image (9)
+  m_Name: unit1_highlight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3252,15 +3253,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1314193260870591368, guid: f9c137e7891118a4684446bdef465b3a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.39
-      objectReference: {fileID: 0}
-    - target: {fileID: 1314193260870591368, guid: f9c137e7891118a4684446bdef465b3a, type: 3}
-      propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1314193260870591368, guid: f9c137e7891118a4684446bdef465b3a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1314193260870591368, guid: f9c137e7891118a4684446bdef465b3a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1314193260870591368, guid: f9c137e7891118a4684446bdef465b3a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3517,9 +3518,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02ac06b4248736d40a83c4741d2aedca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  switchButton: {fileID: 276948078}
-  currentPanel: {fileID: 391740526}
-  nextPanel: {fileID: 1321246924}
+  uiPanel1: {fileID: 0}
+  uiPanel2: {fileID: 0}
+  button1: {fileID: 0}
+  button2: {fileID: 0}
 --- !u!114 &276948078
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4659,9 +4661,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02ac06b4248736d40a83c4741d2aedca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  switchButton: {fileID: 73843594}
-  currentPanel: {fileID: 375275789}
-  nextPanel: {fileID: 1007018098}
+  uiPanel1: {fileID: 0}
+  uiPanel2: {fileID: 0}
+  button1: {fileID: 0}
+  button2: {fileID: 0}
 --- !u!114 &375275791
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5010,9 +5013,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02ac06b4248736d40a83c4741d2aedca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  switchButton: {fileID: 276948078}
-  currentPanel: {fileID: 391740526}
-  nextPanel: {fileID: 1007018098}
+  uiPanel1: {fileID: 0}
+  uiPanel2: {fileID: 0}
+  button1: {fileID: 0}
+  button2: {fileID: 0}
 --- !u!114 &391740529
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5726,7 +5730,7 @@ GameObject:
   - component: {fileID: 495934987}
   - component: {fileID: 495934989}
   m_Layer: 5
-  m_Name: Image (8)
+  m_Name: unit2_Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7575,7 +7579,7 @@ Transform:
   m_GameObject: {fileID: 671922965}
   serializedVersion: 2
   m_LocalRotation: {x: 0.6532815, y: -0.27059805, z: 0.27059805, w: 0.6532815}
-  m_LocalPosition: {x: 1113.61, y: 1880, z: -1116}
+  m_LocalPosition: {x: 28968.61, y: 48305, z: -28971}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -8445,7 +8449,7 @@ GameObject:
   - component: {fileID: 730914165}
   - component: {fileID: 730914167}
   m_Layer: 5
-  m_Name: Image (6)
+  m_Name: unit1_Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8901,7 +8905,6 @@ GameObject:
   - component: {fileID: 745434247}
   - component: {fileID: 745434246}
   - component: {fileID: 745434251}
-  - component: {fileID: 745434252}
   - component: {fileID: 745434253}
   m_Layer: 0
   m_Name: GameManager
@@ -9071,18 +9074,6 @@ MonoBehaviour:
   PT_R: {x: 0, y: 0, z: 0, w: 1}
   isActive: 0
   CurrentPrefab: 
---- !u!114 &745434252
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 745434245}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47dbdd4044221384f8f928c39c1e27a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &745434253
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9420,9 +9411,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02ac06b4248736d40a83c4741d2aedca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  switchButton: {fileID: 769686619}
-  currentPanel: {fileID: 1321246924}
-  nextPanel: {fileID: 391740526}
+  uiPanel1: {fileID: 0}
+  uiPanel2: {fileID: 0}
+  button1: {fileID: 0}
+  button2: {fileID: 0}
 --- !u!114 &769686619
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10962,7 +10954,7 @@ Transform:
   m_GameObject: {fileID: 889370222}
   serializedVersion: 2
   m_LocalRotation: {x: 0.39044836, y: -0.346829, z: 0.16172901, w: 0.83731925}
-  m_LocalPosition: {x: 1158.61, y: 1935, z: -1161}
+  m_LocalPosition: {x: 28995.61, y: 48330, z: -28998}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -12361,6 +12353,8 @@ GameObject:
   - component: {fileID: 992778812}
   - component: {fileID: 992778811}
   - component: {fileID: 992778810}
+  - component: {fileID: 992778823}
+  - component: {fileID: 992778824}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: UICanvas
@@ -12432,6 +12426,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coolDownManager: {fileID: 0}
+  playerInputManager: {fileID: 0}
   dashCoolTimeImage: {fileID: 923177826}
   weaponSkillCoolTimeImage: {fileID: 1531468024}
   magicSkill1CoolTimeImage: {fileID: 685496052}
@@ -12605,6 +12600,32 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &992778823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 992778809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47dbdd4044221384f8f928c39c1e27a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &992778824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 992778809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 967d4978f2e4b9641bd55f7775495e4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  popupPanel: {fileID: 306879406}
+  towerTag: Core
 --- !u!1 &1007018098
 GameObject:
   m_ObjectHideFlags: 0
@@ -20736,7 +20757,7 @@ GameObject:
   - component: {fileID: 1630567960}
   - component: {fileID: 1630567959}
   m_Layer: 5
-  m_Name: Image (19)
+  m_Name: unit2_highlight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -22127,7 +22148,7 @@ Transform:
   m_GameObject: {fileID: 1709626373}
   serializedVersion: 2
   m_LocalRotation: {x: 0.39044836, y: -0.346829, z: 0.16172901, w: 0.83731925}
-  m_LocalPosition: {x: 1158.61, y: 1935, z: -1161}
+  m_LocalPosition: {x: 28995.61, y: 48330, z: -28998}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -25107,9 +25128,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02ac06b4248736d40a83c4741d2aedca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  switchButton: {fileID: 2011285008}
-  currentPanel: {fileID: 1007018098}
-  nextPanel: {fileID: 375275789}
+  uiPanel1: {fileID: 0}
+  uiPanel2: {fileID: 0}
+  button1: {fileID: 0}
+  button2: {fileID: 0}
 --- !u!114 &2011285008
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25454,7 +25476,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 23880287752558617, guid: d63e16bd778f34563a01b214a506325b, type: 3}
       propertyPath: m_Name
-      value: Button_Rectangle_01_Convex_Dark
+      value: PurchaseButton
       objectReference: {fileID: 0}
     - target: {fileID: 3654598215240342073, guid: d63e16bd778f34563a01b214a506325b, type: 3}
       propertyPath: m_text
